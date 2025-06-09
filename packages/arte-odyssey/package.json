@@ -1,0 +1,30 @@
+{
+	"name": "@k8o/arte-odyssey",
+	"type": "module",
+	"description": "k8o's react ui library",
+	"author": "k8o <kosakanoki@gmail.com>",
+	"keywords": [
+		"react",
+		"ui",
+		"design-system",
+		"k8o",
+		"components",
+		"typescript"
+	],
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/k35o/arte-odyssey.git"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org"
+	},
+	"bugs": {
+		"url": "https://github.com/k35o/arte-odyssey/issues"
+	},
+	"devDependencies": {
+		"react": "19.1.0",
+		"react-dom": "19.1.0"
+	}
+}
