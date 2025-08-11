@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/composite-actions/install
 
       - name: Run Biome
-        run: pnpm biome check .
+        run: pnpm biome ci
 
   types:
     name: TypeScript

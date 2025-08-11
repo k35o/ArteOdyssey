@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import type { FC, PropsWithChildren } from "react";
+import type { FC, PropsWithChildren } from 'react';
 
 export const Button: FC<PropsWithChildren> = ({ children }) => {
-	return <button type="button">{children}</button>;
+  return <button type="button">{children}</button>;
 };
