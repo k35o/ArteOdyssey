@@ -1,0 +1,23 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "check": {
+      "dependsOn": ["^check"]
+    },
+    "check:write": {
+      "dependsOn": ["^check:write"]
+    },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
+    "test": {
+      "dependsOn": ["^test"]
+    },
+    "test:ui": {
+      "dependsOn": ["^test:ui"]
+    },
+    "test:coverage": {
+      "dependsOn": ["^test:coverage"]
+    }
+  }
+}

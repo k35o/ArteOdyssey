@@ -24,6 +24,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    "types": ["node", "vitest/globals", "@vitest/browser/matchers"]
+    "types": [
+      "node",
+      "vitest/globals",
+      "@vitest/browser/matchers",
+      "vitest/importMeta"
+    ]
   }
 }
