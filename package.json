@@ -19,9 +19,16 @@
     "publish": "changeset publish"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": "22.18.0"
   },
-  "packageManager": "pnpm@10.12.1",
+  "devEngines": {
+    "runtime": {
+      "name": "node",
+      "version": "^22.18.0",
+      "onFail": "download"
+    }
+  },
+  "packageManager": "pnpm@10.14.0",
   "devDependencies": {
     "@biomejs/biome": "2.1.4",
     "@changesets/changelog-github": "0.5.1",
