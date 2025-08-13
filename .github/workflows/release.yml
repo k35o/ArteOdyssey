@@ -27,9 +27,6 @@ jobs:
       - name: Install latest npm
         run: npm install -g npm@latest
 
-      - name: echo npm version
-        run: echo "$(npm --version)"
-
       - name: Create release Pull Request or publish to NPM
         uses: changesets/action@v1
         with:
