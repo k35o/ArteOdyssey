@@ -10,13 +10,14 @@
   "author": "k8o",
   "license": "MIT",
   "scripts": {
+    "build": "turbo run build",
     "test": "turbo run test",
     "test:ui": "turbo run test:ui",
     "test:coverage": "turbo run test:coverage",
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "check:write": "turbo run check:write",
-    "publish": "changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "engines": {
     "node": "22.18.0"

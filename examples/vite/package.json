@@ -1,0 +1,25 @@
+{
+  "name": "example-vite",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "typecheck": "tsc --noEmit",
+    "check": "biome check",
+    "check:write": "biome check --write ."
+  },
+  "dependencies": {
+    "@k8o/arte-odyssey": "workspace:^",
+    "@tailwindcss/vite": "4.1.11",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "tailwindcss": "4.1.11"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.10",
+    "@types/react-dom": "19.1.7",
+    "@vitejs/plugin-react-swc": "4.0.0",
+    "typescript": "5.9.2",
+    "vite": "7.1.2"
+  }
+}

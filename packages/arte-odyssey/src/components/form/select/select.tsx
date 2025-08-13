@@ -1,11 +1,7 @@
 import type { ChangeEventHandler, FC } from 'react';
 import { cn } from './../../../helpers/cn';
+import type { Option } from '../../../types/variables';
 import { ChevronIcon } from '../../icons';
-
-export type Option = Readonly<{
-  value: string;
-  label: string;
-}>;
 
 type Props = {
   id: string;

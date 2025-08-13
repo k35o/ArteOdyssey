@@ -1,10 +1,6 @@
 import type { ChangeEventHandler, FC } from 'react';
 import { cn } from './../../../helpers/cn';
-
-export type Option = Readonly<{
-  value: string;
-  label: string;
-}>;
+import type { Option } from '../../../types/variables';
 
 type Props = {
   labelId: string;

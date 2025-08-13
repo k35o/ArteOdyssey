@@ -1,12 +1,8 @@
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from './../../../helpers/cn';
+import type { Option } from '../../../types/variables';
 import { IconButton } from '../../icon-button';
 import { CloseIcon } from '../../icons';
-
-export type Option = Readonly<{
-  value: string;
-  label: string;
-}>;
 
 type Props = {
   id: string;
