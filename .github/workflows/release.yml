@@ -24,6 +24,9 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      - name: Install latest npm
+        run: npm install -g npm@latest
+
       - name: echo npm version
         run: echo "$(npm --version)"
 
