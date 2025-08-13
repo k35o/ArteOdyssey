@@ -8,10 +8,13 @@ on:
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
 
+permissions:
+  contents: write
+  id-token: write
+  pull-requests: write
+
 jobs:
   release:
-    permissions:
-      id-token: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
