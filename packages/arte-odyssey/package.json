@@ -1,6 +1,6 @@
 {
   "name": "@k8o/arte-odyssey",
-  "type": "module",
+  "version": "0.0.0",
   "description": "k8o's react ui library",
   "author": "k8o <kosakanoki@gmail.com>",
   "keywords": [
@@ -23,6 +23,7 @@
   "bugs": {
     "url": "https://github.com/k35o/arte-odyssey/issues"
   },
+  "type": "module",
   "files": [
     "dist/**"
   ],

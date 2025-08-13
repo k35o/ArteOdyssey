@@ -17,7 +17,7 @@
     "typecheck": "turbo run typecheck",
     "check": "turbo run check",
     "check:write": "turbo run check:write",
-    "publish": "changeset publish"
+    "release": "pnpm build && changeset publish"
   },
   "engines": {
     "node": "22.18.0"
