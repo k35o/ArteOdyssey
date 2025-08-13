@@ -14,14 +14,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k35o/arte-odyssey.git"
+    "url": "git+https://github.com/k35o/ArteOdyssey.git"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "bugs": {
-    "url": "https://github.com/k35o/arte-odyssey/issues"
+    "url": "https://github.com/k35o/ArteOdyssey/issues"
   },
   "type": "module",
   "files": [
