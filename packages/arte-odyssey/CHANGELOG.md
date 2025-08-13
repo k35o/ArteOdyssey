@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 0.0.2
+
+### Patch Changes
+
+- [`bf31ae8`](https://github.com/k35o/ArteOdyssey/commit/bf31ae86fadfef8a2324e2dcabb95f099a32aac8) Thanks [@k35o](https://github.com/k35o)! - dummy
+
 ## 0.0.1
 
 ### Patch Changes
