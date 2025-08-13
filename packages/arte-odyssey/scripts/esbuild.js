@@ -1,7 +1,7 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import process from 'node:process';
 import esbuild from 'esbuild';
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
 import pkg from '../package.json' with { type: 'json' };
 
 const dir = 'dist';
