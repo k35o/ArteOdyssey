@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 0.0.3
+
+### Patch Changes
+
+- [#7](https://github.com/k35o/ArteOdyssey/pull/7) [`199e831`](https://github.com/k35o/ArteOdyssey/commit/199e8313bb81cc8ed34e8d3dddb3bf0cf90f34cf) Thanks [@k35o](https://github.com/k35o)! - ReactErrorBoundary を依存に加える
+
 ## 0.0.2
 
 ### Patch Changes
