@@ -2,3 +2,6 @@ node_modules
 dist
 coverage
 .turbo
+
+# Local settings
+settings.local.json
