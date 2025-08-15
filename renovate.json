@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "monorepo:storybook",
+    "monorepo:react",
+    "monorepo:vitest"
+  ],
+  "timezone": "Asia/Tokyo",
+  "prConcurrentLimit": 10,
+  "schedule": ["every weekend"],
+  "rangeStrategy": "pin",
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchPackageNames": [
+        "!/^(pnpm|node)$/",
+        "!/^@storybook/",
+        "!/storybook$/",
+        "!/react$/",
+        "!/react-dom$/",
+        "!/vitest$/",
+        "!/@vitest/"
+      ],
+      "groupName": "minor and patch dependencies"
+    }
+  ]
+}
