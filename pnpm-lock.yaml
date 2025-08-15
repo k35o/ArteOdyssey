@@ -106,7 +106,7 @@ importers:
         specifier: 3.3.1
         version: 3.3.1
       typescript:
-        specifier: '>=5.9.0'
+        specifier: 5.9.2
         version: 5.9.2
     devDependencies:
       '@chromatic-com/storybook':
