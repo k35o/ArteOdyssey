@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 0.0.4
+
+### Patch Changes
+
+- [#27](https://github.com/k35o/ArteOdyssey/pull/27) [`f4e0adc`](https://github.com/k35o/ArteOdyssey/commit/f4e0adcc07a8387b4bacf411138c8e8a5dbef071) Thanks [@k35o](https://github.com/k35o)! - React のバージョンアップ
+
+- [#23](https://github.com/k35o/ArteOdyssey/pull/23) [`042190c`](https://github.com/k35o/ArteOdyssey/commit/042190ce06e868362e7045724e83f2be7e774a27) Thanks [@k35o](https://github.com/k35o)! - パッケージのバージョンアップ
+
 ## 0.0.3
 
 ### Patch Changes
