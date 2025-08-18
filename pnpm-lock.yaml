@@ -106,7 +106,7 @@ importers:
         specifier: 3.3.1
         version: 3.3.1
       typescript:
-        specifier: 5.9.2
+        specifier: '>=5.9.0'
         version: 5.9.2
     devDependencies:
       '@chromatic-com/storybook':
@@ -2402,8 +2402,7 @@ packages:
           targets:
             - cpu: x86
               os: win32
-    version: 22.18.0
-    hasBin: true
+    version: 0.0.0
 
   open@8.4.2:
     resolution: {integrity: sha512-7x81NCL719oNbsq/3mh+hVrAWmFuEYUqrq/Iw3kUzH8ReypT9QQ0BLoJS7/G9k6N81XjW4qHWtjWwe/9eLy1EQ==}
