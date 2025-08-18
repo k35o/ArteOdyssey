@@ -1,29 +1,26 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Accordion } from './accordion';
-import { AccordionButton } from './accordion-button';
-import { AccordionItem } from './accordion-item';
-import { AccordionPanel } from './accordion-panel';
+import { Accordion } from '.';
 
-const meta: Meta<typeof Accordion> = {
+const meta: Meta<typeof Accordion.Root> = {
   title: 'components/accordion',
-  component: Accordion,
+  component: Accordion.Root,
 };
 
 export default meta;
-type Story = StoryObj<typeof Accordion>;
+type Story = StoryObj<typeof Accordion.Root>;
 
 export const Primary: Story = {
   args: {},
   render: () => {
     return (
-      <Accordion>
-        <AccordionItem>
+      <Accordion.Root>
+        <Accordion.Item>
           <h3>
-            <AccordionButton>
+            <Accordion.Button>
               <p className="text-lg">雨ニモマケズ</p>
-            </AccordionButton>
+            </Accordion.Button>
           </h3>
-          <AccordionPanel>
+          <Accordion.Panel>
             <p>雨ニモマケズ</p>
             <p>風ニモマケズ</p>
             <p>雪ニモ夏ノ暑サニモマケヌ</p>
@@ -54,15 +51,15 @@ export const Primary: Story = {
             <p>クニモサレズ</p>
             <p>サウイフモノニ</p>
             <p>ワタシハナリタイ</p>
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item>
           <h3>
-            <AccordionButton>
+            <Accordion.Button>
               <p className="text-lg">あどけない話</p>
-            </AccordionButton>
+            </Accordion.Button>
           </h3>
-          <AccordionPanel>
+          <Accordion.Panel>
             <p>智恵子は東京に空が無いといふ、</p>
             <p>ほんとの空が見たいといふ。</p>
             <p>私は驚いて空を見る。</p>
@@ -76,15 +73,15 @@ export const Primary: Story = {
             <p>毎日出てゐる青い空が</p>
             <p>智恵子のほんとの空だといふ。</p>
             <p>あどけない空の話である。</p>
-          </AccordionPanel>
-        </AccordionItem>
-        <AccordionItem>
+          </Accordion.Panel>
+        </Accordion.Item>
+        <Accordion.Item>
           <h3>
-            <AccordionButton>
+            <Accordion.Button>
               <p className="text-lg">かなしみ</p>
-            </AccordionButton>
+            </Accordion.Button>
           </h3>
-          <AccordionPanel>
+          <Accordion.Panel>
             <div className="space-y-4">
               <div>
                 <p>あの青い空の波の音が聞えるあたりに</p>
@@ -97,9 +94,9 @@ export const Primary: Story = {
                 <p>僕は余計に悲しくなってしまった</p>
               </div>
             </div>
-          </AccordionPanel>
-        </AccordionItem>
-      </Accordion>
+          </Accordion.Panel>
+        </Accordion.Item>
+      </Accordion.Root>
     );
   },
 };
