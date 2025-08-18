@@ -23,6 +23,10 @@
         "!/@vitest/"
       ],
       "groupName": "minor and patch dependencies"
+    },
+    {
+      "matchDepTypes": ["peerDependencies"],
+      "enabled": false
     }
   ]
 }
