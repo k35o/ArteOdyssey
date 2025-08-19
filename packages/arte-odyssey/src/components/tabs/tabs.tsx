@@ -180,4 +180,4 @@ export const Tabs = {
   List,
   Tab,
   Panel,
-};
+} as const;

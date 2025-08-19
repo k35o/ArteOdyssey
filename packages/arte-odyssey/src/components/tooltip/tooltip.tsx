@@ -68,4 +68,4 @@ export const Tooltip = {
   Root,
   Trigger,
   Content,
-};
+} as const;

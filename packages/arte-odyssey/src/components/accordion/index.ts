@@ -8,4 +8,4 @@ export const Accordion = {
   Button: AccordionButton,
   Item: AccordionItem,
   Panel: AccordionPanel,
-};
+} as const;

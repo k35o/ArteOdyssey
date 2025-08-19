@@ -177,4 +177,4 @@ export const Popover = {
   Root,
   Content,
   Trigger,
-};
+} as const;
