@@ -95,4 +95,4 @@ export const Dialog = {
   Root,
   Header,
   Content,
-};
+} as const;

@@ -194,4 +194,4 @@ export const ListBox = {
   Content,
   Trigger,
   TriggerIcon,
-};
+} as const;

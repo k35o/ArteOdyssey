@@ -57,4 +57,4 @@ export const Breadcrumb = {
   Item,
   Separator,
   Link: _Link,
-};
+} as const;
