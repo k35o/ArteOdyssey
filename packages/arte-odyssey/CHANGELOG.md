@@ -1,5 +1,15 @@
 # @k8o/arte-odyssey
 
+## 0.0.5
+
+### Patch Changes
+
+- [#31](https://github.com/k35o/ArteOdyssey/pull/31) [`c33eb31`](https://github.com/k35o/ArteOdyssey/commit/c33eb316796a5441004ca1a85a0514efc366fa93) Thanks [@k35o](https://github.com/k35o)! - Accordion オブジェクトからコンポーネントを提供するようにする
+
+- [#32](https://github.com/k35o/ArteOdyssey/pull/32) [`7659205`](https://github.com/k35o/ArteOdyssey/commit/76592057ec2caa384aad5e0403de09fccd03bfbf) Thanks [@k35o](https://github.com/k35o)! - Component をまとめて出荷する値の型の強化
+
+- [#29](https://github.com/k35o/ArteOdyssey/pull/29) [`5ddfb06`](https://github.com/k35o/ArteOdyssey/commit/5ddfb06ee6b15271d5fb14bfd4b6c17a8fdbe9b3) Thanks [@k35o](https://github.com/k35o)! - peerDeps の範囲を拡大
+
 ## 0.0.4
 
 ### Patch Changes
