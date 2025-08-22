@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 0.0.6
+
+### Patch Changes
+
+- [#33](https://github.com/k35o/ArteOdyssey/pull/33) [`d048c79`](https://github.com/k35o/ArteOdyssey/commit/d048c7991c94134aaa66b14d876ef03003100835) Thanks [@k35o](https://github.com/k35o)! - link に自由な型を渡せるように
+
 ## 0.0.5
 
 ### Patch Changes
