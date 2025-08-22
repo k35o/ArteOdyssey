@@ -35,13 +35,16 @@ const Separator: FC = () => {
   );
 };
 
-const _Link: FC<
-  PropsWithChildren<{
-    href: string;
-    current?: boolean;
-    component?: FC<{ href: string; className: string }>;
-  }>
-> = ({ href, current = false, children, component }) => {
+const _Link = <T extends string>({
+  href,
+  current = false,
+  children,
+  component,
+}: PropsWithChildren<{
+  href: T;
+  current?: boolean;
+  component?: FC<{ href: T; className: string }>;
+}>) => {
   const Link = component ?? 'a';
   return current ? (
     <span className="text-fg-base">{children}</span>

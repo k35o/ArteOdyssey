@@ -1,23 +1,8 @@
-import type { FC, PropsWithChildren, ReactNode } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { cn } from './../../helpers/cn';
 import { isInternalRoute } from './../../helpers/is-internal-route';
 
-type IconLinkProps = PropsWithChildren<{
-  size?: 'sm' | 'md' | 'lg';
-  bg?: 'transparent' | 'base';
-  label?: string;
-  href: string;
-  openInNewTab?: boolean;
-  renderAnchor?: (props: {
-    href: string;
-    className: string;
-    target?: string;
-    rel?: string;
-    children: ReactNode;
-  }) => ReactNode;
-}>;
-
-export const IconLink: FC<IconLinkProps> = ({
+export const IconLink = <T extends string>({
   size = 'md',
   bg = 'transparent',
   label,
@@ -25,7 +10,20 @@ export const IconLink: FC<IconLinkProps> = ({
   children,
   openInNewTab = false,
   renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
-}) => {
+}: PropsWithChildren<{
+  size?: 'sm' | 'md' | 'lg';
+  bg?: 'transparent' | 'base';
+  label?: string;
+  href: T;
+  openInNewTab?: boolean;
+  renderAnchor?: (props: {
+    href: NoInfer<T>;
+    className: string;
+    target?: string;
+    rel?: string;
+    children: ReactNode;
+  }) => ReactNode;
+}>) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
   const props =
     type === 'internal'
