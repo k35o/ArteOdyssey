@@ -2,18 +2,18 @@ import type { ReactNode } from 'react';
 import { isInternalRoute } from './../../helpers/is-internal-route';
 import { ExternalLinkIcon } from '../icons';
 
-export const Anchor = ({
+export const Anchor = <T extends string>({
   href,
   children,
   openInNewTab = false,
   renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
 }: {
-  href: string;
+  href: T;
   children: ReactNode;
   openInNewTab?: boolean;
   renderAnchor?: (props: {
     type: 'internal' | 'external';
-    href: string;
+    href: NoInfer<T>;
     className: string;
     target?: string;
     rel?: string;

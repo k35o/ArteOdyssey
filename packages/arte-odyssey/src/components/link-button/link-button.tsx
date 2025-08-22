@@ -1,25 +1,8 @@
-import type { FC, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { cn } from './../../helpers/cn';
 import { isInternalRoute } from './../../helpers/is-internal-route';
 
-export const LinkButton: FC<{
-  variant?: 'contained' | 'outlined' | 'skeleton';
-  size?: 'sm' | 'md' | 'lg';
-  href: string;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
-  active?: boolean;
-  openInNewTab?: boolean;
-  children: string;
-  renderAnchor?: (props: {
-    'aria-label'?: string;
-    href: string;
-    className: string;
-    target?: string;
-    rel?: string;
-    children: ReactNode;
-  }) => ReactNode;
-}> = ({
+export const LinkButton = <T extends string>({
   children,
   size = 'md',
   variant = 'contained',
@@ -29,6 +12,23 @@ export const LinkButton: FC<{
   active = false,
   openInNewTab = false,
   renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
+}: {
+  variant?: 'contained' | 'outlined' | 'skeleton';
+  size?: 'sm' | 'md' | 'lg';
+  href: T;
+  startIcon?: ReactNode;
+  endIcon?: ReactNode;
+  active?: boolean;
+  openInNewTab?: boolean;
+  children: string;
+  renderAnchor?: (props: {
+    'aria-label'?: string;
+    href: NoInfer<T>;
+    className: string;
+    target?: string;
+    rel?: string;
+    children: ReactNode;
+  }) => ReactNode;
 }) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
   const props =
