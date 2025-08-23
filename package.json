@@ -39,7 +39,7 @@
     "@types/node": "24.3.0",
     "cosmiconfig": "latest",
     "lefthook": "1.12.3",
-    "playwright": "1.54.2",
+    "playwright": "1.55.0",
     "turbo": "2.5.6",
     "typescript": "5.9.2"
   }
