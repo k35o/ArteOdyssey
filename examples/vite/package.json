@@ -10,16 +10,15 @@
   },
   "dependencies": {
     "@k8o/arte-odyssey": "workspace:^",
-    "@tailwindcss/vite": "4.1.11",
-    "tailwindcss": "4.1.11"
+    "@tailwindcss/vite": "catalog:",
+    "tailwindcss": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react-swc": "4.0.0",
+    "@vitejs/plugin-react-swc": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "typescript": "5.9.2",
-    "vite": "7.1.2"
+    "vite": "catalog:"
   }
 }
