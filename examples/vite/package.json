@@ -16,9 +16,9 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react-swc": "4.0.0",
+    "@vitejs/plugin-react-swc": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "vite": "7.1.2"
+    "vite": "catalog:"
   }
 }
