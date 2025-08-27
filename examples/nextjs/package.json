@@ -6,8 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "biome check",
-    "format": "biome format --write"
+    "typecheck": "tsc --noEmit",
+    "check": "biome check",
+    "check:write": "biome check --write"
   },
   "dependencies": {
     "@k8o/arte-odyssey": "workspace:^",

@@ -1,7 +1,59 @@
+# Dependencies
 node_modules
+.pnp
+.pnp.*
+
+# Build output
 dist
-coverage
+build
+out
+.next
+dist-ssr
 .turbo
+
+# Testing
+coverage
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Environment files
+.env*
+*.local
+
+# Package manager
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+*.pem
+
+# Deployment
+.vercel
 
 # Local settings
 settings.local.json
