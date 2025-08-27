@@ -1,3 +1,5 @@
+'use client';
+
 import { MotionConfig } from 'motion/react';
 import type { FC, PropsWithChildren } from 'react';
 import { ToastProvider } from '../toast';
