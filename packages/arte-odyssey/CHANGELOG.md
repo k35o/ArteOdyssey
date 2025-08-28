@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 0.0.7
+
+### Patch Changes
+
+- [#43](https://github.com/k35o/ArteOdyssey/pull/43) [`3d89a22`](https://github.com/k35o/ArteOdyssey/commit/3d89a2255d5647080f2e15a8631576db163a2185) Thanks [@k35o](https://github.com/k35o)! - nextjs の examples を追加
+
 ## 0.0.6
 
 ### Patch Changes
