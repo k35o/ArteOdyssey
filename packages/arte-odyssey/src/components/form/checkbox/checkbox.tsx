@@ -5,16 +5,23 @@ import { CheckIcon } from '../../icons';
 type Props = {
   label: string;
   value: boolean;
+  defaultChecked?: boolean;
   onChange: ChangeEventHandler<HTMLInputElement>;
 };
 
-export const Checkbox: FC<Props> = ({ label, value, onChange }) => {
+export const Checkbox: FC<Props> = ({
+  label,
+  value,
+  defaultChecked,
+  onChange,
+}) => {
   const [isFocus, setIsFocus] = useState(false);
   return (
     <label className="inline-flex cursor-pointer items-center gap-2">
       <input
         checked={value}
         className="sr-only"
+        defaultChecked={defaultChecked}
         onBlur={() => {
           setIsFocus(false);
         }}

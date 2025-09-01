@@ -11,6 +11,7 @@ type Props = {
   isRequired: boolean;
   options: readonly Option[];
   value: string;
+  defaultValue?: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
 };
 
@@ -22,6 +23,7 @@ export const Select: FC<Props> = ({
   isRequired,
   options,
   value,
+  defaultValue,
   onChange,
 }) => {
   return (
@@ -36,6 +38,7 @@ export const Select: FC<Props> = ({
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
+        defaultValue={defaultValue}
         disabled={isDisabled}
         id={id}
         onChange={onChange}
