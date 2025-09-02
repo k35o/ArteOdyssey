@@ -1,5 +1,26 @@
 # @k8o/arte-odyssey
 
+## 0.1.0
+
+### Minor Changes
+
+- [#50](https://github.com/k35o/ArteOdyssey/pull/50) [`b1cb256`](https://github.com/k35o/ArteOdyssey/commit/b1cb256d6f034e7a7e4694c2b8b1b21baf1abcd2) Thanks [@k35o](https://github.com/k35o)! - Add defaultValue support to form components
+
+  Add defaultValue prop to form components to enable uncontrolled usage:
+
+  - Checkbox: add defaultChecked prop
+  - NumberField: add defaultValue prop with proper state initialization
+  - RangeField: add defaultValue prop
+  - Select: add defaultValue prop
+  - Radio: add defaultValue prop (defaultChecked for individual options)
+  - Autocomplete: add defaultValue prop with controlled/uncontrolled state management
+
+  This allows components to work in both controlled (value + onChange) and uncontrolled (defaultValue + onChange) modes for better flexibility.
+
+### Patch Changes
+
+- [#43](https://github.com/k35o/ArteOdyssey/pull/43) [`3d89a22`](https://github.com/k35o/ArteOdyssey/commit/3d89a2255d5647080f2e15a8631576db163a2185) Thanks [@k35o](https://github.com/k35o)! - nextjs の examples を追加
+
 ## 0.0.6
 
 ### Patch Changes
