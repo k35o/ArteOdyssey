@@ -11,7 +11,8 @@ type Props = {
   isDisabled: boolean;
   isRequired: boolean;
   options: readonly Option[];
-  value: string[];
+  value?: string[];
+  defaultValue?: string[];
   onChange: (value: string[]) => void;
 };
 
@@ -23,12 +24,29 @@ export const Autocomplete: FC<Props> = ({
   isRequired,
   options,
   value,
+  defaultValue,
   onChange,
 }) => {
+  const [internalValue, setInternalValue] = useState<string[]>(
+    defaultValue || [],
+  );
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
+
+  const handleChange = useCallback(
+    (newValue: string[]) => {
+      if (!isControlled) {
+        setInternalValue(newValue);
+      }
+      onChange(newValue);
+    },
+    [isControlled, onChange],
+  );
 
   const filteredOptions = options.filter((option) =>
     option.label.includes(text),
@@ -63,7 +81,7 @@ export const Autocomplete: FC<Props> = ({
     >
       <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
         <div className="flex w-full flex-wrap gap-1">
-          {value.map((text) => {
+          {currentValue.map((text) => {
             const label = options.find(
               (option) => option.value === text,
             )?.label;
@@ -79,7 +97,7 @@ export const Autocomplete: FC<Props> = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     reset();
-                    onChange(value.filter((v) => v !== text));
+                    handleChange(currentValue.filter((v) => v !== text));
                   }}
                   size="sm"
                 >
@@ -124,7 +142,7 @@ export const Autocomplete: FC<Props> = ({
             onKeyDown={(e) => {
               if (e.key === 'Backspace' && text.length === 0) {
                 reset();
-                onChange(value.slice(0, -1));
+                handleChange(currentValue.slice(0, -1));
                 return;
               }
               if (e.key === 'ArrowDown') {
@@ -156,12 +174,14 @@ export const Autocomplete: FC<Props> = ({
                 if (!selected) {
                   return;
                 }
-                if (value.includes(selected.value)) {
-                  onChange(value.filter((v) => v !== selected.value));
+                if (currentValue.includes(selected.value)) {
+                  handleChange(
+                    currentValue.filter((v) => v !== selected.value),
+                  );
                   reset();
                   return;
                 }
-                onChange([...value, selected.value]);
+                handleChange([...currentValue, selected.value]);
                 reset();
                 return;
               }
@@ -172,12 +192,12 @@ export const Autocomplete: FC<Props> = ({
             value={text}
           />
         </div>
-        {value.length > 0 && (
+        {currentValue.length > 0 && (
           <IconButton
             label="すべて閉じる"
             onClick={(e) => {
               e.stopPropagation();
-              onChange([]);
+              handleChange([]);
             }}
             size="sm"
           >
@@ -196,12 +216,12 @@ export const Autocomplete: FC<Props> = ({
                 <li className="px-3 py-2 text-fg-mute">該当なし</li>
               )}
               {filteredOptions.map((option, idx) => {
-                const selected = value.includes(option.value);
+                const selected = currentValue.includes(option.value);
                 return (
                   <li
                     className={cn(
                       'cursor-pointer px-3 py-2',
-                      selected && 'bg-primary-bg text-fg-inverse',
+                      selected && 'bg-primary-bg',
                       selectIndex === idx && !selected && 'bg-bg-emphasize',
                       selectIndex === idx &&
                         selected &&
@@ -213,10 +233,12 @@ export const Autocomplete: FC<Props> = ({
                       e.stopPropagation();
                       reset();
                       if (selected) {
-                        onChange(value.filter((v) => v !== option.value));
+                        handleChange(
+                          currentValue.filter((v) => v !== option.value),
+                        );
                         return;
                       }
-                      onChange([...value, option.value]);
+                      handleChange([...currentValue, option.value]);
                     }}
                     onKeyDown={(e) => {
                       e.preventDefault();

@@ -10,6 +10,7 @@ type Props = {
   isDisabled: boolean;
   isRequired: boolean;
   value: number;
+  defaultValue?: number;
   onChange: (value: number) => void;
   step?: number;
   precision?: number;
@@ -25,6 +26,7 @@ export const NumberField: FC<Props> = ({
   isDisabled,
   isRequired,
   value,
+  defaultValue,
   onChange,
   step = 1,
   precision = 0,
@@ -32,9 +34,15 @@ export const NumberField: FC<Props> = ({
   min = -9007199254740991,
   placeholder,
 }) => {
-  const [displayValue, setDisplayValue] = useState(value.toFixed(precision));
+  const [displayValue, setDisplayValue] = useState(
+    defaultValue !== undefined
+      ? defaultValue.toFixed(precision)
+      : value.toFixed(precision),
+  );
 
-  const [prevValue, setPrevValue] = useState(value);
+  const [prevValue, setPrevValue] = useState(
+    defaultValue !== undefined ? defaultValue : value,
+  );
 
   if (value !== prevValue) {
     setDisplayValue(value.toFixed(precision));

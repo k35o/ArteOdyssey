@@ -6,6 +6,7 @@ type Props = {
   labelId: string;
   isDisabled: boolean;
   value: string;
+  defaultValue?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   options: readonly Option[];
 };
@@ -14,6 +15,7 @@ export const Radio: FC<Props> = ({
   labelId,
   isDisabled,
   value,
+  defaultValue,
   onChange,
   options,
 }) => {
@@ -40,6 +42,7 @@ export const Radio: FC<Props> = ({
               'cursor-pointer',
               'disabled:cursor-not-allowed disabled:bg-bg-mute',
             )}
+            defaultChecked={defaultValue === option.value}
             disabled={isDisabled}
             onChange={onChange}
             type="radio"

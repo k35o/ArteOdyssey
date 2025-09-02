@@ -8,6 +8,7 @@ type Props = {
   isDisabled: boolean;
   isRequired: boolean;
   value: number;
+  defaultValue?: number;
   onChange: (value: number) => void;
   step?: number;
   max?: number;
@@ -23,6 +24,7 @@ export const RangeField: FC<Props> = ({
   isDisabled,
   isRequired,
   value,
+  defaultValue,
   onChange,
   step = 1,
   max = 100,
@@ -45,6 +47,7 @@ export const RangeField: FC<Props> = ({
           'disabled:cursor-not-allowed disabled:opacity-50',
           isInvalid && 'ring-2 ring-border-error',
         )}
+        defaultValue={defaultValue}
         disabled={isDisabled}
         id={id}
         max={max}
