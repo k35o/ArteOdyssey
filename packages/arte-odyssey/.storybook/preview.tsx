@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react-vite';
-import { ComponentProvider } from '../src/components/providers';
+import { ArteOdysseyProvider } from '../src/components/providers';
 
 import '../src/styles/index.css';
 import { type FC, memo, useEffect, useState } from 'react';
@@ -69,12 +69,12 @@ const preview: Preview = {
         );
       }, []);
       return (
-        <ComponentProvider>
+        <ArteOdysseyProvider>
           <ApplayThemeByStorybook theme={theme} />
           <div className="min-h-svh p-6">
             <Story />
           </div>
-        </ComponentProvider>
+        </ArteOdysseyProvider>
       );
     },
   ],
