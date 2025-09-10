@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 1.0.0
+
+### Major Changes
+
+- [#57](https://github.com/k35o/ArteOdyssey/pull/57) [`df367e3`](https://github.com/k35o/ArteOdyssey/commit/df367e3040785ee177191a7769b8aea5d5197dc9) Thanks [@k35o](https://github.com/k35o)! - Rename ComponentProvider to ArteOdysseyProvider
+
+  BREAKING CHANGE: ComponentProvider has been renamed to ArteOdysseyProvider. Update your imports from `import { ComponentProvider }` to `import { ArteOdysseyProvider }`.
+
 ## 0.1.0
 
 ### Minor Changes
