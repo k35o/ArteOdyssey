@@ -3,16 +3,16 @@ packages:
   - examples/*
 
 catalog:
-  '@tailwindcss/postcss': 4.1.12
-  '@tailwindcss/vite': 4.1.12
+  '@tailwindcss/postcss': 4.1.13
+  '@tailwindcss/vite': 4.1.13
   '@types/react': 19.1.12
   '@types/react-dom': 19.1.9
   '@vitejs/plugin-react-swc': 4.0.1
   postcss: 8.5.6
   react: 19.1.1
   react-dom: 19.1.1
-  tailwindcss: 4.1.12
-  vite: 7.1.4
+  tailwindcss: 4.1.13
+  vite: 7.1.5
 
 ignoredBuiltDependencies:
   - sharp
