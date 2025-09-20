@@ -2,6 +2,8 @@ packages:
   - packages/*
   - examples/*
 
+minimumReleaseAge: 10080
+
 catalog:
   '@tailwindcss/postcss': 4.1.12
   '@tailwindcss/vite': 4.1.12
