@@ -9,21 +9,24 @@
   "prConcurrentLimit": 10,
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchPackageNames": [
-        "!/^(pnpm|node)$/",
-        "!/^@storybook/",
-        "!/storybook$/",
-        "!/react$/",
-        "!/react-dom$/",
-        "!/vitest$/",
-        "!/@vitest/"
-      ],
-      "groupName": "minor and patch dependencies"
+      "matchPackageNames": ["/^@storybook/", "/storybook$/"],
+      "groupName": "storybook dependencies"
     },
     {
-      "matchDepTypes": ["peerDependencies"],
-      "enabled": false
+      "matchPackageNames": ["/vitest$/", "/@vitest/"],
+      "groupName": "vitest dependencies"
+    },
+    {
+      "matchPackageNames": ["/react$/", "/react-dom$/"],
+      "groupName": "react dependencies"
+    },
+    {
+      "matchPackageNames": ["/^pnpm$/"],
+      "groupName": "pnpm dependencies"
+    },
+    {
+      "matchPackageNames": ["/node$/"],
+      "groupName": "node dependencies"
     }
   ]
 }
