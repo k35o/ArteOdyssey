@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from 'vitest-browser-react';
 import { useLocalStorage } from './index';
 
 const consoleErrorMock = vi
@@ -30,7 +30,9 @@ describe('useLocalStorage', () => {
   });
 
   it('更新処理ではlocalStorageとstateの両方を更新する', () => {
-    const { result } = renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       result.current[1]('newValue');
@@ -42,7 +44,9 @@ describe('useLocalStorage', () => {
 
   it('削除処理ではlocalStorageは値を削除され、stateは初期値になる', () => {
     localStorage.setItem(key, JSON.stringify('storedValue'));
-    const { result } = renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       result.current[2]();
@@ -53,7 +57,7 @@ describe('useLocalStorage', () => {
   });
 
   it('nullで更新した場合はremoveと同じ結果になる', () => {
-    const { result } = renderHook(() =>
+    const { result, act } = renderHook(() =>
       useLocalStorage<{ lang: string[] } | null>(key, {
         lang: ['ja', 'en'],
       }),
@@ -68,7 +72,9 @@ describe('useLocalStorage', () => {
   });
 
   it('storageイベントの発火に応じて状stateが更新される', () => {
-    const { result } = renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       localStorage.setItem(key, JSON.stringify('updatedValue'));
@@ -84,7 +90,9 @@ describe('useLocalStorage', () => {
   });
 
   it('異なるキーのstorageイベントはstateを更新しない', () => {
-    const { result } = renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       localStorage.setItem('otherKey', JSON.stringify('otherValue'));
