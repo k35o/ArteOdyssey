@@ -1,5 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react';
-import { act } from 'react';
+import { renderHook } from 'vitest-browser-react';
 import { useHash } from '.';
 
 vi.mock('../client', () => ({
@@ -24,10 +23,10 @@ describe('useHash', () => {
   });
 
   it('hash値が変更されたときに更新される', () => {
-    const { result } = renderHook(() => useHash());
+    const { result, act } = renderHook(() => useHash());
 
-    window.location.hash = '#changed';
     act(() => {
+      window.location.hash = '#changed';
       window.dispatchEvent(new Event('hashchange'));
     });
 
@@ -35,25 +34,25 @@ describe('useHash', () => {
   });
 
   it('pushStateでhash値が変更されたときに更新される', async () => {
-    const { result } = renderHook(() => useHash());
+    const { result, act } = renderHook(() => useHash());
 
     act(() => {
       window.history.pushState({}, '', '/#pushed');
     });
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current).toBe('pushed');
     });
   });
 
   it('replaceStateでhash値が変更されたときに更新される', async () => {
-    const { result } = renderHook(() => useHash());
+    const { result, act } = renderHook(() => useHash());
 
     act(() => {
       window.history.replaceState({}, '', '/#replaced');
     });
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(result.current).toBe('replaced');
     });
   });

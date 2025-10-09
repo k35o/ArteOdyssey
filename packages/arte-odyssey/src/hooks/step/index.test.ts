@@ -1,5 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
 import { userEvent } from '@vitest/browser/context';
+import { renderHook } from 'vitest-browser-react';
 import { useStep } from '.';
 
 describe('useStep', () => {
@@ -17,7 +17,9 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 10;
 
-    const { result } = renderHook(() => useStep({ initialCount, maxCount }));
+    const { result, act } = renderHook(() =>
+      useStep({ initialCount, maxCount }),
+    );
     act(() => {
       result.current.next();
     });
@@ -30,7 +32,9 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 10;
 
-    const { result } = renderHook(() => useStep({ initialCount, maxCount }));
+    const { result, act } = renderHook(() =>
+      useStep({ initialCount, maxCount }),
+    );
     act(() => {
       result.current.back();
     });
@@ -43,7 +47,9 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result } = renderHook(() => useStep({ initialCount, maxCount }));
+    const { result, act } = renderHook(() =>
+      useStep({ initialCount, maxCount }),
+    );
     act(() => {
       result.current.next();
       result.current.next();
@@ -57,7 +63,9 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result } = renderHook(() => useStep({ initialCount, maxCount }));
+    const { result, act } = renderHook(() =>
+      useStep({ initialCount, maxCount }),
+    );
     act(() => {
       result.current.next();
       result.current.next();
@@ -72,7 +80,9 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result } = renderHook(() => useStep({ initialCount, maxCount }));
+    const { result, act } = renderHook(() =>
+      useStep({ initialCount, maxCount }),
+    );
     act(() => {
       result.current.next();
       result.current.back();
@@ -88,14 +98,10 @@ describe('useStep', () => {
 
     const { result } = renderHook(() => useStep({ initialCount, maxCount }));
 
-    await act(async () => {
-      await userEvent.keyboard('{arrowright}');
-    });
+    await userEvent.keyboard('{arrowright}');
     expect(result.current.count).toBe(initialCount + 1);
 
-    await act(async () => {
-      await userEvent.keyboard('{arrowleft}');
-    });
+    await userEvent.keyboard('{arrowleft}');
     expect(result.current.count).toBe(initialCount);
   });
 });

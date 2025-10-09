@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from 'vitest-browser-react';
 import { useClipboard } from '.';
 
 describe('useClipboard', () => {
@@ -16,9 +16,7 @@ describe('useClipboard', () => {
     });
 
     const { result } = renderHook(() => useClipboard());
-    await act(async () => {
-      await result.current.writeClipboard(writeText);
-    });
+    await result.current.writeClipboard(writeText);
 
     expect(writeTextMockFn).toBeCalledWith(writeText);
     expect(navigator.clipboard.writeText).toHaveBeenCalledOnce();
@@ -33,9 +31,7 @@ describe('useClipboard', () => {
     });
 
     const { result } = renderHook(() => useClipboard());
-    await act(async () => {
-      await result.current.readClipboard();
-    });
+    await result.current.readClipboard();
 
     expect(readTextMockFn).toHaveBeenCalledOnce();
   });

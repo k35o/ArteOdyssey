@@ -1,4 +1,4 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from 'vitest-browser-react';
 import { useWindowSize } from '.';
 
 describe('useWindowSize', () => {
@@ -9,7 +9,7 @@ describe('useWindowSize', () => {
     window.innerWidth = initWindowSize.width;
     window.innerHeight = initWindowSize.height;
 
-    const { result } = renderHook(() => useWindowSize());
+    const { result, act } = renderHook(() => useWindowSize());
 
     expect(result.current).toEqual(initWindowSize);
 
