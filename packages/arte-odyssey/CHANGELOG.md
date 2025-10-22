@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 1.1.0
+
+### Minor Changes
+
+- [#108](https://github.com/k35o/ArteOdyssey/pull/108) [`3bc361a`](https://github.com/k35o/ArteOdyssey/commit/3bc361a2705a9177831f90d529cdff26c658398c) Thanks [@renovate](https://github.com/apps/renovate)! - bump dependencies
+
 ## 1.0.0
 
 ### Major Changes
