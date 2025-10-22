@@ -106,6 +106,7 @@ export const Modal: FC<
     realRef.current?.close,
     realRef.current?.open,
     realRef.current?.showModal,
+    realRef.current,
   ]);
 
   return (
