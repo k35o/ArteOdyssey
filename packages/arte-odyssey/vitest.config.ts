@@ -1,5 +1,6 @@
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import { playwright } from '@vitest/browser-playwright';
 import { defineConfig, mergeConfig } from 'vitest/config';
 import viteConfig from './vite.config';
 
@@ -30,7 +31,7 @@ export default mergeConfig(
             name: { label: 'components', color: 'magenta' },
             browser: {
               enabled: true,
-              provider: 'playwright',
+              provider: playwright(),
               headless: true,
               screenshotFailures: false,
               instances: [
@@ -58,7 +59,7 @@ export default mergeConfig(
                   browser: 'chromium',
                 },
               ],
-              provider: 'playwright',
+              provider: playwright(),
               headless: true,
               screenshotFailures: false,
             },

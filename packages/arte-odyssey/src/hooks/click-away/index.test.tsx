@@ -1,5 +1,5 @@
-import { userEvent } from '@vitest/browser/context';
 import type { FC } from 'react';
+import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { useClickAway } from '.';
 
@@ -19,7 +19,7 @@ describe('useClickAway', () => {
   it('領域外を触るとcallbackが呼び出される', async () => {
     const fn = vi.fn();
 
-    const { getByText } = render(<OutsideClicker callback={fn} />);
+    const { getByText } = await render(<OutsideClicker callback={fn} />);
     const element = getByText('Element');
     const outsideElement = getByText('Outside');
 

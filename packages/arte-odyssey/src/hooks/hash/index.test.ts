@@ -16,14 +16,14 @@ describe('useHash', () => {
     window.location.hash = realHash;
   });
 
-  it('現在のhash値を取得できる', () => {
-    const { result } = renderHook(() => useHash());
+  it('現在のhash値を取得できる', async () => {
+    const { result } = await renderHook(() => useHash());
 
     expect(result.current).toBe('test');
   });
 
-  it('hash値が変更されたときに更新される', () => {
-    const { result, act } = renderHook(() => useHash());
+  it('hash値が変更されたときに更新される', async () => {
+    const { result, act } = await renderHook(() => useHash());
 
     act(() => {
       window.location.hash = '#changed';
@@ -34,7 +34,7 @@ describe('useHash', () => {
   });
 
   it('pushStateでhash値が変更されたときに更新される', async () => {
-    const { result, act } = renderHook(() => useHash());
+    const { result, act } = await renderHook(() => useHash());
 
     act(() => {
       window.history.pushState({}, '', '/#pushed');
@@ -46,7 +46,7 @@ describe('useHash', () => {
   });
 
   it('replaceStateでhash値が変更されたときに更新される', async () => {
-    const { result, act } = renderHook(() => useHash());
+    const { result, act } = await renderHook(() => useHash());
 
     act(() => {
       window.history.replaceState({}, '', '/#replaced');
