@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.3.0/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -36,18 +36,11 @@
         "useJsxKeyInIterable": "error",
         "useJsonImportAttributes": "error",
         "noReactPropAssignments": "error",
-        "useUniqueElementIds": "off"
+        "useUniqueElementIds": "off",
+        "useImageSize": "error"
       },
       "nursery": {
-        "useConsistentTypeDefinitions": {
-          "level": "error",
-          "options": {
-            "style": "type"
-          }
-        },
         "useExhaustiveSwitchCases": "error",
-        "useImageSize": "error",
-        "useReactFunctionComponents": "error",
         "useSortedClasses": "error"
       },
       "performance": {
@@ -63,6 +56,7 @@
         "noHeadElement": "error",
         "noNamespace": "error",
         "noNegationElse": "error",
+        "useReactFunctionComponents": "error",
         "noParameterAssign": "error",
         "noParameterProperties": "error",
         "noRestrictedGlobals": "error",
@@ -86,7 +80,14 @@
         "useReadonlyClassProperties": "error",
         "useSymbolDescription": "error",
         "useObjectSpread": "error",
-        "useConsistentObjectDefinitions": "error"
+        "useConsistentObjectDefinitions": "error",
+        "useComponentExportOnlyModules": "off",
+        "useConsistentTypeDefinitions": {
+          "level": "error",
+          "options": {
+            "style": "type"
+          }
+        }
       },
       "suspicious": {
         "noAlert": "error",
