@@ -13,15 +13,15 @@ describe('useScrollDirection', () => {
     });
   });
 
-  it('初期状態ではx: right, y: upを返す', () => {
-    const { result } = renderHook(() => useScrollDirection());
+  it('初期状態ではx: right, y: upを返す', async () => {
+    const { result } = await renderHook(() => useScrollDirection());
 
     expect(result.current).toEqual({ x: 'right', y: 'up' });
   });
 
   describe('Vertical scroll', () => {
-    it('100px以上下にスクロールするとy: downを返す', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('100px以上下にスクロールするとy: downを返す', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 150 });
@@ -31,8 +31,8 @@ describe('useScrollDirection', () => {
       expect(result.current.y).toBe('down');
     });
 
-    it('100px未満のスクロールではy: upのまま', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('100px未満のスクロールではy: upのまま', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 50 });
@@ -42,8 +42,8 @@ describe('useScrollDirection', () => {
       expect(result.current.y).toBe('up');
     });
 
-    it('上にスクロールするとy: upを返す', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('上にスクロールするとy: upを返す', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       // 最初に下にスクロール
       act(() => {
@@ -64,8 +64,8 @@ describe('useScrollDirection', () => {
   });
 
   describe('Horizontal scroll', () => {
-    it('100px以上右にスクロールするとx: rightを返す', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('100px以上右にスクロールするとx: rightを返す', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollX', { value: 150 });
@@ -75,8 +75,8 @@ describe('useScrollDirection', () => {
       expect(result.current.x).toBe('right');
     });
 
-    it('100px未満のスクロールではx: rightのまま', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('100px未満のスクロールではx: rightのまま', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollX', { value: 50 });
@@ -86,8 +86,8 @@ describe('useScrollDirection', () => {
       expect(result.current.x).toBe('right');
     });
 
-    it('左にスクロールするとx: leftを返す', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('左にスクロールするとx: leftを返す', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       // 最初に右にスクロール
       act(() => {
@@ -108,8 +108,8 @@ describe('useScrollDirection', () => {
   });
 
   describe('Combined scroll', () => {
-    it('縦横同時にスクロールした場合、両方向を正しく検知する', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('縦横同時にスクロールした場合、両方向を正しく検知する', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 150 });
@@ -121,10 +121,10 @@ describe('useScrollDirection', () => {
     });
   });
 
-  it('アンマウント後はイベントリスナーが削除される', () => {
+  it('アンマウント後はイベントリスナーが削除される', async () => {
     const removeEventListenerSpy = vi.spyOn(window, 'removeEventListener');
 
-    const { unmount } = renderHook(() => useScrollDirection());
+    const { unmount } = await renderHook(() => useScrollDirection());
 
     unmount();
 
@@ -134,10 +134,10 @@ describe('useScrollDirection', () => {
     );
   });
 
-  it('スクロールイベントがpassive: trueで登録される', () => {
+  it('スクロールイベントがpassive: trueで登録される', async () => {
     const addEventListenerSpy = vi.spyOn(window, 'addEventListener');
 
-    renderHook(() => useScrollDirection());
+    await renderHook(() => useScrollDirection());
 
     expect(addEventListenerSpy).toHaveBeenCalledWith(
       'scroll',
@@ -147,8 +147,8 @@ describe('useScrollDirection', () => {
   });
 
   describe('Threshold parameter', () => {
-    it('thresholdが100の場合、100px以下のスクロールでは方向が変わらない', () => {
-      const { result, act } = renderHook(() => useScrollDirection(100));
+    it('thresholdが100の場合、100px以下のスクロールでは方向が変わらない', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection(100));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 100 });
@@ -165,8 +165,8 @@ describe('useScrollDirection', () => {
       expect(result.current.x).toBe('right');
     });
 
-    it('thresholdが100の場合、101px以上のスクロールで方向が変わる', () => {
-      const { result, act } = renderHook(() => useScrollDirection(100));
+    it('thresholdが100の場合、101px以上のスクロールで方向が変わる', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection(100));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 101 });
@@ -183,8 +183,8 @@ describe('useScrollDirection', () => {
       expect(result.current.x).toBe('right');
     });
 
-    it('thresholdが10の場合、10px以下のスクロールでは方向が変わらない', () => {
-      const { result, act } = renderHook(() => useScrollDirection(10));
+    it('thresholdが10の場合、10px以下のスクロールでは方向が変わらない', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection(10));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 10 });
@@ -194,8 +194,8 @@ describe('useScrollDirection', () => {
       expect(result.current.y).toBe('up');
     });
 
-    it('thresholdが10の場合、11px以上のスクロールで方向が変わる', () => {
-      const { result, act } = renderHook(() => useScrollDirection(10));
+    it('thresholdが10の場合、11px以上のスクロールで方向が変わる', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection(10));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 11 });
@@ -205,8 +205,8 @@ describe('useScrollDirection', () => {
       expect(result.current.y).toBe('down');
     });
 
-    it('thresholdが0の場合、1px以上のスクロールで方向が変わる', () => {
-      const { result, act } = renderHook(() => useScrollDirection(0));
+    it('thresholdが0の場合、1px以上のスクロールで方向が変わる', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection(0));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 1 });
@@ -216,8 +216,8 @@ describe('useScrollDirection', () => {
       expect(result.current.y).toBe('down');
     });
 
-    it('デフォルト値（threshold未指定）では50pxの閾値が適用される', () => {
-      const { result, act } = renderHook(() => useScrollDirection());
+    it('デフォルト値（threshold未指定）では50pxの閾値が適用される', async () => {
+      const { result, act } = await renderHook(() => useScrollDirection());
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 50 });

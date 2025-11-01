@@ -15,7 +15,7 @@ describe('useClipboard', () => {
       },
     });
 
-    const { result } = renderHook(() => useClipboard());
+    const { result } = await renderHook(() => useClipboard());
     await result.current.writeClipboard(writeText);
 
     expect(writeTextMockFn).toBeCalledWith(writeText);
@@ -30,7 +30,7 @@ describe('useClipboard', () => {
       },
     });
 
-    const { result } = renderHook(() => useClipboard());
+    const { result } = await renderHook(() => useClipboard());
     await result.current.readClipboard();
 
     expect(readTextMockFn).toHaveBeenCalledOnce();

@@ -2,11 +2,11 @@ import { renderHook } from 'vitest-browser-react';
 import { useTimeout } from '.';
 
 describe('useTimeout', () => {
-  it('指定時間後に実行される', () => {
+  it('指定時間後に実行される', async () => {
     const fn = vi.fn();
     vi.useFakeTimers();
 
-    renderHook(() => {
+    await renderHook(() => {
       useTimeout(fn, 1000);
     });
     vi.advanceTimersByTime(1000);
@@ -14,11 +14,11 @@ describe('useTimeout', () => {
     expect(fn).toHaveBeenCalledOnce();
   });
 
-  it('指定時間前に実行されない', () => {
+  it('指定時間前に実行されない', async () => {
     const fn = vi.fn();
     vi.useFakeTimers();
 
-    renderHook(() => {
+    await renderHook(() => {
       useTimeout(fn, 1000);
     });
     vi.advanceTimersByTime(10);
@@ -26,11 +26,11 @@ describe('useTimeout', () => {
     expect(fn).not.toHaveBeenCalled();
   });
 
-  it('指定時間前にアンマウントされない場合は実行されない', () => {
+  it('指定時間前にアンマウントされない場合は実行されない', async () => {
     const fn = vi.fn();
     vi.useFakeTimers();
 
-    const { unmount } = renderHook(() => {
+    const { unmount } = await renderHook(() => {
       useTimeout(fn, 1000);
     });
     unmount();
