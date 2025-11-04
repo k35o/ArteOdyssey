@@ -96,7 +96,7 @@
     "tailwindcss": "catalog:",
     "vite": "catalog:",
     "vitest": "4.0.3",
-    "vitest-browser-react": "2.0.0"
+    "vitest-browser-react": "2.0.2"
   },
   "peerDependencies": {
     "@types/react": ">=19.0.0",
