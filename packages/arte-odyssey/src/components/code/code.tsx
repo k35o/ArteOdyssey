@@ -29,7 +29,7 @@ export const Code: FC<{
       <Fragment key={`color-${String(index)}`}>
         <span
           aria-label={`Color: ${colorInfo.color}`}
-          className="inline-block h-3 w-3 flex-shrink-0 rounded-sm border border-gray-300"
+          className="inline-block h-3 w-3 shrink-0 rounded-sm border border-border-base"
           role="img"
           style={{ backgroundColor: colorInfo.color }}
         />

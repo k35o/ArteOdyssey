@@ -110,7 +110,12 @@ export function findAllColors(
           ? (lowerText[index + color.length] ?? ' ')
           : ' ';
 
-      if (/\s|;|,|:/.test(beforeChar) && /\s|;|,|$|\)|]|}/.test(afterChar)) {
+      // 前後が英数字でないことを確認（完全一致のみ）
+      const isWordBoundary = !(
+        /[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar)
+      );
+
+      if (isWordBoundary) {
         results.push({
           color,
           start: index,
@@ -259,6 +264,21 @@ if (import.meta.vitest) {
       it('文字列の境界での色検出', () => {
         const result = findAllColors('red');
         expect(result).toEqual([{ color: 'red', start: 0, end: 3 }]);
+      });
+
+      it('他の単語の一部として含まれる色名を検出しない', () => {
+        const result = findAllColors('reduce');
+        expect(result).toEqual([]);
+      });
+
+      it('他の単語の一部として含まれる色名を検出しない（複数パターン）', () => {
+        const result = findAllColors('blueberry, greenfield, redirection');
+        expect(result).toEqual([]);
+      });
+
+      it('単語の一部でない色名のみを検出する', () => {
+        const result = findAllColors('reduce color: red; blueberry');
+        expect(result).toEqual([{ color: 'red', start: 14, end: 17 }]);
       });
     });
   });
