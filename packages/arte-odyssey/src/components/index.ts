@@ -12,6 +12,7 @@ export * from './dropdown-menu';
 export * from './error-boundary';
 export * from './form/autocomplete';
 export * from './form/checkbox';
+export * from './form/file-field';
 export * from './form/form-control';
 export * from './form/number-field';
 export * from './form/radio';
