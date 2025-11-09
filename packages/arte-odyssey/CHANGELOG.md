@@ -1,5 +1,25 @@
 # @k8o/arte-odyssey
 
+## 1.2.0
+
+### Minor Changes
+
+- [#138](https://github.com/k35o/ArteOdyssey/pull/138) [`70e4952`](https://github.com/k35o/ArteOdyssey/commit/70e495257ac35abbfb92a7e8777c5a46b1a8e6e1) Thanks [@k35o](https://github.com/k35o)! - FileField コンポーネントを追加
+
+  ファイル選択 UI を提供する新しい FileField コンポーネントを追加しました。
+
+  主な機能:
+
+  - Root、Trigger、ItemList の 3 つのサブコンポーネントによる柔軟な構成
+  - ファイルの選択、表示、削除機能
+  - 複数ファイル選択のサポート
+  - 最大ファイル数制限
+  - webkitDirectory 対応でフォルダ選択が可能
+  - ref を使って acceptedFiles にアクセス可能
+  - Button コンポーネントと組み合わせて使用可能
+
+- [#136](https://github.com/k35o/ArteOdyssey/pull/136) [`f08b0c5`](https://github.com/k35o/ArteOdyssey/commit/f08b0c5bdfe9b72e28f500fa7598f0f52cc52cd7) Thanks [@k35o](https://github.com/k35o)! - Fix code color display issue where consecutive strings containing colors were incorrectly displayed
+
 ## 1.1.0
 
 ### Minor Changes
