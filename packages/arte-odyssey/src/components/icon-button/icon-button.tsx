@@ -19,7 +19,7 @@ export const IconButton: FC<Props> = ({
     <button
       aria-label={props.role ? label : undefined}
       className={cn(
-        'inline-flex rounded-full bg-transparent',
+        'inline-flex cursor-pointer rounded-full bg-transparent',
         'hover:bg-bg-subtle',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info active:bg-bg-emphasize',
         bg === 'base' && 'bg-bg-base/90',
