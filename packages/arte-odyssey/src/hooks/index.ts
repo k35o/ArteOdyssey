@@ -4,6 +4,7 @@ export * from './clipboard';
 export * from './hash';
 export * from './interval';
 export * from './local-storage';
+export * from './resize';
 export * from './scroll-direction';
 export * from './step';
 export * from './timeout';
