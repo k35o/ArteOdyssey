@@ -8,4 +8,5 @@ export * from './resize';
 export * from './scroll-direction';
 export * from './step';
 export * from './timeout';
+export * from './window-resize';
 export * from './window-size';
