@@ -1,5 +1,42 @@
 # @k8o/arte-odyssey
 
+## 1.3.0
+
+### Minor Changes
+
+- [#141](https://github.com/k35o/ArteOdyssey/pull/141) [`f44ac3f`](https://github.com/k35o/ArteOdyssey/commit/f44ac3f5f9f8cd020e2ec53fd6e421de7d01a7ec) Thanks [@k35o](https://github.com/k35o)! - useResize と useWindowResize フックを追加
+
+  要素と window のリサイズを検知する 2 つのフックを追加しました。
+
+  ## useResize
+
+  ResizeObserver を使用して要素のリサイズを検知するフックです。
+
+  主な機能:
+
+  - ResizeObserver による要素のリサイズ検知
+  - コールバックで ResizeObserverEntry を受け取り可能
+  - enabled パラメータで監視の有効/無効を切り替え可能
+  - debounceMs パラメータで任意の間隔で debounce 処理が可能
+
+  ## useWindowResize
+
+  window のリサイズを検知するフックです。
+
+  主な機能:
+
+  - window のリサイズイベントを検知
+  - コールバックで window サイズ（width, height）を受け取り可能
+  - enabled パラメータで監視の有効/無効を切り替え可能
+  - debounceMs パラメータで任意の間隔で debounce 処理が可能
+  - 初回のレンダリング時にはコールバックを呼び出さない
+
+### Patch Changes
+
+- [#139](https://github.com/k35o/ArteOdyssey/pull/139) [`5a54eb4`](https://github.com/k35o/ArteOdyssey/commit/5a54eb4d377fe1c9629d3fa02984b7d280aacd68) Thanks [@k35o](https://github.com/k35o)! - IconButton に cursor-pointer を追加
+
+  IconButton コンポーネントに cursor-pointer クラスを追加し、ホバー時のカーソル表示を改善しました。
+
 ## 1.2.0
 
 ### Minor Changes
