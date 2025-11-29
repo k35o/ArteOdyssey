@@ -28,9 +28,12 @@ export const WithContainer: Story = {
       const containerRef = useRef<HTMLDivElement>(null);
       return (
         <div>
-          <div
+          <section
+            aria-label="Scrollable container example"
             className="relative h-96 overflow-y-scroll rounded border border-gray-300"
             ref={containerRef}
+            // biome-ignore lint/a11y/noNoninteractiveTabindex: Scrollable region requires keyboard access for accessibility
+            tabIndex={0}
           >
             <Story args={{ container: containerRef }} />
             <div className="h-[200vh] p-4">
@@ -53,7 +56,7 @@ export const WithContainer: Story = {
                 ))}
               </div>
             </div>
-          </div>
+          </section>
         </div>
       );
     },
