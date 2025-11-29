@@ -1,10 +1,12 @@
 'use client';
 
 import { motion, useScroll, useSpring } from 'motion/react';
-import type { FC } from 'react';
+import type { FC, RefObject } from 'react';
 
-export const ScrollLinked: FC = () => {
-  const { scrollYProgress } = useScroll();
+export const ScrollLinked: FC<{
+  container?: RefObject<HTMLElement | null>;
+}> = ({ container }) => {
+  const { scrollYProgress } = useScroll({ container });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
