@@ -1,5 +1,20 @@
 # @k8o/arte-odyssey
 
+## 1.4.0
+
+### Minor Changes
+
+- [#150](https://github.com/k35o/ArteOdyssey/pull/150) [`b6c9066`](https://github.com/k35o/ArteOdyssey/commit/b6c9066d7f28f388f54be0f02a5ee3dd35cc6c5c) Thanks [@k35o](https://github.com/k35o)! - ScrollLinked コンポーネントに container prop を追加
+
+  ScrollLinked コンポーネントにオプショナルな container prop を追加しました。
+
+  主な機能:
+
+  - container prop で特定のコンテナ要素のスクロール進捗を追跡可能
+  - RefObject<HTMLElement | null>型で TypeScript の型安全性を確保
+  - Storybook に新しい WithContainer ストーリーを追加してデモを提供
+  - デフォルトでは window のスクロールを追跡（既存の動作を維持）
+
 ## 1.3.0
 
 ### Minor Changes
