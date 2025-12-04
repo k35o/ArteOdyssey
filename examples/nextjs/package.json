@@ -15,7 +15,7 @@
     "@k8o/arte-odyssey": "workspace:^",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "next": "15.5.2"
+    "next": "16.0.7"
   },
   "devDependencies": {
     "@types/react": "catalog:",
