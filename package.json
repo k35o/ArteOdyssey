@@ -10,7 +10,7 @@
   "author": "k8o",
   "license": "MIT",
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build --filter='!./examples/**'",
     "test": "turbo run test",
     "test:ui": "turbo run test:ui",
     "test:coverage": "turbo run test:coverage",
