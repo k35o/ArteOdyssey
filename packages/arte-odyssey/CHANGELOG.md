@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 1.4.1
+
+### Patch Changes
+
+- [#152](https://github.com/k35o/ArteOdyssey/pull/152) [`d51d977`](https://github.com/k35o/ArteOdyssey/commit/d51d9771289174eb8b9e7ffb673b3e679745fd38) Thanks [@k35o](https://github.com/k35o)! - React CVE 55182 対応
+
 ## 1.4.0
 
 ### Minor Changes
