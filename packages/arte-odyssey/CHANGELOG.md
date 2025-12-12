@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 1.4.2
+
+### Patch Changes
+
+- [#165](https://github.com/k35o/ArteOdyssey/pull/165) [`a118369`](https://github.com/k35o/ArteOdyssey/commit/a118369846e35c21ec2cc11a64f2860650819005) Thanks [@k35o](https://github.com/k35o)! - Update React and Next.js dependencies to address security vulnerabilities (DoS and source code exposure in React Server Components)
+
 ## 1.4.1
 
 ### Patch Changes
