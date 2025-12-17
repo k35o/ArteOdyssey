@@ -20,7 +20,7 @@
     "release": "pnpm build && changeset publish"
   },
   "engines": {
-    "node": "22.21.1"
+    "node": "24.12.0"
   },
   "devEngines": {
     "runtime": {
