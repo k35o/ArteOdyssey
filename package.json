@@ -36,9 +36,9 @@
     "@changesets/cli": "2.29.8",
     "@commitlint/cli": "20.2.0",
     "@commitlint/config-conventional": "20.2.0",
-    "@types/node": "24.10.1",
+    "@types/node": "24.10.4",
     "cosmiconfig": "latest",
-    "lefthook": "2.0.8",
+    "lefthook": "2.0.11",
     "playwright": "1.57.0",
     "turbo": "2.6.3",
     "typescript": "5.9.3"

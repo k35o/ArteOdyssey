@@ -68,11 +68,11 @@
   },
   "dependencies": {
     "@floating-ui/react": "0.27.16",
-    "baseline-status": "1.0.11",
+    "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "esbuild": "0.27.1",
-    "lucide-react": "0.556.0",
-    "motion": "12.23.25",
+    "lucide-react": "0.561.0",
+    "motion": "12.23.26",
     "react-error-boundary": "6.0.0",
     "tailwind-merge": "3.4.0"
   },
