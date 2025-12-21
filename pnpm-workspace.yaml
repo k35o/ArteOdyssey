@@ -10,16 +10,16 @@ minimumReleaseAgeExclude:
   - '@next/env'
 
 catalog:
-  '@tailwindcss/postcss': 4.1.17
-  '@tailwindcss/vite': 4.1.17
+  '@tailwindcss/postcss': 4.1.18
+  '@tailwindcss/vite': 4.1.18
   '@types/react': 19.2.7
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react-swc': 4.2.2
   postcss: 8.5.6
   react: 19.2.3
   react-dom: 19.2.3
-  tailwindcss: 4.1.17
-  vite: 7.2.6
+  tailwindcss: 4.1.18
+  vite: 7.2.7
 
 ignoredBuiltDependencies:
   - sharp
