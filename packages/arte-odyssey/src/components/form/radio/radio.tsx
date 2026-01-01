@@ -1,11 +1,11 @@
-import type { ChangeEventHandler, FC } from 'react';
+import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 
 type Props = {
   labelId: string;
   isDisabled: boolean;
-  value: string;
+  value?: string;
   defaultValue?: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
   options: readonly Option[];
@@ -19,6 +19,10 @@ export const Radio: FC<Props> = ({
   onChange,
   options,
 }) => {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   return (
     <div
       aria-labelledby={labelId}
@@ -37,14 +41,18 @@ export const Radio: FC<Props> = ({
           key={option.value}
         >
           <input
-            checked={value === option.value}
+            checked={currentValue === option.value}
             className={cn(
               'cursor-pointer',
               'disabled:cursor-not-allowed disabled:bg-bg-mute',
             )}
-            defaultChecked={defaultValue === option.value}
             disabled={isDisabled}
-            onChange={onChange}
+            onChange={(e) => {
+              if (!isControlled) {
+                setInternalValue(e.target.value);
+              }
+              onChange(e);
+            }}
             type="radio"
             value={option.value}
           />

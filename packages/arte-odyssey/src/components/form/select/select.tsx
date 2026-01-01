@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, FC } from 'react';
+import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 import { ChevronIcon } from '../../icons';
@@ -10,7 +10,7 @@ type Props = {
   isDisabled: boolean;
   isRequired: boolean;
   options: readonly Option[];
-  value: string;
+  value?: string;
   defaultValue?: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
 };
@@ -26,6 +26,12 @@ export const Select: FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
+  const [internalValue, setInternalValue] = useState(
+    defaultValue ?? options[0]?.value ?? '',
+  );
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   return (
     <div className="relative h-fit w-full">
       <select
@@ -38,11 +44,15 @@ export const Select: FC<Props> = ({
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
-        defaultValue={defaultValue}
         disabled={isDisabled}
         id={id}
-        onChange={onChange}
-        value={value}
+        onChange={(e) => {
+          if (!isControlled) {
+            setInternalValue(e.target.value);
+          }
+          onChange(e);
+        }}
+        value={currentValue}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

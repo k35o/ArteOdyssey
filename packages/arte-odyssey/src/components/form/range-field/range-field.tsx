@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
   isInvalid: boolean;
   isDisabled: boolean;
   isRequired: boolean;
-  value: number;
+  value?: number;
   defaultValue?: number;
   onChange: (value: number) => void;
   step?: number;
@@ -32,6 +32,10 @@ export const RangeField: FC<Props> = ({
   showValue = true,
   unit = '',
 }) => {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? min);
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   return (
     <div className="flex items-center gap-4">
       <input
@@ -39,7 +43,7 @@ export const RangeField: FC<Props> = ({
         aria-invalid={isInvalid}
         aria-valuemax={max}
         aria-valuemin={min}
-        aria-valuenow={value}
+        aria-valuenow={currentValue}
         className={cn(
           'h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-bg-subtle',
           'range-slider',
@@ -47,22 +51,25 @@ export const RangeField: FC<Props> = ({
           'disabled:cursor-not-allowed disabled:opacity-50',
           isInvalid && 'ring-2 ring-border-error',
         )}
-        defaultValue={defaultValue}
         disabled={isDisabled}
         id={id}
         max={max}
         min={min}
         onChange={(e) => {
-          onChange(Number(e.target.value));
+          const newValue = Number(e.target.value);
+          if (!isControlled) {
+            setInternalValue(newValue);
+          }
+          onChange(newValue);
         }}
         required={isRequired}
         step={step}
         type="range"
-        value={value}
+        value={currentValue}
       />
       {showValue && (
         <span className="w-16 text-fg-base text-sm">
-          {value}
+          {currentValue}
           {unit}
         </span>
       )}

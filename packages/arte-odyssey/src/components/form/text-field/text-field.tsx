@@ -1,4 +1,4 @@
-import type { ChangeEventHandler, FC } from 'react';
+import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 
 type Props = {
@@ -26,6 +26,10 @@ export const TextField: FC<Props> = ({
   value,
   onChange,
 }) => {
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
+
   return (
     <input
       aria-describedby={describedbyId}
@@ -37,14 +41,18 @@ export const TextField: FC<Props> = ({
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
       )}
-      defaultValue={defaultValue}
       disabled={isDisabled}
       id={id}
       name={name}
-      onChange={onChange}
+      onChange={(e) => {
+        if (!isControlled) {
+          setInternalValue(e.target.value);
+        }
+        onChange?.(e);
+      }}
       placeholder={placeholder}
       type="text"
-      value={value}
+      value={currentValue}
     />
   );
 };

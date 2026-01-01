@@ -1,4 +1,10 @@
-import { type ChangeEventHandler, type FC, useEffect, useRef } from 'react';
+import {
+  type ChangeEventHandler,
+  type FC,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { cn } from './../../../helpers/cn';
 
 type Props = {
@@ -33,6 +39,9 @@ export const Textarea: FC<Props> = ({
   onChange,
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const isControlled = value !== undefined;
+  const currentValue = isControlled ? value : internalValue;
 
   useEffect(() => {
     if (ref.current && autoResize) {
@@ -52,18 +61,22 @@ export const Textarea: FC<Props> = ({
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         fullHeight && 'h-full',
       )}
-      defaultValue={defaultValue}
       disabled={isDisabled}
       id={id}
       name={name}
-      onChange={onChange}
+      onChange={(e) => {
+        if (!isControlled) {
+          setInternalValue(e.target.value);
+        }
+        onChange?.(e);
+      }}
       onKeyDown={(e) => {
         e.stopPropagation();
       }}
       placeholder={placeholder}
       ref={ref}
       rows={rows}
-      value={value}
+      value={currentValue}
     />
   );
 };
