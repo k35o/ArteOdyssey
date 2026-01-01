@@ -17,6 +17,7 @@ type Props = {
   max?: number;
   min?: number;
   placeholder?: string;
+  className?: string;
 };
 
 export const NumberField: FC<Props> = ({
@@ -33,6 +34,7 @@ export const NumberField: FC<Props> = ({
   max = 9007199254740991,
   min = -9007199254740991,
   placeholder,
+  className,
 }) => {
   const [displayValue, setDisplayValue] = useState(
     defaultValue !== undefined
@@ -56,6 +58,7 @@ export const NumberField: FC<Props> = ({
         'focus-within:bordertransparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
+        className,
       )}
     >
       <input

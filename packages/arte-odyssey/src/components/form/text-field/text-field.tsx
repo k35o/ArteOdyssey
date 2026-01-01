@@ -12,6 +12,7 @@ type Props = {
   defaultValue?: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  className?: string;
 };
 
 export const TextField: FC<Props> = ({
@@ -25,6 +26,7 @@ export const TextField: FC<Props> = ({
   defaultValue,
   value,
   onChange,
+  className,
 }) => {
   const [internalValue, setInternalValue] = useState(defaultValue ?? '');
   const isControlled = value !== undefined;
@@ -40,6 +42,7 @@ export const TextField: FC<Props> = ({
         'aria-invalid:border-border-error',
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+        className,
       )}
       disabled={isDisabled}
       id={id}

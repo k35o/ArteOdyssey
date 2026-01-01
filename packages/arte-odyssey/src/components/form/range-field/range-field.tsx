@@ -15,6 +15,7 @@ type Props = {
   min?: number;
   showValue?: boolean;
   unit?: string;
+  className?: string;
 };
 
 export const RangeField: FC<Props> = ({
@@ -31,13 +32,14 @@ export const RangeField: FC<Props> = ({
   min = 0,
   showValue = true,
   unit = '',
+  className,
 }) => {
   const [internalValue, setInternalValue] = useState(defaultValue ?? min);
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
 
   return (
-    <div className="flex items-center gap-4">
+    <div className={cn('flex items-center gap-4', className)}>
       <input
         aria-describedby={describedbyId}
         aria-invalid={isInvalid}

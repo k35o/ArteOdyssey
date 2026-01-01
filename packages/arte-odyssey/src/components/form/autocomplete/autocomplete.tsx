@@ -14,6 +14,7 @@ type Props = {
   value?: string[];
   defaultValue?: string[];
   onChange: (value: string[]) => void;
+  className?: string;
 };
 
 export const Autocomplete: FC<Props> = ({
@@ -26,6 +27,7 @@ export const Autocomplete: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  className,
 }) => {
   const [internalValue, setInternalValue] = useState<string[]>(
     defaultValue || [],
@@ -76,6 +78,7 @@ export const Autocomplete: FC<Props> = ({
         'focus-within:bordertransparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
+        className,
       )}
       ref={ref}
     >

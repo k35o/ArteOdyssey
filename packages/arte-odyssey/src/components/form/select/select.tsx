@@ -13,6 +13,7 @@ type Props = {
   value?: string;
   defaultValue?: string;
   onChange: ChangeEventHandler<HTMLSelectElement>;
+  className?: string;
 };
 
 export const Select: FC<Props> = ({
@@ -25,6 +26,7 @@ export const Select: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  className,
 }) => {
   const [internalValue, setInternalValue] = useState(
     defaultValue ?? options[0]?.value ?? '',
@@ -33,7 +35,7 @@ export const Select: FC<Props> = ({
   const currentValue = isControlled ? value : internalValue;
 
   return (
-    <div className="relative h-fit w-full">
+    <div className={cn('relative h-fit w-full', className)}>
       <select
         aria-describedby={describedbyId}
         aria-invalid={isInvalid}

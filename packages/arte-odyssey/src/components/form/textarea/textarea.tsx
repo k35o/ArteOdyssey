@@ -21,6 +21,7 @@ type Props = {
   defaultValue?: string;
   value?: string;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
+  className?: string;
 };
 
 export const Textarea: FC<Props> = ({
@@ -37,6 +38,7 @@ export const Textarea: FC<Props> = ({
   defaultValue,
   value,
   onChange,
+  className,
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const [internalValue, setInternalValue] = useState(defaultValue ?? '');
@@ -60,6 +62,7 @@ export const Textarea: FC<Props> = ({
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         fullHeight && 'h-full',
+        className,
       )}
       disabled={isDisabled}
       id={id}
