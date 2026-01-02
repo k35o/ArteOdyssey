@@ -64,14 +64,14 @@
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "check": "biome check",
-    "check:write": "biome check --write"
+    "check:write": "biome check --write --unsafe"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.16",
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
-    "esbuild": "0.27.1",
-    "lucide-react": "0.561.0",
+    "esbuild": "0.27.2",
+    "lucide-react": "0.562.0",
     "motion": "12.23.26",
     "react-error-boundary": "6.0.0",
     "tailwind-merge": "3.4.0"
