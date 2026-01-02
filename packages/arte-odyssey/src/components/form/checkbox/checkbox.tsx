@@ -2,12 +2,23 @@ import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { CheckIcon } from '../../icons';
 
-type Props = {
+type BaseProps = {
   label: string;
-  value: boolean;
-  defaultChecked?: boolean;
-  onChange: ChangeEventHandler<HTMLInputElement>;
 };
+
+type ControlledProps = {
+  value: boolean;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  defaultChecked?: never;
+};
+
+type UncontrolledProps = {
+  defaultChecked?: boolean;
+  value?: never;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Checkbox: FC<Props> = ({
   label,
@@ -15,17 +26,29 @@ export const Checkbox: FC<Props> = ({
   defaultChecked,
   onChange,
 }) => {
+  const [internalChecked, setInternalChecked] = useState(
+    defaultChecked ?? false,
+  );
   const [isFocus, setIsFocus] = useState(false);
+
+  const isControlled = value !== undefined;
+  const checked = isControlled ? value : internalChecked;
+
   return (
     <label className="inline-flex cursor-pointer items-center gap-2">
       <input
-        checked={value}
+        checked={isControlled ? value : undefined}
         className="sr-only"
-        defaultChecked={defaultChecked}
+        defaultChecked={isControlled ? undefined : defaultChecked}
         onBlur={() => {
           setIsFocus(false);
         }}
-        onChange={onChange}
+        onChange={(e) => {
+          if (!isControlled) {
+            setInternalChecked(e.target.checked);
+          }
+          onChange?.(e);
+        }}
         onFocus={() => {
           setIsFocus(true);
         }}
@@ -36,12 +59,12 @@ export const Checkbox: FC<Props> = ({
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2',
           isFocus && 'bordertransparent outline-hidden ring-2 ring-border-info',
-          value
+          checked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
         )}
       >
-        {value ? <CheckIcon size="sm" /> : null}
+        {checked ? <CheckIcon size="sm" /> : null}
       </span>
       <span className="text-lg">{label}</span>
     </label>

@@ -1,7 +1,7 @@
 import { type ChangeEventHandler, type FC, useEffect, useRef } from 'react';
 import { cn } from './../../../helpers/cn';
 
-type Props = {
+type BaseProps = {
   id: string;
   name?: string;
   describedbyId: string | undefined;
@@ -12,10 +12,21 @@ type Props = {
   rows?: number;
   fullHeight?: boolean;
   autoResize?: boolean;
+};
+
+type ControlledProps = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLTextAreaElement>;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
   defaultValue?: string;
-  value?: string;
+  value?: never;
   onChange?: ChangeEventHandler<HTMLTextAreaElement>;
 };
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Textarea: FC<Props> = ({
   id,

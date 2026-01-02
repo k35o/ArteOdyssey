@@ -3,21 +3,32 @@ import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';
 import { MinusIcon, PlusIcon } from '../../icons';
 
-type Props = {
+type BaseProps = {
   id?: string;
   describedbyId?: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
   isRequired: boolean;
-  value: number;
-  defaultValue?: number;
-  onChange: (value: number) => void;
   step?: number;
   precision?: number;
   max?: number;
   min?: number;
   placeholder?: string;
 };
+
+type ControlledProps = {
+  value: number;
+  onChange: (value: number) => void;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
+  defaultValue?: number;
+  value?: never;
+  onChange?: (value: number) => void;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const NumberField: FC<Props> = ({
   id,
@@ -34,20 +45,28 @@ export const NumberField: FC<Props> = ({
   min = -9007199254740991,
   placeholder,
 }) => {
+  const isControlled = value !== undefined;
+  const initialValue = defaultValue ?? value ?? 0;
+
+  const [internalValue, setInternalValue] = useState(initialValue);
   const [displayValue, setDisplayValue] = useState(
-    defaultValue !== undefined
-      ? defaultValue.toFixed(precision)
-      : value.toFixed(precision),
+    initialValue.toFixed(precision),
   );
+  const [prevValue, setPrevValue] = useState(initialValue);
 
-  const [prevValue, setPrevValue] = useState(
-    defaultValue !== undefined ? defaultValue : value,
-  );
+  const currentValue = isControlled ? value : internalValue;
 
-  if (value !== prevValue) {
+  if (isControlled && value !== prevValue) {
     setDisplayValue(value.toFixed(precision));
     setPrevValue(value);
   }
+
+  const handleChange = (newValue: number) => {
+    if (!isControlled) {
+      setInternalValue(newValue);
+    }
+    onChange?.(newValue);
+  };
 
   return (
     <div
@@ -64,7 +83,7 @@ export const NumberField: FC<Props> = ({
         aria-required={isRequired}
         aria-valuemax={max}
         aria-valuemin={min}
-        aria-valuenow={value}
+        aria-valuenow={currentValue}
         autoComplete="off"
         autoCorrect="off"
         className={cn(
@@ -76,7 +95,7 @@ export const NumberField: FC<Props> = ({
         inputMode="decimal"
         onBlur={() => {
           const newValue = between(cast(displayValue, precision), min, max);
-          onChange(newValue);
+          handleChange(newValue);
           setDisplayValue(newValue.toFixed(precision));
         }}
         onChange={(e) => {
@@ -92,7 +111,7 @@ export const NumberField: FC<Props> = ({
               min,
               max,
             );
-            onChange(newValue);
+            handleChange(newValue);
             setDisplayValue(newValue.toFixed(precision));
           }
           if (e.key === 'ArrowDown') {
@@ -101,7 +120,7 @@ export const NumberField: FC<Props> = ({
               min,
               max,
             );
-            onChange(newValue);
+            handleChange(newValue);
             setDisplayValue(newValue.toFixed(precision));
           }
         }}
@@ -124,7 +143,7 @@ export const NumberField: FC<Props> = ({
               min,
               max,
             );
-            onChange(newValue);
+            handleChange(newValue);
             setDisplayValue(newValue.toFixed(precision));
           }}
           tabIndex={-1}
@@ -145,7 +164,7 @@ export const NumberField: FC<Props> = ({
               min,
               max,
             );
-            onChange(newValue);
+            handleChange(newValue);
             setDisplayValue(newValue.toFixed(precision));
           }}
           tabIndex={-1}

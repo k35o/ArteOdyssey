@@ -1,7 +1,7 @@
 import type { ChangeEventHandler, FC } from 'react';
 import { cn } from './../../../helpers/cn';
 
-type Props = {
+type BaseProps = {
   id?: string;
   name?: string;
   describedbyId?: string | undefined;
@@ -9,10 +9,21 @@ type Props = {
   isDisabled: boolean;
   isRequired: boolean;
   placeholder?: string;
+};
+
+type ControlledProps = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
   defaultValue?: string;
-  value?: string;
+  value?: never;
   onChange?: ChangeEventHandler<HTMLInputElement>;
 };
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const TextField: FC<Props> = ({
   id,

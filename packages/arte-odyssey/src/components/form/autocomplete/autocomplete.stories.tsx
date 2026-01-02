@@ -5,7 +5,7 @@ import { Autocomplete } from './autocomplete';
 const meta: Meta<typeof Autocomplete> = {
   title: 'components/form/autocomplete',
   component: Autocomplete,
-  render: (props) => {
+  render: ({ id, describedbyId, isInvalid, isDisabled, isRequired }) => {
     const options = [
       { value: '2', label: '2進数' },
       { value: '8', label: '8進数' },
@@ -16,7 +16,11 @@ const meta: Meta<typeof Autocomplete> = {
 
     return (
       <Autocomplete
-        {...props}
+        describedbyId={describedbyId}
+        id={id}
+        isDisabled={isDisabled}
+        isInvalid={isInvalid}
+        isRequired={isRequired}
         onChange={setValue}
         options={options}
         value={value}

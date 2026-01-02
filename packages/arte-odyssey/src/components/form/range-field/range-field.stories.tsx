@@ -26,23 +26,39 @@ export default meta;
 type Story = StoryObj<typeof RangeField>;
 
 export const Default: Story = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value || 50);
+  render: ({
+    id,
+    describedbyId,
+    isInvalid,
+    isDisabled,
+    isRequired,
+    step,
+    max,
+    min,
+    showValue,
+    unit,
+  }) => {
+    const [value, setValue] = useState(50);
     return (
       <div className="w-80">
         <RangeField
-          {...args}
-          onChange={(newValue) => {
-            setValue(newValue);
-            args.onChange(newValue);
-          }}
+          describedbyId={describedbyId}
+          id={id}
+          isDisabled={isDisabled}
+          isInvalid={isInvalid}
+          isRequired={isRequired}
+          max={max}
+          min={min}
+          onChange={setValue}
+          showValue={showValue}
+          step={step}
+          unit={unit}
           value={value}
         />
       </div>
     );
   },
   args: {
-    value: 50,
     min: 0,
     max: 100,
     step: 1,
@@ -54,23 +70,39 @@ export const Default: Story = {
 };
 
 export const WithUnit: Story = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value || 200);
+  render: ({
+    id,
+    describedbyId,
+    isInvalid,
+    isDisabled,
+    isRequired,
+    step,
+    max,
+    min,
+    showValue,
+    unit,
+  }) => {
+    const [value, setValue] = useState(200);
     return (
       <div className="w-80">
         <RangeField
-          {...args}
-          onChange={(newValue) => {
-            setValue(newValue);
-            args.onChange(newValue);
-          }}
+          describedbyId={describedbyId}
+          id={id}
+          isDisabled={isDisabled}
+          isInvalid={isInvalid}
+          isRequired={isRequired}
+          max={max}
+          min={min}
+          onChange={setValue}
+          showValue={showValue}
+          step={step}
+          unit={unit}
           value={value}
         />
       </div>
     );
   },
   args: {
-    value: 200,
     min: 100,
     max: 500,
     step: 10,
@@ -83,23 +115,39 @@ export const WithUnit: Story = {
 };
 
 export const WithoutValue: Story = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value || 75);
+  render: ({
+    id,
+    describedbyId,
+    isInvalid,
+    isDisabled,
+    isRequired,
+    step,
+    max,
+    min,
+    showValue,
+    unit,
+  }) => {
+    const [value, setValue] = useState(75);
     return (
       <div className="w-80">
         <RangeField
-          {...args}
-          onChange={(newValue) => {
-            setValue(newValue);
-            args.onChange(newValue);
-          }}
+          describedbyId={describedbyId}
+          id={id}
+          isDisabled={isDisabled}
+          isInvalid={isInvalid}
+          isRequired={isRequired}
+          max={max}
+          min={min}
+          onChange={setValue}
+          showValue={showValue}
+          step={step}
+          unit={unit}
           value={value}
         />
       </div>
     );
   },
   args: {
-    value: 75,
     min: 0,
     max: 100,
     step: 5,
@@ -111,23 +159,39 @@ export const WithoutValue: Story = {
 };
 
 export const Disabled: Story = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value || 30);
+  render: ({
+    id,
+    describedbyId,
+    isInvalid,
+    isDisabled,
+    isRequired,
+    step,
+    max,
+    min,
+    showValue,
+    unit,
+  }) => {
+    const [value, setValue] = useState(30);
     return (
       <div className="w-80">
         <RangeField
-          {...args}
-          onChange={(newValue) => {
-            setValue(newValue);
-            args.onChange(newValue);
-          }}
+          describedbyId={describedbyId}
+          id={id}
+          isDisabled={isDisabled}
+          isInvalid={isInvalid}
+          isRequired={isRequired}
+          max={max}
+          min={min}
+          onChange={setValue}
+          showValue={showValue}
+          step={step}
+          unit={unit}
           value={value}
         />
       </div>
     );
   },
   args: {
-    value: 30,
     min: 0,
     max: 100,
     step: 1,
@@ -139,23 +203,39 @@ export const Disabled: Story = {
 };
 
 export const Invalid: Story = {
-  render: (args) => {
-    const [value, setValue] = useState(args.value || 90);
+  render: ({
+    id,
+    describedbyId,
+    isInvalid,
+    isDisabled,
+    isRequired,
+    step,
+    max,
+    min,
+    showValue,
+    unit,
+  }) => {
+    const [value, setValue] = useState(90);
     return (
       <div className="w-80">
         <RangeField
-          {...args}
-          onChange={(newValue) => {
-            setValue(newValue);
-            args.onChange(newValue);
-          }}
+          describedbyId={describedbyId}
+          id={id}
+          isDisabled={isDisabled}
+          isInvalid={isInvalid}
+          isRequired={isRequired}
+          max={max}
+          min={min}
+          onChange={setValue}
+          showValue={showValue}
+          step={step}
+          unit={unit}
           value={value}
         />
       </div>
     );
   },
   args: {
-    value: 90,
     min: 0,
     max: 100,
     step: 1,
