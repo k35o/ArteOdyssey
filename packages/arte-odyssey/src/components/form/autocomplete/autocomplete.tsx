@@ -4,17 +4,28 @@ import type { Option } from '../../../types/variables';
 import { IconButton } from '../../icon-button';
 import { CloseIcon } from '../../icons';
 
-type Props = {
+type BaseProps = {
   id: string;
   describedbyId: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
   isRequired: boolean;
   options: readonly Option[];
-  value?: string[];
-  defaultValue?: string[];
-  onChange: (value: string[]) => void;
 };
+
+type ControlledProps = {
+  value: string[];
+  onChange: (value: string[]) => void;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
+  defaultValue?: string[];
+  value?: never;
+  onChange?: (value: string[]) => void;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Autocomplete: FC<Props> = ({
   id,
@@ -43,7 +54,7 @@ export const Autocomplete: FC<Props> = ({
       if (!isControlled) {
         setInternalValue(newValue);
       }
-      onChange(newValue);
+      onChange?.(newValue);
     },
     [isControlled, onChange],
   );

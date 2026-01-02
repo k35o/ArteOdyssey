@@ -3,17 +3,28 @@ import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 import { ChevronIcon } from '../../icons';
 
-type Props = {
+type BaseProps = {
   id: string;
   describedbyId: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
   isRequired: boolean;
   options: readonly Option[];
-  value: string;
-  defaultValue?: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
 };
+
+type ControlledProps = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
+  defaultValue?: string;
+  value?: never;
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Select: FC<Props> = ({
   id,

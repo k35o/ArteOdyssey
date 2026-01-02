@@ -2,14 +2,25 @@ import type { ChangeEventHandler, FC } from 'react';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 
-type Props = {
+type BaseProps = {
   labelId: string;
   isDisabled: boolean;
-  value: string;
-  defaultValue?: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
   options: readonly Option[];
 };
+
+type ControlledProps = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
+  defaultValue?: string;
+  value?: never;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Radio: FC<Props> = ({
   labelId,
@@ -37,12 +48,16 @@ export const Radio: FC<Props> = ({
           key={option.value}
         >
           <input
-            checked={value === option.value}
+            checked={value !== undefined ? value === option.value : undefined}
             className={cn(
               'cursor-pointer',
               'disabled:cursor-not-allowed disabled:bg-bg-mute',
             )}
-            defaultChecked={defaultValue === option.value}
+            defaultChecked={
+              defaultValue !== undefined
+                ? defaultValue === option.value
+                : undefined
+            }
             disabled={isDisabled}
             onChange={onChange}
             type="radio"
