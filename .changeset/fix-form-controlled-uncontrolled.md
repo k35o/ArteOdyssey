@@ -11,3 +11,5 @@
 - Radio, Checkbox
 - NumberField, RangeField
 - Autocomplete
+
+また、RangeField と FileField に `w-full` を追加し、親要素の幅に合わせて伸びるようにしました。

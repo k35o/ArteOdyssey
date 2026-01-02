@@ -56,7 +56,7 @@ export const RangeField: FC<Props> = ({
   };
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex w-full items-center gap-4">
       <input
         aria-describedby={describedbyId}
         aria-invalid={isInvalid}

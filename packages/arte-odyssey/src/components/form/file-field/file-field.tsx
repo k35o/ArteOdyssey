@@ -137,24 +137,26 @@ const Root = ({
 
   return (
     <FileFieldProvider value={contextValue}>
-      <input
-        accept={accept}
-        aria-describedby={describedbyId}
-        aria-invalid={isInvalid}
-        className="sr-only"
-        disabled={isDisabled}
-        id={id ?? generatedId}
-        multiple={multiple}
-        name={name}
-        onChange={onFilesChange}
-        ref={inputRef}
-        required={isRequired}
-        type="file"
-        // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため
-        // Baseline 2025の機能なので、利用に問題はない
-        webkitdirectory={webkitDirectory ? 'true' : undefined}
-      />
-      {children}
+      <div className="w-full">
+        <input
+          accept={accept}
+          aria-describedby={describedbyId}
+          aria-invalid={isInvalid}
+          className="sr-only"
+          disabled={isDisabled}
+          id={id ?? generatedId}
+          multiple={multiple}
+          name={name}
+          onChange={onFilesChange}
+          ref={inputRef}
+          required={isRequired}
+          type="file"
+          // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため
+          // Baseline 2025の機能なので、利用に問題はない
+          webkitdirectory={webkitDirectory ? 'true' : undefined}
+        />
+        {children}
+      </div>
     </FileFieldProvider>
   );
 };
