@@ -144,7 +144,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     >
       {selectedId === id && (
         <motion.div
-          className="-bottom-0.5 absolute right-0 left-0 h-1 bg-primary-border"
+          className="absolute right-0 -bottom-0.5 left-0 h-1 bg-primary-border"
           layoutId="underline"
         />
       )}

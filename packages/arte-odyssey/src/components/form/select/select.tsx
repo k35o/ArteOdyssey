@@ -50,7 +50,7 @@ export const Select: FC<Props> = ({
           </option>
         ))}
       </select>
-      <div className="-translate-y-1/2 absolute top-2/4 right-3">
+      <div className="absolute top-2/4 right-3 -translate-y-1/2">
         <ChevronIcon direction="down" size="sm" />
       </div>
     </div>

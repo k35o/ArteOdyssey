@@ -64,7 +64,7 @@
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
     "check": "biome check",
-    "check:write": "biome check --write"
+    "check:write": "biome check --write --unsafe"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.16",
