@@ -1,5 +1,22 @@
 # @k8o/arte-odyssey
 
+## 1.4.3
+
+### Patch Changes
+
+- [#185](https://github.com/k35o/ArteOdyssey/pull/185) [`c94af38`](https://github.com/k35o/ArteOdyssey/commit/c94af38854c72a30eacebc79a992d3372ea17f9a) Thanks [@k35o](https://github.com/k35o)! - フォームコンポーネントの value と defaultValue を排他的な型に変更
+
+  制御コンポーネント（value + onChange）と非制御コンポーネント（defaultValue）を同時に指定できないように型定義を修正しました。これにより、React の警告や予期しない動作を防ぎます。
+
+  対象コンポーネント:
+
+  - TextField, Textarea, Select
+  - Radio, Checkbox
+  - NumberField, RangeField
+  - Autocomplete
+
+  また、RangeField と FileField に `w-full` を追加し、親要素の幅に合わせて伸びるようにしました。
+
 ## 1.4.2
 
 ### Patch Changes
