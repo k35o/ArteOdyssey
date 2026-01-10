@@ -1,0 +1,91 @@
+name: Renovate Auto Merge
+
+on:
+  workflow_run:
+    workflows: ['CI']
+    types:
+      - completed
+
+jobs:
+  claude-review-and-merge:
+    if: |
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.actor.login == 'renovate[bot]'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: read
+      id-token: write
+      actions: read
+
+    steps:
+      - name: Get PR info
+        id: pr
+        env:
+          PULL_REQUESTS: ${{ toJSON(github.event.workflow_run.pull_requests) }}
+        run: |
+          PR_NUMBER=$(echo "$PULL_REQUESTS" | jq -r '.[0].number // empty')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "number=$PR_NUMBER" >> $GITHUB_OUTPUT
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repository
+        if: steps.pr.outputs.exists == 'true'
+        uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
+        with:
+          fetch-depth: 1
+
+      - name: Run Claude Code Review
+        if: steps.pr.outputs.exists == 'true'
+        id: claude-review
+        uses: anthropics/claude-code-action@5d91d7d2179c3f97ad69bd2926759326b0680fde
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          use_sticky_comment: true
+          claude_args: |
+            --allowedTools mcp__github__create_pending_pull_request_review,mcp__github__submit_pending_pull_request_review,mcp__github__get_pull_request_diff,mcp__github__get_pull_request_files
+            --system-prompt "日本語で応答してください。"
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ steps.pr.outputs.number }}
+
+            ## Role
+            You are a code reviewer for dependency update PRs created by Renovate.
+            You have access to tools to gather PR information and perform the review on GitHub.
+
+            ## Task
+            1. Review the dependency updates in this PR
+            2. Check for any potential breaking changes or security concerns
+            3. If the changes look safe (typical version bumps with passing CI), APPROVE the PR
+            4. If there are concerns (major version bumps, deprecated packages, security issues), REQUEST_CHANGES with details
+
+            ## Review Criteria for Renovate PRs
+            - Minor/patch version updates: Generally safe to approve if CI passes
+            - Major version updates: Check changelog for breaking changes
+            - Security updates: Prioritize approval
+            - Deprecated packages: Flag for manual review
+
+            ## Important
+            - All feedback must be left on GitHub
+            - If everything looks good and CI has passed, approve the PR with action: APPROVE
+            - Only request changes if there are genuine concerns
+
+      - name: Check review decision and merge
+        if: steps.pr.outputs.exists == 'true' && success()
+        run: |
+          PR_NUMBER=${{ steps.pr.outputs.number }}
+          REVIEW_DECISION=$(gh pr view $PR_NUMBER --json reviewDecision --jq '.reviewDecision')
+          echo "Review decision: $REVIEW_DECISION"
+          if [ "$REVIEW_DECISION" = "APPROVED" ]; then
+            echo "PR is approved, proceeding with merge"
+            gh pr merge $PR_NUMBER --squash --auto
+          else
+            echo "PR is not approved (decision: $REVIEW_DECISION), skipping merge"
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
