@@ -73,7 +73,7 @@
     "esbuild": "0.27.2",
     "lucide-react": "0.562.0",
     "motion": "12.23.26",
-    "react-error-boundary": "6.0.0",
+    "react-error-boundary": "6.0.1",
     "tailwind-merge": "3.4.0"
   },
   "devDependencies": {
