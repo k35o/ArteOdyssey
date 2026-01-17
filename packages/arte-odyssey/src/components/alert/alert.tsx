@@ -13,13 +13,13 @@ const STATUS_LABEL = {
   info: '情報',
   warning: '警告',
   error: 'エラー',
-} as const;
+} as const satisfies Record<Status, string>;
 
 export const Alert: FC<Props> = ({ status, message }) => {
   return (
     <div
       className={cn(
-        'flex items-center gap-2 rounded-md p-4',
+        'flex items-center gap-3 rounded-lg p-4',
         status === 'success' && 'bg-bg-success',
         status === 'info' && 'bg-bg-info',
         status === 'warning' && 'bg-bg-warning',
@@ -29,30 +29,27 @@ export const Alert: FC<Props> = ({ status, message }) => {
     >
       <span
         className={cn(
-          'size-8',
           status === 'success' && 'text-fg-success',
           status === 'info' && 'text-fg-info',
           status === 'warning' && 'text-fg-warning',
           status === 'error' && 'text-fg-error',
         )}
       >
-        <AlertIcon size="lg" status={status} />
+        <AlertIcon size="md" status={status} />
         <span className="sr-only">{STATUS_LABEL[status]}</span>
       </span>
       {Array.isArray(message) ? (
         message.length > 1 ? (
-          <ul className="ml-4 list-disc">
+          <ul className="space-y-1">
             {message.map((msg) => (
-              <li className="text-lg" key={msg}>
-                {msg}
-              </li>
+              <li key={msg}>{msg}</li>
             ))}
           </ul>
         ) : (
-          <p className="font-bold text-lg">{message[0]}</p>
+          <p className="font-bold">{message[0]}</p>
         )
       ) : (
-        <p className="font-bold text-lg">{message}</p>
+        <p className="font-bold">{message}</p>
       )}
     </div>
   );
