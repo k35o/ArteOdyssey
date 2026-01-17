@@ -48,7 +48,6 @@ import {
 } from './lucide';
 import { QiitaIcon } from './qiita';
 import { TwitterIcon } from './twitter';
-import { ZennIcon } from './zenn';
 
 const meta: Meta<typeof SVGAElement> = {
   title: 'components/icons',
@@ -264,10 +263,6 @@ export const Primary: Story = {
         <div className="flex flex-col items-center justify-center">
           <QiitaIcon />
           <p className="text-center">Qiita</p>
-        </div>
-        <div className="flex flex-col items-center justify-center">
-          <ZennIcon />
-          <p className="text-center">Zenn</p>
         </div>
         <div className="flex flex-col items-center justify-center">
           <ArteOdyssey />

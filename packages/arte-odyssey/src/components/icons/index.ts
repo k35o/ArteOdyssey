@@ -4,4 +4,3 @@ export * from './logo';
 export * from './lucide';
 export * from './qiita';
 export * from './twitter';
-export * from './zenn';
