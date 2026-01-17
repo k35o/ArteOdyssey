@@ -84,7 +84,7 @@ jobs:
           echo "Review decision: $REVIEW_DECISION"
           if [ "$REVIEW_DECISION" = "APPROVED" ]; then
             echo "PR is approved, proceeding with merge"
-            gh pr merge $PR_NUMBER --squash --auto
+            gh pr merge $PR_NUMBER --merge --auto
           else
             echo "PR is not approved (decision: $REVIEW_DECISION), skipping merge"
           fi
