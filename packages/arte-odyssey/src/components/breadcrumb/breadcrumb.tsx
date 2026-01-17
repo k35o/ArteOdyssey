@@ -11,7 +11,7 @@ const List: FC<
     <nav aria-label="パンクズリスト">
       <ol
         className={cn(
-          'flex list-none items-center gap-1 font-bold text-fg-mute',
+          'flex list-none items-center gap-1 text-fg-mute',
           size === 'sm' && 'text-xs',
           size === 'md' && 'text-xs md:text-md',
           size === 'lg' && 'text-xl md:text-2xl',
@@ -49,7 +49,10 @@ const _Link = <T extends string>({
   return current ? (
     <span className="text-fg-base">{children}</span>
   ) : (
-    <Link className="text-fg-mute underline hover:text-fg-base" href={href}>
+    <Link
+      className="underline transition-colors hover:text-fg-base focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info"
+      href={href}
+    >
       {children}
     </Link>
   );
