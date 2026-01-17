@@ -1,6 +1,5 @@
 'use client';
 
-import * as motion from 'motion/react-client';
 import type { FC, PropsWithChildren } from 'react';
 import { cn } from './../../helpers/cn';
 import { ChevronIcon } from '../icons';
@@ -16,21 +15,23 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       aria-controls={`${id}-panel`}
       aria-expanded={open}
       className={cn(
-        'flex w-full flex-row items-center justify-between rounded-md p-2',
-        'hover:bg-bg-mute',
-        'focus-visible::first:bordertransparent focus-visible:bg-bg-mute focus-visible::first:outline-none focus-visible::first:ring-2 focus-visible::first:ring-border-info',
+        'flex w-full cursor-pointer items-center justify-between rounded-md py-4 text-fg-base',
+        'hover:text-primary-fg',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info',
       )}
       id={`${id}-button`}
       onClick={toggleOpen}
       type="button"
     >
       {children}
-      <motion.span
-        animate={open ? { rotate: 180 } : { rotate: 0 }}
-        transition={{ duration: 0.3 }}
+      <span
+        className={cn(
+          'transition-transform duration-150',
+          open && 'rotate-180',
+        )}
       >
         <ChevronIcon direction="down" />
-      </motion.span>
+      </span>
     </button>
   );
 };

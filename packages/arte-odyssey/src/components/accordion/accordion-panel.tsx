@@ -10,7 +10,7 @@ export const AccordionPanel: FC<PropsWithChildren> = ({ children }) => {
   return (
     <section
       aria-labelledby={`${id}-button`}
-      className={cn({ hidden: !open }, 'p-2')}
+      className={cn({ hidden: !open }, 'pb-4')}
       hidden={!open}
       id={`${id}-panel`}
     >
