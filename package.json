@@ -20,12 +20,12 @@
     "release": "pnpm build && changeset publish"
   },
   "engines": {
-    "node": "24.12.0"
+    "node": "24.13.0"
   },
   "devEngines": {
     "runtime": {
       "name": "node",
-      "version": "^22.18.0",
+      "version": "^24.13.0",
       "onFail": "download"
     }
   },
