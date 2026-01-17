@@ -21,15 +21,16 @@ export const Anchor = <T extends string>({
   }) => ReactNode;
 }) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
+  const baseClassName =
+    'text-fg-info underline transition-colors hover:text-fg-info/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info focus-visible:rounded-sm';
   const props =
     type === 'internal'
       ? {
-          className: 'text-fg-info cursor-pointer underline',
+          className: baseClassName,
           children,
         }
       : {
-          className:
-            'text-fg-info inline-flex cursor-pointer items-center gap-0.5 underline',
+          className: `${baseClassName} inline-flex items-center gap-0.5`,
           target: '_blank',
           rel: 'noopener noreferrer',
           children: (
