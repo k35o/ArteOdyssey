@@ -271,9 +271,6 @@
 }
 
 @theme inline {
-  /* TODO: spacingをもっと定義する */
-  --spacing-lg: 32rem;
-
   --color-*: initial;
   --color-fg-base: var(--fg-base);
   --color-fg-subtle: var(--fg-subtle);
