@@ -47,7 +47,7 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           use_sticky_comment: true
-          claude_args: '--system-prompt "日本語で応答してください。"'
+          claude_args: '--system-prompt "日本語で応答してください。" --allowedTools "Bash(gh pr view*),Bash(gh pr review*)"'
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ steps.pr.outputs.number }}
@@ -57,10 +57,12 @@ jobs:
             You have access to tools to gather PR information and perform the review on GitHub.
 
             ## Task
-            1. Review the dependency updates in this PR
-            2. Check for any potential breaking changes or security concerns
-            3. If the changes look safe (typical version bumps with passing CI), APPROVE the PR
-            4. If there are concerns (major version bumps, deprecated packages, security issues), REQUEST_CHANGES with details
+            1. First, get PR details using: `gh pr view ${{ steps.pr.outputs.number }} --json title,body,files,commits`
+            2. Review the dependency updates in this PR
+            3. Check for any potential breaking changes or security concerns
+            4. Submit your review using the gh CLI:
+               - If safe: `gh pr review ${{ steps.pr.outputs.number }} --approve --body "Your approval message"`
+               - If concerns: `gh pr review ${{ steps.pr.outputs.number }} --request-changes --body "Your concerns"`
 
             ## Review Criteria for Renovate PRs
             - Minor/patch version updates: Generally safe to approve if CI passes
@@ -69,8 +71,9 @@ jobs:
             - Deprecated packages: Flag for manual review
 
             ## Important
-            - All feedback must be left on GitHub
-            - If everything looks good and CI has passed, approve the PR with action: APPROVE
+            - You MUST use `gh pr review` command to submit your review
+            - CI has already passed (this workflow only runs on CI success)
+            - If everything looks good, approve the PR using `gh pr review --approve`
             - Only request changes if there are genuine concerns
 
       - name: Check review decision and merge
