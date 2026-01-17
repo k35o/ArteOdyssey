@@ -38,7 +38,7 @@ export const BaselineStatus: FC<{ featureId: string }> = ({ featureId }) => {
     // TODO: レスポンシブな見た目に対応する
     return (
       <div
-        className="max-w-full animate-pulse rounded-md border border-border-base bg-bg-base p-4"
+        className="max-w-full animate-pulse rounded-lg border border-border-base bg-bg-base p-4"
         style={{ height: '120px' }}
       />
     );
@@ -46,7 +46,7 @@ export const BaselineStatus: FC<{ featureId: string }> = ({ featureId }) => {
 
   return (
     <baseline-status
-      className="wrap-normal max-w-full rounded-md border border-border-base bg-bg-base p-4"
+      className="wrap-normal max-w-full rounded-lg border border-border-base bg-bg-base p-4"
       featureId={featureId}
     />
   );
