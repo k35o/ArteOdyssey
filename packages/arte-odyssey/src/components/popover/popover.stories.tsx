@@ -26,15 +26,15 @@ export const Default: Story = {
       <Popover.Trigger
         renderItem={(props) => (
           <Button {...props} size="md" type="button">
-            Popover
+            メニュー
           </Button>
         )}
       />
       <Popover.Content
         renderItem={(props) => (
-          <div className="rounded-sm bg-bg-mute p-4 shadow-md" {...props}>
+          <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
             {/** biome-ignore lint/a11y/useFocusableInteractive: storyなので妥協 */}
-            <div role="menuitem">Popover content</div>
+            <div role="menuitem">ポップオーバーのコンテンツ</div>
           </div>
         )}
       />
@@ -42,7 +42,7 @@ export const Default: Story = {
   ),
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
-      name: 'Popover',
+      name: 'メニュー',
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
