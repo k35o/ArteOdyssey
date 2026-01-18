@@ -113,7 +113,7 @@ export const Modal: FC<
     <motion.dialog
       animate={realDialogOpen ? 'open' : 'closed'}
       className={cn(
-        'border-border-mute bg-bg-base shadow-xl backdrop:bg-back-drop',
+        'border-border-mute bg-bg-base shadow-md backdrop:bg-back-drop',
         type === 'center' &&
           'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg dark:border',
         type === 'bottom' &&
