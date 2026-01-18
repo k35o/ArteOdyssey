@@ -5,6 +5,7 @@ const meta: Meta<typeof Radio> = {
   title: 'components/form/radio',
   component: Radio,
   args: {
+    name: 'radio-group',
     labelId: 'radio',
     options: [
       { value: '0', label: 'はい' },

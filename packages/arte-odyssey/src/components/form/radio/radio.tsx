@@ -3,6 +3,7 @@ import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 
 type BaseProps = {
+  name: string;
   labelId: string;
   isDisabled: boolean;
   options: readonly Option[];
@@ -23,6 +24,7 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Radio: FC<Props> = ({
+  name,
   labelId,
   isDisabled,
   value,
@@ -59,6 +61,7 @@ export const Radio: FC<Props> = ({
                 : undefined
             }
             disabled={isDisabled}
+            name={name}
             onChange={onChange}
             type="radio"
             value={option.value}
