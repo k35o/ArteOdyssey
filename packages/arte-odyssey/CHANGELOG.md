@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 2.0.1
+
+### Patch Changes
+
+- [#212](https://github.com/k35o/ArteOdyssey/pull/212) [`723668d`](https://github.com/k35o/ArteOdyssey/commit/723668dfd319bbe5f5a82d0de4d782adc1d64993) Thanks [@k35o](https://github.com/k35o)! - Card, InteractiveCard: border を shadow-sm に変更し、よりソフトな見た目に
+
 ## 2.0.0
 
 ### Major Changes
