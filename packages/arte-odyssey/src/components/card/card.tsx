@@ -10,16 +10,16 @@ export const Card: FC<CardProps> = ({
 }) => (
   <section
     className={cn(
-      'rounded-lg bg-bg-base/90 shadow-md',
+      'overflow-hidden rounded-lg border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
-      variant === 'primary' && 'bg-bg-base/90',
+      variant === 'primary' && 'bg-bg-base',
       variant === 'secondary' && 'bg-bg-mute',
     )}
   >
     {title && (
-      <div className="flex justify-center rounded-t-lg bg-linear-60 from-primary-bg-mute to-secondary-bg-mute p-4">
-        <p className="font-bold text-xl">{title}</p>
+      <div className="border-border-mute border-b bg-primary-bg/10 px-4 py-3">
+        <p className="font-bold">{title}</p>
       </div>
     )}
     {children}
