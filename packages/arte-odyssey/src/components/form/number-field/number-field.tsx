@@ -71,8 +71,8 @@ export const NumberField: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex h-12 w-full items-center justify-between gap-2 rounded-md border border-border-base bg-bg-base shadow-xs',
-        'focus-within:bordertransparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        'relative flex h-12 w-full items-center justify-between gap-2 rounded-lg border border-border-base bg-bg-base',
+        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
       )}

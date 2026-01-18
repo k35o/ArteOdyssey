@@ -196,7 +196,7 @@ const ItemList: FC<{
 
         return (
           <li
-            className="flex items-center justify-between rounded-md border border-border-base bg-bg-base px-3 py-2"
+            className="flex items-center justify-between rounded-lg border border-border-base bg-bg-base px-3 py-2"
             key={id}
           >
             <div className="flex flex-col gap-1">

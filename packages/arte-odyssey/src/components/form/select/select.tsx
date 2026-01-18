@@ -44,7 +44,7 @@ export const Select: FC<Props> = ({
         aria-invalid={isInvalid}
         aria-required={isRequired}
         className={cn(
-          'w-full appearance-none rounded-md border border-border-base bg-bg-base px-3 py-2 shadow-xs',
+          'w-full appearance-none rounded-lg border border-border-base bg-bg-base px-3 py-2 text-fg-base',
           'aria-invalid:border-border-error',
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',

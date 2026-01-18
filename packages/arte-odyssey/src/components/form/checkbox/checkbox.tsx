@@ -58,7 +58,8 @@ export const Checkbox: FC<Props> = ({
         aria-hidden={true}
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2',
-          isFocus && 'bordertransparent outline-hidden ring-2 ring-border-info',
+          isFocus &&
+            'border-transparent outline-hidden ring-2 ring-border-info',
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
