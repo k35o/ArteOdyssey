@@ -44,37 +44,66 @@ import { Button } from '@k8o/arte-odyssey/button';
 Primary は Teal、Secondary は Cyan。状態色は標準的なセマンティックカラー。
 
 ```tsx
-// 背景
+// 背景（強度順）
 className="bg-bg-base"      // 基本背景（白/黒）
-className="bg-bg-subtle"    // 控えめな背景
-className="bg-bg-mute"      // さらに控えめ
+className="bg-bg-subtle"    // 軽い強調
+className="bg-bg-mute"      // ホバー状態用
+className="bg-bg-emphasize" // アクティブ状態用
+
+// プライマリカラー（強度順）
+className="bg-primary-bg"     // 柔らかい（プログレスバー等）
+className="border-primary-border" // 中間（アンダーライン等）
+className="text-primary-fg"   // 強い（テキスト等）
 
 // テキスト
 className="text-fg-base"    // 基本テキスト
 className="text-fg-mute"    // 控えめなテキスト
-className="text-primary-fg" // アクセント
 
 // ボーダー
 className="border-border-mute"  // 控えめな区切り
+className="border-border-base"  // 標準の区切り
 ```
 
 ### 角丸
 
-控えめな丸み。
+**`rounded-lg` を基本とする。**
 
 | 用途 | クラス |
 |------|--------|
-| Badge 等小さい要素 | `rounded-sm` (0.375rem) |
-| Button, Input | `rounded-md` (0.5rem) |
-| Card, Modal | `rounded-lg` (0.75rem) |
+| Badge 等小さい要素 | `rounded-sm` |
+| **Button, Input, Card, Modal** | `rounded-lg` |
+| プログレスバー、IconButton | `rounded-full` |
 
 ### シャドウ
 
-基本的に使わない。使う場合は薄く。
+基本的に使わない。使う場合は `shadow-md` まで。
 
-- Card: `shadow-sm` または border のみ
-- Modal/Dialog: `shadow-md`
-- Button: なし
+| 用途 | スタイル |
+|------|----------|
+| Card | border のみ (`border border-border-mute`) |
+| Modal/Dialog/Tooltip | `shadow-md` |
+| Dropdown/ListBox | `shadow-md` |
+| Button | なし |
+
+### インタラクティブ状態
+
+穏やかな色変化で、強すぎない視覚フィードバックを。
+
+```tsx
+// ホバー → bg-bg-mute（強い色を使わない）
+className="hover:bg-bg-mute"
+
+// フォーカス → ring で表現
+className="focus-visible:ring-2 focus-visible:ring-border-info"
+
+// アクティブ
+className="active:bg-bg-emphasize"
+
+// 必ず transition-colors を付ける
+className="transition-colors hover:bg-bg-mute"
+```
+
+**重要**: ホバーに `bg-primary-bg` など強い色を使わない。`bg-bg-mute` を優先。
 
 ### 余白
 
@@ -84,6 +113,9 @@ className="border-border-mute"  // 控えめな区切り
 // コンポーネント内部
 className="p-6"  // 標準
 className="p-8"  // ゆったり
+
+// リストアイテム
+className="px-3 py-2"
 
 // テキスト間
 className="mt-2" // 狭め
@@ -99,11 +131,14 @@ className="mt-12" // 広め
 控えめで自然な動き。
 
 ```tsx
-className="transition-colors duration-150 ease-out"  // ホバー
-className="transition-opacity duration-200 ease-out" // フェード
+// 色の変化（基本）
+className="transition-colors"
+
+// サイズ変化を伴う場合
+className="transition-all"
 ```
 
-- 150ms 以下を基本
+- 150〜200ms を基本
 - bounce, spring 系は避ける
 - 必要なフィードバックのみ
 
@@ -113,39 +148,72 @@ className="transition-opacity duration-200 ease-out" // フェード
 
 | 用途 | クラス |
 |------|--------|
-| 本文 | `font-normal` |
+| 本文 | デフォルト |
 | 強調 | `font-medium` (450) |
 | 見出し | `font-bold` (700) |
 
 ## コンポーネント使用例
 
-### Button
+### Button / LinkButton
+
+`color` と `variant` で統一されたスタイル。
 
 ```tsx
 import { Button } from '@k8o/arte-odyssey/button';
+import { LinkButton } from '@k8o/arte-odyssey/link-button';
 
-<Button size="md" color="primary" variant="contained">
+// プライマリボタン
+<Button color="primary" variant="contained">
   保存する
 </Button>
 
-<Button variant="outlined" color="gray">
+// グレーボタン
+<Button color="gray" variant="outlined">
   キャンセル
 </Button>
 
+// スケルトン（テキストのみ）
 <Button variant="skeleton">
   詳細を見る
 </Button>
+
+// リンクボタン（同じ props）
+<LinkButton href="/settings" color="gray">
+  設定へ
+</LinkButton>
+```
+
+### IconButton / IconLink
+
+`bg` でスタイルを統一。
+
+```tsx
+import { IconButton } from '@k8o/arte-odyssey/icon-button';
+import { IconLink } from '@k8o/arte-odyssey/icon-link';
+import { CopyIcon } from '@k8o/arte-odyssey/icons';
+
+<IconButton bg="transparent" label="コピー">
+  <CopyIcon />
+</IconButton>
+
+<IconButton bg="primary" label="送信">
+  <SendIcon />
+</IconButton>
+
+<IconLink href="/home" bg="base" label="ホーム">
+  <HomeIcon />
+</IconLink>
 ```
 
 ### Card
+
+シャドウなし、ボーダーのみ。
 
 ```tsx
 import { Card } from '@k8o/arte-odyssey/card';
 
 <Card title="設定">
-  <div className="p-6">
-    {/* コンテンツ */}
-  </div>
+  <p>カードのコンテンツ</p>
 </Card>
 ```
 
@@ -155,22 +223,37 @@ import { Card } from '@k8o/arte-odyssey/card';
 import { TextField } from '@k8o/arte-odyssey/text-field';
 
 <TextField
-  label="メールアドレス"
+  id="email"
+  defaultValue=""
   placeholder="example@mail.com"
-  value={value}
-  onChange={onChange}
 />
+```
+
+### Separator
+
+色を選択可能。
+
+```tsx
+import { Separator } from '@k8o/arte-odyssey/separator';
+
+<Separator />                    // base（デフォルト）
+<Separator color="mute" />       // より控えめ
+<Separator color="subtle" />     // さらに控えめ
+<Separator orientation="vertical" />
 ```
 
 ## やってはいけないこと
 
-- 過度なグラデーション
-- 派手なシャドウ (shadow-lg, shadow-xl)
+- グラデーション
+- 強いシャドウ (`shadow-xl` 以上)
+- ホバーに強い原色 (`bg-primary-bg`)
+- 透明度による状態表現 (`/90` など)
 - 長いアニメーション (300ms超)
 - 情報の詰め込み
 - 彩度の高い色の多用
 
 ## 詳細リファレンス
 
+- デザイン原則: [DESIGN_PRINCIPLES.md](../../../DESIGN_PRINCIPLES.md)
 - デザイントークン一覧: [references/tokens.md](references/tokens.md)
 - 利用可能コンポーネント: [references/components.md](references/components.md)
