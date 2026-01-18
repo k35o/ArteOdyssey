@@ -29,8 +29,8 @@ export const WithContainer: Story = {
       return (
         <div>
           <section
-            aria-label="Scrollable container example"
-            className="relative h-96 overflow-y-scroll rounded border border-gray-300"
+            aria-label="スクロールコンテナの例"
+            className="relative h-96 overflow-y-scroll rounded-lg border border-border-mute"
             ref={containerRef}
             // biome-ignore lint/a11y/noNoninteractiveTabindex: Scrollable region requires keyboard access for accessibility
             tabIndex={0}
@@ -38,20 +38,19 @@ export const WithContainer: Story = {
             <Story args={{ container: containerRef }} />
             <div className="h-[200vh] p-4">
               <h2 className="mb-4 font-bold text-xl">
-                Container Scroll Example
+                コンテナ内スクロールの例
               </h2>
               <p className="mb-4">
-                Scroll within this container to see the progress bar at the top.
+                このコンテナ内をスクロールすると、上部にプログレスバーが表示されます。
               </p>
               <p className="mb-4">
-                The progress bar tracks this container's scroll position, not
-                the window's scroll.
+                プログレスバーはウィンドウではなく、このコンテナのスクロール位置を追跡します。
               </p>
               <div className="mt-8 space-y-4">
                 {Array.from({ length: 20 }, (_, i) => (
                   // biome-ignore lint/suspicious/noArrayIndexKey: Static demo content
-                  <p className="rounded bg-gray-100 p-4" key={`content-${i}`}>
-                    Content block {i + 1}
+                  <p className="rounded-lg bg-bg-mute p-4" key={`content-${i}`}>
+                    コンテンツブロック {i + 1}
                   </p>
                 ))}
               </div>
