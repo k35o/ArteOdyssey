@@ -26,18 +26,18 @@ export const Default: Story = {
       <Tooltip.Trigger
         renderItem={(props) => (
           <Button type="button" {...props}>
-            Tooltip
+            ヘルプ
           </Button>
         )}
       />
       <Tooltip.Content>
-        <p>Tooltip content</p>
+        <p>ここに補足情報が表示されます</p>
       </Tooltip.Content>
     </Tooltip.Root>
   ),
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
-      name: 'Tooltip',
+      name: 'ヘルプ',
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
