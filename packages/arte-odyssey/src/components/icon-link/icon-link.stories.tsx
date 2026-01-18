@@ -8,7 +8,7 @@ const meta: Meta<typeof IconLink> = {
   args: {
     href: 'https://example.com',
     children: <CopyIcon />,
-    label: 'Copy to clipboard',
+    label: 'コピー',
   },
 };
 
@@ -36,5 +36,11 @@ export const Small: Story = {
 export const BgBase: Story = {
   args: {
     bg: 'base',
+  },
+};
+
+export const BgPrimary: Story = {
+  args: {
+    bg: 'primary',
   },
 };
