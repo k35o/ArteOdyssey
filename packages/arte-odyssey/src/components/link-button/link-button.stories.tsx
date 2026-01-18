@@ -32,8 +32,27 @@ export const Small: Story = {
   },
 };
 
-export const Outline: Story = {
+export const Outlined: Story = {
   args: {
+    variant: 'outlined',
+  },
+};
+
+export const Skeleton: Story = {
+  args: {
+    variant: 'skeleton',
+  },
+};
+
+export const Gray: Story = {
+  args: {
+    color: 'gray',
+  },
+};
+
+export const GrayOutlined: Story = {
+  args: {
+    color: 'gray',
     variant: 'outlined',
   },
 };

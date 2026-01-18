@@ -12,7 +12,7 @@ export const IconLink = <T extends string>({
   renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
 }: PropsWithChildren<{
   size?: 'sm' | 'md' | 'lg';
-  bg?: 'transparent' | 'base';
+  bg?: 'transparent' | 'base' | 'primary';
   label?: string;
   href: T;
   openInNewTab?: boolean;
@@ -35,9 +35,11 @@ export const IconLink = <T extends string>({
   return renderAnchor({
     href,
     className: cn(
-      'inline-flex rounded-full hover:bg-bg-subtle active:bg-bg-emphasize focus-visible:ring-2 focus-visible:ring-border-info',
-      bg === 'base' && 'bg-bg-base/90',
+      'inline-flex rounded-full transition-colors hover:bg-bg-subtle active:bg-bg-emphasize focus-visible:ring-2 focus-visible:ring-border-info',
+      bg === 'base' && 'bg-bg-base',
       bg === 'transparent' && 'bg-transparent',
+      bg === 'primary' &&
+        'bg-primary-bg hover:bg-primary-bg/90 active:bg-primary-bg-emphasize',
       size === 'sm' && 'p-1',
       size === 'md' && 'p-2',
       size === 'lg' && 'p-3',

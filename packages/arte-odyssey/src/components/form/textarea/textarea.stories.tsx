@@ -14,10 +14,6 @@ const meta: Meta<typeof Textarea> = {
   args: {
     id: 'textarea',
     describedbyId: 'textarea-feedback',
-    value: '10',
-    onChange: (e) => {
-      console.log(e.target.value);
-    },
   },
   parameters: {
     a11y: {

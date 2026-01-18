@@ -6,10 +6,7 @@ const meta: Meta<typeof IconButton> = {
   title: 'components/button/icon-button',
   component: IconButton,
   args: {
-    onClick: () => {
-      console.log('clicked');
-    },
-    label: 'Copy',
+    label: 'コピー',
     children: <CopyIcon />,
   },
 };

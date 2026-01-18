@@ -13,10 +13,7 @@ const meta: Meta<typeof Select> = {
       { value: '10', label: '10進数' },
       { value: '16', label: '16進数' },
     ],
-    value: '10',
-    onChange: (e) => {
-      console.log(e.target.value);
-    },
+    defaultValue: '10',
   },
   parameters: {
     a11y: {

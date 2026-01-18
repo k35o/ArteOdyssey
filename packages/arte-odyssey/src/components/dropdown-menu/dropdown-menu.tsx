@@ -80,7 +80,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
           <div
             {...props}
             {...contentProps}
-            className="flex min-w-40 flex-col rounded-lg border border-border-mute bg-bg-base py-2 shadow-xl"
+            className="flex min-w-40 flex-col rounded-lg border border-border-mute bg-bg-base py-2 shadow-md"
           >
             {children}
           </div>
@@ -99,9 +99,9 @@ const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({
   return (
     <button
       className={cn(
-        'w-full px-2 py-1 text-left',
-        'hover:bg-primary-bg',
-        'focus-visible:border-transparent focus-visible:bg-primary-bg focus-visible:outline-hidden',
+        'w-full px-2 py-1 text-left transition-colors',
+        'hover:bg-bg-mute',
+        'focus-visible:bg-bg-mute focus-visible:outline-none',
       )}
       {...props}
     >

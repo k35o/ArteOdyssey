@@ -16,8 +16,10 @@ export const Default: Story = {
     defaultOpen: true,
     children: (
       <Dialog.Root>
-        <Dialog.Header onClose={fn()} title="Hello" />
-        <Dialog.Content>World</Dialog.Content>
+        <Dialog.Header onClose={fn()} title="確認" />
+        <Dialog.Content>
+          <p>この操作を実行してもよろしいですか？</p>
+        </Dialog.Content>
       </Dialog.Root>
     ),
   },

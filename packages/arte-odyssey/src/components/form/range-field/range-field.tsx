@@ -64,9 +64,8 @@ export const RangeField: FC<Props> = ({
         aria-valuemin={min}
         aria-valuenow={currentValue}
         className={cn(
-          'h-2 flex-1 cursor-pointer appearance-none rounded-lg bg-bg-subtle',
-          'range-slider',
-          'focus:outline-none focus:ring-2 focus:ring-border-info focus:ring-opacity-50',
+          'h-2 flex-1 cursor-pointer rounded-full bg-bg-subtle',
+          'focus:outline-none focus:ring-2 focus:ring-border-info',
           'disabled:cursor-not-allowed disabled:opacity-50',
           isInvalid && 'ring-2 ring-border-error',
         )}

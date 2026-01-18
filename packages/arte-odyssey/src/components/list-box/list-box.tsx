@@ -107,7 +107,7 @@ const Content: FC<{
           <div
             {...props}
             {...contentProps}
-            className="flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg border border-border-mute bg-bg-base py-2 shadow-xl"
+            className="flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg border border-border-mute bg-bg-base py-2 shadow-md"
           >
             {helpContent}
             {options.map(({ key, label }, idx) => (
@@ -129,20 +129,18 @@ const Item: FC<{
   return (
     <button
       className={cn(
-        'group w-full px-2 py-1 text-left',
-        'hover:bg-primary-bg',
-        'focus-visible:border-transparent focus-visible:bg-primary-bg focus-visible:outline-hidden',
-        !selected && 'pl-9',
-        selected && 'inline-flex items-center gap-1',
+        'flex w-full items-center justify-between px-3 py-2 text-left transition-colors',
+        'hover:bg-bg-mute',
+        'focus-visible:border-transparent focus-visible:bg-bg-mute focus-visible:outline-hidden',
       )}
       {...props}
     >
+      {label}
       {selected && (
-        <span className="text-fg-success group-hover:text-fg-base group-focus-visible:text-fg-base">
+        <span className="text-fg-success">
           <CheckIcon />
         </span>
       )}
-      {label}
     </button>
   );
 };

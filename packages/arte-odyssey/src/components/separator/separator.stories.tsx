@@ -29,3 +29,15 @@ export const Vertical: Story = {
     orientation: 'vertical',
   },
 };
+
+export const ColorMute: Story = {
+  args: {
+    color: 'mute',
+  },
+};
+
+export const ColorSubtle: Story = {
+  args: {
+    color: 'subtle',
+  },
+};

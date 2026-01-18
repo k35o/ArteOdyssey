@@ -7,10 +7,6 @@ const meta: Meta<typeof TextField> = {
   args: {
     id: 'textfield',
     describedbyId: 'textfield-feedback',
-    value: '',
-    onChange: (e) => {
-      console.log(e.target.value);
-    },
   },
   parameters: {
     a11y: {

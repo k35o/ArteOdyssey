@@ -37,7 +37,7 @@ const Root: FC<
     <section
       aria-describedby={`${rootId}-content`}
       aria-labelledby={`${rootId}-header`}
-      className="relative w-full rounded-lg border border-border-subtle bg-bg-base shadow-xl"
+      className="relative w-full rounded-lg border border-border-mute bg-bg-base shadow-md"
       id={id}
       ref={ref}
       role={role}

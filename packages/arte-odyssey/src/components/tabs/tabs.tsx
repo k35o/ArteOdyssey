@@ -117,7 +117,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       aria-controls={selectedId === id ? `${rootId}-panel-${id}` : undefined}
       aria-selected={selectedId === id}
       className={cn(
-        'relative cursor-pointer rounded-md p-2',
+        'relative cursor-pointer rounded-lg p-2 transition-colors',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
       )}
       id={`${rootId}-tab-${id}`}
@@ -164,7 +164,7 @@ const Panel: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     <div
       aria-labelledby={`${rootId}-tab-${id}`}
       className={cn(
-        'flex-grow rounded-md p-2',
+        'grow rounded-lg p-2',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
       )}
       id={`${rootId}-panel-${id}`}

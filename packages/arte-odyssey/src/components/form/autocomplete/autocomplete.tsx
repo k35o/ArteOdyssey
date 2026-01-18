@@ -83,8 +83,8 @@ export const Autocomplete: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative w-full rounded-md border border-border-base bg-bg-base shadow-xs',
-        'focus-within:bordertransparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
+        'relative w-full rounded-lg border border-border-base bg-bg-base',
+        'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
       )}
@@ -219,7 +219,7 @@ export const Autocomplete: FC<Props> = ({
       <div className="relative w-full">
         {open && (
           <div
-            className="absolute top-1 z-10 w-full rounded-md border border-border-mute bg-bg-base shadow-md"
+            className="absolute top-1 z-10 w-full rounded-lg border border-border-mute bg-bg-base shadow-md"
             role="presentation"
           >
             <ul className="max-h-96 py-2" id={`${id}_listbox`}>
@@ -232,11 +232,9 @@ export const Autocomplete: FC<Props> = ({
                   <li
                     className={cn(
                       'cursor-pointer px-3 py-2',
-                      selected && 'bg-primary-bg',
+                      selected && 'bg-bg-mute',
                       selectIndex === idx && !selected && 'bg-bg-emphasize',
-                      selectIndex === idx &&
-                        selected &&
-                        'hover:bg-primary-bg/90',
+                      selectIndex === idx && selected && 'bg-bg-mute',
                     )}
                     id={`${id}_option_${option.value}`}
                     key={option.value}

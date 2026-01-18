@@ -23,24 +23,24 @@ type Story = StoryObj<typeof DropdownMenu.Root>;
 export const Default: Story = {
   render: () => (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger text="Options" />
+      <DropdownMenu.Trigger text="操作" />
       <DropdownMenu.Content>
         <DropdownMenu.Item
-          label="Item 1"
+          label="編集"
           onClick={() => {
-            console.log(1);
+            console.log('編集');
           }}
         />
         <DropdownMenu.Item
-          label="Item 2"
+          label="複製"
           onClick={() => {
-            console.log(2);
+            console.log('複製');
           }}
         />
         <DropdownMenu.Item
-          label="Item 3"
+          label="削除"
           onClick={() => {
-            console.log(3);
+            console.log('削除');
           }}
         />
       </DropdownMenu.Content>
@@ -48,7 +48,7 @@ export const Default: Story = {
   ),
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
-      name: 'Options',
+      name: '操作',
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
@@ -60,25 +60,25 @@ export const TriggerByIcon: Story = {
     <DropdownMenu.Root>
       <DropdownMenu.IconTrigger
         icon={<DarkModeIcon size="lg" />}
-        label="Options"
+        label="テーマ切替"
       />
       <DropdownMenu.Content>
         <DropdownMenu.Item
-          label="Item 1"
+          label="ライト"
           onClick={() => {
-            console.log(1);
+            console.log('ライト');
           }}
         />
         <DropdownMenu.Item
-          label="Item 2"
+          label="ダーク"
           onClick={() => {
-            console.log(2);
+            console.log('ダーク');
           }}
         />
         <DropdownMenu.Item
-          label="Item 3"
+          label="システム"
           onClick={() => {
-            console.log(3);
+            console.log('システム');
           }}
         />
       </DropdownMenu.Content>
@@ -86,7 +86,7 @@ export const TriggerByIcon: Story = {
   ),
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
-      name: 'Options',
+      name: 'テーマ切替',
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');

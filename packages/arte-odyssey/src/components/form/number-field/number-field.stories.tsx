@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
 import { expect } from 'storybook/test';
 import { NumberField } from './number-field';
 
@@ -9,36 +8,7 @@ const meta: Meta<typeof NumberField> = {
   args: {
     id: 'textfield',
     describedbyId: 'numberfield-feedback',
-  },
-  render: ({
-    id,
-    describedbyId,
-    isInvalid,
-    isDisabled,
-    isRequired,
-    step,
-    precision,
-    max,
-    min,
-    placeholder,
-  }) => {
-    const [value, setValue] = useState(0);
-    return (
-      <NumberField
-        describedbyId={describedbyId}
-        id={id}
-        isDisabled={isDisabled}
-        isInvalid={isInvalid}
-        isRequired={isRequired}
-        max={max}
-        min={min}
-        onChange={setValue}
-        placeholder={placeholder}
-        precision={precision}
-        step={step}
-        value={value}
-      />
-    );
+    defaultValue: 0,
   },
   parameters: {
     a11y: {

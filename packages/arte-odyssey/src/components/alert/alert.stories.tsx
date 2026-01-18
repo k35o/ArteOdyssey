@@ -39,8 +39,12 @@ export const Error: Story = {
 
 export const ArrayMessage: Story = {
   args: {
-    status: 'success',
-    message: ['Success1', 'Success2', 'Success3'],
+    status: 'error',
+    message: [
+      'メールアドレスの形式が正しくありません',
+      'パスワードは8文字以上で入力してください',
+      '利用規約に同意してください',
+    ],
   },
 };
 
