@@ -10,7 +10,7 @@ export const Card: FC<CardProps> = ({
 }) => (
   <section
     className={cn(
-      'overflow-hidden rounded-lg border border-border-mute',
+      'overflow-hidden rounded-lg shadow-sm',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
       variant === 'primary' && 'bg-bg-base',
@@ -18,7 +18,7 @@ export const Card: FC<CardProps> = ({
     )}
   >
     {title && (
-      <div className="border-border-mute border-b bg-primary-bg/10 px-4 py-3">
+      <div className="bg-primary-bg/10 px-4 py-3">
         <p className="font-bold">{title}</p>
       </div>
     )}
