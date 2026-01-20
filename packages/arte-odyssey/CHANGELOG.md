@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 2.0.2
+
+### Patch Changes
+
+- [#215](https://github.com/k35o/ArteOdyssey/pull/215) [`7f95e1e`](https://github.com/k35o/ArteOdyssey/commit/7f95e1e5227373531dc79c9dfa10428deced22ec) Thanks [@k35o](https://github.com/k35o)! - NumberField: +/-ボタンの角丸を親要素に合わせて lg に修正
+
 ## 2.0.1
 
 ### Patch Changes
