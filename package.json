@@ -40,7 +40,7 @@
     "cosmiconfig": "latest",
     "lefthook": "2.0.15",
     "playwright": "1.57.0",
-    "turbo": "2.7.4",
+    "turbo": "2.7.5",
     "typescript": "5.9.3"
   }
 }
