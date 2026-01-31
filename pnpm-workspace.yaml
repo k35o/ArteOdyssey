@@ -12,7 +12,7 @@ minimumReleaseAgeExclude:
 catalog:
   '@tailwindcss/postcss': 4.1.18
   '@tailwindcss/vite': 4.1.18
-  '@types/react': 19.2.8
+  '@types/react': 19.2.9
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react-swc': 4.2.2
   postcss: 8.5.6
