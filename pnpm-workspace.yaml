@@ -1,5 +1,6 @@
 packages:
   - packages/*
+  - apps/*
   - examples/*
 
 minimumReleaseAge: 10080
@@ -8,6 +9,8 @@ minimumReleaseAgeExclude:
   - react-dom
   - next
   - '@next/env'
+  - '@funstack/static'
+  - '@funstack/router'
 
 catalog:
   '@tailwindcss/postcss': 4.1.18
