@@ -71,13 +71,13 @@
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "esbuild": "0.27.3",
-    "lucide-react": "0.563.0",
-    "motion": "12.33.0",
-    "react-error-boundary": "6.1.0",
+    "lucide-react": "0.564.0",
+    "motion": "12.34.0",
+    "react-error-boundary": "6.1.1",
     "tailwind-merge": "3.4.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "5.0.0",
+    "@chromatic-com/storybook": "5.0.1",
     "@storybook/addon-a11y": "10.2.8",
     "@storybook/addon-docs": "10.2.8",
     "@storybook/addon-vitest": "10.2.8",
