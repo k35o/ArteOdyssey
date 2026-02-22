@@ -10,18 +10,13 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
   const localeParam = params.locale;
 
   useEffect(() => {
-    if (!isLocale(localeParam)) {
-      navigate(`/${detectLocale()}/`, { replace: true });
-    }
-  }, [localeParam, navigate]);
-
-  useEffect(() => {
     if (isLocale(localeParam)) {
       document.documentElement.lang = localeParam;
     }
   }, [localeParam]);
 
   if (!isLocale(localeParam)) {
+    navigate(`/${detectLocale()}/`, { replace: true });
     return null;
   }
 
