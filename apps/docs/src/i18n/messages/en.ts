@@ -10,6 +10,7 @@ export const en = {
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
   'common.language': 'Language',
+  'nav.openMenu': 'Open menu',
 } as const;
 
 export type MessageKey = keyof typeof en;

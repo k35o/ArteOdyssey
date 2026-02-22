@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from '@funstack/router';
 import { DropdownMenu, LinkButton, Separator } from '@k8o/arte-odyssey';
 import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
 import type { MessageKey } from '../i18n';
-import { localizeHref, useLocale, useTranslation } from '../i18n';
+import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';
 
 const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
@@ -17,8 +17,7 @@ const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
 ];
 
 export function Navigation() {
-  const locale = useLocale();
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -29,7 +28,7 @@ export function Navigation() {
           <DropdownMenu.Root>
             <DropdownMenu.IconTrigger
               icon={<NavigationMenuIcon />}
-              label={t('nav.home')}
+              label={t('nav.openMenu')}
             />
             <DropdownMenu.Content>
               {NAV_ITEMS.map((item) => (

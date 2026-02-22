@@ -12,4 +12,5 @@ export const ja: Record<MessageKey, string> = {
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
   'common.language': '言語',
+  'nav.openMenu': 'メニューを開く',
 };
