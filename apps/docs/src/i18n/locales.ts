@@ -1,8 +1,6 @@
 import type { Locale } from './types';
 import { LOCALES } from './types';
 
-export { LOCALES } from './types';
-
 export const DEFAULT_LOCALE: Locale = 'ja';
 
 export function isLocale(value: string): value is Locale {
