@@ -1,5 +1,6 @@
-import { DEFAULT_LOCALE, isLocale, LOCALES } from './locales';
+import { DEFAULT_LOCALE, isLocale } from './locales';
 import type { Locale } from './types';
+import { LOCALES } from './types';
 
 export function localizeHref(path: string, locale: Locale): string {
   return `/${locale}${path === '/' ? '' : path}`;
