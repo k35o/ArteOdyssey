@@ -27,8 +27,12 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
 
   return (
     <LocaleProvider locale={localeParam}>
-      <Navigation />
-      <Outlet />
+      <div className="flex min-h-screen flex-col">
+        <Navigation />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
     </LocaleProvider>
   );
 }

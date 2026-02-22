@@ -23,8 +23,8 @@ export function Navigation() {
   const navigate = useNavigate();
 
   return (
-    <nav className="flex flex-col gap-0">
-      <div className="flex items-center justify-between px-4 py-3 md:px-6">
+    <nav>
+      <div className="flex items-center justify-between px-6 py-4 md:px-8">
         <div className="md:hidden">
           <DropdownMenu.Root>
             <DropdownMenu.IconTrigger
@@ -44,7 +44,7 @@ export function Navigation() {
             </DropdownMenu.Content>
           </DropdownMenu.Root>
         </div>
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-2 md:flex">
           {NAV_ITEMS.map((item) => {
             const href = localizeHref(item.path, locale);
             const isActive = location.pathname === href;
