@@ -3,12 +3,12 @@ import { route } from '@funstack/router/server';
 import { LocaleLayout } from './layouts/locale-layout';
 import { Components } from './pages/components';
 import { GetStarted } from './pages/get-started';
-import { Home } from './pages/Home';
 import { Helpers } from './pages/helpers';
+import { Home } from './pages/home';
 import { HooksPage } from './pages/hooks-page';
 import { RootRedirect } from './pages/root-redirect';
 import { Theming } from './pages/theming';
-import { Router } from './Router';
+import { Router } from './router';
 
 const routes: RouteDefinition[] = [
   route({
