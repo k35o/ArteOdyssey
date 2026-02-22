@@ -1,5 +1,4 @@
-import type { Locale } from '../types';
-import type { MessageKey } from './en';
+import type { Locale, MessageKey } from '../types';
 import { en } from './en';
 import { ja } from './ja';
 

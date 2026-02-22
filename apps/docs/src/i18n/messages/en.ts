@@ -1,3 +1,5 @@
+import type { MessageKey } from '../types';
+
 export const en = {
   'nav.home': 'Home',
   'nav.getStarted': 'Get Started',
@@ -11,6 +13,4 @@ export const en = {
   'home.storybook': 'Storybook',
   'common.language': 'Language',
   'nav.openMenu': 'Open menu',
-} as const;
-
-export type MessageKey = keyof typeof en;
+} as const satisfies Record<MessageKey, string>;
