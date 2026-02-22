@@ -1,6 +1,6 @@
-import type { MessageKey } from './en';
+import type { MessageKey } from '../types';
 
-export const ja: Record<MessageKey, string> = {
+export const ja = {
   'nav.home': 'ホーム',
   'nav.getStarted': 'はじめに',
   'nav.components': 'コンポーネント',
@@ -12,4 +12,5 @@ export const ja: Record<MessageKey, string> = {
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
   'common.language': '言語',
-};
+  'nav.openMenu': 'メニューを開く',
+} as const satisfies Record<MessageKey, string>;

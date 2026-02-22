@@ -2,8 +2,7 @@
 
 import { createContext, use, useCallback, useMemo } from 'react';
 import { messages } from './messages';
-import type { MessageKey } from './messages/en';
-import type { Locale } from './types';
+import type { Locale, MessageKey } from './types';
 
 const LocaleContext = createContext<Locale | null>(null);
 
