@@ -1,2 +1,2 @@
-export * from './card';
-export * from './interactive-card';
+export { Card } from './card';
+export { InteractiveCard } from './interactive-card';

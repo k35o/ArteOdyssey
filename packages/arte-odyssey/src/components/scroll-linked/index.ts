@@ -1,1 +1,1 @@
-export * from './scroll-linked';
+export { ScrollLinked } from './scroll-linked';

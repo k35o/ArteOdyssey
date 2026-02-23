@@ -1,1 +1,1 @@
-export * from './text-tag';
+export { TextTag } from './text-tag';

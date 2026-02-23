@@ -1,1 +1,1 @@
-export * from './baseline-status';
+export { BaselineStatus } from './baseline-status';
