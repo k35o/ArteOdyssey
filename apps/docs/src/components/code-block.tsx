@@ -3,7 +3,7 @@ import { codeToHtml } from 'shiki';
 
 type Props = {
   code: string;
-  lang: string;
+  lang: 'bash' | 'ts' | 'tsx';
 };
 
 export const CodeBlock: FC<Props> = async ({ code, lang }) => {
