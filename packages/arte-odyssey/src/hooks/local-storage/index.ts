@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useMemo, useSyncExternalStore } from 'react';
 
 const dispatchStorageEvent = (key: string, newValue: string | null) =>

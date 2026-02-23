@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC, useCallback } from 'react';
 import { useTimeout } from './../../hooks/timeout';
 import type { Status } from './../../types/variables';

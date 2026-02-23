@@ -1,3 +1,5 @@
+'use client';
+
 import type { Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
