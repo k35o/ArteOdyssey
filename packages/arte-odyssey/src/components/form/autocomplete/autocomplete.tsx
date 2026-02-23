@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';

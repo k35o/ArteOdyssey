@@ -1,3 +1,5 @@
+'use client';
+
 import { type ChangeEventHandler, type FC, useEffect, useRef } from 'react';
 import { cn } from './../../../helpers/cn';
 

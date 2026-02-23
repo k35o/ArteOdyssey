@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';

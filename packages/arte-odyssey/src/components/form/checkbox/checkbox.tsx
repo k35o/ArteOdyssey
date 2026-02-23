@@ -1,3 +1,5 @@
+'use client';
+
 import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { CheckIcon } from '../../icons';

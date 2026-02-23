@@ -1,3 +1,5 @@
+'use client';
+
 import { type FC, type ReactElement, useId } from 'react';
 
 type FormControlProps = {
