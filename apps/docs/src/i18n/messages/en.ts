@@ -37,4 +37,5 @@ export const en = {
   'getStarted.nextStepsTheming': 'Learn how to customize the theme',
   'getStarted.nextStepsStorybook':
     'View detailed documentation for each component in Storybook',
+  'getStarted.packageManagerLabel': 'Package manager',
 } as const satisfies Record<MessageKey, string>;

@@ -3,6 +3,7 @@ import { CodeBlock } from '../components/code-block';
 import { InstallTabs } from '../components/install-tabs';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { T } from '../components/t';
+import { STORYBOOK_URL } from '../constants';
 
 export function GetStarted() {
   return (
@@ -133,10 +134,7 @@ function MyComponent() {
             </LocaleAnchor>
           </li>
           <li className="list-disc">
-            <Anchor
-              href="https://main--67a0dc0a614a725e3b2a1cee.chromatic.com"
-              openInNewTab
-            >
+            <Anchor href={STORYBOOK_URL} openInNewTab>
               <T k="getStarted.nextStepsStorybook" />
             </Anchor>
           </li>

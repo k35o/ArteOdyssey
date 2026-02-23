@@ -34,6 +34,7 @@ export const MESSAGE_KEYS = [
   'getStarted.nextStepsComponents',
   'getStarted.nextStepsTheming',
   'getStarted.nextStepsStorybook',
+  'getStarted.packageManagerLabel',
 ] as const;
 
 export type MessageKey = (typeof MESSAGE_KEYS)[number];

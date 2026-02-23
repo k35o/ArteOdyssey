@@ -37,4 +37,5 @@ export const ja = {
   'getStarted.nextStepsTheming': 'テーマのカスタマイズ方法を学ぶ',
   'getStarted.nextStepsStorybook':
     'Storybookで各コンポーネントの詳細なドキュメントを確認する',
+  'getStarted.packageManagerLabel': 'パッケージマネージャー',
 } as const satisfies Record<MessageKey, string>;

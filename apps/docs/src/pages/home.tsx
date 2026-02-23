@@ -2,6 +2,7 @@
 
 import { Heading, LinkButton, Separator } from '@k8o/arte-odyssey';
 import { BlogIcon, GitHubIcon } from '@k8o/arte-odyssey/icons';
+import { STORYBOOK_URL } from '../constants';
 import { useTranslation } from '../i18n';
 
 export function Home() {
@@ -26,7 +27,7 @@ export function Home() {
           {t('home.github')}
         </LinkButton>
         <LinkButton
-          href="https://main--67a0dc0a614a725e3b2a1cee.chromatic.com"
+          href={STORYBOOK_URL}
           openInNewTab
           size="md"
           startIcon={<BlogIcon />}
