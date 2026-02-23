@@ -1,1 +1,1 @@
-export * from './popover';
+export { Popover, useOpenContext } from './popover';

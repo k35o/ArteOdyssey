@@ -1,6 +1,48 @@
-export * from './arte-odyssey';
-export * from './github-mark';
-export * from './logo';
-export * from './lucide';
-export * from './qiita';
-export * from './twitter';
+export { ArteOdyssey } from './arte-odyssey';
+export { GitHubIcon } from './github-mark';
+export { Logo, LogoIcon } from './logo';
+export {
+  AIIcon,
+  AlertIcon,
+  BadIcon,
+  BlogIcon,
+  BoringIcon,
+  CheckIcon,
+  ChevronIcon,
+  CloseIcon,
+  ColorContrastIcon,
+  ColorInfoIcon,
+  CopyIcon,
+  DarkModeIcon,
+  DifficultIcon,
+  EasyIcon,
+  ExternalLinkIcon,
+  FormIcon,
+  GoodIcon,
+  HistoryIcon,
+  InformativeIcon,
+  InterestingIcon,
+  LightModeIcon,
+  LinkIcon,
+  ListIcon,
+  LocationIcon,
+  MailIcon,
+  MinusIcon,
+  MixedColorIcon,
+  NavigationMenuIcon,
+  NewsIcon,
+  PlusIcon,
+  PrepareIcon,
+  PublishDateIcon,
+  RSSIcon,
+  SendIcon,
+  ShallowIcon,
+  SlideIcon,
+  SubscribeIcon,
+  TableIcon,
+  TagIcon,
+  UpdateDateIcon,
+  ViewIcon,
+} from './lucide';
+export { QiitaIcon } from './qiita';
+export { TwitterIcon } from './twitter';
