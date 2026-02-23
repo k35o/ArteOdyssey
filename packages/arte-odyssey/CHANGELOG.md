@@ -1,5 +1,17 @@
 # @k8o/arte-odyssey
 
+## 3.0.0
+
+### Major Changes
+
+- [#266](https://github.com/k35o/ArteOdyssey/pull/266) [`e905a76`](https://github.com/k35o/ArteOdyssey/commit/e905a76030357520f7da18d050bf5cd86226e01e) Thanks [@k35o](https://github.com/k35o)! - Card/InteractiveCard から overflow-hidden を削除し、子要素の focus ring が表示されるように修正。未使用の title prop を削除（breaking change）。
+
+### Patch Changes
+
+- [#267](https://github.com/k35o/ArteOdyssey/pull/267) [`1c1d27f`](https://github.com/k35o/ArteOdyssey/commit/1c1d27fb69f01b217d0f26ba2f247444103b2fea) Thanks [@k35o](https://github.com/k35o)! - カスタム hooks に'use client'ディレクティブを追加して Next.js App Router 互換性を確保
+
+- [#262](https://github.com/k35o/ArteOdyssey/pull/262) [`70dee44`](https://github.com/k35o/ArteOdyssey/commit/70dee4492e3c2e0d8b16bd79fd544f3e39112f46) Thanks [@k35o](https://github.com/k35o)! - export \*を named exports に変換して RSC 互換性を確保
+
 ## 2.0.2
 
 ### Patch Changes
