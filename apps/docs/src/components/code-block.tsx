@@ -1,0 +1,22 @@
+import type { FC } from 'react';
+import { codeToHtml } from 'shiki';
+
+type Props = {
+  code: string;
+  lang: string;
+};
+
+export const CodeBlock: FC<Props> = async ({ code, lang }) => {
+  const html = await codeToHtml(code, {
+    lang,
+    theme: 'plastic',
+  });
+
+  return (
+    <div
+      className="[&_code]:text-sm [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-4"
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: shiki generates safe HTML from code input
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+};

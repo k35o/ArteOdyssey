@@ -19,6 +19,21 @@ export const MESSAGE_KEYS = [
   'home.github',
   'home.storybook',
   'common.language',
+  'getStarted.introduction',
+  'getStarted.installationTitle',
+  'getStarted.installationDescription',
+  'getStarted.setupTitle',
+  'getStarted.setupDescription',
+  'getStarted.setupCssDescription',
+  'getStarted.setupProviderDescription',
+  'getStarted.usageTitle',
+  'getStarted.usageDescription',
+  'getStarted.requirementsTitle',
+  'getStarted.requirementsDescription',
+  'getStarted.nextStepsTitle',
+  'getStarted.nextStepsComponents',
+  'getStarted.nextStepsTheming',
+  'getStarted.nextStepsStorybook',
 ] as const;
 
 export type MessageKey = (typeof MESSAGE_KEYS)[number];
