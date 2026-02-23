@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc -b",
     "check": "biome check",
     "check:write": "biome check --write ."
   },
@@ -16,6 +16,7 @@
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/postcss": "catalog:",
     "postcss": "catalog:",
+    "shiki": "^3.22.0",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
