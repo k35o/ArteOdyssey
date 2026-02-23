@@ -6,7 +6,7 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
-  AlertDialogDemo,
+  AlertDialogPreview,
   DialogBasicPreview,
   DialogWithModalPreview,
 } from './_previews/dialog-previews';
@@ -151,7 +151,7 @@ import { Modal } from '@k8o/arte-odyssey/modal';`}
   </Dialog.Root>
 </Modal>`}
           >
-            <AlertDialogDemo />
+            <AlertDialogPreview />
           </ComponentPreview>
         </div>
       </section>

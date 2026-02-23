@@ -7,7 +7,7 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
   DrawerBasicPreview,
-  DrawerCustomContentDemo,
+  DrawerCustomContentPreview,
 } from './_previews/drawer-previews';
 
 const drawerProps: PropItem[] = [
@@ -120,7 +120,7 @@ export function DrawerPage() {
   </nav>
 </Drawer>`}
           >
-            <DrawerCustomContentDemo />
+            <DrawerCustomContentPreview />
           </ComponentPreview>
         </div>
       </section>
