@@ -25,7 +25,7 @@ export function DrawerBasicPreview() {
   );
 }
 
-export function DrawerCustomContentDemo() {
+export function DrawerCustomContentPreview() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
