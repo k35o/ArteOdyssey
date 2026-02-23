@@ -6,7 +6,6 @@ export const InteractiveCard: FC<CardProps> = ({
   children,
   variant = 'primary',
   width = 'full',
-  title,
 }) => (
   <section
     className={cn(
@@ -17,11 +16,6 @@ export const InteractiveCard: FC<CardProps> = ({
       variant === 'secondary' && 'bg-bg-mute',
     )}
   >
-    {title && (
-      <div className="rounded-t-lg bg-primary-bg/10 px-4 py-3">
-        <p className="font-bold">{title}</p>
-      </div>
-    )}
     {children}
   </section>
 );

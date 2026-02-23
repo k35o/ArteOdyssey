@@ -5,7 +5,6 @@ import type { CardProps } from './type';
 export const Card: FC<CardProps> = ({
   children,
   variant = 'primary',
-  title,
   width = 'full',
 }) => (
   <section
@@ -17,11 +16,6 @@ export const Card: FC<CardProps> = ({
       variant === 'secondary' && 'bg-bg-mute',
     )}
   >
-    {title && (
-      <div className="rounded-t-lg bg-primary-bg/10 px-4 py-3">
-        <p className="font-bold">{title}</p>
-      </div>
-    )}
     {children}
   </section>
 );

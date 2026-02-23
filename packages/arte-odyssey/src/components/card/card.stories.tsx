@@ -25,17 +25,6 @@ export const Primary: Story = {
   ),
 };
 
-export const WithTitle: Story = {
-  render: () => (
-    <Card title="お知らせ">
-      <div className="p-4">
-        <p>システムメンテナンスのお知らせです。</p>
-        <p className="mt-2 text-fg-mute text-sm">2024年1月20日 10:00〜12:00</p>
-      </div>
-    </Card>
-  ),
-};
-
 export const Secondary: Story = {
   render: () => (
     <Card variant="secondary">
