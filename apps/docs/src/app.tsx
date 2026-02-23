@@ -2,6 +2,41 @@ import type { RouteDefinition } from '@funstack/router/server';
 import { route } from '@funstack/router/server';
 import { LocaleLayout } from './layouts/locale-layout';
 import { Components } from './pages/components';
+import { AccordionPage } from './pages/components/accordion-page';
+import { AlertPage } from './pages/components/alert-page';
+import { AnchorPage } from './pages/components/anchor-page';
+import { AutocompletePage } from './pages/components/autocomplete-page';
+import { BaselineStatusPage } from './pages/components/baseline-status-page';
+import { BreadcrumbPage } from './pages/components/breadcrumb-page';
+import { ButtonPage } from './pages/components/button-page';
+import { CardPage } from './pages/components/card-page';
+import { CheckboxPage } from './pages/components/checkbox-page';
+import { CodePage } from './pages/components/code-page';
+import { DialogPage } from './pages/components/dialog-page';
+import { DrawerPage } from './pages/components/drawer-page';
+import { DropdownMenuPage } from './pages/components/dropdown-menu-page';
+import { ErrorBoundaryPage } from './pages/components/error-boundary-page';
+import { FileFieldPage } from './pages/components/file-field-page';
+import { FormControlPage } from './pages/components/form-control-page';
+import { HeadingPage } from './pages/components/heading-page';
+import { IconButtonPage } from './pages/components/icon-button-page';
+import { LinkButtonPage } from './pages/components/link-button-page';
+import { ListBoxPage } from './pages/components/list-box-page';
+import { ModalPage } from './pages/components/modal-page';
+import { NumberFieldPage } from './pages/components/number-field-page';
+import { PopoverPage } from './pages/components/popover-page';
+import { ProgressPage } from './pages/components/progress-page';
+import { RadioPage } from './pages/components/radio-page';
+import { RangeFieldPage } from './pages/components/range-field-page';
+import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
+import { SelectPage } from './pages/components/select-page';
+import { SeparatorPage } from './pages/components/separator-page';
+import { TabsPage } from './pages/components/tabs-page';
+import { TextFieldPage } from './pages/components/text-field-page';
+import { TextTagPage } from './pages/components/text-tag-page';
+import { TextareaPage } from './pages/components/textarea-page';
+import { ToastPage } from './pages/components/toast-page';
+import { TooltipPage } from './pages/components/tooltip-page';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
 import { Home } from './pages/home';
@@ -30,6 +65,146 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components',
         component: <Components />,
+      }),
+      route({
+        path: '/components/button',
+        component: <ButtonPage />,
+      }),
+      route({
+        path: '/components/icon-button',
+        component: <IconButtonPage />,
+      }),
+      route({
+        path: '/components/link-button',
+        component: <LinkButtonPage />,
+      }),
+      route({
+        path: '/components/anchor',
+        component: <AnchorPage />,
+      }),
+      route({
+        path: '/components/text-field',
+        component: <TextFieldPage />,
+      }),
+      route({
+        path: '/components/textarea',
+        component: <TextareaPage />,
+      }),
+      route({
+        path: '/components/number-field',
+        component: <NumberFieldPage />,
+      }),
+      route({
+        path: '/components/select',
+        component: <SelectPage />,
+      }),
+      route({
+        path: '/components/checkbox',
+        component: <CheckboxPage />,
+      }),
+      route({
+        path: '/components/radio',
+        component: <RadioPage />,
+      }),
+      route({
+        path: '/components/autocomplete',
+        component: <AutocompletePage />,
+      }),
+      route({
+        path: '/components/range-field',
+        component: <RangeFieldPage />,
+      }),
+      route({
+        path: '/components/file-field',
+        component: <FileFieldPage />,
+      }),
+      route({
+        path: '/components/form-control',
+        component: <FormControlPage />,
+      }),
+      route({
+        path: '/components/accordion',
+        component: <AccordionPage />,
+      }),
+      route({
+        path: '/components/card',
+        component: <CardPage />,
+      }),
+      route({
+        path: '/components/code',
+        component: <CodePage />,
+      }),
+      route({
+        path: '/components/list-box',
+        component: <ListBoxPage />,
+      }),
+      route({
+        path: '/components/text-tag',
+        component: <TextTagPage />,
+      }),
+      route({
+        path: '/components/baseline-status',
+        component: <BaselineStatusPage />,
+      }),
+      route({
+        path: '/components/progress',
+        component: <ProgressPage />,
+      }),
+      route({
+        path: '/components/heading',
+        component: <HeadingPage />,
+      }),
+      route({
+        path: '/components/alert',
+        component: <AlertPage />,
+      }),
+      route({
+        path: '/components/toast',
+        component: <ToastPage />,
+      }),
+      route({
+        path: '/components/tooltip',
+        component: <TooltipPage />,
+      }),
+      route({
+        path: '/components/dialog',
+        component: <DialogPage />,
+      }),
+      route({
+        path: '/components/drawer',
+        component: <DrawerPage />,
+      }),
+      route({
+        path: '/components/modal',
+        component: <ModalPage />,
+      }),
+      route({
+        path: '/components/popover',
+        component: <PopoverPage />,
+      }),
+      route({
+        path: '/components/dropdown-menu',
+        component: <DropdownMenuPage />,
+      }),
+      route({
+        path: '/components/separator',
+        component: <SeparatorPage />,
+      }),
+      route({
+        path: '/components/tabs',
+        component: <TabsPage />,
+      }),
+      route({
+        path: '/components/breadcrumb',
+        component: <BreadcrumbPage />,
+      }),
+      route({
+        path: '/components/scroll-linked',
+        component: <ScrollLinkedPage />,
+      }),
+      route({
+        path: '/components/error-boundary',
+        component: <ErrorBoundaryPage />,
       }),
       route({
         path: '/theming',
