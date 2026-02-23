@@ -76,7 +76,7 @@ export function ModalTypesPreview() {
   );
 }
 
-export function DefaultOpenDemo() {
+export function DefaultOpenPreview() {
   const [show, setShow] = useState(false);
   return (
     <>

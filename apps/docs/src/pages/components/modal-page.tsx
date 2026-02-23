@@ -6,7 +6,7 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 import {
-  DefaultOpenDemo,
+  DefaultOpenPreview,
   ModalBasicPreview,
   ModalTypesPreview,
 } from './_previews/modal-previews';
@@ -147,7 +147,7 @@ export function ModalPage() {
   </Dialog.Root>
 </Modal>`}
           >
-            <DefaultOpenDemo />
+            <DefaultOpenPreview />
           </ComponentPreview>
         </div>
       </section>

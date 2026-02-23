@@ -33,7 +33,7 @@ export function DialogWithModalPreview() {
   );
 }
 
-export function AlertDialogDemo() {
+export function AlertDialogPreview() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
