@@ -12,7 +12,6 @@ const options = {
   outdir: dir,
   format: 'esm',
   target: 'es2020',
-  banner: { js: '"use client";' },
 };
 
 // Check if "watch=true" flag is passed
