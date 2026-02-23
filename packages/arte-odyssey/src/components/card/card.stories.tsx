@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Button } from './../button';
+import { LinkButton } from './../link-button';
 import { Card } from './card';
 import { InteractiveCard } from './interactive-card';
 
@@ -48,14 +50,32 @@ export const Secondary: Story = {
 
 export const Interactive: Story = {
   render: () => (
-    <InteractiveCard>
-      <div className="p-4">
-        <h3 className="font-bold">クリック可能なカード</h3>
-        <p className="mt-2 text-fg-mute text-sm">
-          ホバーで少し拡大、クリックで縮小します。
-        </p>
-      </div>
-    </InteractiveCard>
+    <div className="flex flex-col gap-4">
+      <InteractiveCard>
+        <a className="block p-4" href="https://example.com">
+          <h3 className="font-bold">カード全体がリンク</h3>
+          <p className="mt-2 text-fg-mute text-sm">
+            カード全体をクリックして遷移します。
+          </p>
+        </a>
+      </InteractiveCard>
+      <InteractiveCard>
+        <div className="flex flex-col gap-3 p-4">
+          <h3 className="font-bold">カード内にボタンとリンク</h3>
+          <p className="text-fg-mute text-sm">
+            カード内にインタラクティブ要素を配置できます。
+          </p>
+          <nav className="flex gap-2">
+            <LinkButton href="https://example.com" size="sm">
+              詳細を見る
+            </LinkButton>
+            <Button color="gray" size="sm" variant="outlined">
+              保存
+            </Button>
+          </nav>
+        </div>
+      </InteractiveCard>
+    </div>
   ),
 };
 
