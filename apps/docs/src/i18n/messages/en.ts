@@ -184,4 +184,39 @@ export const en = {
   'components.scrollLinked.windowScrollTitle': 'Window Scroll',
   'components.errorBoundary.fallbackComponentTitle': 'FallbackComponent',
   'components.errorBoundary.resetKeysTitle': 'Reset Keys',
+  'hooks.description': 'A catalog of custom hooks provided by ArteOdyssey.',
+  'hooks.categoryDomInteraction': 'DOM Interaction',
+  'hooks.categoryStateStorage': 'State & Storage',
+  'hooks.categoryTiming': 'Timing',
+  'hooks.categoryUtility': 'Utility',
+  'hooks.common.importTitle': 'Import',
+  'hooks.common.usageTitle': 'Usage',
+  'hooks.common.basicUsageTitle': 'Basic Usage',
+  'hooks.common.parametersTitle': 'Parameters',
+  'hooks.common.returnValueTitle': 'Return Value',
+  'hooks.useClickAway.description':
+    'A hook that detects clicks outside a specified element.',
+  'hooks.useClient.description':
+    'A hook that returns whether the code is running on the client.',
+  'hooks.useClipboard.description':
+    'A hook that provides clipboard read/write operations.',
+  'hooks.useHash.description':
+    'A hook that tracks the URL hash and reacts to changes.',
+  'hooks.useInterval.description':
+    'A hook that executes a callback at regular intervals.',
+  'hooks.useLocalStorage.description':
+    'A hook that persists state in localStorage with cross-tab sync.',
+  'hooks.useLocalStorage.removeTitle': 'Remove Value',
+  'hooks.useResize.description':
+    'A hook that observes element size changes via ResizeObserver.',
+  'hooks.useScrollDirection.description':
+    'A hook that detects the current scroll direction.',
+  'hooks.useStep.description':
+    'A hook for step-based navigation with keyboard support.',
+  'hooks.useTimeout.description':
+    'A hook that executes a callback after a specified delay.',
+  'hooks.useWindowResize.description':
+    'A hook that listens to window resize events with optional debounce.',
+  'hooks.useWindowSize.description':
+    'A hook that returns the current window dimensions.',
 } as const satisfies Record<MessageKey, string>;

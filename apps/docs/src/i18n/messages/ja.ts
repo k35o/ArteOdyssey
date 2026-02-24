@@ -187,4 +187,37 @@ export const ja = {
   'components.scrollLinked.windowScrollTitle': 'ウィンドウスクロール',
   'components.errorBoundary.fallbackComponentTitle': 'FallbackComponent',
   'components.errorBoundary.resetKeysTitle': 'リセットキー',
+  'hooks.description': 'ArteOdysseyが提供するカスタムフックの一覧です。',
+  'hooks.categoryDomInteraction': 'DOM操作',
+  'hooks.categoryStateStorage': '状態・ストレージ',
+  'hooks.categoryTiming': 'タイミング',
+  'hooks.categoryUtility': 'ユーティリティ',
+  'hooks.common.importTitle': 'インポート',
+  'hooks.common.usageTitle': '使い方',
+  'hooks.common.basicUsageTitle': '基本的な使い方',
+  'hooks.common.parametersTitle': 'パラメーター',
+  'hooks.common.returnValueTitle': '戻り値',
+  'hooks.useClickAway.description':
+    '指定した要素の外側でのクリックを検出するフックです。',
+  'hooks.useClient.description':
+    'クライアント側で実行されているかどうかを返すフックです。',
+  'hooks.useClipboard.description':
+    'クリップボードの読み書き操作を提供するフックです。',
+  'hooks.useHash.description': 'URLハッシュを追跡し変更に反応するフックです。',
+  'hooks.useInterval.description':
+    '一定間隔でコールバックを実行するフックです。',
+  'hooks.useLocalStorage.description':
+    'localStorageに状態を永続化し、タブ間で同期するフックです。',
+  'hooks.useLocalStorage.removeTitle': '値の削除',
+  'hooks.useResize.description':
+    'ResizeObserverで要素のサイズ変更を監視するフックです。',
+  'hooks.useScrollDirection.description':
+    '現在のスクロール方向を検出するフックです。',
+  'hooks.useStep.description':
+    'キーボードサポート付きのステップベースナビゲーションフックです。',
+  'hooks.useTimeout.description':
+    '指定した遅延後にコールバックを実行するフックです。',
+  'hooks.useWindowResize.description':
+    'デバウンス対応のウィンドウリサイズイベントを監視するフックです。',
+  'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
 } as const satisfies Record<MessageKey, string>;

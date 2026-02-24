@@ -40,7 +40,19 @@ import { TooltipPage } from './pages/components/tooltip-page';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
 import { Home } from './pages/home';
-import { HooksPage } from './pages/hooks-page';
+import { HooksPage } from './pages/hooks';
+import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
+import { UseClientPage } from './pages/hooks/use-client-page';
+import { UseClipboardPage } from './pages/hooks/use-clipboard-page';
+import { UseHashPage } from './pages/hooks/use-hash-page';
+import { UseIntervalPage } from './pages/hooks/use-interval-page';
+import { UseLocalStoragePage } from './pages/hooks/use-local-storage-page';
+import { UseResizePage } from './pages/hooks/use-resize-page';
+import { UseScrollDirectionPage } from './pages/hooks/use-scroll-direction-page';
+import { UseStepPage } from './pages/hooks/use-step-page';
+import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
+import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
+import { UseWindowSizePage } from './pages/hooks/use-window-size-page';
 import { RootRedirect } from './pages/root-redirect';
 import { Theming } from './pages/theming';
 import { Router } from './router';
@@ -213,6 +225,54 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks',
         component: <HooksPage />,
+      }),
+      route({
+        path: '/hooks/use-click-away',
+        component: <UseClickAwayPage />,
+      }),
+      route({
+        path: '/hooks/use-client',
+        component: <UseClientPage />,
+      }),
+      route({
+        path: '/hooks/use-clipboard',
+        component: <UseClipboardPage />,
+      }),
+      route({
+        path: '/hooks/use-hash',
+        component: <UseHashPage />,
+      }),
+      route({
+        path: '/hooks/use-interval',
+        component: <UseIntervalPage />,
+      }),
+      route({
+        path: '/hooks/use-local-storage',
+        component: <UseLocalStoragePage />,
+      }),
+      route({
+        path: '/hooks/use-resize',
+        component: <UseResizePage />,
+      }),
+      route({
+        path: '/hooks/use-scroll-direction',
+        component: <UseScrollDirectionPage />,
+      }),
+      route({
+        path: '/hooks/use-step',
+        component: <UseStepPage />,
+      }),
+      route({
+        path: '/hooks/use-timeout',
+        component: <UseTimeoutPage />,
+      }),
+      route({
+        path: '/hooks/use-window-resize',
+        component: <UseWindowResizePage />,
+      }),
+      route({
+        path: '/hooks/use-window-size',
+        component: <UseWindowSizePage />,
       }),
       route({
         path: '/helpers',
