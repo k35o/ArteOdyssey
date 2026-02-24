@@ -219,5 +219,31 @@ export const en = {
     'A hook that listens to window resize events with optional debounce.',
   'hooks.useWindowSize.description':
     'A hook that returns the current window dimensions.',
+  'helpers.description':
+    'A catalog of helper functions provided by ArteOdyssey.',
+  'helpers.categoryStyling': 'Styling',
+  'helpers.categoryColor': 'Color',
+  'helpers.categoryNumber': 'Number',
+  'helpers.categoryUtility': 'Utility',
+  'helpers.common.importTitle': 'Import',
+  'helpers.common.usageTitle': 'Usage',
+  'helpers.common.basicUsageTitle': 'Basic Usage',
+  'helpers.common.parametersTitle': 'Parameters',
+  'helpers.common.returnValueTitle': 'Return Value',
+  'helpers.cn.description':
+    'A class name utility combining clsx and tailwind-merge.',
+  'helpers.findAllColors.description':
+    'A function that detects all CSS color values and their positions in text.',
+  'helpers.between.description':
+    'A function that clamps a number between a minimum and maximum value.',
+  'helpers.cast.description':
+    'A function that converts a string to a number with precision control.',
+  'helpers.commalize.description':
+    'A function that formats a number with comma separators.',
+  'helpers.toPrecision.description':
+    'A function that rounds a number to a specified number of decimal places.',
+  'helpers.uuidV4.description': 'A function that generates a UUID v4 string.',
+  'helpers.isInternalRoute.description':
+    'A function that determines whether a URL is an internal route.',
   'sideNav.openNavigation': 'Open navigation',
 } as const satisfies Record<MessageKey, string>;

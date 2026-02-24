@@ -39,6 +39,14 @@ import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
 import { GetStarted } from './pages/get-started';
 import { Helpers } from './pages/helpers';
+import { BetweenPage } from './pages/helpers/between-page';
+import { CastPage } from './pages/helpers/cast-page';
+import { CnPage } from './pages/helpers/cn-page';
+import { CommalizePage } from './pages/helpers/commalize-page';
+import { FindAllColorsPage } from './pages/helpers/find-all-colors-page';
+import { IsInternalRoutePage } from './pages/helpers/is-internal-route-page';
+import { ToPrecisionPage } from './pages/helpers/to-precision-page';
+import { UuidV4Page } from './pages/helpers/uuid-v4-page';
 import { Home } from './pages/home';
 import { HooksPage } from './pages/hooks';
 import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
@@ -277,6 +285,38 @@ const routes: RouteDefinition[] = [
       route({
         path: '/helpers',
         component: <Helpers />,
+      }),
+      route({
+        path: '/helpers/cn',
+        component: <CnPage />,
+      }),
+      route({
+        path: '/helpers/find-all-colors',
+        component: <FindAllColorsPage />,
+      }),
+      route({
+        path: '/helpers/between',
+        component: <BetweenPage />,
+      }),
+      route({
+        path: '/helpers/cast',
+        component: <CastPage />,
+      }),
+      route({
+        path: '/helpers/commalize',
+        component: <CommalizePage />,
+      }),
+      route({
+        path: '/helpers/to-precision',
+        component: <ToPrecisionPage />,
+      }),
+      route({
+        path: '/helpers/uuid-v4',
+        component: <UuidV4Page />,
+      }),
+      route({
+        path: '/helpers/is-internal-route',
+        component: <IsInternalRoutePage />,
       }),
     ],
   }),

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Navigation } from '../components/navigation';
 import { SideNavigation } from '../components/side-navigation';
 import { componentCategories } from '../data/components-nav';
+import { helperCategories } from '../data/helpers-nav';
 import { hookCategories } from '../data/hooks-nav';
 import type { NavCategory } from '../data/nav-types';
 import {
@@ -19,7 +20,7 @@ import {
 
 type SideNavConfig = {
   categories: NavCategory[];
-  titleKey: 'nav.components' | 'nav.hooks';
+  titleKey: 'nav.components' | 'nav.hooks' | 'nav.helpers';
   catalogPath: string;
 };
 
@@ -42,6 +43,15 @@ function useSideNavConfig(): SideNavConfig | null {
       categories: hookCategories,
       titleKey: 'nav.hooks',
       catalogPath: '/hooks',
+    };
+  }
+
+  // /ja/helpers/cn → match, /ja/helpers → no match
+  if (/^\/[^/]+\/helpers\/.+/.test(pathname)) {
+    return {
+      categories: helperCategories,
+      titleKey: 'nav.helpers',
+      catalogPath: '/helpers',
     };
   }
 

@@ -220,5 +220,30 @@ export const ja = {
   'hooks.useWindowResize.description':
     'デバウンス対応のウィンドウリサイズイベントを監視するフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
+  'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
+  'helpers.categoryStyling': 'スタイリング',
+  'helpers.categoryColor': 'カラー',
+  'helpers.categoryNumber': '数値',
+  'helpers.categoryUtility': 'ユーティリティ',
+  'helpers.common.importTitle': 'インポート',
+  'helpers.common.usageTitle': '使い方',
+  'helpers.common.basicUsageTitle': '基本的な使い方',
+  'helpers.common.parametersTitle': 'パラメーター',
+  'helpers.common.returnValueTitle': '戻り値',
+  'helpers.cn.description':
+    'clsxとtailwind-mergeを組み合わせたクラス名ユーティリティです。',
+  'helpers.findAllColors.description':
+    'テキスト内のすべてのCSS色の値とその位置を検出する関数です。',
+  'helpers.between.description':
+    '数値を最小値と最大値の間にクランプする関数です。',
+  'helpers.cast.description':
+    '文字列を数値に変換し、精度を指定できる関数です。',
+  'helpers.commalize.description':
+    '数値を3桁ごとのカンマ区切りにフォーマットする関数です。',
+  'helpers.toPrecision.description':
+    '数値を指定した小数点以下の桁数に丸める関数です。',
+  'helpers.uuidV4.description': 'UUID v4文字列を生成する関数です。',
+  'helpers.isInternalRoute.description':
+    'URLが内部ルートかどうかを判定する関数です。',
   'sideNav.openNavigation': 'ナビゲーションを開く',
 } as const satisfies Record<MessageKey, string>;
