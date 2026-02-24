@@ -3,6 +3,7 @@
 import { useLocation } from '@funstack/router';
 import type { NavCategory } from '../data/nav-types';
 import { localizeHref, useTranslation } from '../i18n';
+import { LocaleAnchor } from './locale-anchor';
 
 type Props = {
   categories: NavCategory[];
@@ -26,17 +27,17 @@ export function SideNavigation({ categories, onNavigate }: Props) {
               const isActive = location.pathname === href;
               return (
                 <li key={item.path}>
-                  <a
+                  <LocaleAnchor
                     className={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
                       isActive
                         ? 'bg-bg-mute font-medium text-fg-base'
                         : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base'
                     }`}
-                    href={href}
                     onClick={onNavigate}
+                    path={item.path}
                   >
                     {item.name}
-                  </a>
+                  </LocaleAnchor>
                 </li>
               );
             })}
