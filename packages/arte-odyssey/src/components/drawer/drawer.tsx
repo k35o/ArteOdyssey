@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, type PropsWithChildren, useId } from 'react';
+import { type FC, type PropsWithChildren, type ReactNode, useId } from 'react';
 import { cn } from '../../helpers/cn';
 import { Heading } from '../heading';
 import { IconButton } from '../icon-button';
@@ -9,7 +9,7 @@ import { Modal } from '../modal';
 
 export const Drawer: FC<
   PropsWithChildren<{
-    title: string;
+    title: ReactNode;
     isOpen: boolean;
     onClose: () => void;
     side?: 'left' | 'right';
@@ -29,7 +29,11 @@ export const Drawer: FC<
           className="flex shrink-0 items-center justify-center p-4 pb-2"
           id={`${rootId}-header`}
         >
-          <Heading type="h3">{title}</Heading>
+          {typeof title === 'string' ? (
+            <Heading type="h3">{title}</Heading>
+          ) : (
+            title
+          )}
           <div
             className={cn(
               'absolute top-2',

@@ -1,7 +1,7 @@
 'use client';
 
 import { Outlet, useLocation, useNavigate } from '@funstack/router';
-import { Drawer, IconButton, Separator } from '@k8o/arte-odyssey';
+import { Drawer, Heading, IconButton, Separator } from '@k8o/arte-odyssey';
 import { ListIcon } from '@k8o/arte-odyssey/icons';
 import { useEffect, useState } from 'react';
 import { Navigation } from '../components/navigation';
@@ -13,12 +13,14 @@ import {
   detectLocale,
   isLocale,
   LocaleProvider,
+  localizeHref,
   useTranslation,
 } from '../i18n';
 
 type SideNavConfig = {
   categories: NavCategory[];
   titleKey: 'nav.components' | 'nav.hooks';
+  catalogPath: string;
 };
 
 function useSideNavConfig(): SideNavConfig | null {
@@ -27,12 +29,20 @@ function useSideNavConfig(): SideNavConfig | null {
 
   // /ja/components/button → match, /ja/components → no match
   if (/^\/[^/]+\/components\/.+/.test(pathname)) {
-    return { categories: componentCategories, titleKey: 'nav.components' };
+    return {
+      categories: componentCategories,
+      titleKey: 'nav.components',
+      catalogPath: '/components',
+    };
   }
 
   // /ja/hooks/use-click-away → match, /ja/hooks → no match
   if (/^\/[^/]+\/hooks\/.+/.test(pathname)) {
-    return { categories: hookCategories, titleKey: 'nav.hooks' };
+    return {
+      categories: hookCategories,
+      titleKey: 'nav.hooks',
+      catalogPath: '/hooks',
+    };
   }
 
   return null;
@@ -40,7 +50,7 @@ function useSideNavConfig(): SideNavConfig | null {
 
 function LayoutContent() {
   const sideNavConfig = useSideNavConfig();
-  const { t } = useTranslation();
+  const { t, locale } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -74,7 +84,13 @@ function LayoutContent() {
             isOpen={isDrawerOpen}
             onClose={() => setIsDrawerOpen(false)}
             side="left"
-            title={t(sideNavConfig.titleKey)}
+            title={
+              <Heading type="h3">
+                <a href={localizeHref(sideNavConfig.catalogPath, locale)}>
+                  {t(sideNavConfig.titleKey)}
+                </a>
+              </Heading>
+            }
           >
             <SideNavigation
               categories={sideNavConfig.categories}
