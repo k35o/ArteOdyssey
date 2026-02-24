@@ -219,4 +219,5 @@ export const en = {
     'A hook that listens to window resize events with optional debounce.',
   'hooks.useWindowSize.description':
     'A hook that returns the current window dimensions.',
+  'sideNav.openNavigation': 'Open navigation',
 } as const satisfies Record<MessageKey, string>;

@@ -193,6 +193,7 @@ export const MESSAGE_KEYS = [
   'hooks.useTimeout.description',
   'hooks.useWindowResize.description',
   'hooks.useWindowSize.description',
+  'sideNav.openNavigation',
 ] as const;
 
 export type MessageKey = (typeof MESSAGE_KEYS)[number];

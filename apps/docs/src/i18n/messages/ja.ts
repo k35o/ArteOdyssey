@@ -220,4 +220,5 @@ export const ja = {
   'hooks.useWindowResize.description':
     'デバウンス対応のウィンドウリサイズイベントを監視するフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
+  'sideNav.openNavigation': 'ナビゲーションを開く',
 } as const satisfies Record<MessageKey, string>;
