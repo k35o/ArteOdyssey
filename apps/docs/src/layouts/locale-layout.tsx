@@ -4,6 +4,7 @@ import { Outlet, useLocation, useNavigate } from '@funstack/router';
 import { Drawer, Heading, IconButton, Separator } from '@k8o/arte-odyssey';
 import { ListIcon } from '@k8o/arte-odyssey/icons';
 import { useEffect, useState } from 'react';
+import { LocaleAnchor } from '../components/locale-anchor';
 import { Navigation } from '../components/navigation';
 import { SideNavigation } from '../components/side-navigation';
 import { componentCategories } from '../data/components-nav';
@@ -14,7 +15,6 @@ import {
   detectLocale,
   isLocale,
   LocaleProvider,
-  localizeHref,
   useTranslation,
 } from '../i18n';
 
@@ -60,7 +60,7 @@ function useSideNavConfig(): SideNavConfig | null {
 
 function LayoutContent() {
   const sideNavConfig = useSideNavConfig();
-  const { t, locale } = useTranslation();
+  const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
@@ -96,9 +96,9 @@ function LayoutContent() {
             side="left"
             title={
               <Heading type="h3">
-                <a href={localizeHref(sideNavConfig.catalogPath, locale)}>
+                <LocaleAnchor path={sideNavConfig.catalogPath}>
                   {t(sideNavConfig.titleKey)}
-                </a>
+                </LocaleAnchor>
               </Heading>
             }
           >
