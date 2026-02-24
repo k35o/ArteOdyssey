@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocation, useNavigate } from '@funstack/router';
-import { DropdownMenu, LinkButton, Separator } from '@k8o/arte-odyssey';
+import { DropdownMenu, LinkButton } from '@k8o/arte-odyssey';
 import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
@@ -22,7 +22,7 @@ export function Navigation() {
   const navigate = useNavigate();
 
   return (
-    <nav>
+    <nav className="bg-bg-base">
       <div className="flex items-center justify-between px-6 py-4 md:px-8">
         <div className="md:hidden">
           <DropdownMenu.Root>
@@ -63,7 +63,6 @@ export function Navigation() {
         </ul>
         <LanguageSwitcher />
       </div>
-      <Separator color="mute" />
     </nav>
   );
 }
