@@ -40,6 +40,54 @@
         "default": "./dist/hooks/*/index.js"
       }
     },
+    "./helpers/cn": {
+      "import": {
+        "types": "./dist/helpers/cn.d.ts",
+        "default": "./dist/helpers/cn.js"
+      }
+    },
+    "./helpers/color/find-all-colors": {
+      "import": {
+        "types": "./dist/helpers/color/find-all-colors.d.ts",
+        "default": "./dist/helpers/color/find-all-colors.js"
+      }
+    },
+    "./helpers/number/between": {
+      "import": {
+        "types": "./dist/helpers/number/between.d.ts",
+        "default": "./dist/helpers/number/between.js"
+      }
+    },
+    "./helpers/number/cast": {
+      "import": {
+        "types": "./dist/helpers/number/cast.d.ts",
+        "default": "./dist/helpers/number/cast.js"
+      }
+    },
+    "./helpers/number/commalize": {
+      "import": {
+        "types": "./dist/helpers/number/commalize.d.ts",
+        "default": "./dist/helpers/number/commalize.js"
+      }
+    },
+    "./helpers/number/to-precision": {
+      "import": {
+        "types": "./dist/helpers/number/to-precision.d.ts",
+        "default": "./dist/helpers/number/to-precision.js"
+      }
+    },
+    "./helpers/uuid-v4": {
+      "import": {
+        "types": "./dist/helpers/uuid-v4.d.ts",
+        "default": "./dist/helpers/uuid-v4.js"
+      }
+    },
+    "./helpers/is-internal-route": {
+      "import": {
+        "types": "./dist/helpers/is-internal-route.d.ts",
+        "default": "./dist/helpers/is-internal-route.js"
+      }
+    },
     "./styles.css": "./dist/styles/index.css",
     "./*": {
       "import": {

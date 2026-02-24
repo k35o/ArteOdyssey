@@ -187,4 +187,63 @@ export const ja = {
   'components.scrollLinked.windowScrollTitle': 'ウィンドウスクロール',
   'components.errorBoundary.fallbackComponentTitle': 'FallbackComponent',
   'components.errorBoundary.resetKeysTitle': 'リセットキー',
+  'hooks.description': 'ArteOdysseyが提供するカスタムフックの一覧です。',
+  'hooks.categoryDomInteraction': 'DOM操作',
+  'hooks.categoryStateStorage': '状態・ストレージ',
+  'hooks.categoryTiming': 'タイミング',
+  'hooks.categoryUtility': 'ユーティリティ',
+  'hooks.common.importTitle': 'インポート',
+  'hooks.common.usageTitle': '使い方',
+  'hooks.common.basicUsageTitle': '基本的な使い方',
+  'hooks.common.parametersTitle': 'パラメーター',
+  'hooks.common.returnValueTitle': '戻り値',
+  'hooks.useClickAway.description':
+    '指定した要素の外側でのクリックを検出するフックです。',
+  'hooks.useClient.description':
+    'クライアント側で実行されているかどうかを返すフックです。',
+  'hooks.useClipboard.description':
+    'クリップボードの読み書き操作を提供するフックです。',
+  'hooks.useHash.description': 'URLハッシュを追跡し変更に反応するフックです。',
+  'hooks.useInterval.description':
+    '一定間隔でコールバックを実行するフックです。',
+  'hooks.useLocalStorage.description':
+    'localStorageに状態を永続化し、タブ間で同期するフックです。',
+  'hooks.useLocalStorage.removeTitle': '値の削除',
+  'hooks.useResize.description':
+    'ResizeObserverで要素のサイズ変更を監視するフックです。',
+  'hooks.useScrollDirection.description':
+    '現在のスクロール方向を検出するフックです。',
+  'hooks.useStep.description':
+    'キーボードサポート付きのステップベースナビゲーションフックです。',
+  'hooks.useTimeout.description':
+    '指定した遅延後にコールバックを実行するフックです。',
+  'hooks.useWindowResize.description':
+    'デバウンス対応のウィンドウリサイズイベントを監視するフックです。',
+  'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
+  'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
+  'helpers.categoryStyling': 'スタイリング',
+  'helpers.categoryColor': 'カラー',
+  'helpers.categoryNumber': '数値',
+  'helpers.categoryUtility': 'ユーティリティ',
+  'helpers.common.importTitle': 'インポート',
+  'helpers.common.usageTitle': '使い方',
+  'helpers.common.basicUsageTitle': '基本的な使い方',
+  'helpers.common.parametersTitle': 'パラメーター',
+  'helpers.common.returnValueTitle': '戻り値',
+  'helpers.cn.description':
+    'clsxとtailwind-mergeを組み合わせたクラス名ユーティリティです。',
+  'helpers.findAllColors.description':
+    'テキスト内のすべてのCSS色の値とその位置を検出する関数です。',
+  'helpers.between.description':
+    '数値を最小値と最大値の間にクランプする関数です。',
+  'helpers.cast.description':
+    '文字列を数値に変換し、精度を指定できる関数です。',
+  'helpers.commalize.description':
+    '数値を3桁ごとのカンマ区切りにフォーマットする関数です。',
+  'helpers.toPrecision.description':
+    '数値を指定した小数点以下の桁数に丸める関数です。',
+  'helpers.uuidV4.description': 'UUID v4文字列を生成する関数です。',
+  'helpers.isInternalRoute.description':
+    'URLが内部ルートかどうかを判定する関数です。',
+  'sideNav.openNavigation': 'ナビゲーションを開く',
 } as const satisfies Record<MessageKey, string>;

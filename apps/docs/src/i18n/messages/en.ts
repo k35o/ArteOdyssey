@@ -184,4 +184,66 @@ export const en = {
   'components.scrollLinked.windowScrollTitle': 'Window Scroll',
   'components.errorBoundary.fallbackComponentTitle': 'FallbackComponent',
   'components.errorBoundary.resetKeysTitle': 'Reset Keys',
+  'hooks.description': 'A catalog of custom hooks provided by ArteOdyssey.',
+  'hooks.categoryDomInteraction': 'DOM Interaction',
+  'hooks.categoryStateStorage': 'State & Storage',
+  'hooks.categoryTiming': 'Timing',
+  'hooks.categoryUtility': 'Utility',
+  'hooks.common.importTitle': 'Import',
+  'hooks.common.usageTitle': 'Usage',
+  'hooks.common.basicUsageTitle': 'Basic Usage',
+  'hooks.common.parametersTitle': 'Parameters',
+  'hooks.common.returnValueTitle': 'Return Value',
+  'hooks.useClickAway.description':
+    'A hook that detects clicks outside a specified element.',
+  'hooks.useClient.description':
+    'A hook that returns whether the code is running on the client.',
+  'hooks.useClipboard.description':
+    'A hook that provides clipboard read/write operations.',
+  'hooks.useHash.description':
+    'A hook that tracks the URL hash and reacts to changes.',
+  'hooks.useInterval.description':
+    'A hook that executes a callback at regular intervals.',
+  'hooks.useLocalStorage.description':
+    'A hook that persists state in localStorage with cross-tab sync.',
+  'hooks.useLocalStorage.removeTitle': 'Remove Value',
+  'hooks.useResize.description':
+    'A hook that observes element size changes via ResizeObserver.',
+  'hooks.useScrollDirection.description':
+    'A hook that detects the current scroll direction.',
+  'hooks.useStep.description':
+    'A hook for step-based navigation with keyboard support.',
+  'hooks.useTimeout.description':
+    'A hook that executes a callback after a specified delay.',
+  'hooks.useWindowResize.description':
+    'A hook that listens to window resize events with optional debounce.',
+  'hooks.useWindowSize.description':
+    'A hook that returns the current window dimensions.',
+  'helpers.description':
+    'A catalog of helper functions provided by ArteOdyssey.',
+  'helpers.categoryStyling': 'Styling',
+  'helpers.categoryColor': 'Color',
+  'helpers.categoryNumber': 'Number',
+  'helpers.categoryUtility': 'Utility',
+  'helpers.common.importTitle': 'Import',
+  'helpers.common.usageTitle': 'Usage',
+  'helpers.common.basicUsageTitle': 'Basic Usage',
+  'helpers.common.parametersTitle': 'Parameters',
+  'helpers.common.returnValueTitle': 'Return Value',
+  'helpers.cn.description':
+    'A class name utility combining clsx and tailwind-merge.',
+  'helpers.findAllColors.description':
+    'A function that detects all CSS color values and their positions in text.',
+  'helpers.between.description':
+    'A function that clamps a number between a minimum and maximum value.',
+  'helpers.cast.description':
+    'A function that converts a string to a number with precision control.',
+  'helpers.commalize.description':
+    'A function that formats a number with comma separators.',
+  'helpers.toPrecision.description':
+    'A function that rounds a number to a specified number of decimal places.',
+  'helpers.uuidV4.description': 'A function that generates a UUID v4 string.',
+  'helpers.isInternalRoute.description':
+    'A function that determines whether a URL is an internal route.',
+  'sideNav.openNavigation': 'Open navigation',
 } as const satisfies Record<MessageKey, string>;
