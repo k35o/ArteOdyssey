@@ -70,11 +70,30 @@ const rightVariants: Variants = {
   },
 };
 
+const leftVariants: Variants = {
+  open: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+  closed: {
+    opacity: 0,
+    x: '-100%',
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+};
+
 export const Modal: FC<
   PropsWithChildren<{
     // TODO: 外部のref.current.showModal()にrealDialogOpenが追従するようにする
     ref?: RefObject<HTMLDialogElement | null>;
-    type?: 'center' | 'bottom' | 'right';
+    type?: 'center' | 'bottom' | 'right' | 'left';
     defaultOpen?: boolean;
     isOpen?: boolean;
     onClose?: () => void;
@@ -121,7 +140,9 @@ export const Modal: FC<
         type === 'bottom' &&
           'mt-auto w-screen max-w-screen rounded-t-lg dark:border-t',
         type === 'right' &&
-          'ml-auto min-h-svh w-screen max-w-sm rounded-l-lg dark:border-l',
+          'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg dark:border-l',
+        type === 'left' &&
+          'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg dark:border-r',
       )}
       exit="closed"
       initial="closed"
@@ -137,7 +158,9 @@ export const Modal: FC<
           ? centerVariants
           : type === 'bottom'
             ? bottomVariants
-            : rightVariants
+            : type === 'left'
+              ? leftVariants
+              : rightVariants
       }
     >
       <ToastProvider portalRef={realRef} position="absolute">
