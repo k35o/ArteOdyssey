@@ -1,9 +1,75 @@
 'use client';
 
-import { Heading, LinkButton, Separator } from '@k8o/arte-odyssey';
-import { BlogIcon, GitHubIcon } from '@k8o/arte-odyssey/icons';
+import { Card, Heading, LinkButton, Separator } from '@k8o/arte-odyssey';
+import {
+  AccessibilityIcon,
+  AtomIcon,
+  BlogIcon,
+  DarkModeIcon,
+  GitHubIcon,
+  PaletteIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+} from '@k8o/arte-odyssey/icons';
+import type { FC, ReactNode } from 'react';
 import { STORYBOOK_URL } from '../constants';
 import { useTranslation } from '../i18n';
+import type { MessageKey } from '../i18n/types';
+
+type Feature = {
+  title: MessageKey;
+  description: MessageKey;
+  icon: ReactNode;
+};
+
+const FEATURES: Feature[] = [
+  {
+    title: 'home.featureReact',
+    description: 'home.featureReactDescription',
+    icon: <AtomIcon />,
+  },
+  {
+    title: 'home.featureTailwind',
+    description: 'home.featureTailwindDescription',
+    icon: <PaletteIcon />,
+  },
+  {
+    title: 'home.featureDarkMode',
+    description: 'home.featureDarkModeDescription',
+    icon: <DarkModeIcon />,
+  },
+  {
+    title: 'home.featureTypeScript',
+    description: 'home.featureTypeScriptDescription',
+    icon: <ShieldCheckIcon />,
+  },
+  {
+    title: 'home.featureAccessible',
+    description: 'home.featureAccessibleDescription',
+    icon: <AccessibilityIcon />,
+  },
+  {
+    title: 'home.featureMinimal',
+    description: 'home.featureMinimalDescription',
+    icon: <SparklesIcon />,
+  },
+];
+
+const FeatureCard: FC<{ feature: Feature }> = ({ feature }) => {
+  const { t } = useTranslation();
+
+  return (
+    <Card appearance="bordered">
+      <div className="flex flex-col gap-3 p-5">
+        <div className="text-fg-mute">{feature.icon}</div>
+        <p className="font-medium text-fg-base">{t(feature.title)}</p>
+        <p className="text-fg-mute text-sm leading-relaxed">
+          {t(feature.description)}
+        </p>
+      </div>
+    </Card>
+  );
+};
 
 export function Home() {
   const { t } = useTranslation();
@@ -35,6 +101,14 @@ export function Home() {
         >
           {t('home.storybook')}
         </LinkButton>
+      </div>
+      <div className="flex w-full max-w-4xl flex-col gap-6">
+        <Heading type="h2">{t('home.featuresTitle')}</Heading>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {FEATURES.map((feature) => (
+            <FeatureCard feature={feature} key={feature.title} />
+          ))}
+        </div>
       </div>
     </div>
   );

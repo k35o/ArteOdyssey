@@ -1,7 +1,9 @@
 import {
+  Accessibility,
   AlignRight,
   Angry,
   Annoyed,
+  Atom,
   Bell,
   Blend,
   Bookmark,
@@ -33,12 +35,15 @@ import {
   Minus,
   MoonStar,
   PaintBucket,
+  Palette,
   Plus,
   Presentation,
   Rocket,
   Rss,
   Send,
+  ShieldCheck,
   Smile,
+  Sparkles,
   Sun,
   Table2,
   Tag,
@@ -522,6 +527,61 @@ export const DifficultIcon: FC<IconProps> = ({ size = 'md' }) => {
     <BaseIcon
       renderItem={(props) => {
         return <Angry {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const AtomIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <Atom {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const PaletteIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <Palette {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const ShieldCheckIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <ShieldCheck {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const AccessibilityIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <Accessibility {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const SparklesIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <Sparkles {...props} />;
       }}
       size={size}
     />
