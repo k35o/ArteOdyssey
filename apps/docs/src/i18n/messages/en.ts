@@ -11,6 +11,25 @@ export const en = {
   'home.description': 'React UI Component Library',
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
+  'home.featuresTitle': 'Features',
+  'home.featureReact': 'React 19',
+  'home.featureReactDescription':
+    'Built with the latest React 19. Supports modern patterns like Server Components and actions.',
+  'home.featureTailwind': 'Tailwind CSS 4',
+  'home.featureTailwindDescription':
+    'Flexible and efficient styling powered by Tailwind CSS 4 and its utility-first approach.',
+  'home.featureDarkMode': 'Dark Mode',
+  'home.featureDarkModeDescription':
+    'Seamless light and dark mode switching. Semantic tokens adapt automatically.',
+  'home.featureTypeScript': 'TypeScript',
+  'home.featureTypeScriptDescription':
+    'Full type definitions included. Develop safely with editor autocompletion and compile-time type checking.',
+  'home.featureAccessible': 'Accessibility',
+  'home.featureAccessibleDescription':
+    'Aiming for components that consider keyboard navigation and screen reader support based on WAI-ARIA patterns.',
+  'home.featureMinimal': 'Minimal Design',
+  'home.featureMinimalDescription':
+    'A calm, serene aesthetic that embraces whitespace. UI that lets your content shine.',
   'common.language': 'Language',
   'nav.openMenu': 'Open menu',
   'getStarted.introduction':

@@ -2,8 +2,10 @@ export { ArteOdyssey } from './arte-odyssey';
 export { GitHubIcon } from './github-mark';
 export { Logo, LogoIcon } from './logo';
 export {
+  AccessibilityIcon,
   AIIcon,
   AlertIcon,
+  AtomIcon,
   BadIcon,
   BlogIcon,
   BoringIcon,
@@ -31,13 +33,16 @@ export {
   MixedColorIcon,
   NavigationMenuIcon,
   NewsIcon,
+  PaletteIcon,
   PlusIcon,
   PrepareIcon,
   PublishDateIcon,
   RSSIcon,
   SendIcon,
   ShallowIcon,
+  ShieldCheckIcon,
   SlideIcon,
+  SparklesIcon,
   SubscribeIcon,
   TableIcon,
   TagIcon,

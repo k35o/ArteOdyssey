@@ -11,6 +11,25 @@ export const ja = {
   'home.description': 'React UIコンポーネントライブラリ',
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
+  'home.featuresTitle': '特徴',
+  'home.featureReact': 'React 19',
+  'home.featureReactDescription':
+    '最新のReact 19で構築。Server Componentsやアクションなど、モダンなパターンに対応しています。',
+  'home.featureTailwind': 'Tailwind CSS 4',
+  'home.featureTailwindDescription':
+    'Tailwind CSS 4のユーティリティファーストアプローチで、柔軟かつ効率的なスタイリングを実現します。',
+  'home.featureDarkMode': 'ダークモード',
+  'home.featureDarkModeDescription':
+    'ライトモードとダークモードをシームレスに切り替え。セマンティックトークンが自動で適応します。',
+  'home.featureTypeScript': 'TypeScript',
+  'home.featureTypeScriptDescription':
+    '完全な型定義を提供。エディタの補完とコンパイル時の型チェックで安全に開発できます。',
+  'home.featureAccessible': 'アクセシビリティ',
+  'home.featureAccessibleDescription':
+    'WAI-ARIAパターンに基づき、キーボード操作やスクリーンリーダーに配慮したコンポーネントを目指しています。',
+  'home.featureMinimal': 'ミニマルデザイン',
+  'home.featureMinimalDescription':
+    '静謐で落ち着いた、余白を活かしたデザイン。コンテンツを際立たせるUIを提供します。',
   'common.language': '言語',
   'nav.openMenu': 'メニューを開く',
   'getStarted.introduction':
