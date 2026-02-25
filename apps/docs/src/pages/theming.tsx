@@ -1,4 +1,4 @@
-import { Heading, Separator } from '@k8o/arte-odyssey';
+import { Card, Heading, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../components/code-block';
 import { T } from '../components/t';
 
@@ -323,22 +323,24 @@ function TokenCard({
   type?: 'fill' | 'border';
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-lg border border-border-mute px-3 py-2">
-      <div
-        className="h-6 w-6 shrink-0 rounded-md"
-        style={
-          type === 'border'
-            ? { border: `2px solid var(--${name})` }
-            : { backgroundColor: `var(--${name})` }
-        }
-      />
-      <div className="min-w-0">
-        <p className="font-medium text-sm">{name}</p>
-        <p className="text-fg-subtle text-xs">
-          {source} ({hex})
-        </p>
+    <Card appearance="bordered">
+      <div className="flex items-center gap-3 px-3 py-2">
+        <div
+          className="h-6 w-6 shrink-0 rounded-md"
+          style={
+            type === 'border'
+              ? { border: `2px solid var(--${name})` }
+              : { backgroundColor: `var(--${name})` }
+          }
+        />
+        <div className="min-w-0">
+          <p className="font-medium text-sm">{name}</p>
+          <p className="text-fg-subtle text-xs">
+            {source} ({hex})
+          </p>
+        </div>
       </div>
-    </div>
+    </Card>
   );
 }
 
@@ -529,27 +531,29 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.textSizesTitle" />
           </Heading>
-          <div className="flex flex-col gap-3 rounded-lg border border-border-mute p-4">
-            {TEXT_SIZES.map((size) => (
-              <div className="flex items-baseline gap-4" key={size.name}>
-                <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                  {size.name}
-                </code>
-                <span
-                  className="truncate"
-                  style={{
-                    fontSize: size.fontSize,
-                    lineHeight: size.lineHeight,
-                  }}
-                >
-                  ArteOdyssey
-                </span>
-                <span className="ml-auto shrink-0 text-fg-subtle text-xs">
-                  {size.fontSize} / {Number(size.lineHeight.toFixed(3))}
-                </span>
-              </div>
-            ))}
-          </div>
+          <Card appearance="bordered">
+            <div className="flex flex-col gap-3 p-4">
+              {TEXT_SIZES.map((size) => (
+                <div className="flex items-baseline gap-4" key={size.name}>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
+                    {size.name}
+                  </code>
+                  <span
+                    className="truncate"
+                    style={{
+                      fontSize: size.fontSize,
+                      lineHeight: size.lineHeight,
+                    }}
+                  >
+                    ArteOdyssey
+                  </span>
+                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">
+                    {size.fontSize} / {Number(size.lineHeight.toFixed(3))}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
 
         {/* Font Weights */}
@@ -557,21 +561,26 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.fontWeightsTitle" />
           </Heading>
-          <div className="flex flex-col gap-3 rounded-lg border border-border-mute p-4">
-            {FONT_WEIGHTS.map((weight) => (
-              <div className="flex items-baseline gap-4" key={weight.name}>
-                <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                  {weight.name}
-                </code>
-                <span className="text-lg" style={{ fontWeight: weight.value }}>
-                  ArteOdyssey
-                </span>
-                <span className="ml-auto shrink-0 text-fg-subtle text-xs">
-                  {weight.value}
-                </span>
-              </div>
-            ))}
-          </div>
+          <Card appearance="bordered">
+            <div className="flex flex-col gap-3 p-4">
+              {FONT_WEIGHTS.map((weight) => (
+                <div className="flex items-baseline gap-4" key={weight.name}>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
+                    {weight.name}
+                  </code>
+                  <span
+                    className="text-lg"
+                    style={{ fontWeight: weight.value }}
+                  >
+                    ArteOdyssey
+                  </span>
+                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">
+                    {weight.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
 
         {/* Letter Spacing */}
@@ -579,21 +588,23 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.letterSpacingTitle" />
           </Heading>
-          <div className="flex flex-col gap-3 rounded-lg border border-border-mute p-4">
-            {LETTER_SPACINGS.map((ls) => (
-              <div className="flex items-baseline gap-4" key={ls.name}>
-                <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                  {ls.name}
-                </code>
-                <span className="text-lg" style={{ letterSpacing: ls.value }}>
-                  ArteOdyssey
-                </span>
-                <span className="ml-auto shrink-0 text-fg-subtle text-xs">
-                  {ls.value}
-                </span>
-              </div>
-            ))}
-          </div>
+          <Card appearance="bordered">
+            <div className="flex flex-col gap-3 p-4">
+              {LETTER_SPACINGS.map((ls) => (
+                <div className="flex items-baseline gap-4" key={ls.name}>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
+                    {ls.name}
+                  </code>
+                  <span className="text-lg" style={{ letterSpacing: ls.value }}>
+                    ArteOdyssey
+                  </span>
+                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">
+                    {ls.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </Card>
         </div>
 
         {/* Line Height */}
@@ -601,25 +612,27 @@ export function Theming() {
           <Heading type="h3">
             <T k="theming.lineHeightTitle" />
           </Heading>
-          <div className="flex flex-col gap-3 rounded-lg border border-border-mute p-4">
-            {LINE_HEIGHTS.map((lh) => (
-              <div className="flex items-center gap-4" key={lh.name}>
-                <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                  {lh.name}
-                </code>
-                <div
-                  className="flex-1 text-sm"
-                  style={{ lineHeight: lh.value }}
-                >
-                  The quick brown fox jumps over the lazy dog. The quick brown
-                  fox jumps over the lazy dog.
+          <Card appearance="bordered">
+            <div className="flex flex-col gap-3 p-4">
+              {LINE_HEIGHTS.map((lh) => (
+                <div className="flex items-center gap-4" key={lh.name}>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
+                    {lh.name}
+                  </code>
+                  <div
+                    className="flex-1 text-sm"
+                    style={{ lineHeight: lh.value }}
+                  >
+                    The quick brown fox jumps over the lazy dog. The quick brown
+                    fox jumps over the lazy dog.
+                  </div>
+                  <span className="shrink-0 text-fg-subtle text-xs">
+                    {lh.value}
+                  </span>
                 </div>
-                <span className="shrink-0 text-fg-subtle text-xs">
-                  {lh.value}
-                </span>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Card>
         </div>
       </section>
       <Separator color="mute" />
@@ -682,22 +695,24 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.spacingDescription" />
         </p>
-        <div className="flex flex-col gap-2 rounded-lg border border-border-mute p-4">
-          {SPACING_SCALE.map((space) => (
-            <div className="flex items-center gap-3" key={space.name}>
-              <code className="w-8 shrink-0 text-right text-fg-subtle text-sm">
-                {space.name}
-              </code>
-              <div
-                className="h-4 rounded bg-primary-bg"
-                style={{ width: space.px }}
-              />
-              <span className="text-fg-subtle text-xs">
-                {space.rem} ({space.px})
-              </span>
-            </div>
-          ))}
-        </div>
+        <Card appearance="bordered">
+          <div className="flex flex-col gap-2 p-4">
+            {SPACING_SCALE.map((space) => (
+              <div className="flex items-center gap-3" key={space.name}>
+                <code className="w-8 shrink-0 text-right text-fg-subtle text-sm">
+                  {space.name}
+                </code>
+                <div
+                  className="h-4 rounded bg-primary-bg"
+                  style={{ width: space.px }}
+                />
+                <span className="text-fg-subtle text-xs">
+                  {space.rem} ({space.px})
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
       </section>
       <Separator color="mute" />
 
@@ -709,18 +724,20 @@ export function Theming() {
         <p className="text-fg-mute">
           <T k="theming.breakpointsDescription" />
         </p>
-        <div className="flex flex-col gap-2 rounded-lg border border-border-mute p-4">
-          {BREAKPOINTS.map((bp) => (
-            <div className="flex items-center gap-4" key={bp.name}>
-              <code className="w-10 shrink-0 font-medium text-sm">
-                {bp.name}
-              </code>
-              <span className="text-fg-subtle text-xs">
-                ≥ {bp.px} ({bp.rem})
-              </span>
-            </div>
-          ))}
-        </div>
+        <Card appearance="bordered">
+          <div className="flex flex-col gap-2 p-4">
+            {BREAKPOINTS.map((bp) => (
+              <div className="flex items-center gap-4" key={bp.name}>
+                <code className="w-10 shrink-0 font-medium text-sm">
+                  {bp.name}
+                </code>
+                <span className="text-fg-subtle text-xs">
+                  ≥ {bp.px} ({bp.rem})
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
       </section>
       <Separator color="mute" />
 
