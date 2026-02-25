@@ -245,5 +245,38 @@ export const en = {
   'helpers.uuidV4.description': 'A function that generates a UUID v4 string.',
   'helpers.isInternalRoute.description':
     'A function that determines whether a URL is an internal route.',
+  'theming.introduction':
+    'ArteOdyssey uses a CSS variable-based design token system. It supports both light and dark modes and is easy to customize.',
+  'theming.colorPaletteTitle': 'Color Palette',
+  'theming.colorPaletteDescription':
+    'There are 10 base color families, each with 10 shades from 50 to 900.',
+  'theming.semanticColorsTitle': 'Semantic Colors',
+  'theming.semanticColorsDescription':
+    'Purpose-specific color tokens derived from the base colors. They automatically adapt when switching themes.',
+  'theming.foregroundTitle': 'Foreground',
+  'theming.backgroundTitle': 'Background',
+  'theming.borderTitle': 'Border',
+  'theming.brandColorsTitle': 'Brand Colors',
+  'theming.brandColorsDescription':
+    'Primary uses Teal and Secondary uses Cyan as their base brand colors.',
+  'theming.typographyTitle': 'Typography',
+  'theming.typographyDescription':
+    'Design tokens for text sizes, font weights, letter spacing, and line heights.',
+  'theming.textSizesTitle': 'Text Sizes',
+  'theming.fontWeightsTitle': 'Font Weights',
+  'theming.letterSpacingTitle': 'Letter Spacing',
+  'theming.lineHeightTitle': 'Line Height',
+  'theming.shadowTitle': 'Shadow',
+  'theming.shadowDescription': 'Design tokens for box shadows.',
+  'theming.borderRadiusTitle': 'Border Radius',
+  'theming.borderRadiusDescription': 'Design tokens for border radius values.',
+  'theming.darkModeTitle': 'Dark Mode',
+  'theming.darkModeDescription':
+    'Add the dark class to the root element to enable dark mode. Semantic color tokens automatically switch to their dark mode values.',
+  'theming.spacingTitle': 'Spacing',
+  'theming.spacingDescription':
+    'The spacing scale. The base unit is 0.25rem (4px), and p-{n} or gap-{n} computes to n × 0.25rem.',
+  'theming.breakpointsTitle': 'Breakpoints',
+  'theming.breakpointsDescription': 'Responsive breakpoints.',
   'sideNav.openNavigation': 'Open navigation',
 } as const satisfies Record<MessageKey, string>;

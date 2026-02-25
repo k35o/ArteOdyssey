@@ -1,6 +1,6 @@
 'use client';
 
-import { Heading, Separator } from '@k8o/arte-odyssey';
+import { Heading, InteractiveCard, Separator } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { T } from '../components/t';
@@ -10,10 +10,12 @@ import { useTranslation } from '../i18n';
 
 const HelperCard: FC<{ item: NavItem }> = ({ item }) => {
   return (
-    <LocaleAnchor path={item.path}>
-      <div className="rounded-lg border border-border-mute px-4 py-3 transition-colors hover:bg-bg-mute">
-        <span className="font-medium text-fg-base text-sm">{item.name}</span>
-      </div>
+    <LocaleAnchor path={item.path} unstyled>
+      <InteractiveCard appearance="bordered">
+        <div className="px-4 py-3">
+          <span className="font-medium text-fg-base text-sm">{item.name}</span>
+        </div>
+      </InteractiveCard>
     </LocaleAnchor>
   );
 };

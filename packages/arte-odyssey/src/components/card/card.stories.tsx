@@ -68,6 +68,19 @@ export const Interactive: Story = {
   ),
 };
 
+export const Bordered: Story = {
+  render: () => (
+    <Card appearance="bordered">
+      <div className="p-4">
+        <h3 className="font-bold text-lg">ボーダースタイル</h3>
+        <p className="mt-2 text-fg-mute">
+          シャドウの代わりにボーダーで区切るスタイルです。
+        </p>
+      </div>
+    </Card>
+  ),
+};
+
 export const FitWidth: Story = {
   render: () => (
     <Card width="fit">

@@ -8,6 +8,7 @@ type LocaleAnchorProps = PropsWithChildren<{
   path: string;
   className?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
+  unstyled?: boolean;
 }>;
 
 export const LocaleAnchor: FC<LocaleAnchorProps> = ({
@@ -15,11 +16,12 @@ export const LocaleAnchor: FC<LocaleAnchorProps> = ({
   className,
   onClick,
   children,
+  unstyled = false,
 }) => {
   const locale = useLocale();
   const href = localizeHref(path, locale);
 
-  if (className !== undefined) {
+  if (unstyled) {
     return (
       <a className={className} href={href} onClick={onClick}>
         {children}
@@ -31,10 +33,10 @@ export const LocaleAnchor: FC<LocaleAnchorProps> = ({
     <Anchor
       href={href}
       renderAnchor={
-        onClick !== undefined
+        onClick !== undefined || className !== undefined
           ? (props) => (
               <a
-                className={props.className}
+                className={className ?? props.className}
                 href={props.href}
                 onClick={onClick}
               >
