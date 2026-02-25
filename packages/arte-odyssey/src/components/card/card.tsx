@@ -6,10 +6,13 @@ export const Card: FC<CardProps> = ({
   children,
   variant = 'primary',
   width = 'full',
+  appearance = 'shadow',
 }) => (
-  <section
+  <div
     className={cn(
-      'rounded-lg shadow-sm',
+      'rounded-lg',
+      appearance === 'shadow' && 'shadow-sm',
+      appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
       variant === 'primary' && 'bg-bg-base',
@@ -17,5 +20,5 @@ export const Card: FC<CardProps> = ({
     )}
   >
     {children}
-  </section>
+  </div>
 );
