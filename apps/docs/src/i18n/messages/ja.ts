@@ -245,5 +245,38 @@ export const ja = {
   'helpers.uuidV4.description': 'UUID v4文字列を生成する関数です。',
   'helpers.isInternalRoute.description':
     'URLが内部ルートかどうかを判定する関数です。',
+  'theming.introduction':
+    'ArteOdysseyは、CSS変数ベースのデザイントークンシステムを使用しています。ライトモードとダークモードの両方に対応し、カスタマイズが容易です。',
+  'theming.colorPaletteTitle': 'カラーパレット',
+  'theming.colorPaletteDescription':
+    '10色のベースカラーファミリーがあり、各色に50〜900の10段階のシェードが用意されています。',
+  'theming.semanticColorsTitle': 'セマンティックカラー',
+  'theming.semanticColorsDescription':
+    'ベースカラーをもとにした用途別のカラートークンです。テーマ切り替え時に自動的に適切な値に変わります。',
+  'theming.foregroundTitle': '前景色（Foreground）',
+  'theming.backgroundTitle': '背景色（Background）',
+  'theming.borderTitle': 'ボーダー（Border）',
+  'theming.brandColorsTitle': 'ブランドカラー',
+  'theming.brandColorsDescription':
+    'PrimaryはTeal、SecondaryはCyanをベースとしたブランドカラーです。',
+  'theming.typographyTitle': 'タイポグラフィ',
+  'theming.typographyDescription':
+    'テキストサイズ、フォントウェイト、レタースペーシング、行の高さのデザイントークンです。',
+  'theming.textSizesTitle': 'テキストサイズ',
+  'theming.fontWeightsTitle': 'フォントウェイト',
+  'theming.letterSpacingTitle': 'レタースペーシング',
+  'theming.lineHeightTitle': '行の高さ',
+  'theming.shadowTitle': 'シャドウ',
+  'theming.shadowDescription': 'ボックスシャドウのデザイントークンです。',
+  'theming.borderRadiusTitle': 'ボーダーラディウス',
+  'theming.borderRadiusDescription': '角丸のデザイントークンです。',
+  'theming.darkModeTitle': 'ダークモード',
+  'theming.darkModeDescription':
+    'ルート要素にdarkクラスを追加することで、ダークモードが有効になります。セマンティックカラートークンは自動的にダークモード用の値に切り替わります。',
+  'theming.spacingTitle': 'スペーシング',
+  'theming.spacingDescription':
+    'スペーシングスケールです。基本単位は0.25rem（4px）で、p-{n}やgap-{n}はn × 0.25remに計算されます。',
+  'theming.breakpointsTitle': 'ブレイクポイント',
+  'theming.breakpointsDescription': 'レスポンシブブレイクポイントです。',
   'sideNav.openNavigation': 'ナビゲーションを開く',
 } as const satisfies Record<MessageKey, string>;
