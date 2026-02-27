@@ -16,7 +16,7 @@
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/postcss": "catalog:",
     "postcss": "catalog:",
-    "shiki": "^3.22.0",
+    "shiki": "3.22.0",
     "tailwindcss": "catalog:"
   },
   "devDependencies": {
