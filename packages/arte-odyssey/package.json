@@ -115,14 +115,14 @@
     "check:write": "biome check --write --unsafe"
   },
   "dependencies": {
-    "@floating-ui/react": "0.27.17",
+    "@floating-ui/react": "0.27.18",
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "esbuild": "0.27.3",
-    "lucide-react": "0.564.0",
-    "motion": "12.34.0",
+    "lucide-react": "0.575.0",
+    "motion": "12.34.3",
     "react-error-boundary": "6.1.1",
-    "tailwind-merge": "3.4.0"
+    "tailwind-merge": "3.5.0"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
