@@ -11,7 +11,7 @@
     "check:write": "biome check --write ."
   },
   "dependencies": {
-    "@funstack/router": "0.0.8",
+    "@funstack/router": "0.0.9",
     "@funstack/static": "0.0.9",
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/postcss": "catalog:",
