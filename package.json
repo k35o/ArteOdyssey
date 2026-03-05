@@ -20,14 +20,7 @@
     "release": "pnpm build && changeset publish"
   },
   "engines": {
-    "node": "24.13.1"
-  },
-  "devEngines": {
-    "runtime": {
-      "name": "node",
-      "version": "^24.13.0",
-      "onFail": "download"
-    }
+    "node": ">=24.13.0"
   },
   "packageManager": "pnpm@10.30.1",
   "devDependencies": {
