@@ -1,5 +1,17 @@
 # @k8o/arte-odyssey
 
+## 3.1.0
+
+### Minor Changes
+
+- [#271](https://github.com/k35o/ArteOdyssey/pull/271) [`3f5cd56`](https://github.com/k35o/ArteOdyssey/commit/3f5cd562c349fab39a269d014b255d625a6b5731) Thanks [@k35o](https://github.com/k35o)! - Drawer コンポーネントの title に ReactNode を受け付けるように変更し、side prop で左右の表示位置を選択可能に。Modal に left タイプを追加。helpers 関数のエクスポートを追加。
+
+- [#274](https://github.com/k35o/ArteOdyssey/pull/274) [`c73c690`](https://github.com/k35o/ArteOdyssey/commit/c73c6904803f17e199e4b862da4d0f5f7337f8aa) Thanks [@k35o](https://github.com/k35o)! - Card / InteractiveCard に `appearance` prop を追加（`'shadow' | 'bordered'`）。HTML 要素を `<section>` から `<div>` に変更。
+
+### Patch Changes
+
+- [#274](https://github.com/k35o/ArteOdyssey/pull/274) [`037d31c`](https://github.com/k35o/ArteOdyssey/commit/037d31cc6500aa2b75725d068dd2c0867af76523) Thanks [@k35o](https://github.com/k35o)! - leading, shadow, inset-shadow, spacing, breakpoints のデザイントークンを @theme inline に明示的に定義
+
 ## 3.0.0
 
 ### Major Changes
