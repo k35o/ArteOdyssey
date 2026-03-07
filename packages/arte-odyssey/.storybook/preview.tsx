@@ -1,16 +1,8 @@
-import { DocsContainer } from '@storybook/addon-docs/blocks';
 import type { Preview } from '@storybook/react-vite';
-import { themes } from 'storybook/theming';
 import { ArteOdysseyProvider } from '../src/components/providers';
 
 import '../src/styles/index.css';
-import {
-  type FC,
-  memo,
-  type PropsWithChildren,
-  useEffect,
-  useState,
-} from 'react';
+import { type FC, memo, useEffect, useState } from 'react';
 
 const ApplayThemeByStorybook: FC<{ theme: 'light' | 'dark' }> = memo(
   ({ theme }) => {
@@ -29,22 +21,6 @@ const ApplayThemeByStorybook: FC<{ theme: 'light' | 'dark' }> = memo(
     return null;
   },
 );
-
-const ThemedDocsContainer: FC<
-  PropsWithChildren<{ context: Parameters<typeof DocsContainer>[0]['context'] }>
-> = ({ children, context }) => {
-  const globals = context.store?.globals?.globals;
-  const isDark = globals?.theme === 'dark';
-
-  return (
-    <DocsContainer
-      context={context}
-      theme={isDark ? themes.dark : themes.light}
-    >
-      {children}
-    </DocsContainer>
-  );
-};
 
 const preview: Preview = {
   globalTypes: {
@@ -65,9 +41,6 @@ const preview: Preview = {
     backgrounds: { disable: true },
     layout: 'fullscreen',
     mockingDate: new Date(2023, 0, 2, 12, 34, 56),
-    docs: {
-      container: ThemedDocsContainer,
-    },
     a11y: {
       test: 'error',
       options: {

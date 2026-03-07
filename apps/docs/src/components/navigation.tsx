@@ -5,6 +5,7 @@ import { DropdownMenu, LinkButton } from '@k8o/arte-odyssey';
 import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
+import { ColorSchemeSwitcher } from './color-scheme-switcher';
 import { LanguageSwitcher } from './language-switcher';
 
 const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
@@ -61,7 +62,10 @@ export function Navigation() {
             );
           })}
         </ul>
-        <LanguageSwitcher />
+        <div className="flex items-center gap-2">
+          <ColorSchemeSwitcher />
+          <LanguageSwitcher />
+        </div>
       </div>
     </nav>
   );
