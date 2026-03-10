@@ -299,4 +299,6 @@ export const ja = {
   'theming.breakpointsTitle': 'ブレイクポイント',
   'theming.breakpointsDescription': 'レスポンシブブレイクポイントです。',
   'sideNav.openNavigation': 'ナビゲーションを開く',
+  'common.switchToDarkMode': 'ダークモードに切り替え',
+  'common.switchToLightMode': 'ライトモードに切り替え',
 } as const satisfies Record<MessageKey, string>;

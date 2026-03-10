@@ -299,4 +299,6 @@ export const en = {
   'theming.breakpointsTitle': 'Breakpoints',
   'theming.breakpointsDescription': 'Responsive breakpoints.',
   'sideNav.openNavigation': 'Open navigation',
+  'common.switchToDarkMode': 'Switch to dark mode',
+  'common.switchToLightMode': 'Switch to light mode',
 } as const satisfies Record<MessageKey, string>;

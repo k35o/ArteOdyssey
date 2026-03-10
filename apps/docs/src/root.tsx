@@ -12,8 +12,14 @@ export default function Root({ children }: { children: ReactNode }) {
           content="ArteOdyssey - React UI Component Library"
           name="description"
         />
+        <script>
+          {`const t = localStorage.getItem('arte-odyssey-theme');
+if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme:dark)').matches)) {
+  document.documentElement.classList.add('dark');
+}`}
+        </script>
       </head>
-      <body>{children}</body>
+      <body className="bg-bg-base text-fg-base">{children}</body>
     </html>
   );
 }

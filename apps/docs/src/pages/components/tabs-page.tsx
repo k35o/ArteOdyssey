@@ -1,10 +1,14 @@
-import { Anchor, Heading, Separator, Tabs } from '@k8o/arte-odyssey';
+import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import {
+  TabsBasicPreview,
+  TabsDefaultSelectedPreview,
+} from './_previews/tabs-previews';
 
 const tabsRootProps: PropItem[] = [
   { name: 'ids', types: ['[string, ...string[]]'], defaultValue: null },
@@ -87,24 +91,7 @@ export function TabsPage() {
   </Tabs.Panel>
 </Tabs.Root>`}
           >
-            <div className="w-full">
-              <Tabs.Root ids={['overview', 'settings', 'history']}>
-                <Tabs.List label="Navigation">
-                  <Tabs.Tab id="overview">Overview</Tabs.Tab>
-                  <Tabs.Tab id="settings">Settings</Tabs.Tab>
-                  <Tabs.Tab id="history">History</Tabs.Tab>
-                </Tabs.List>
-                <Tabs.Panel id="overview">
-                  <p>Overview content goes here.</p>
-                </Tabs.Panel>
-                <Tabs.Panel id="settings">
-                  <p>Settings content goes here.</p>
-                </Tabs.Panel>
-                <Tabs.Panel id="history">
-                  <p>History content goes here.</p>
-                </Tabs.Panel>
-              </Tabs.Root>
-            </div>
+            <TabsBasicPreview />
           </ComponentPreview>
         </div>
 
@@ -134,27 +121,7 @@ export function TabsPage() {
   </Tabs.Panel>
 </Tabs.Root>`}
           >
-            <div className="w-full">
-              <Tabs.Root
-                defaultSelectedId="settings"
-                ids={['overview', 'settings', 'history']}
-              >
-                <Tabs.List label="Navigation">
-                  <Tabs.Tab id="overview">Overview</Tabs.Tab>
-                  <Tabs.Tab id="settings">Settings</Tabs.Tab>
-                  <Tabs.Tab id="history">History</Tabs.Tab>
-                </Tabs.List>
-                <Tabs.Panel id="overview">
-                  <p>Overview content goes here.</p>
-                </Tabs.Panel>
-                <Tabs.Panel id="settings">
-                  <p>Settings content goes here.</p>
-                </Tabs.Panel>
-                <Tabs.Panel id="history">
-                  <p>History content goes here.</p>
-                </Tabs.Panel>
-              </Tabs.Root>
-            </div>
+            <TabsDefaultSelectedPreview />
           </ComponentPreview>
         </div>
       </section>

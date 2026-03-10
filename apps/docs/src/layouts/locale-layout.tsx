@@ -17,6 +17,7 @@ import {
   LocaleProvider,
   useTranslation,
 } from '../i18n';
+import { ThemeProvider } from '../theme/context';
 
 type SideNavConfig = {
   categories: NavCategory[];
@@ -140,9 +141,11 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
 
   return (
     <LocaleProvider locale={localeParam}>
-      <div className="flex h-dvh flex-col">
-        <LayoutContent />
-      </div>
+      <ThemeProvider>
+        <div className="flex h-dvh flex-col">
+          <LayoutContent />
+        </div>
+      </ThemeProvider>
     </LocaleProvider>
   );
 }

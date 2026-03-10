@@ -252,6 +252,8 @@ export const MESSAGE_KEYS = [
   'theming.breakpointsTitle',
   'theming.breakpointsDescription',
   'sideNav.openNavigation',
+  'common.switchToDarkMode',
+  'common.switchToLightMode',
 ] as const;
 
 export type MessageKey = (typeof MESSAGE_KEYS)[number];

@@ -1,6 +1,8 @@
 import { Card, Heading, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../components/code-block';
 import { T } from '../components/t';
+import type { TokenDef } from '../components/token-card';
+import { TokenCard } from '../components/token-card';
 
 const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
 
@@ -167,65 +169,233 @@ const COLOR_FAMILIES = [
   },
 ] as const;
 
-const FG_TOKENS = [
-  { name: 'fg-base', source: 'gray-900', hex: '#18181b' },
-  { name: 'fg-subtle', source: 'gray-400', hex: '#a1a1aa' },
-  { name: 'fg-mute', source: 'gray-700', hex: '#3f3f46' },
-  { name: 'fg-inverse', source: 'gray-50', hex: '#fafafa' },
-  { name: 'fg-info', source: 'blue-700', hex: '#173da6' },
-  { name: 'fg-success', source: 'green-700', hex: '#116932' },
-  { name: 'fg-warning', source: 'yellow-700', hex: '#845209' },
-  { name: 'fg-error', source: 'red-700', hex: '#991919' },
-] as const;
+const FG_TOKENS: TokenDef[] = [
+  {
+    name: 'fg-base',
+    light: { source: 'gray-900', hex: '#18181b' },
+    dark: { source: 'gray-50', hex: '#fafafa' },
+  },
+  {
+    name: 'fg-subtle',
+    light: { source: 'gray-400', hex: '#a1a1aa' },
+    dark: { source: 'gray-500', hex: '#71717a' },
+  },
+  {
+    name: 'fg-mute',
+    light: { source: 'gray-700', hex: '#3f3f46' },
+    dark: { source: 'gray-300', hex: '#d4d4d8' },
+  },
+  {
+    name: 'fg-inverse',
+    light: { source: 'gray-50', hex: '#fafafa' },
+    dark: { source: 'gray-900', hex: '#18181b' },
+  },
+  {
+    name: 'fg-info',
+    light: { source: 'blue-700', hex: '#173da6' },
+    dark: { source: 'blue-300', hex: '#a3cfff' },
+  },
+  {
+    name: 'fg-success',
+    light: { source: 'green-700', hex: '#116932' },
+    dark: { source: 'green-300', hex: '#86efac' },
+  },
+  {
+    name: 'fg-warning',
+    light: { source: 'yellow-700', hex: '#845209' },
+    dark: { source: 'yellow-300', hex: '#fde047' },
+  },
+  {
+    name: 'fg-error',
+    light: { source: 'red-700', hex: '#991919' },
+    dark: { source: 'red-300', hex: '#fca5a5' },
+  },
+];
 
-const BG_TOKENS = [
-  { name: 'bg-base', source: 'white', hex: '#ffffff' },
-  { name: 'bg-subtle', source: 'gray-100', hex: '#f4f4f5' },
-  { name: 'bg-mute', source: 'gray-200', hex: '#e4e4e7' },
-  { name: 'bg-emphasize', source: 'gray-300', hex: '#d4d4d8' },
-  { name: 'bg-inverse', source: 'gray-900', hex: '#18181b' },
-  { name: 'bg-info', source: 'blue-100', hex: '#dbeafe' },
-  { name: 'bg-success', source: 'green-100', hex: '#dcfce7' },
-  { name: 'bg-warning', source: 'yellow-100', hex: '#fef9c3' },
-  { name: 'bg-error', source: 'red-100', hex: '#fee2e2' },
-] as const;
+const BG_TOKENS: TokenDef[] = [
+  {
+    name: 'bg-base',
+    light: { source: 'white', hex: '#ffffff' },
+    dark: { source: 'gray-900', hex: '#18181b' },
+  },
+  {
+    name: 'bg-subtle',
+    light: { source: 'gray-100', hex: '#f4f4f5' },
+    dark: { source: 'gray-800', hex: '#27272a' },
+  },
+  {
+    name: 'bg-mute',
+    light: { source: 'gray-200', hex: '#e4e4e7' },
+    dark: { source: 'gray-700', hex: '#3f3f46' },
+  },
+  {
+    name: 'bg-emphasize',
+    light: { source: 'gray-300', hex: '#d4d4d8' },
+    dark: { source: 'gray-600', hex: '#52525b' },
+  },
+  {
+    name: 'bg-inverse',
+    light: { source: 'gray-900', hex: '#18181b' },
+    dark: { source: 'white', hex: '#ffffff' },
+  },
+  {
+    name: 'bg-info',
+    light: { source: 'blue-100', hex: '#dbeafe' },
+    dark: { source: 'blue-900', hex: '#14204a' },
+  },
+  {
+    name: 'bg-success',
+    light: { source: 'green-100', hex: '#dcfce7' },
+    dark: { source: 'green-900', hex: '#042713' },
+  },
+  {
+    name: 'bg-warning',
+    light: { source: 'yellow-100', hex: '#fef9c3' },
+    dark: { source: 'yellow-900', hex: '#422006' },
+  },
+  {
+    name: 'bg-error',
+    light: { source: 'red-100', hex: '#fee2e2' },
+    dark: { source: 'red-900', hex: '#300c0c' },
+  },
+];
 
-const BORDER_TOKENS = [
-  { name: 'border-base', source: 'gray-400', hex: '#a1a1aa' },
-  { name: 'border-subtle', source: 'gray-100', hex: '#f4f4f5' },
-  { name: 'border-mute', source: 'gray-200', hex: '#e4e4e7' },
-  { name: 'border-emphasize', source: 'gray-500', hex: '#71717a' },
-  { name: 'border-inverse', source: 'gray-700', hex: '#3f3f46' },
-  { name: 'border-info', source: 'blue-500', hex: '#3b82f6' },
-  { name: 'border-success', source: 'green-500', hex: '#22c55e' },
-  { name: 'border-warning', source: 'yellow-500', hex: '#eab308' },
-  { name: 'border-error', source: 'red-500', hex: '#ef4444' },
-] as const;
+const BORDER_TOKENS: TokenDef[] = [
+  {
+    name: 'border-base',
+    light: { source: 'gray-400', hex: '#a1a1aa' },
+    dark: { source: 'gray-600', hex: '#52525b' },
+  },
+  {
+    name: 'border-subtle',
+    light: { source: 'gray-100', hex: '#f4f4f5' },
+    dark: { source: 'gray-900', hex: '#18181b' },
+  },
+  {
+    name: 'border-mute',
+    light: { source: 'gray-200', hex: '#e4e4e7' },
+    dark: { source: 'gray-800', hex: '#27272a' },
+  },
+  {
+    name: 'border-emphasize',
+    light: { source: 'gray-500', hex: '#71717a' },
+    dark: { source: 'gray-500', hex: '#71717a' },
+  },
+  {
+    name: 'border-inverse',
+    light: { source: 'gray-700', hex: '#3f3f46' },
+    dark: { source: 'gray-300', hex: '#d4d4d8' },
+  },
+  {
+    name: 'border-info',
+    light: { source: 'blue-500', hex: '#3b82f6' },
+    dark: { source: 'blue-400', hex: '#60a5fa' },
+  },
+  {
+    name: 'border-success',
+    light: { source: 'green-500', hex: '#22c55e' },
+    dark: { source: 'green-400', hex: '#4ade80' },
+  },
+  {
+    name: 'border-warning',
+    light: { source: 'yellow-500', hex: '#eab308' },
+    dark: { source: 'yellow-400', hex: '#facc15' },
+  },
+  {
+    name: 'border-error',
+    light: { source: 'red-500', hex: '#ef4444' },
+    dark: { source: 'red-400', hex: '#f87171' },
+  },
+];
 
-const PRIMARY_TOKENS = [
-  { name: 'primary-fg', source: 'teal-700', hex: '#0c5d56' },
-  { name: 'primary-bg', source: 'teal-300', hex: '#5eead4' },
-  { name: 'primary-bg-subtle', source: 'teal-100', hex: '#ccfbf1' },
-  { name: 'primary-bg-mute', source: 'teal-200', hex: '#99f6e4' },
-  { name: 'primary-bg-emphasize', source: 'teal-300', hex: '#5eead4' },
-  { name: 'primary-border', source: 'teal-600', hex: '#0d9488' },
-] as const;
+const PRIMARY_TOKENS: TokenDef[] = [
+  {
+    name: 'primary-fg',
+    light: { source: 'teal-700', hex: '#0c5d56' },
+    dark: { source: 'teal-300', hex: '#5eead4' },
+  },
+  {
+    name: 'primary-bg',
+    light: { source: 'teal-300', hex: '#5eead4' },
+    dark: { source: 'teal-700', hex: '#0c5d56' },
+  },
+  {
+    name: 'primary-bg-subtle',
+    light: { source: 'teal-100', hex: '#ccfbf1' },
+    dark: { source: 'teal-900', hex: '#032726' },
+  },
+  {
+    name: 'primary-bg-mute',
+    light: { source: 'teal-200', hex: '#99f6e4' },
+    dark: { source: 'teal-800', hex: '#114240' },
+  },
+  {
+    name: 'primary-bg-emphasize',
+    light: { source: 'teal-300', hex: '#5eead4' },
+    dark: { source: 'teal-700', hex: '#0c5d56' },
+  },
+  {
+    name: 'primary-border',
+    light: { source: 'teal-600', hex: '#0d9488' },
+    dark: { source: 'teal-600', hex: '#0d9488' },
+  },
+];
 
-const SECONDARY_TOKENS = [
-  { name: 'secondary-fg', source: 'cyan-700', hex: '#0c5c72' },
-  { name: 'secondary-bg', source: 'cyan-300', hex: '#67e8f9' },
-  { name: 'secondary-bg-subtle', source: 'cyan-100', hex: '#cffafe' },
-  { name: 'secondary-bg-mute', source: 'cyan-200', hex: '#a5f3fc' },
-  { name: 'secondary-bg-emphasize', source: 'cyan-300', hex: '#67e8f9' },
-  { name: 'secondary-border', source: 'cyan-600', hex: '#0891b2' },
-] as const;
+const SECONDARY_TOKENS: TokenDef[] = [
+  {
+    name: 'secondary-fg',
+    light: { source: 'cyan-700', hex: '#0c5c72' },
+    dark: { source: 'cyan-300', hex: '#67e8f9' },
+  },
+  {
+    name: 'secondary-bg',
+    light: { source: 'cyan-300', hex: '#67e8f9' },
+    dark: { source: 'cyan-700', hex: '#0c5c72' },
+  },
+  {
+    name: 'secondary-bg-subtle',
+    light: { source: 'cyan-100', hex: '#cffafe' },
+    dark: { source: 'cyan-900', hex: '#072a38' },
+  },
+  {
+    name: 'secondary-bg-mute',
+    light: { source: 'cyan-200', hex: '#a5f3fc' },
+    dark: { source: 'cyan-800', hex: '#134152' },
+  },
+  {
+    name: 'secondary-bg-emphasize',
+    light: { source: 'cyan-300', hex: '#67e8f9' },
+    dark: { source: 'cyan-700', hex: '#0c5c72' },
+  },
+  {
+    name: 'secondary-border',
+    light: { source: 'cyan-600', hex: '#0891b2' },
+    dark: { source: 'cyan-600', hex: '#0891b2' },
+  },
+];
 
-const GROUP_TOKENS = [
-  { name: 'group-primary', source: 'teal-700', hex: '#0c5d56' },
-  { name: 'group-secondary', source: 'cyan-700', hex: '#0c5c72' },
-  { name: 'group-tertiary', source: 'pink-700', hex: '#a41752' },
-  { name: 'group-quaternary', source: 'purple-700', hex: '#641ba3' },
-] as const;
+const GROUP_TOKENS: TokenDef[] = [
+  {
+    name: 'group-primary',
+    light: { source: 'teal-700', hex: '#0c5d56' },
+    dark: { source: 'teal-300', hex: '#5eead4' },
+  },
+  {
+    name: 'group-secondary',
+    light: { source: 'cyan-700', hex: '#0c5c72' },
+    dark: { source: 'cyan-300', hex: '#67e8f9' },
+  },
+  {
+    name: 'group-tertiary',
+    light: { source: 'pink-700', hex: '#a41752' },
+    dark: { source: 'pink-300', hex: '#f9a8d4' },
+  },
+  {
+    name: 'group-quaternary',
+    light: { source: 'purple-700', hex: '#641ba3' },
+    dark: { source: 'purple-300', hex: '#d8b4fe' },
+  },
+];
 
 const TEXT_SIZES = [
   { name: 'xs', fontSize: '0.75rem', lineHeight: 1 / 0.75 },
@@ -311,39 +481,6 @@ const BREAKPOINTS = [
   { name: '2xl', rem: '96rem', px: '1536px' },
 ] as const;
 
-function TokenCard({
-  name,
-  source,
-  hex,
-  type = 'fill',
-}: {
-  name: string;
-  source: string;
-  hex: string;
-  type?: 'fill' | 'border';
-}) {
-  return (
-    <Card appearance="bordered">
-      <div className="flex items-center gap-3 px-3 py-2">
-        <div
-          className="h-6 w-6 shrink-0 rounded-md"
-          style={
-            type === 'border'
-              ? { border: `2px solid var(--${name})` }
-              : { backgroundColor: `var(--${name})` }
-          }
-        />
-        <div className="min-w-0">
-          <p className="font-medium text-sm">{name}</p>
-          <p className="text-fg-subtle text-xs">
-            {source} ({hex})
-          </p>
-        </div>
-      </div>
-    </Card>
-  );
-}
-
 export function Theming() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
@@ -408,12 +545,7 @@ export function Theming() {
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {FG_TOKENS.map((token) => (
-              <TokenCard
-                hex={token.hex}
-                key={token.name}
-                name={token.name}
-                source={token.source}
-              />
+              <TokenCard key={token.name} token={token} />
             ))}
           </div>
         </div>
@@ -425,12 +557,7 @@ export function Theming() {
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {BG_TOKENS.map((token) => (
-              <TokenCard
-                hex={token.hex}
-                key={token.name}
-                name={token.name}
-                source={token.source}
-              />
+              <TokenCard key={token.name} token={token} />
             ))}
           </div>
         </div>
@@ -442,13 +569,7 @@ export function Theming() {
           </Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {BORDER_TOKENS.map((token) => (
-              <TokenCard
-                hex={token.hex}
-                key={token.name}
-                name={token.name}
-                source={token.source}
-                type="border"
-              />
+              <TokenCard key={token.name} token={token} type="border" />
             ))}
           </div>
         </div>
@@ -472,10 +593,8 @@ export function Theming() {
           <div className="grid gap-2 sm:grid-cols-2">
             {PRIMARY_TOKENS.map((token) => (
               <TokenCard
-                hex={token.hex}
                 key={token.name}
-                name={token.name}
-                source={token.source}
+                token={token}
                 type={token.name.includes('border') ? 'border' : 'fill'}
               />
             ))}
@@ -488,10 +607,8 @@ export function Theming() {
           <div className="grid gap-2 sm:grid-cols-2">
             {SECONDARY_TOKENS.map((token) => (
               <TokenCard
-                hex={token.hex}
                 key={token.name}
-                name={token.name}
-                source={token.source}
+                token={token}
                 type={token.name.includes('border') ? 'border' : 'fill'}
               />
             ))}
@@ -503,12 +620,7 @@ export function Theming() {
           <Heading type="h3">Group</Heading>
           <div className="grid gap-2 sm:grid-cols-2">
             {GROUP_TOKENS.map((token) => (
-              <TokenCard
-                hex={token.hex}
-                key={token.name}
-                name={token.name}
-                source={token.source}
-              />
+              <TokenCard key={token.name} token={token} />
             ))}
           </div>
         </div>
