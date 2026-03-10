@@ -6,6 +6,7 @@ import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';
+import { ThemeSwitcher } from './theme-switcher';
 
 const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
   { path: '/', labelKey: 'nav.home' },
@@ -61,7 +62,10 @@ export function Navigation() {
             );
           })}
         </ul>
-        <LanguageSwitcher />
+        <div className="flex items-center gap-2">
+          <ThemeSwitcher />
+          <LanguageSwitcher />
+        </div>
       </div>
     </nav>
   );
