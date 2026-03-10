@@ -10,4 +10,7 @@ export default defineConfig({
     }),
     react(),
   ],
+  optimizeDeps: {
+    include: ['motion/react-client', 'motion/react'],
+  },
 });
