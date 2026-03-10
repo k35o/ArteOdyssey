@@ -3,6 +3,8 @@ packages:
   - apps/*
   - examples/*
 
+blockExoticSubdeps: true
+
 catalog:
   '@tailwindcss/postcss': 4.2.1
   '@tailwindcss/vite': 4.2.1
@@ -36,3 +38,5 @@ onlyBuiltDependencies:
   - agent-browser
   - esbuild
   - lefthook
+
+verifyDepsBeforeRun: install
