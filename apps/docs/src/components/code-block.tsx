@@ -9,12 +9,16 @@ type Props = {
 export const CodeBlock: FC<Props> = async ({ code, lang }) => {
   const html = await codeToHtml(code, {
     lang,
-    theme: 'min-light',
+    themes: {
+      light: 'min-light',
+      dark: 'min-dark',
+    },
+    defaultColor: false,
   });
 
   return (
     <div
-      className="[&_code]:text-sm [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-border-mute [&_pre]:p-4"
+      className="light:[&_.shiki]:!bg-[var(--shiki-light-bg)] dark:[&_.shiki]:!bg-[var(--shiki-dark-bg)] light:[&_.shiki_span]:!text-[var(--shiki-light)] dark:[&_.shiki_span]:!text-[var(--shiki-dark)] [&_code]:text-sm [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:border [&_pre]:border-border-mute [&_pre]:p-4"
       // biome-ignore lint/security/noDangerouslySetInnerHtml: shiki generates safe HTML from code input
       dangerouslySetInnerHTML={{ __html: html }}
     />
