@@ -24,14 +24,6 @@ ignoredBuiltDependencies:
 
 minimumReleaseAge: 10080
 
-minimumReleaseAgeExclude:
-  - react
-  - react-dom
-  - next
-  - '@next/env'
-  - '@funstack/static'
-  - '@funstack/router'
-
 onlyBuiltDependencies:
   - '@swc/core'
   - '@tailwindcss/oxide'
