@@ -1,0 +1,39 @@
+'use client';
+
+import { Button, Heading } from '@k8o/arte-odyssey';
+import { AlertIcon } from '@k8o/arte-odyssey/icons';
+import type { FC } from 'react';
+import type { Locale } from '../i18n';
+import { messages } from '../i18n';
+
+type ErrorFallbackProps = {
+  resetErrorBoundary: () => void;
+  fullScreen?: boolean;
+  locale?: Locale;
+};
+
+export const ErrorFallback: FC<ErrorFallbackProps> = ({
+  resetErrorBoundary,
+  fullScreen = false,
+  locale = 'ja',
+}) => {
+  const t = (key: 'error.title' | 'error.description' | 'error.retry') =>
+    messages[locale][key];
+
+  return (
+    <div
+      className={`flex flex-col items-center justify-center gap-6 p-8 ${fullScreen ? 'h-dvh' : 'flex-1'}`}
+    >
+      <div className="text-fg-danger">
+        <AlertIcon size="lg" status="error" />
+      </div>
+      <div className="flex flex-col items-center gap-2">
+        <Heading type="h2">{t('error.title')}</Heading>
+        <p className="text-fg-mute text-sm">{t('error.description')}</p>
+      </div>
+      <Button onClick={resetErrorBoundary} variant="outlined">
+        {t('error.retry')}
+      </Button>
+    </div>
+  );
+};

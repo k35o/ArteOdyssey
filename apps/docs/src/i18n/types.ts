@@ -254,6 +254,9 @@ export const MESSAGE_KEYS = [
   'sideNav.openNavigation',
   'common.switchToDarkMode',
   'common.switchToLightMode',
+  'error.title',
+  'error.description',
+  'error.retry',
 ] as const;
 
 export type MessageKey = (typeof MESSAGE_KEYS)[number];
