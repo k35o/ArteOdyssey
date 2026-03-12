@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocation, useNavigate } from '@funstack/router';
+import { useLocation } from '@funstack/router';
 import { DropdownMenu, LinkButton } from '@k8o/arte-odyssey';
 import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
 import type { MessageKey } from '../i18n';
@@ -20,7 +20,6 @@ const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
 export function Navigation() {
   const { t, locale } = useTranslation();
   const location = useLocation();
-  const navigate = useNavigate();
 
   return (
     <nav className="bg-bg-base">
@@ -37,7 +36,7 @@ export function Navigation() {
                   key={item.path}
                   label={t(item.labelKey)}
                   onClick={() => {
-                    navigate(localizeHref(item.path, locale));
+                    navigation.navigate(localizeHref(item.path, locale));
                   }}
                 />
               ))}

@@ -81,11 +81,11 @@ importers:
   apps/docs:
     dependencies:
       '@funstack/router':
-        specifier: 0.0.10
-        version: 0.0.10(react@19.2.4)
+        specifier: 1.1.0
+        version: 1.1.0(react@19.2.4)
       '@funstack/static':
-        specifier: 0.0.10
-        version: 0.0.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))
+        specifier: 1.1.0
+        version: 1.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))
       '@k8o/arte-odyssey':
         specifier: workspace:^
         version: link:../../packages/arte-odyssey
@@ -764,18 +764,18 @@ packages:
   '@floating-ui/utils@0.2.10':
     resolution: {integrity: sha512-aGTxbpbg8/b5JfU1HXSrbH3wXZuLPJcNEcZQFMxLs3oSzgtVu6nFPkbbGGUvBcUjKV2YyB9Wxxabo+HEH9tcRQ==}
 
-  '@funstack/router@0.0.10':
-    resolution: {integrity: sha512-/6K5AlLBLlds0ovYPLXHnqL6Mz7WSqnR4FQ1wGc6uxQezdaV4xsArSfqWdUpUzm3Vm9T8aJxcn4e+iVDiIZMXQ==}
+  '@funstack/router@1.1.0':
+    resolution: {integrity: sha512-fwFN801vg/wClUZOboiDz8T0LkDAdm2Qvw7IcYpbASQVDc1Mr9rkhe8SH0wwKBONHHH+jlTLEdh6Bq/KltYYpQ==}
     hasBin: true
     peerDependencies:
-      react: ^18.0.0 || ^19.0.0
+      react: ^19.2.0
 
   '@funstack/skill-installer@1.0.0':
     resolution: {integrity: sha512-lEYZQ4tFOLidvxy60tE7/28LUy4bJOlbT8o0ebcolaFV/cluSGtnDpWEUWIQWORtnGhrWnYl7Gr9aHvjHYkoEQ==}
     hasBin: true
 
-  '@funstack/static@0.0.10':
-    resolution: {integrity: sha512-2rRQJRObxQ82Z3XF7HsNz0MTksA4E77l2XBtwjriWAJNnDKvQvX5Ci8JBqAXUB0p5SJoQwZndI/TL38xpO4m8A==}
+  '@funstack/static@1.1.0':
+    resolution: {integrity: sha512-UVO7A+KFmXT73OKd/9j9UAQ6g5G3EryDYbfecxs5v26p+3RIgeVTEvtkajNbbdZV05y7eLSFpE417zg/HUP+lg==}
     hasBin: true
     peerDependencies:
       react: ^19.2.3
@@ -1084,6 +1084,9 @@ packages:
 
   '@rolldown/pluginutils@1.0.0-rc.3':
     resolution: {integrity: sha512-eybk3TjzzzV97Dlj5c+XrBFW57eTNhzod66y9HrBlzJ6NsCrWCp/2kaPS3K9wJmurBC0Tdw4yPjXKZqlznim3Q==}
+
+  '@rolldown/pluginutils@1.0.0-rc.5':
+    resolution: {integrity: sha512-RxlLX/DPoarZ9PtxVrQgZhPoor987YtKQqCo5zkjX+0S0yLJ7Vv515Wk6+xtTL67VONKJKxETWZwuZjss2idYw==}
 
   '@rollup/pluginutils@5.2.0':
     resolution: {integrity: sha512-qWJ2ZTbmumwiLFomfzTyt5Kng4hwPi9rwCYN4SHb6eaRU1KNO4ccxINHr/VhH4GgPlt1XfSTLX2LBTme8ne4Zw==}
@@ -1611,8 +1614,8 @@ packages:
     peerDependencies:
       vite: ^4.2.0 || ^5.0.0 || ^6.0.0 || ^7.0.0
 
-  '@vitejs/plugin-rsc@0.5.19':
-    resolution: {integrity: sha512-YuRKVEOYQFq4OdLKIoGpLKL0y0fyhWjjEDVHEIvPsXGk+jQ+uVbuM6hzVseb6N95x8cbdDGUe3m+qNU1dPldrg==}
+  '@vitejs/plugin-rsc@0.5.21':
+    resolution: {integrity: sha512-uNayLT8IKvWoznvQyfwKuGiEFV28o7lxUDnw/Av36VCuGpDFZnMmvVCwR37gTvnSmnpul9V0tdJqY3tBKEaDqw==}
     peerDependencies:
       react: '*'
       react-dom: '*'
@@ -3432,13 +3435,8 @@ packages:
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
-  srvx@0.10.1:
-    resolution: {integrity: sha512-A//xtfak4eESMWWydSRFUVvCTQbSwivnGCEf8YGPe2eHU0+Z6znfUTCPF0a7oV3sObSOcrXHlL6Bs9vVctfXdg==}
-    engines: {node: '>=20.16.0'}
-    hasBin: true
-
-  srvx@0.11.4:
-    resolution: {integrity: sha512-m/2p87bqWZ94xpRN06qNBwh0xq/D0dXajnvPDSHFqrTogxuTWYNP1UHz6Cf+oY7D+NPLY35TJAp4ESIKn0WArQ==}
+  srvx@0.11.8:
+    resolution: {integrity: sha512-2n9t0YnAXPJjinytvxccNgs7rOA5gmE7Wowt/8Dy2dx2fDC6sBhfBpbrCvjYKALlVukPS/Uq3QwkolKNa7P/2Q==}
     engines: {node: '>=20.16.0'}
     hasBin: true
 
@@ -4510,22 +4508,22 @@ snapshots:
 
   '@floating-ui/utils@0.2.10': {}
 
-  '@funstack/router@0.0.10(react@19.2.4)':
+  '@funstack/router@1.1.0(react@19.2.4)':
     dependencies:
       '@funstack/skill-installer': 1.0.0
       react: 19.2.4
 
   '@funstack/skill-installer@1.0.0': {}
 
-  '@funstack/static@0.0.10(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))':
+  '@funstack/static@1.1.0(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))':
     dependencies:
       '@funstack/skill-installer': 1.0.0
-      '@vitejs/plugin-rsc': 0.5.19(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))
+      '@vitejs/plugin-rsc': 0.5.21(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
       react-error-boundary: 6.1.1(react@19.2.4)
       rsc-html-stream: 0.0.7
-      srvx: 0.11.4
+      srvx: 0.11.8
       vite: 7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1)
     transitivePeerDependencies:
       - react-server-dom-webpack
@@ -4769,6 +4767,8 @@ snapshots:
   '@rolldown/pluginutils@1.0.0-rc.2': {}
 
   '@rolldown/pluginutils@1.0.0-rc.3': {}
+
+  '@rolldown/pluginutils@1.0.0-rc.5': {}
 
   '@rollup/pluginutils@5.2.0(rollup@4.48.1)':
     dependencies:
@@ -5245,16 +5245,16 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-rsc@0.5.19(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))':
+  '@vitejs/plugin-rsc@0.5.21(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-rc.2
+      '@rolldown/pluginutils': 1.0.0-rc.5
       es-module-lexer: 2.0.0
       estree-walker: 3.0.3
       magic-string: 0.30.21
       periscopic: 4.0.2
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
-      srvx: 0.10.1
+      srvx: 0.11.8
       strip-literal: 3.1.0
       turbo-stream: 3.1.0
       vite: 7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1)
@@ -7099,9 +7099,7 @@ snapshots:
 
   sprintf-js@1.0.3: {}
 
-  srvx@0.10.1: {}
-
-  srvx@0.11.4: {}
+  srvx@0.11.8: {}
 
   stackback@0.0.2: {}
 
