@@ -9,7 +9,7 @@ description: Use this skill when you need information about `@funstack/router` (
 
 ## Entrypoints
 
-- `@funstack/router` — Main entrypoint. Provides `Router`, `Outlet`, hooks (`useNavigate`, `useRouteParams`, etc.), and route definition utilities (`route()`, `routeState()`).
+- `@funstack/router` — Main entrypoint. Provides `Router`, `Outlet`, hooks (`useLocation`, `useRouteParams`, etc.), and route definition utilities (`route()`, `routeState()`).
 - `@funstack/router/server` — Entrypoint for Server context when you are using React Server Components. Provides `route()` and `routeState()` utilities for defining routes in server modules.
 
 ## FUNSTACK Router Docs
@@ -17,5 +17,5 @@ description: Use this skill when you need information about `@funstack/router` (
 More detailed documentation (including API references and best practices) can be found at:
 
 ```
-node_modules/@funstack/router/dist/docs/index.md
+apps/docs/node_modules/@funstack/router/dist/docs/index.md
 ```

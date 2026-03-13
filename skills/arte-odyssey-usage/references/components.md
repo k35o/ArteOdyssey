@@ -9,7 +9,7 @@ import '@k8o/arte-odyssey/styles.css';
 // プロバイダー（アプリルートで1回）
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
 
-// 各コンポーネント
+// 各コンポーネント（個別インポート）
 import { Button } from '@k8o/arte-odyssey/button';
 import { Card } from '@k8o/arte-odyssey/card';
 ```
@@ -44,37 +44,29 @@ import { Breadcrumb, BreadcrumbItem } from '@k8o/arte-odyssey/breadcrumb';
 </Breadcrumb>
 ```
 
-### Card
+### Card / InteractiveCard
 
 コンテンツをグループ化するカード。
 
 ```tsx
-import { Card } from '@k8o/arte-odyssey/card';
+import { Card, InteractiveCard } from '@k8o/arte-odyssey/card';
 
+// 静的カード
 <Card title="タイトル" variant="primary" width="full" appearance="shadow">
   <div className="p-6">コンテンツ</div>
 </Card>
+
+// クリック可能なカード（hover:scale-[1.02], active:scale-[0.98]）
+<InteractiveCard title="記事" appearance="bordered">
+  <div className="p-6">コンテンツ</div>
+</InteractiveCard>
 ```
 
 Props:
 - `variant`: `'primary'` | `'secondary'`
 - `title`: string
 - `width`: `'full'` | `'fit'`
-- `appearance`: `'shadow'` | `'bordered'` — shadow はシャドウ付き、bordered はボーダーのみ
-
-### InteractiveCard
-
-ホバー・クリック操作可能なカード。Card と同じ Props。
-
-```tsx
-import { InteractiveCard } from '@k8o/arte-odyssey/card';
-
-<InteractiveCard title="クリック可能" variant="primary">
-  <div className="p-6">ホバーでスケールアップ</div>
-</InteractiveCard>
-```
-
-- `hover:scale-[1.02]`, `active:scale-[0.98]` のスケール変化付き
+- `appearance`: `'shadow'` | `'bordered'`
 
 ### Tabs
 
@@ -114,7 +106,6 @@ import { Separator } from '@k8o/arte-odyssey/separator';
 import { ScrollLinked } from '@k8o/arte-odyssey/scroll-linked';
 
 <ScrollLinked />
-// または特定コンテナを指定
 <ScrollLinked container={containerRef} />
 ```
 
@@ -162,9 +153,7 @@ Props:
 ```tsx
 import { LinkButton } from '@k8o/arte-odyssey/link-button';
 
-<LinkButton href="/page" color="gray" variant="outlined">
-  リンク
-</LinkButton>
+<LinkButton href="/page" color="gray" variant="outlined">リンク</LinkButton>
 ```
 
 ### IconLink
@@ -195,31 +184,18 @@ import { Anchor } from '@k8o/arte-odyssey/anchor';
 
 ### TextField
 
-テキスト入力。
-
 ```tsx
 import { TextField } from '@k8o/arte-odyssey/text-field';
 
-<TextField
-  id="email"
-  defaultValue=""
-  placeholder="example@mail.com"
-/>
+<TextField id="email" defaultValue="" placeholder="example@mail.com" />
 ```
 
 ### Textarea
 
-複数行テキスト入力。
-
 ```tsx
 import { Textarea } from '@k8o/arte-odyssey/textarea';
 
-<Textarea
-  label="説明"
-  rows={4}
-  value={value}
-  onChange={onChange}
-/>
+<Textarea label="説明" rows={4} value={value} onChange={onChange} />
 ```
 
 ### Checkbox
@@ -227,9 +203,7 @@ import { Textarea } from '@k8o/arte-odyssey/textarea';
 ```tsx
 import { Checkbox } from '@k8o/arte-odyssey/checkbox';
 
-<Checkbox checked={checked} onChange={onChange}>
-  同意する
-</Checkbox>
+<Checkbox checked={checked} onChange={onChange}>同意する</Checkbox>
 ```
 
 ### Radio
@@ -261,54 +235,31 @@ import { Select } from '@k8o/arte-odyssey/select';
 
 ### NumberField
 
-数値入力。
-
 ```tsx
 import { NumberField } from '@k8o/arte-odyssey/number-field';
 
-<NumberField
-  label="数量"
-  min={0}
-  max={100}
-  value={value}
-  onChange={onChange}
-/>
-```
-
-### Autocomplete
-
-オートコンプリート入力。
-
-```tsx
-import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
-
-<Autocomplete
-  label="検索"
-  options={options}
-  value={value}
-  onChange={onChange}
-/>
+<NumberField label="数量" min={0} max={100} value={value} onChange={onChange} />
 ```
 
 ### RangeField
 
-レンジスライダー。
-
 ```tsx
 import { RangeField } from '@k8o/arte-odyssey/range-field';
 
-<RangeField
-  label="音量"
-  min={0}
-  max={100}
-  value={value}
-  onChange={onChange}
-/>
+<RangeField label="音量" min={0} max={100} value={value} onChange={onChange} />
+```
+
+### Autocomplete
+
+```tsx
+import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
+
+<Autocomplete label="検索" options={options} value={value} onChange={onChange} />
 ```
 
 ### FileField
 
-ファイルアップロード。コンポジットパターン。
+コンポジットパターンのファイルアップロード。
 
 ```tsx
 import { FileField } from '@k8o/arte-odyssey/file-field';
@@ -327,13 +278,13 @@ Props (Root):
 
 ### FormControl
 
-フォームフィールドのラッパー。
+フォームフィールドのラッパー（ラベル・エラー表示を統一）。
 
 ```tsx
 import { FormControl } from '@k8o/arte-odyssey/form-control';
 
 <FormControl label="ラベル" error="エラーメッセージ" isRequired>
-  <input />
+  <TextField id="name" />
 </FormControl>
 ```
 
@@ -443,8 +394,6 @@ import { DropdownMenu, DropdownMenuItem } from '@k8o/arte-odyssey/dropdown-menu'
 
 ### Code
 
-コードブロック。
-
 ```tsx
 import { Code } from '@k8o/arte-odyssey/code';
 
@@ -455,8 +404,6 @@ import { Code } from '@k8o/arte-odyssey/code';
 
 ### Heading
 
-見出し。
-
 ```tsx
 import { Heading } from '@k8o/arte-odyssey/heading';
 
@@ -465,8 +412,6 @@ import { Heading } from '@k8o/arte-odyssey/heading';
 
 ### TextTag
 
-テキストタグ/バッジ。
-
 ```tsx
 import { TextTag } from '@k8o/arte-odyssey/text-tag';
 
@@ -474,8 +419,6 @@ import { TextTag } from '@k8o/arte-odyssey/text-tag';
 ```
 
 ### ListBox
-
-リスト表示。
 
 ```tsx
 import { ListBox, ListBoxItem } from '@k8o/arte-odyssey/list-box';
