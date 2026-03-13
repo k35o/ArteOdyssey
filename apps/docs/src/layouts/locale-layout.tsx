@@ -114,7 +114,7 @@ function LayoutContent() {
             <aside className="hidden w-56 shrink-0 overflow-y-auto border-border-mute border-r p-2 lg:block">
               <SideNavigation categories={sideNavConfig.categories} />
             </aside>
-            <main className="flex min-w-0 flex-1 overflow-y-auto">
+            <main className="min-w-0 flex-1 overflow-y-auto">
               <OutletWithErrorBoundary />
             </main>
           </div>
@@ -142,7 +142,7 @@ function LayoutContent() {
             <Navigation />
             <Separator color="mute" />
           </div>
-          <main className="flex min-w-0 flex-1 overflow-y-auto">
+          <main className="min-w-0 flex-1 overflow-y-auto">
             <OutletWithErrorBoundary />
           </main>
         </>
