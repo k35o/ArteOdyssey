@@ -199,7 +199,6 @@ import { Button } from '@k8o/arte-odyssey/button';
 
 ## 詳細リファレンス
 
-- デザイン原則: [DESIGN_PRINCIPLES.md](../../../DESIGN_PRINCIPLES.md)
 - タイポグラフィ: [references/typography.md](references/typography.md)
 - カラーシステム: [references/color.md](references/color.md)
 - スペーシング・レイアウト: [references/spatial-design.md](references/spatial-design.md)

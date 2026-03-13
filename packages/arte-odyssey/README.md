@@ -27,23 +27,37 @@ Required versions:
 
 ## Quick Start
 
-1. Install the package and import the CSS:
+1. Import the CSS and set up the provider:
 
-```tsx
-// In your main CSS file or component
-import '@k8o/arte-odyssey/styles.css';
+```css
+/* In your main CSS file (recommended for Tailwind CSS 4) */
+@import 'tailwindcss';
+@import '@k8o/arte-odyssey/styles.css';
 ```
 
-2. Use components in your React app:
-
 ```tsx
-import { Button, Card } from '@k8o/arte-odyssey';
+// In your app entry point
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
 
 function App() {
   return (
-    <Card>
-      <h1>Welcome to ArteOdyssey</h1>
-      <Button variant="primary" onClick={() => alert('Hello!')}>
+    <ArteOdysseyProvider>
+      <YourApp />
+    </ArteOdysseyProvider>
+  );
+}
+```
+
+2. Use components:
+
+```tsx
+import { Button } from '@k8o/arte-odyssey/button';
+import { Card } from '@k8o/arte-odyssey/card';
+
+function MyPage() {
+  return (
+    <Card title="Welcome to ArteOdyssey">
+      <Button color="primary" variant="contained" onClick={() => alert('Hello!')}>
         Click me
       </Button>
     </Card>
@@ -51,38 +65,50 @@ function App() {
 }
 ```
 
+## AI Agent Skills
+
+ArteOdyssey provides an Agent Skill for AI coding assistants. It gives your agent knowledge of the design system, component APIs, and design principles.
+
+```bash
+npx skills add k35o/ArteOdyssey --skill arte-odyssey-usage
+```
+
+Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](https://agentskills.io/) compatible tools.
+
 ## Component Categories
 
 ### Layout & Navigation
 - **Accordion** - Collapsible content panels
 - **Breadcrumb** - Navigation path indicator
-- **Card** - Flexible content container
+- **Card** / **InteractiveCard** - Flexible content container (with hover interaction)
 - **Separator** - Visual content divider
 - **Tabs** - Tab-based content organization
+- **ScrollLinked** - Scroll progress indicator
 
 ### Form Controls
 - **Autocomplete** - Search with suggestions
 - **Checkbox** - Multi-selection input
-- **Form Control** - Form field wrapper with label and validation
-- **Number Field** - Numeric input with controls
+- **FileField** - File upload with composite pattern
+- **FormControl** - Form field wrapper with label and validation
+- **NumberField** - Numeric input with controls
 - **Radio** - Single selection from options
-- **Range Field** - Slider input control
+- **RangeField** - Slider input control
 - **Select** - Dropdown selection
-- **Text Field** - Single-line text input
+- **TextField** - Single-line text input
 - **Textarea** - Multi-line text input
 
 ### Buttons & Links
 - **Button** - Primary action button
-- **Icon Button** - Button with icon only
-- **Link Button** - Button styled as link
+- **IconButton** - Button with icon only
+- **LinkButton** - Button styled as link
 - **Anchor** - External link component
-- **Icon Link** - Link with icon
+- **IconLink** - Link with icon
 
 ### Feedback & Status
 - **Alert** - Important messages and notifications
 - **Toast** - Temporary notification messages
 - **Progress** - Progress indication
-- **Baseline Status** - Web standard support indicator
+- **BaselineStatus** - Web standard support indicator
 
 ### Overlays & Modals
 - **Dialog** - Modal dialog boxes
@@ -90,53 +116,71 @@ function App() {
 - **Modal** - Overlay modal component
 - **Popover** - Floating content container
 - **Tooltip** - Contextual help text
-- **Dropdown Menu** - Action menu component
+- **DropdownMenu** - Action menu component
 
 ### Data Display
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
-- **List Box** - Selectable list component
-- **Text Tag** - Labeled text elements
+- **ListBox** - Selectable list component
+- **TextTag** - Labeled text elements
 
 ### Utilities
-- **Error Boundary** - Error handling wrapper
-- **Providers** - Context providers for the library
-- **Scroll Linked** - Scroll-triggered animations
+- **ErrorBoundary** - Error handling wrapper
+- **ArteOdysseyProvider** - Context providers for the library
 - **Icons** - Icon component collection
 
 ## Usage Examples
 
-### Basic Button
+### Button
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey';
+import { Button } from '@k8o/arte-odyssey/button';
 
-<Button variant="primary" size="medium">
-  Primary Button
+// Primary action
+<Button color="primary" variant="contained" size="md">
+  Save
+</Button>
+
+// Secondary action
+<Button color="gray" variant="outlined">
+  Cancel
+</Button>
+
+// Text-only
+<Button variant="skeleton">
+  Learn more
 </Button>
 ```
 
 ### Form with Validation
 
 ```tsx
-import { FormControl, TextField, Button } from '@k8o/arte-odyssey';
+import { FormControl } from '@k8o/arte-odyssey/form-control';
+import { TextField } from '@k8o/arte-odyssey/text-field';
+import { Button } from '@k8o/arte-odyssey/button';
 
 <form>
-  <FormControl label="Email" required>
-    <TextField
-      type="email"
-      placeholder="Enter your email"
-      required
-    />
-  </FormControl>
+  <FormControl
+    label="Email"
+    isRequired
+    errorText={error}
+    renderInput={(props) => (
+      <TextField
+        {...props}
+        id="email"
+        placeholder="Enter your email"
+      />
+    )}
+  />
   <Button type="submit">Submit</Button>
 </form>
 ```
 
-### Modal Dialog
+### Dialog
 
 ```tsx
-import { Dialog, Button } from '@k8o/arte-odyssey';
+import { Dialog } from '@k8o/arte-odyssey/dialog';
+import { Button } from '@k8o/arte-odyssey/button';
 import { useState } from 'react';
 
 function MyComponent() {
@@ -147,16 +191,20 @@ function MyComponent() {
       <Button onClick={() => setIsOpen(true)}>
         Open Dialog
       </Button>
-      <Dialog
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Confirm Action"
-      >
-        <p>Are you sure you want to continue?</p>
-        <Button onClick={() => setIsOpen(false)}>
-          Confirm
-        </Button>
-      </Dialog>
+      {isOpen && (
+        <Dialog.Root>
+          <Dialog.Header
+            title="Confirm Action"
+            onClose={() => setIsOpen(false)}
+          />
+          <Dialog.Content>
+            <p>Are you sure you want to continue?</p>
+            <Button onClick={() => setIsOpen(false)}>
+              Confirm
+            </Button>
+          </Dialog.Content>
+        </Dialog.Root>
+      )}
     </>
   );
 }
@@ -181,26 +229,17 @@ import { useLocalStorage } from '@k8o/arte-odyssey/hooks/local-storage';
 The library includes several useful hooks:
 
 - **useClickAway** - Detect clicks outside an element
+- **useClient** - Client-side rendering detection
 - **useClipboard** - Clipboard operations
 - **useHash** - URL hash management
 - **useInterval** - Interval timer management
 - **useLocalStorage** - Local storage with React state
+- **useResize** - Element resize detection
 - **useScrollDirection** - Scroll direction detection
 - **useStep** - Step-based state management
 - **useTimeout** - Timeout management
+- **useWindowResize** - Window resize events
 - **useWindowSize** - Window size tracking
-
-## TypeScript Support
-
-All components are fully typed with TypeScript. The library exports comprehensive type definitions for all props and APIs.
-
-```tsx
-import type { ButtonProps } from '@k8o/arte-odyssey';
-
-const CustomButton: React.FC<ButtonProps> = (props) => {
-  return <Button {...props} />;
-};
-```
 
 ## Accessibility
 
@@ -217,10 +256,9 @@ All components follow WCAG accessibility guidelines:
 
 Components are built with Tailwind CSS and support customization through:
 
-- CSS custom properties
+- CSS custom properties (semantic design tokens)
 - Tailwind utility classes
-- Theme configuration
-- Style overrides
+- Light / Dark mode via semantic color tokens
 
 ## Development
 
@@ -260,7 +298,3 @@ MIT License - see [LICENSE](../../LICENSE) for details.
 ## Contributing
 
 Contributions are welcome! Please see the [main repository](../../README.md) for contribution guidelines.
-
----
-
-Built with ❤️ using React, TypeScript, and Tailwind CSS.
