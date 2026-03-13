@@ -301,4 +301,7 @@ export const en = {
   'sideNav.openNavigation': 'Open navigation',
   'common.switchToDarkMode': 'Switch to dark mode',
   'common.switchToLightMode': 'Switch to light mode',
+  'error.title': 'Something went wrong',
+  'error.description': 'An unexpected error occurred.',
+  'error.retry': 'Retry',
 } as const satisfies Record<MessageKey, string>;

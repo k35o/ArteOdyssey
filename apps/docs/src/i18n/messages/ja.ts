@@ -301,4 +301,7 @@ export const ja = {
   'sideNav.openNavigation': 'ナビゲーションを開く',
   'common.switchToDarkMode': 'ダークモードに切り替え',
   'common.switchToLightMode': 'ライトモードに切り替え',
+  'error.title': '問題が発生しました',
+  'error.description': '予期しないエラーが発生しました。',
+  'error.retry': '再読み込み',
 } as const satisfies Record<MessageKey, string>;

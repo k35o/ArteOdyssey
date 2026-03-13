@@ -23,6 +23,8 @@ ignoredBuiltDependencies:
   - sharp
 
 minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - '@funstack/*'
 
 onlyBuiltDependencies:
   - '@swc/core'

@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocation, useNavigate } from '@funstack/router';
+import { useLocation } from '@funstack/router';
 import { DropdownMenu } from '@k8o/arte-odyssey';
 import type { Locale } from '../i18n';
 import { deLocalizeHref, LOCALES, localizeHref, useLocale } from '../i18n';
@@ -13,7 +13,6 @@ const LOCALE_LABELS: Record<Locale, string> = {
 export function LanguageSwitcher() {
   const locale = useLocale();
   const location = useLocation();
-  const navigate = useNavigate();
 
   const { path } = deLocalizeHref(location.pathname);
 
@@ -30,7 +29,7 @@ export function LanguageSwitcher() {
             key={l}
             label={LOCALE_LABELS[l]}
             onClick={() => {
-              navigate(localizeHref(path, l));
+              navigation.navigate(localizeHref(path, l));
             }}
           />
         ))}

@@ -1,9 +1,16 @@
 'use client';
 
-import { Outlet, useLocation, useNavigate } from '@funstack/router';
-import { Drawer, Heading, IconButton, Separator } from '@k8o/arte-odyssey';
+import { Outlet, useLocation } from '@funstack/router';
+import {
+  Drawer,
+  ErrorBoundary,
+  Heading,
+  IconButton,
+  Separator,
+} from '@k8o/arte-odyssey';
 import { ListIcon } from '@k8o/arte-odyssey/icons';
 import { useEffect, useState } from 'react';
+import { ErrorFallback } from '../components/error-fallback';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { Navigation } from '../components/navigation';
 import { SideNavigation } from '../components/side-navigation';
@@ -15,6 +22,7 @@ import {
   detectLocale,
   isLocale,
   LocaleProvider,
+  useLocale,
   useTranslation,
 } from '../i18n';
 import { ThemeProvider } from '../theme/context';
@@ -59,6 +67,25 @@ function useSideNavConfig(): SideNavConfig | null {
   return null;
 }
 
+function OutletWithErrorBoundary() {
+  const location = useLocation();
+  const locale = useLocale();
+
+  return (
+    <ErrorBoundary
+      fallbackRender={({ resetErrorBoundary }) => (
+        <ErrorFallback
+          locale={locale}
+          resetErrorBoundary={resetErrorBoundary}
+        />
+      )}
+      resetKeys={[location.entryId]}
+    >
+      <Outlet />
+    </ErrorBoundary>
+  );
+}
+
 function LayoutContent() {
   const sideNavConfig = useSideNavConfig();
   const { t } = useTranslation();
@@ -88,7 +115,7 @@ function LayoutContent() {
               <SideNavigation categories={sideNavConfig.categories} />
             </aside>
             <main className="min-w-0 flex-1 overflow-y-auto">
-              <Outlet />
+              <OutletWithErrorBoundary />
             </main>
           </div>
           <Drawer
@@ -116,7 +143,7 @@ function LayoutContent() {
             <Separator color="mute" />
           </div>
           <main className="min-w-0 flex-1 overflow-y-auto">
-            <Outlet />
+            <OutletWithErrorBoundary />
           </main>
         </>
       )}
@@ -125,7 +152,7 @@ function LayoutContent() {
 }
 
 export function LocaleLayout({ params }: { params: { locale: string } }) {
-  const navigate = useNavigate();
+  const location = useLocation();
   const localeParam = params.locale;
 
   useEffect(() => {
@@ -135,17 +162,28 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
   }, [localeParam]);
 
   if (!isLocale(localeParam)) {
-    navigate(`/${detectLocale()}/`, { replace: true });
+    navigation.navigate(`/${detectLocale()}/`, { history: 'replace' });
     return null;
   }
 
   return (
-    <LocaleProvider locale={localeParam}>
-      <ThemeProvider>
-        <div className="flex h-dvh flex-col">
-          <LayoutContent />
-        </div>
-      </ThemeProvider>
-    </LocaleProvider>
+    <ErrorBoundary
+      fallbackRender={({ resetErrorBoundary }) => (
+        <ErrorFallback
+          fullScreen
+          locale={localeParam}
+          resetErrorBoundary={resetErrorBoundary}
+        />
+      )}
+      resetKeys={[location.entryId]}
+    >
+      <LocaleProvider locale={localeParam}>
+        <ThemeProvider>
+          <div className="flex h-dvh flex-col">
+            <LayoutContent />
+          </div>
+        </ThemeProvider>
+      </LocaleProvider>
+    </ErrorBoundary>
   );
 }
