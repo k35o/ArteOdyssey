@@ -51,7 +51,7 @@ import { Breadcrumb, BreadcrumbItem } from '@k8o/arte-odyssey/breadcrumb';
 ```tsx
 import { Card } from '@k8o/arte-odyssey/card';
 
-<Card title="タイトル" variant="primary" width="full">
+<Card title="タイトル" variant="primary" width="full" appearance="shadow">
   <div className="p-6">コンテンツ</div>
 </Card>
 ```
@@ -60,6 +60,21 @@ Props:
 - `variant`: `'primary'` | `'secondary'`
 - `title`: string
 - `width`: `'full'` | `'fit'`
+- `appearance`: `'shadow'` | `'bordered'` — shadow はシャドウ付き、bordered はボーダーのみ
+
+### InteractiveCard
+
+ホバー・クリック操作可能なカード。Card と同じ Props。
+
+```tsx
+import { InteractiveCard } from '@k8o/arte-odyssey/card';
+
+<InteractiveCard title="クリック可能" variant="primary">
+  <div className="p-6">ホバーでスケールアップ</div>
+</InteractiveCard>
+```
+
+- `hover:scale-[1.02]`, `active:scale-[0.98]` のスケール変化付き
 
 ### Tabs
 
@@ -86,6 +101,21 @@ import { Tabs, TabList, Tab, TabPanel } from '@k8o/arte-odyssey/tabs';
 import { Separator } from '@k8o/arte-odyssey/separator';
 
 <Separator />
+<Separator color="mute" />
+<Separator color="subtle" />
+<Separator orientation="vertical" />
+```
+
+### ScrollLinked
+
+スクロール進捗をプログレスバーで表示。
+
+```tsx
+import { ScrollLinked } from '@k8o/arte-odyssey/scroll-linked';
+
+<ScrollLinked />
+// または特定コンテナを指定
+<ScrollLinked container={containerRef} />
 ```
 
 ## ボタン・リンク
@@ -110,24 +140,43 @@ import { Button } from '@k8o/arte-odyssey/button';
 
 ### IconButton
 
-アイコンのみのボタン。
+アイコンのみのボタン。`bg` prop でスタイルを制御。
 
 ```tsx
 import { IconButton } from '@k8o/arte-odyssey/icon-button';
 
-<IconButton label="閉じる" size="md" variant="skeleton">
+<IconButton label="閉じる" bg="transparent" size="md">
   <XIcon />
 </IconButton>
 ```
 
+Props:
+- `bg`: `'transparent'` | `'base'` | `'primary'`（デフォルト: `'transparent'`）
+- `size`: `'sm'` | `'md'` | `'lg'`
+- `label`: string（必須、aria-label として使用）
+
 ### LinkButton
 
-リンクスタイルのボタン。
+リンクスタイルのボタン。Button と同じ `color` / `variant` props。
 
 ```tsx
 import { LinkButton } from '@k8o/arte-odyssey/link-button';
 
-<LinkButton href="/page">リンク</LinkButton>
+<LinkButton href="/page" color="gray" variant="outlined">
+  リンク
+</LinkButton>
+```
+
+### IconLink
+
+アイコンのみのリンク。IconButton と同じ `bg` prop。
+
+```tsx
+import { IconLink } from '@k8o/arte-odyssey/icon-link';
+
+<IconLink href="/home" bg="base" label="ホーム">
+  <HomeIcon />
+</IconLink>
 ```
 
 ### Anchor
@@ -152,13 +201,9 @@ import { Anchor } from '@k8o/arte-odyssey/anchor';
 import { TextField } from '@k8o/arte-odyssey/text-field';
 
 <TextField
-  label="ラベル"
-  placeholder="プレースホルダー"
-  value={value}
-  onChange={onChange}
-  isRequired
-  isInvalid
-  isDisabled
+  id="email"
+  defaultValue=""
+  placeholder="example@mail.com"
 />
 ```
 
@@ -245,6 +290,41 @@ import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
 />
 ```
 
+### RangeField
+
+レンジスライダー。
+
+```tsx
+import { RangeField } from '@k8o/arte-odyssey/range-field';
+
+<RangeField
+  label="音量"
+  min={0}
+  max={100}
+  value={value}
+  onChange={onChange}
+/>
+```
+
+### FileField
+
+ファイルアップロード。コンポジットパターン。
+
+```tsx
+import { FileField } from '@k8o/arte-odyssey/file-field';
+
+<FileField.Root accept="image/*" multiple maxFiles={5}>
+  <FileField.Trigger>ファイルを選択</FileField.Trigger>
+  <FileField.ItemList />
+</FileField.Root>
+```
+
+Props (Root):
+- `accept`: string
+- `multiple`: boolean
+- `maxFiles`: number
+- `isDisabled`, `isInvalid`, `isRequired`: boolean
+
 ### FormControl
 
 フォームフィールドのラッパー。
@@ -284,6 +364,16 @@ toast.show({ message: '保存しました', status: 'success' });
 import { Progress } from '@k8o/arte-odyssey/progress';
 
 <Progress value={50} max={100} />
+```
+
+### BaselineStatus
+
+Web API のブラウザサポート状況を表示。
+
+```tsx
+import { BaselineStatus } from '@k8o/arte-odyssey/baseline-status';
+
+<BaselineStatus featureId="dialog" />
 ```
 
 ## オーバーレイ

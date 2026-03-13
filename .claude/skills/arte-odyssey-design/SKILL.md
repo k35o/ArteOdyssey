@@ -16,18 +16,37 @@ description: |
 
 ArteOdyssey デザインシステムに沿った UI を作成するためのスキル。
 
+## デザインの方向性
+
+まず、作ろうとしている UI の**目的**・**トーン**・**制約**を明確にする。
+
+- **目的**: このページ/コンポーネントは何を達成するのか？
+- **トーン**: 静謐で落ち着いた雰囲気。「図書館の読書スペース」のような空気感
+- **制約**: ArteOdyssey デザインシステムのトークンとコンポーネントを使う
+- **差別化**: 量産型の「AIが作った感」のあるUIとは一線を画す
+
 ## コアコンセプト
 
 **「静謐で落ち着いた、余白を活かしたUI」**
 
-- **引き算の美学**: 装飾は最小限。必要なものだけ残す
-- **余白で語る**: 詰め込まず、空間にゆとりを持たせる
-- **静かな変化**: アニメーションは控えめに、繊細なフィードバック
-- **穏やかな色**: 目に優しいトーン、グレー系を活かす
+### 引き算の美学
+- 装飾は最小限。必要なものだけ残す
+- 要素を追加する前に「これは本当に必要か？」と問う
+- 3つのカードより、1つの明確なコンテンツブロックの方がいい場合がある
 
-## 実装ガイドライン
+### 余白で語る
+- 詰め込まず、空間にゆとりを持たせる
+- 余白の差で情報の関連度と階層を表現する（[スペーシング詳細](references/spatial-design.md)）
 
-### インストール
+### 静かな変化
+- アニメーションは控えめに、繊細なフィードバック
+- 150–200ms のトランジション、bounce/spring は使わない（[インタラクション詳細](references/interaction-design.md)）
+
+### 穏やかな色
+- 目に優しいトーン、グレー系を活かす
+- Primary は Teal、アクセントは控えめに使う（[カラー詳細](references/color.md)）
+
+## クイックスタート
 
 ```bash
 npm install @k8o/arte-odyssey
@@ -39,221 +58,150 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
 import { Button } from '@k8o/arte-odyssey/button';
 ```
 
+## 美学ガイドライン
+
+### タイポグラフィ
+
+**DO:**
+- 日本語フォント（Noto Sans JP, M PLUS 2）を使う
+- フォントウェイトは 3種類まで（normal, medium, bold）
+- `font-medium` が 450 であることを活かした繊細な強調
+
+**DON'T:**
+- Inter / Roboto / Open Sans を使う
+- 4種類以上のフォントサイズを1画面で使う
+- テキストにグラデーションをかける
+
+→ [タイポグラフィ詳細](references/typography.md)
+
 ### カラー
 
-Primary は Teal、Secondary は Cyan。状態色は標準的なセマンティックカラー。
+**DO:**
+- 60-30-10 ルール（ニュートラル60%, サポート30%, アクセント10%）
+- セマンティックカラートークンを使う（`bg-bg-subtle`, `text-fg-mute` 等）
+- ダークモードを独立したトーンで設計する
 
-```tsx
-// 背景（強度順）
-className="bg-bg-base"      // 基本背景（白/黒）
-className="bg-bg-subtle"    // 軽い強調
-className="bg-bg-mute"      // ホバー状態用
-className="bg-bg-emphasize" // アクティブ状態用
+**DON'T:**
+- グラデーション背景
+- ホバーに `bg-primary-bg` — `bg-bg-mute` を使う
+- 透明度(`/90`)で状態表現 — 専用トークンを使う
 
-// プライマリカラー（強度順）
-className="bg-primary-bg"     // 柔らかい（プログレスバー等）
-className="border-primary-border" // 中間（アンダーライン等）
-className="text-primary-fg"   // 強い（テキスト等）
+→ [カラー詳細](references/color.md)
 
-// テキスト
-className="text-fg-base"    // 基本テキスト
-className="text-fg-mute"    // 控えめなテキスト
+### スペーシング
 
-// ボーダー
-className="border-border-mute"  // 控えめな区切り
-className="border-border-base"  // 標準の区切り
-```
+**DO:**
+- `p-6` を標準パディングとする
+- 余白の差で関連度を表す（`mt-2` 近い、`mt-4` 標準、`mt-8` セクション間）
+- Separator でセクションを区切る
 
-### 角丸
+**DON'T:**
+- すべてを Card に入れる
+- Card を入れ子にする
+- `gap-1` のような極端に狭いスペーシング
 
-**`rounded-lg` を基本とする。**
+→ [スペーシング詳細](references/spatial-design.md)
 
-| 用途 | クラス |
-|------|--------|
-| Badge 等小さい要素 | `rounded-sm` |
-| **Button, Input, Card, Modal** | `rounded-lg` |
-| プログレスバー、IconButton | `rounded-full` |
+### インタラクション
 
-### シャドウ
+**DO:**
+- `transition-colors` を基本にする
+- `focus-visible:ring-2 focus-visible:ring-border-info` でフォーカス表現
+- `hover:bg-bg-mute` で穏やかなホバー
 
-基本的に使わない。使う場合は `shadow-md` まで。
+**DON'T:**
+- bounce / spring 系のイージング
+- 300ms を超えるアニメーション
+- ホバーに強い原色を使う
 
-| 用途 | スタイル |
-|------|----------|
-| Card | border のみ (`border border-border-mute`) |
-| Modal/Dialog/Tooltip | `shadow-md` |
-| Dropdown/ListBox | `shadow-md` |
-| Button | なし |
+→ [インタラクション詳細](references/interaction-design.md)
 
-### インタラクティブ状態
+## アンチパターン: 「AI スロップ」を避ける
 
-穏やかな色変化で、強すぎない視覚フィードバックを。
+以下は AI が生成したと一目でわかる特徴。ArteOdyssey ではこれらを避ける。
 
-```tsx
-// ホバー → bg-bg-mute（強い色を使わない）
-className="hover:bg-bg-mute"
+| アンチパターン | ArteOdyssey での代替 |
+|---------------|---------------------|
+| パープルグラデーション | Teal/Cyan のフラットカラー |
+| Card in Card（入れ子カード） | Separator + 余白で区切り |
+| グレー背景にグレーテキスト | `text-fg-base` / `text-fg-mute` のコントラスト確保 |
+| すべてに `rounded-2xl` | `rounded-lg` を基本、用途で使い分け |
+| bounce / spring アニメーション | `transition-colors duration-150 ease-out` |
+| Inter フォント | Noto Sans JP / M PLUS 2 |
+| 過剰な glassmorphism | border + subtle な背景色 |
+| 装飾的な絵文字やアイコン | lucide-react の線画アイコンを控えめに |
+| 情報の詰め込み | 余白を活かした疎な配置 |
 
-// フォーカス → ring で表現
-className="focus-visible:ring-2 focus-visible:ring-border-info"
+### AI スロップテスト
 
-// アクティブ
-className="active:bg-bg-emphasize"
+> このUIを誰かに見せて「AIが作った」と言ったら、すぐに信じるだろうか？
+> もし「はい」なら、それが問題だ。
 
-// 必ず transition-colors を付ける
-className="transition-colors hover:bg-bg-mute"
-```
-
-**重要**: ホバーに `bg-primary-bg` など強い色を使わない。`bg-bg-mute` を優先。
-
-### 余白
-
-ゆったりと。
-
-```tsx
-// コンポーネント内部
-className="p-6"  // 標準
-className="p-8"  // ゆったり
-
-// リストアイテム
-className="px-3 py-2"
-
-// テキスト間
-className="mt-2" // 狭め
-className="mt-4" // 標準
-
-// セクション間
-className="mt-8"  // 標準
-className="mt-12" // 広め
-```
-
-### アニメーション
-
-控えめで自然な動き。
-
-```tsx
-// 色の変化（基本）
-className="transition-colors"
-
-// サイズ変化を伴う場合
-className="transition-all"
-```
-
-- 150〜200ms を基本
-- bounce, spring 系は避ける
-- 必要なフィードバックのみ
-
-### フォント
-
-日本語フォント対応（Noto Sans JP, M PLUS 2）。ウェイトは控えめに。
-
-| 用途 | クラス |
-|------|--------|
-| 本文 | デフォルト |
-| 強調 | `font-medium` (450) |
-| 見出し | `font-bold` (700) |
-
-## コンポーネント使用例
+## コンポーネント使用の原則
 
 ### Button / LinkButton
 
 `color` と `variant` で統一されたスタイル。
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey/button';
-import { LinkButton } from '@k8o/arte-odyssey/link-button';
+// プライマリアクション
+<Button color="primary" variant="contained">保存する</Button>
 
-// プライマリボタン
-<Button color="primary" variant="contained">
-  保存する
-</Button>
+// セカンダリアクション
+<Button color="gray" variant="outlined">キャンセル</Button>
 
-// グレーボタン
-<Button color="gray" variant="outlined">
-  キャンセル
-</Button>
-
-// スケルトン（テキストのみ）
-<Button variant="skeleton">
-  詳細を見る
-</Button>
-
-// リンクボタン（同じ props）
-<LinkButton href="/settings" color="gray">
-  設定へ
-</LinkButton>
+// テキストのみ
+<Button variant="skeleton">詳細を見る</Button>
 ```
 
 ### IconButton / IconLink
 
-`bg` でスタイルを統一。
+`bg` prop でスタイルを制御（`variant` ではない）。
 
 ```tsx
-import { IconButton } from '@k8o/arte-odyssey/icon-button';
-import { IconLink } from '@k8o/arte-odyssey/icon-link';
-import { CopyIcon } from '@k8o/arte-odyssey/icons';
-
-<IconButton bg="transparent" label="コピー">
-  <CopyIcon />
-</IconButton>
-
-<IconButton bg="primary" label="送信">
-  <SendIcon />
-</IconButton>
-
-<IconLink href="/home" bg="base" label="ホーム">
-  <HomeIcon />
-</IconLink>
+<IconButton bg="transparent" label="コピー"><CopyIcon /></IconButton>
+<IconButton bg="primary" label="送信"><SendIcon /></IconButton>
+<IconLink href="/home" bg="base" label="ホーム"><HomeIcon /></IconLink>
 ```
 
 ### Card
 
-シャドウなし、ボーダーのみ。
+シャドウまたはボーダーで区切り。`appearance` prop で切り替え。
 
 ```tsx
-import { Card } from '@k8o/arte-odyssey/card';
-
-<Card title="設定">
+<Card title="設定" appearance="bordered">
   <p>カードのコンテンツ</p>
 </Card>
+
+// クリック可能なカード
+<InteractiveCard title="記事" appearance="shadow">
+  <p>ホバーでスケールアップ</p>
+</InteractiveCard>
 ```
 
-### TextField
+### フォーム
 
 ```tsx
-import { TextField } from '@k8o/arte-odyssey/text-field';
-
-<TextField
-  id="email"
-  defaultValue=""
-  placeholder="example@mail.com"
-/>
+<TextField id="email" placeholder="example@mail.com" />
+<Separator className="my-8" />
+<FileField.Root accept="image/*" multiple>
+  <FileField.Trigger>ファイルを選択</FileField.Trigger>
+  <FileField.ItemList />
+</FileField.Root>
 ```
 
-### Separator
+## 実装の原則
 
-色を選択可能。
-
-```tsx
-import { Separator } from '@k8o/arte-odyssey/separator';
-
-<Separator />                    // base（デフォルト）
-<Separator color="mute" />       // より控えめ
-<Separator color="subtle" />     // さらに控えめ
-<Separator orientation="vertical" />
-```
-
-## やってはいけないこと
-
-- グラデーション
-- 強いシャドウ (`shadow-xl` 以上)
-- ホバーに強い原色 (`bg-primary-bg`)
-- 透明度による状態表現 (`/90` など)
-- 長いアニメーション (300ms超)
-- 情報の詰め込み
-- 彩度の高い色の多用
+- **既存コンポーネントを使う**: カスタムUIの前にまず ArteOdyssey コンポーネントを探す
+- **セマンティックトークンを使う**: 生のカラー値（`bg-teal-500`）ではなくトークン（`bg-primary-bg`）
+- **クリエイティブに解釈する**: デザインシステムの範囲内で、視覚的に面白い組み合わせを探る
+- **よくある選択に収束しない**: コードの複雑さがビジョンに見合うなら、それは正しい判断
 
 ## 詳細リファレンス
 
 - デザイン原則: [DESIGN_PRINCIPLES.md](../../../DESIGN_PRINCIPLES.md)
-- デザイントークン一覧: [references/tokens.md](references/tokens.md)
-- 利用可能コンポーネント: [references/components.md](references/components.md)
+- タイポグラフィ: [references/typography.md](references/typography.md)
+- カラーシステム: [references/color.md](references/color.md)
+- スペーシング・レイアウト: [references/spatial-design.md](references/spatial-design.md)
+- インタラクション: [references/interaction-design.md](references/interaction-design.md)
+- コンポーネント一覧: [references/components.md](references/components.md)
