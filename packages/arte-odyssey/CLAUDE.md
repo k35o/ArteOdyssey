@@ -30,7 +30,10 @@ src/components/<name>/
   index.ts              # Re-export: export { ComponentName } from './<name>';
 ```
 
-2. Add export entry in `package.json` under `exports` field (the wildcard `./*` pattern handles `components/*/index.js` automatically — no change needed unless it's a helper or hook).
+2. Add export entry in `package.json` under `exports` field:
+   - **Component**: the wildcard `./*` pattern handles it automatically — no change needed.
+   - **Hook**: add `"./hooks/<name>"` entry with `types` and `default` pointing to `./dist/hooks/<name>/index.{d.ts,js}`.
+   - **Helper**: add `"./helpers/<name>"` entry with `types` and `default` pointing to `./dist/helpers/<name>.{d.ts,js}`.
 
 3. Add re-export in `src/index.ts` if the component should be available from the root entry point.
 
@@ -39,7 +42,7 @@ src/components/<name>/
 ### Standard Component
 ```tsx
 import type { FC, HTMLProps, ReactNode } from 'react';
-import { cn } from './../../helpers/cn';
+import { cn } from '../../helpers/cn';
 
 export const MyComponent: FC<
   { customProp?: string } & Omit<HTMLProps<HTMLDivElement>, 'customProp'>

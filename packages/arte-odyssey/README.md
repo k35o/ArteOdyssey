@@ -29,15 +29,14 @@ Required versions:
 
 1. Import the CSS and set up the provider:
 
-```tsx
-// In your main CSS file
+```css
+/* In your main CSS file (recommended for Tailwind CSS 4) */
 @import 'tailwindcss';
 @import '@k8o/arte-odyssey/styles.css';
 ```
 
 ```tsx
 // In your app entry point
-import '@k8o/arte-odyssey/styles.css';
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
 
 function App() {
