@@ -57,3 +57,5 @@ next-env.d.ts
 
 # Local settings
 settings.local.json
+
+.plan
