@@ -38,9 +38,9 @@ export const componentCategories: NavCategory[] = [
     items: [
       { name: 'Accordion', path: '/components/accordion' },
       { name: 'Avatar', path: '/components/avatar' },
+      { name: 'Badge', path: '/components/badge' },
       { name: 'Card', path: '/components/card' },
       { name: 'Code', path: '/components/code' },
-      { name: 'TextTag', path: '/components/text-tag' },
       { name: 'BaselineStatus', path: '/components/baseline-status' },
       { name: 'Heading', path: '/components/heading' },
     ],

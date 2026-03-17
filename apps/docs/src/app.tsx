@@ -7,6 +7,7 @@ import { AlertPage } from './pages/components/alert-page';
 import { AnchorPage } from './pages/components/anchor-page';
 import { AutocompletePage } from './pages/components/autocomplete-page';
 import { AvatarPage } from './pages/components/avatar-page';
+import { BadgePage } from './pages/components/badge-page';
 import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
@@ -35,7 +36,6 @@ import { SeparatorPage } from './pages/components/separator-page';
 import { SwitchPage } from './pages/components/switch-page';
 import { TabsPage } from './pages/components/tabs-page';
 import { TextFieldPage } from './pages/components/text-field-page';
-import { TextTagPage } from './pages/components/text-tag-page';
 import { TextareaPage } from './pages/components/textarea-page';
 import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
@@ -157,6 +157,10 @@ const routes: RouteDefinition[] = [
         component: <AvatarPage />,
       }),
       route({
+        path: '/components/badge',
+        component: <BadgePage />,
+      }),
+      route({
         path: '/components/card',
         component: <CardPage />,
       }),
@@ -167,10 +171,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/list-box',
         component: <ListBoxPage />,
-      }),
-      route({
-        path: '/components/text-tag',
-        component: <TextTagPage />,
       }),
       route({
         path: '/components/baseline-status',

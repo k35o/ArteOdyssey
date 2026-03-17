@@ -2,6 +2,7 @@ export { Accordion } from './accordion';
 export { Alert } from './alert';
 export { Anchor } from './anchor';
 export { Avatar } from './avatar';
+export { Badge } from './badge';
 export { BaselineStatus } from './baseline-status';
 export { Breadcrumb } from './breadcrumb';
 export { Button } from './button';
@@ -87,6 +88,5 @@ export {
 export { ScrollLinked } from './scroll-linked';
 export { Separator } from './separator';
 export { Tabs } from './tabs';
-export { TextTag } from './text-tag';
 export { ToastProvider, useToast } from './toast';
 export { Tooltip } from './tooltip';

@@ -151,6 +151,11 @@ export const ja = {
     'フォールバック表示付きのプロフィール画像コンポーネントです。',
   'components.avatar.withImageTitle': '画像付き',
   'components.avatar.sizesTitle': 'サイズ',
+  'components.badge.description':
+    'ステータスやカテゴリを表すコンパクトなラベルです。',
+  'components.badge.tonesTitle': 'トーン',
+  'components.badge.variantsTitle': 'バリアント',
+  'components.badge.interactiveTitle': 'インタラクティブ',
   'components.card.description': 'コンテンツをグループ化するカードです。',
   'components.card.variantsTitle': 'バリアント',
   'components.card.widthTitle': 'Width',
@@ -158,9 +163,6 @@ export const ja = {
   'components.code.colorDetectionTitle': 'カラー検出',
   'components.listBox.description':
     'ドロップダウン形式のリスト選択コンポーネントです。',
-  'components.textTag.description': 'テキストタグ・ラベルコンポーネントです。',
-  'components.textTag.sizesTitle': 'サイズ',
-  'components.textTag.clickableTitle': 'クリック可能',
   'components.baselineStatus.description':
     'Web機能のブラウザサポート状況を表示するコンポーネントです。',
   'components.baselineStatus.differentFeaturesTitle': '様々な機能',

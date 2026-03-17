@@ -122,7 +122,6 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
 - **ListBox** - Selectable list component
-- **TextTag** - Labeled text elements
 
 ### Utilities
 - **ErrorBoundary** - Error handling wrapper
