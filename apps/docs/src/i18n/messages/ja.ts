@@ -116,6 +116,11 @@ export const ja = {
   'components.checkbox.defaultCheckedTitle': 'デフォルトチェック',
   'components.checkbox.disabledTitle': '無効',
   'components.checkbox.controlledTitle': '制御モード',
+  'components.switch.description':
+    'オン・オフの状態を切り替えるスイッチコンポーネントです。',
+  'components.switch.defaultCheckedTitle': 'デフォルトチェック',
+  'components.switch.disabledTitle': '無効',
+  'components.switch.controlledTitle': '制御モード',
   'components.radio.description': 'ラジオボタングループです。',
   'components.radio.disabledTitle': '無効',
   'components.radio.defaultValueTitle': 'デフォルト値',

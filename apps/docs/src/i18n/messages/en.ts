@@ -116,6 +116,11 @@ export const en = {
   'components.checkbox.defaultCheckedTitle': 'Default Checked',
   'components.checkbox.disabledTitle': 'Disabled',
   'components.checkbox.controlledTitle': 'Controlled',
+  'components.switch.description':
+    'A switch component for binary on/off state.',
+  'components.switch.defaultCheckedTitle': 'Default Checked',
+  'components.switch.disabledTitle': 'Disabled',
+  'components.switch.controlledTitle': 'Controlled',
   'components.radio.description': 'A radio button group.',
   'components.radio.disabledTitle': 'Disabled',
   'components.radio.defaultValueTitle': 'Default Value',

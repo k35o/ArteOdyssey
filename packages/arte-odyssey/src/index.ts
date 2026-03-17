@@ -76,6 +76,7 @@ export {
   ShallowIcon,
   SlideIcon,
   SubscribeIcon,
+  Switch,
   TableIcon,
   Tabs,
   TagIcon,

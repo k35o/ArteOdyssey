@@ -25,6 +25,7 @@ export const componentCategories: NavCategory[] = [
       { name: 'NumberField', path: '/components/number-field' },
       { name: 'Select', path: '/components/select' },
       { name: 'Checkbox', path: '/components/checkbox' },
+      { name: 'Switch', path: '/components/switch' },
       { name: 'Radio', path: '/components/radio' },
       { name: 'Autocomplete', path: '/components/autocomplete' },
       { name: 'RangeField', path: '/components/range-field' },

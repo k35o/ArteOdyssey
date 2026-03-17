@@ -18,6 +18,7 @@ export { NumberField } from './form/number-field';
 export { Radio } from './form/radio';
 export { RangeField } from './form/range-field';
 export { Select } from './form/select';
+export { Switch } from './form/switch';
 export { TextField } from './form/text-field';
 export { Textarea } from './form/textarea';
 export { Heading } from './heading';

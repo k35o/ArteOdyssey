@@ -31,6 +31,7 @@ import { RangeFieldPage } from './pages/components/range-field-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
+import { SwitchPage } from './pages/components/switch-page';
 import { TabsPage } from './pages/components/tabs-page';
 import { TextFieldPage } from './pages/components/text-field-page';
 import { TextTagPage } from './pages/components/text-tag-page';
@@ -121,6 +122,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/checkbox',
         component: <CheckboxPage />,
+      }),
+      route({
+        path: '/components/switch',
+        component: <SwitchPage />,
       }),
       route({
         path: '/components/radio',
