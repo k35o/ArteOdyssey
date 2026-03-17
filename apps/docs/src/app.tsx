@@ -29,11 +29,11 @@ import { NumberFieldPage } from './pages/components/number-field-page';
 import { PopoverPage } from './pages/components/popover-page';
 import { ProgressPage } from './pages/components/progress-page';
 import { RadioPage } from './pages/components/radio-page';
-import { RangeFieldPage } from './pages/components/range-field-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
 import { SkeletonPage } from './pages/components/skeleton-page';
+import { SliderPage } from './pages/components/slider-page';
 import { SpinnerPage } from './pages/components/spinner-page';
 import { SwitchPage } from './pages/components/switch-page';
 import { TabsPage } from './pages/components/tabs-page';
@@ -139,8 +139,8 @@ const routes: RouteDefinition[] = [
         component: <AutocompletePage />,
       }),
       route({
-        path: '/components/range-field',
-        component: <RangeFieldPage />,
+        path: '/components/slider',
+        component: <SliderPage />,
       }),
       route({
         path: '/components/file-field',

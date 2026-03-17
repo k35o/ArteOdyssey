@@ -28,7 +28,7 @@ export const componentCategories: NavCategory[] = [
       { name: 'Switch', path: '/components/switch' },
       { name: 'Radio', path: '/components/radio' },
       { name: 'Autocomplete', path: '/components/autocomplete' },
-      { name: 'RangeField', path: '/components/range-field' },
+      { name: 'Slider', path: '/components/slider' },
       { name: 'FileField', path: '/components/file-field' },
       { name: 'FormControl', path: '/components/form-control' },
     ],

@@ -1,4 +1,4 @@
-import { Anchor, Heading, RangeField, Separator } from '@k8o/arte-odyssey';
+import { Anchor, Heading, Separator, Slider } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -6,15 +6,13 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
-const rangeFieldProps: PropItem[] = [
+const sliderProps: PropItem[] = [
   { name: 'isInvalid', types: ['boolean'], defaultValue: null },
   { name: 'isDisabled', types: ['boolean'], defaultValue: null },
   { name: 'isRequired', types: ['boolean'], defaultValue: null },
   { name: 'step', types: ['number'], defaultValue: '1' },
   { name: 'max', types: ['number'], defaultValue: '100' },
   { name: 'min', types: ['number'], defaultValue: '0' },
-  { name: 'showValue', types: ['boolean'], defaultValue: 'true' },
-  { name: 'unit', types: ['string'], defaultValue: null },
   { name: 'value', types: ['number'], defaultValue: null },
   {
     name: 'onChange',
@@ -22,20 +20,22 @@ const rangeFieldProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultValue', types: ['number'], defaultValue: null },
+  { name: 'id', types: ['string'], defaultValue: null },
+  { name: 'name', types: ['string'], defaultValue: null },
+  { name: 'describedbyId', types: ['string'], defaultValue: null },
 ];
 
-export function RangeFieldPage() {
+export function SliderPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
-        <Heading type="h1">RangeField</Heading>
+        <Heading type="h1">Slider</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="components.rangeField.description" />
+          <T k="components.slider.description" />
         </p>
         <div>
           <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-form-rangefield--docs`}
+            href={`${STORYBOOK_URL}/?path=/docs/components-form-slider--docs`}
             openInNewTab
           >
             <T k="components.common.storybookLink" />
@@ -44,26 +44,24 @@ export function RangeFieldPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { RangeField } from '@k8o/arte-odyssey/range-field';"
+          code="import { Slider } from '@k8o/arte-odyssey/slider';"
           lang="ts"
         />
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
             <T k="components.common.usageTitle" />
           </Heading>
           <ComponentPreview
-            code={`<RangeField
+            code={`<Slider
   defaultValue={50}
   isDisabled={false}
   isInvalid={false}
@@ -71,7 +69,7 @@ export function RangeFieldPage() {
 />`}
           >
             <div className="w-full">
-              <RangeField
+              <Slider
                 defaultValue={50}
                 isDisabled={false}
                 isInvalid={false}
@@ -81,13 +79,12 @@ export function RangeFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Min / Max / Step */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.rangeField.minMaxStepTitle" />
+            <T k="components.slider.minMaxStepTitle" />
           </Heading>
           <ComponentPreview
-            code={`<RangeField
+            code={`<Slider
   defaultValue={20}
   isDisabled={false}
   isInvalid={false}
@@ -98,7 +95,7 @@ export function RangeFieldPage() {
 />`}
           >
             <div className="w-full">
-              <RangeField
+              <Slider
                 defaultValue={20}
                 isDisabled={false}
                 isInvalid={false}
@@ -111,41 +108,12 @@ export function RangeFieldPage() {
           </ComponentPreview>
         </div>
 
-        {/* Show Value with Unit */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.rangeField.showValueTitle" />
+            <T k="components.slider.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<RangeField
-  defaultValue={50}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
-  showValue
-  unit="%"
-/>`}
-          >
-            <div className="w-full">
-              <RangeField
-                defaultValue={50}
-                isDisabled={false}
-                isInvalid={false}
-                isRequired={false}
-                showValue
-                unit="%"
-              />
-            </div>
-          </ComponentPreview>
-        </div>
-
-        {/* Disabled */}
-        <div className="flex flex-col gap-4">
-          <Heading type="h3">
-            <T k="components.rangeField.disabledTitle" />
-          </Heading>
-          <ComponentPreview
-            code={`<RangeField
+            code={`<Slider
   defaultValue={30}
   isDisabled
   isInvalid={false}
@@ -153,7 +121,7 @@ export function RangeFieldPage() {
 />`}
           >
             <div className="w-full">
-              <RangeField
+              <Slider
                 defaultValue={30}
                 isDisabled
                 isInvalid={false}
@@ -165,12 +133,11 @@ export function RangeFieldPage() {
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={rangeFieldProps} />
+        <PropsTable items={sliderProps} />
       </section>
     </div>
   );

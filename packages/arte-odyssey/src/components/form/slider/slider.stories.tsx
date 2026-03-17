@@ -1,15 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { RangeField } from './range-field';
+import { Slider } from './slider';
 
-const meta: Meta<typeof RangeField> = {
-  title: 'components/form/RangeField',
-  component: RangeField,
+const meta: Meta<typeof Slider> = {
+  title: 'components/form/slider',
+  component: Slider,
   parameters: {
     layout: 'centered',
     a11y: {
       options: {
         rules: {
-          // RangeField単体ではラベルを付随しない
           'label-title-only': { enabled: false },
           label: { enabled: false },
         },
@@ -30,33 +29,14 @@ const meta: Meta<typeof RangeField> = {
     isInvalid: false,
     isDisabled: false,
     isRequired: false,
-    showValue: true,
     defaultValue: 50,
   },
 };
 
 export default meta;
-type Story = StoryObj<typeof RangeField>;
+type Story = StoryObj<typeof Slider>;
 
 export const Default: Story = {};
-
-export const WithUnit: Story = {
-  args: {
-    min: 100,
-    max: 500,
-    step: 10,
-    unit: 'px',
-    defaultValue: 200,
-  },
-};
-
-export const WithoutValue: Story = {
-  args: {
-    step: 5,
-    showValue: false,
-    defaultValue: 75,
-  },
-};
 
 export const Disabled: Story = {
   args: {
