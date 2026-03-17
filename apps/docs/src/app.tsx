@@ -33,6 +33,8 @@ import { RangeFieldPage } from './pages/components/range-field-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
+import { SkeletonPage } from './pages/components/skeleton-page';
+import { SpinnerPage } from './pages/components/spinner-page';
 import { SwitchPage } from './pages/components/switch-page';
 import { TabsPage } from './pages/components/tabs-page';
 import { TextFieldPage } from './pages/components/text-field-page';
@@ -187,6 +189,14 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/alert',
         component: <AlertPage />,
+      }),
+      route({
+        path: '/components/skeleton',
+        component: <SkeletonPage />,
+      }),
+      route({
+        path: '/components/spinner',
+        component: <SpinnerPage />,
       }),
       route({
         path: '/components/toast',

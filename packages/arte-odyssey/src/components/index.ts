@@ -87,6 +87,8 @@ export {
 } from './providers';
 export { ScrollLinked } from './scroll-linked';
 export { Separator } from './separator';
+export { Skeleton } from './skeleton';
+export { Spinner } from './spinner';
 export { Tabs } from './tabs';
 export { ToastProvider, useToast } from './toast';
 export { Tooltip } from './tooltip';

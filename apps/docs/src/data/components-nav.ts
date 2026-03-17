@@ -49,6 +49,8 @@ export const componentCategories: NavCategory[] = [
     titleKey: 'components.categoryFeedback',
     items: [
       { name: 'Alert', path: '/components/alert' },
+      { name: 'Skeleton', path: '/components/skeleton' },
+      { name: 'Spinner', path: '/components/spinner' },
       { name: 'Toast', path: '/components/toast' },
       { name: 'Progress', path: '/components/progress' },
     ],

@@ -175,6 +175,12 @@ export const ja = {
   'components.alert.description':
     'ステータスに応じたメッセージを表示するアラートです。',
   'components.alert.statusesTitle': 'ステータス',
+  'components.skeleton.description':
+    '読み込み前のコンテンツを表すプレースホルダーです。',
+  'components.skeleton.shapesTitle': '形状',
+  'components.skeleton.animationTitle': 'アニメーション',
+  'components.spinner.description': 'ローディングスピナーです。',
+  'components.spinner.sizesTitle': 'サイズ',
   'components.toast.description':
     '一時的な通知メッセージを表示するトーストです。',
   'components.tooltip.description':

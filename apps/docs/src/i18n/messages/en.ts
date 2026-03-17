@@ -172,6 +172,12 @@ export const en = {
   'components.alert.description':
     'An alert that displays status-based messages.',
   'components.alert.statusesTitle': 'Statuses',
+  'components.skeleton.description':
+    'A loading placeholder for content that has not arrived yet.',
+  'components.skeleton.shapesTitle': 'Shapes',
+  'components.skeleton.animationTitle': 'Animation',
+  'components.spinner.description': 'A loading spinner.',
+  'components.spinner.sizesTitle': 'Sizes',
   'components.toast.description':
     'A toast for temporary notification messages.',
   'components.tooltip.description':
