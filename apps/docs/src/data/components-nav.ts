@@ -37,6 +37,7 @@ export const componentCategories: NavCategory[] = [
     titleKey: 'components.categoryDataDisplay',
     items: [
       { name: 'Accordion', path: '/components/accordion' },
+      { name: 'Avatar', path: '/components/avatar' },
       { name: 'Card', path: '/components/card' },
       { name: 'Code', path: '/components/code' },
       { name: 'TextTag', path: '/components/text-tag' },

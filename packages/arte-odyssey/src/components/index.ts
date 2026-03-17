@@ -1,6 +1,7 @@
 export { Accordion } from './accordion';
 export { Alert } from './alert';
 export { Anchor } from './anchor';
+export { Avatar } from './avatar';
 export { BaselineStatus } from './baseline-status';
 export { Breadcrumb } from './breadcrumb';
 export { Button } from './button';

@@ -147,6 +147,10 @@ export const ja = {
   'components.formControl.disabledTitle': '無効',
   'components.accordion.description': '折りたたみ可能なコンテンツパネルです。',
   'components.accordion.defaultOpenTitle': 'デフォルトで開く',
+  'components.avatar.description':
+    'フォールバック表示付きのプロフィール画像コンポーネントです。',
+  'components.avatar.withImageTitle': '画像付き',
+  'components.avatar.sizesTitle': 'サイズ',
   'components.card.description': 'コンテンツをグループ化するカードです。',
   'components.card.variantsTitle': 'バリアント',
   'components.card.widthTitle': 'Width',

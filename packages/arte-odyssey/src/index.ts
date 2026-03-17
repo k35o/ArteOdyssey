@@ -7,6 +7,7 @@ export {
   ArteOdyssey,
   ArteOdysseyProvider,
   Autocomplete,
+  Avatar,
   BadIcon,
   BaselineStatus,
   BlogIcon,

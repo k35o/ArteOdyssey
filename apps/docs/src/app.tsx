@@ -6,6 +6,7 @@ import { AccordionPage } from './pages/components/accordion-page';
 import { AlertPage } from './pages/components/alert-page';
 import { AnchorPage } from './pages/components/anchor-page';
 import { AutocompletePage } from './pages/components/autocomplete-page';
+import { AvatarPage } from './pages/components/avatar-page';
 import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
@@ -150,6 +151,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/accordion',
         component: <AccordionPage />,
+      }),
+      route({
+        path: '/components/avatar',
+        component: <AvatarPage />,
       }),
       route({
         path: '/components/card',
