@@ -1,4 +1,4 @@
-import { Anchor, Heading, Separator, TextTag } from '@k8o/arte-odyssey';
+import { Anchor, Heading, Separator, Spinner } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -6,28 +6,22 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
-const textTagProps: PropItem[] = [
-  { name: 'text', types: ['string'], defaultValue: null },
-  {
-    name: 'size',
-    types: ["'sm'", "'md'"],
-    defaultValue: "'md'",
-  },
-  { name: 'clickable', types: ['boolean'], defaultValue: 'false' },
+const spinnerProps: PropItem[] = [
+  { name: 'label', types: ['string'], defaultValue: "'Loading'" },
+  { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
 ];
 
-export function TextTagPage() {
+export function SpinnerPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
-      {/* Header */}
       <div className="flex flex-col gap-4">
-        <Heading type="h1">TextTag</Heading>
+        <Heading type="h1">Spinner</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="components.textTag.description" />
+          <T k="components.spinner.description" />
         </p>
         <div>
           <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-text-tag--docs`}
+            href={`${STORYBOOK_URL}/?path=/docs/components-spinner--docs`}
             openInNewTab
           >
             <T k="components.common.storybookLink" />
@@ -36,65 +30,49 @@ export function TextTagPage() {
       </div>
       <Separator color="mute" />
 
-      {/* Import */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { TextTag } from '@k8o/arte-odyssey/text-tag';"
+          code="import { Spinner } from '@k8o/arte-odyssey/spinner';"
           lang="ts"
         />
       </section>
       <Separator color="mute" />
 
-      {/* Usage */}
       <section className="flex flex-col gap-8">
         <div className="flex flex-col gap-4">
           <Heading type="h2">
             <T k="components.common.usageTitle" />
           </Heading>
-          <ComponentPreview code='<TextTag text="Tag" />'>
-            <TextTag text="Tag" />
+          <ComponentPreview code="<Spinner />">
+            <Spinner />
           </ComponentPreview>
         </div>
 
-        {/* Sizes */}
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.textTag.sizesTitle" />
+            <T k="components.spinner.sizesTitle" />
           </Heading>
           <ComponentPreview
-            code={`<TextTag size="sm" text="Small" />
-<TextTag size="md" text="Medium" />`}
+            code={`<Spinner size="sm" />
+<Spinner size="md" />
+<Spinner size="lg" />`}
           >
-            <TextTag size="sm" text="Small" />
-            <TextTag size="md" text="Medium" />
-          </ComponentPreview>
-        </div>
-
-        {/* Clickable */}
-        <div className="flex flex-col gap-4">
-          <Heading type="h3">
-            <T k="components.textTag.clickableTitle" />
-          </Heading>
-          <ComponentPreview
-            code={`<TextTag clickable text="Clickable Tag" />
-<TextTag text="Non-clickable Tag" />`}
-          >
-            <TextTag clickable text="Clickable Tag" />
-            <TextTag text="Non-clickable Tag" />
+            <Spinner size="sm" />
+            <Spinner size="md" />
+            <Spinner size="lg" />
           </ComponentPreview>
         </div>
       </section>
       <Separator color="mute" />
 
-      {/* Props */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={textTagProps} />
+        <PropsTable items={spinnerProps} />
       </section>
     </div>
   );

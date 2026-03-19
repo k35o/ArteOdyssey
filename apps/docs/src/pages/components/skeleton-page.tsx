@@ -1,0 +1,106 @@
+import { Anchor, Heading, Separator, Skeleton } from '@k8o/arte-odyssey';
+import { CodeBlock } from '../../components/code-block';
+import { ComponentPreview } from '../../components/component-preview';
+import type { PropItem } from '../../components/props-table';
+import { PropsTable } from '../../components/props-table';
+import { T } from '../../components/t';
+import { STORYBOOK_URL } from '../../constants';
+
+const skeletonProps: PropItem[] = [
+  { name: 'animate', types: ['boolean'], defaultValue: 'true' },
+  { name: 'shape', types: ["'rect'", "'circle'"], defaultValue: "'rect'" },
+  { name: 'size', types: ["'sm'", "'md'", "'lg'"], defaultValue: "'md'" },
+];
+
+export function SkeletonPage() {
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <div className="flex flex-col gap-4">
+        <Heading type="h1">Skeleton</Heading>
+        <p className="text-fg-mute text-lg">
+          <T k="components.skeleton.description" />
+        </p>
+        <div>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-skeleton--docs`}
+            openInNewTab
+          >
+            <T k="components.common.storybookLink" />
+          </Anchor>
+        </div>
+      </div>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="components.common.importTitle" />
+        </Heading>
+        <CodeBlock
+          code="import { Skeleton } from '@k8o/arte-odyssey/skeleton';"
+          lang="ts"
+        />
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4">
+          <Heading type="h2">
+            <T k="components.common.usageTitle" />
+          </Heading>
+          <ComponentPreview code="<Skeleton />">
+            <Skeleton />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.skeleton.shapesTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`<Skeleton shape="rect" />
+<Skeleton shape="circle" />`}
+          >
+            <Skeleton shape="rect" />
+            <Skeleton shape="circle" />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.skeleton.sizesTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`<Skeleton size="sm" />
+<Skeleton size="md" />
+<Skeleton size="lg" />`}
+          >
+            <Skeleton size="sm" />
+            <Skeleton size="md" />
+            <Skeleton size="lg" />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.skeleton.animationTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`<Skeleton animate />
+<Skeleton animate={false} />`}
+          >
+            <Skeleton animate />
+            <Skeleton animate={false} />
+          </ComponentPreview>
+        </div>
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="components.common.propsTitle" />
+        </Heading>
+        <PropsTable items={skeletonProps} />
+      </section>
+    </div>
+  );
+}

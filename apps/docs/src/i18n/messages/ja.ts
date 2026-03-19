@@ -116,6 +116,11 @@ export const ja = {
   'components.checkbox.defaultCheckedTitle': 'デフォルトチェック',
   'components.checkbox.disabledTitle': '無効',
   'components.checkbox.controlledTitle': '制御モード',
+  'components.switch.description':
+    'オン・オフの状態を切り替えるスイッチコンポーネントです。',
+  'components.switch.defaultCheckedTitle': 'デフォルトチェック',
+  'components.switch.disabledTitle': '無効',
+  'components.switch.controlledTitle': '制御モード',
   'components.radio.description': 'ラジオボタングループです。',
   'components.radio.disabledTitle': '無効',
   'components.radio.defaultValueTitle': 'デフォルト値',
@@ -125,10 +130,10 @@ export const ja = {
   'components.autocomplete.invalidTitle': 'エラー',
   'components.autocomplete.requiredTitle': '必須',
   'components.autocomplete.multipleSelectionTitle': '複数選択',
-  'components.rangeField.description': 'スライダー入力フィールドです。',
-  'components.rangeField.minMaxStepTitle': '最小値 / 最大値 / ステップ',
-  'components.rangeField.showValueTitle': '値と単位の表示',
-  'components.rangeField.disabledTitle': '無効',
+  'components.slider.description':
+    'トラックとハンドルをスタイリングした単一ノブのスライダー入力です。',
+  'components.slider.minMaxStepTitle': '最小値 / 最大値 / ステップ',
+  'components.slider.disabledTitle': '無効',
   'components.fileField.description': 'ファイルアップロードフィールドです。',
   'components.fileField.acceptTypesTitle': '受け入れタイプ',
   'components.fileField.multipleFilesTitle': '複数ファイル',
@@ -142,6 +147,15 @@ export const ja = {
   'components.formControl.disabledTitle': '無効',
   'components.accordion.description': '折りたたみ可能なコンテンツパネルです。',
   'components.accordion.defaultOpenTitle': 'デフォルトで開く',
+  'components.avatar.description':
+    'フォールバック表示付きのプロフィール画像コンポーネントです。',
+  'components.avatar.withImageTitle': '画像付き',
+  'components.avatar.sizesTitle': 'サイズ',
+  'components.badge.description':
+    'ステータスやカテゴリを表すコンパクトなラベルです。',
+  'components.badge.tonesTitle': 'トーン',
+  'components.badge.variantsTitle': 'バリアント',
+  'components.badge.interactiveTitle': 'インタラクティブ',
   'components.card.description': 'コンテンツをグループ化するカードです。',
   'components.card.variantsTitle': 'バリアント',
   'components.card.widthTitle': 'Width',
@@ -149,9 +163,6 @@ export const ja = {
   'components.code.colorDetectionTitle': 'カラー検出',
   'components.listBox.description':
     'ドロップダウン形式のリスト選択コンポーネントです。',
-  'components.textTag.description': 'テキストタグ・ラベルコンポーネントです。',
-  'components.textTag.sizesTitle': 'サイズ',
-  'components.textTag.clickableTitle': 'クリック可能',
   'components.baselineStatus.description':
     'Web機能のブラウザサポート状況を表示するコンポーネントです。',
   'components.baselineStatus.differentFeaturesTitle': '様々な機能',
@@ -164,6 +175,13 @@ export const ja = {
   'components.alert.description':
     'ステータスに応じたメッセージを表示するアラートです。',
   'components.alert.statusesTitle': 'ステータス',
+  'components.skeleton.description':
+    '読み込み前のコンテンツを表すプレースホルダーです。',
+  'components.skeleton.shapesTitle': '形状',
+  'components.skeleton.sizesTitle': 'サイズ',
+  'components.skeleton.animationTitle': 'アニメーション',
+  'components.spinner.description': 'ローディングスピナーです。',
+  'components.spinner.sizesTitle': 'サイズ',
   'components.toast.description':
     '一時的な通知メッセージを表示するトーストです。',
   'components.tooltip.description':

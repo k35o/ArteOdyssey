@@ -6,6 +6,8 @@ import { AccordionPage } from './pages/components/accordion-page';
 import { AlertPage } from './pages/components/alert-page';
 import { AnchorPage } from './pages/components/anchor-page';
 import { AutocompletePage } from './pages/components/autocomplete-page';
+import { AvatarPage } from './pages/components/avatar-page';
+import { BadgePage } from './pages/components/badge-page';
 import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
@@ -27,13 +29,15 @@ import { NumberFieldPage } from './pages/components/number-field-page';
 import { PopoverPage } from './pages/components/popover-page';
 import { ProgressPage } from './pages/components/progress-page';
 import { RadioPage } from './pages/components/radio-page';
-import { RangeFieldPage } from './pages/components/range-field-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
+import { SkeletonPage } from './pages/components/skeleton-page';
+import { SliderPage } from './pages/components/slider-page';
+import { SpinnerPage } from './pages/components/spinner-page';
+import { SwitchPage } from './pages/components/switch-page';
 import { TabsPage } from './pages/components/tabs-page';
 import { TextFieldPage } from './pages/components/text-field-page';
-import { TextTagPage } from './pages/components/text-tag-page';
 import { TextareaPage } from './pages/components/textarea-page';
 import { ToastPage } from './pages/components/toast-page';
 import { TooltipPage } from './pages/components/tooltip-page';
@@ -123,6 +127,10 @@ const routes: RouteDefinition[] = [
         component: <CheckboxPage />,
       }),
       route({
+        path: '/components/switch',
+        component: <SwitchPage />,
+      }),
+      route({
         path: '/components/radio',
         component: <RadioPage />,
       }),
@@ -131,8 +139,8 @@ const routes: RouteDefinition[] = [
         component: <AutocompletePage />,
       }),
       route({
-        path: '/components/range-field',
-        component: <RangeFieldPage />,
+        path: '/components/slider',
+        component: <SliderPage />,
       }),
       route({
         path: '/components/file-field',
@@ -147,6 +155,14 @@ const routes: RouteDefinition[] = [
         component: <AccordionPage />,
       }),
       route({
+        path: '/components/avatar',
+        component: <AvatarPage />,
+      }),
+      route({
+        path: '/components/badge',
+        component: <BadgePage />,
+      }),
+      route({
         path: '/components/card',
         component: <CardPage />,
       }),
@@ -157,10 +173,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/list-box',
         component: <ListBoxPage />,
-      }),
-      route({
-        path: '/components/text-tag',
-        component: <TextTagPage />,
       }),
       route({
         path: '/components/baseline-status',
@@ -177,6 +189,14 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/alert',
         component: <AlertPage />,
+      }),
+      route({
+        path: '/components/skeleton',
+        component: <SkeletonPage />,
+      }),
+      route({
+        path: '/components/spinner',
+        component: <SpinnerPage />,
       }),
       route({
         path: '/components/toast',

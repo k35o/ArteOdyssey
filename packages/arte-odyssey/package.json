@@ -89,6 +89,18 @@
       }
     },
     "./styles.css": "./dist/styles/index.css",
+    "./switch": {
+      "import": {
+        "types": "./dist/components/form/switch/index.d.ts",
+        "default": "./dist/components/form/switch/index.js"
+      }
+    },
+    "./slider": {
+      "import": {
+        "types": "./dist/components/form/slider/index.d.ts",
+        "default": "./dist/components/form/slider/index.js"
+      }
+    },
     "./*": {
       "import": {
         "types": "./dist/components/*/index.d.ts",

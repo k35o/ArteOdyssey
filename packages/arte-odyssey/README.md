@@ -92,7 +92,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **FormControl** - Form field wrapper with label and validation
 - **NumberField** - Numeric input with controls
 - **Radio** - Single selection from options
-- **RangeField** - Slider input control
+- **Slider** - Slider input control
 - **Select** - Dropdown selection
 - **TextField** - Single-line text input
 - **Textarea** - Multi-line text input
@@ -122,7 +122,6 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
 - **ListBox** - Selectable list component
-- **TextTag** - Labeled text elements
 
 ### Utilities
 - **ErrorBoundary** - Error handling wrapper
