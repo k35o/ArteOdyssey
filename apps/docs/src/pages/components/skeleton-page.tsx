@@ -67,7 +67,7 @@ export function SkeletonPage() {
 
         <div className="flex flex-col gap-4">
           <Heading type="h3">
-            <T k="components.spinner.sizesTitle" />
+            <T k="components.skeleton.sizesTitle" />
           </Heading>
           <ComponentPreview
             code={`<Skeleton size="sm" />

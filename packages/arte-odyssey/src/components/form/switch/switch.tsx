@@ -45,7 +45,6 @@ export const Switch: FC<Props> = ({
   const [internalChecked, setInternalChecked] = useState(
     defaultChecked ?? false,
   );
-  const [isFocused, setIsFocused] = useState(false);
 
   const isControlled = value !== undefined;
   const isSelected = isControlled ? value : internalChecked;
@@ -60,28 +59,24 @@ export const Switch: FC<Props> = ({
     >
       <span className="relative inline-flex shrink-0">
         <input
+          aria-checked={isSelected}
           aria-describedby={describedbyId}
           aria-invalid={isInvalid}
           aria-required={isRequired}
           checked={isControlled ? value : undefined}
-          className="sr-only"
+          className="peer sr-only"
           defaultChecked={isControlled ? undefined : defaultChecked}
           disabled={isDisabled}
           id={inputId}
           name={name}
-          onBlur={() => {
-            setIsFocused(false);
-          }}
           onChange={(event) => {
             if (!isControlled) {
               setInternalChecked(event.target.checked);
             }
             onChange?.(event);
           }}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
           required={isRequired}
+          role="switch"
           type="checkbox"
         />
         <span
@@ -93,7 +88,7 @@ export const Switch: FC<Props> = ({
               ? 'border-border-base bg-primary-bg'
               : 'border-border-mute bg-bg-mute',
             isDisabled && 'border-border-mute bg-bg-subtle',
-            isFocused && 'outline-hidden ring-2 ring-border-info ring-offset-2',
+            'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
           )}
         >
           <span

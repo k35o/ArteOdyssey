@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
+import { useState } from 'react';
 import { cn } from '../../helpers/cn';
 
 type Props = {
@@ -33,8 +34,10 @@ export const Avatar: FC<Props> = ({
   size = 'md',
   src,
 }) => {
-  const showImage = Boolean(src);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const showImage = Boolean(src) && failedSrc !== src;
   const label = alt ?? name ?? 'Avatar';
+  const imageSize = size === 'sm' ? 32 : size === 'md' ? 40 : 56;
 
   return (
     <span
@@ -48,10 +51,16 @@ export const Avatar: FC<Props> = ({
       role="img"
     >
       {showImage ? (
-        <span
-          aria-hidden={true}
-          className="size-full bg-center bg-cover"
-          style={{ backgroundImage: `url(${src})` }}
+        // biome-ignore lint/performance/noImgElement: This UI library must render a standard img element for framework-agnostic usage.
+        <img
+          alt={alt ?? ''}
+          className="size-full object-cover"
+          height={imageSize}
+          onError={() => {
+            setFailedSrc(src ?? null);
+          }}
+          src={src}
+          width={imageSize}
         />
       ) : (
         <span aria-hidden={true}>{fallback ?? getInitials(name)}</span>

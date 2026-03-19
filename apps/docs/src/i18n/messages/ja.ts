@@ -178,6 +178,7 @@ export const ja = {
   'components.skeleton.description':
     '読み込み前のコンテンツを表すプレースホルダーです。',
   'components.skeleton.shapesTitle': '形状',
+  'components.skeleton.sizesTitle': 'サイズ',
   'components.skeleton.animationTitle': 'アニメーション',
   'components.spinner.description': 'ローディングスピナーです。',
   'components.spinner.sizesTitle': 'サイズ',

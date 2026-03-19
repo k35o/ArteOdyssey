@@ -156,6 +156,7 @@ export const MESSAGE_KEYS = [
   'components.alert.statusesTitle',
   'components.skeleton.description',
   'components.skeleton.shapesTitle',
+  'components.skeleton.sizesTitle',
   'components.skeleton.animationTitle',
   'components.spinner.description',
   'components.spinner.sizesTitle',
