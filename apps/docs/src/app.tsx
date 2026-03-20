@@ -30,7 +30,6 @@ import { NumberFieldPage } from './pages/components/number-field-page';
 import { PasswordInputPage } from './pages/components/password-input-page';
 import { PopoverPage } from './pages/components/popover-page';
 import { ProgressPage } from './pages/components/progress-page';
-import { RadioGroupPage } from './pages/components/radio-group-page';
 import { RadioCardPage } from './pages/components/radio-card-page';
 import { RadioPage } from './pages/components/radio-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
@@ -138,10 +137,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/switch',
         component: <SwitchPage />,
-      }),
-      route({
-        path: '/components/radio-group',
-        component: <RadioGroupPage />,
       }),
       route({
         path: '/components/password-input',

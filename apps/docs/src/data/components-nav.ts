@@ -27,7 +27,6 @@ export const componentCategories: NavCategory[] = [
       { name: 'Checkbox', path: '/components/checkbox' },
       { name: 'CheckboxCard', path: '/components/checkbox-card' },
       { name: 'Switch', path: '/components/switch' },
-      { name: 'RadioGroup', path: '/components/radio-group' },
       { name: 'PasswordInput', path: '/components/password-input' },
       { name: 'Radio', path: '/components/radio' },
       { name: 'RadioCard', path: '/components/radio-card' },
