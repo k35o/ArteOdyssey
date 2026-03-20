@@ -99,6 +99,7 @@ export {
   usePortalRoot,
   useToast,
   ViewIcon,
+  ViewOffIcon,
 } from './components';
 export {
   useClickAway,

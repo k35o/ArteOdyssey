@@ -3,7 +3,7 @@
 import type { ChangeEventHandler, FC } from 'react';
 import { useState } from 'react';
 import { cn } from '../../../helpers/cn';
-import { CloseIcon, ViewIcon } from '../../icons';
+import { ViewIcon, ViewOffIcon } from '../../icons';
 
 type BaseProps = {
   id?: string;
@@ -86,7 +86,7 @@ export const PasswordInput: FC<Props> = ({
         }}
         type="button"
       >
-        {isVisible ? <CloseIcon size="sm" /> : <ViewIcon size="sm" />}
+        {isVisible ? <ViewOffIcon size="sm" /> : <ViewIcon size="sm" />}
       </button>
     </div>
   );

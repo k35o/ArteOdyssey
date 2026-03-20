@@ -14,7 +14,6 @@ const meta: Meta<typeof Radio> = {
   args: {
     isDisabled: false,
     labelId: 'radio-story-label',
-    name: 'radio-story',
     options,
   },
 };

@@ -78,6 +78,7 @@ export {
   TwitterIcon,
   UpdateDateIcon,
   ViewIcon,
+  ViewOffIcon,
 } from './icons';
 export { LinkButton } from './link-button';
 export { ListBox } from './list-box';

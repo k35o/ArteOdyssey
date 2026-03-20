@@ -21,7 +21,6 @@ export function RadioControlledPreview() {
         defaultValue={undefined}
         isDisabled={false}
         labelId="radio-controlled-label"
-        name="framework-controlled"
         onChange={(event) => {
           setValue(event.target.value);
         }}

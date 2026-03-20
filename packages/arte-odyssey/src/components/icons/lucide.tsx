@@ -23,6 +23,7 @@ import {
   Droplets,
   ExternalLink,
   Eye,
+  EyeOff,
   History,
   Info,
   Laugh,
@@ -384,6 +385,17 @@ export const ViewIcon: FC<IconProps> = ({ size = 'md' }) => {
     <BaseIcon
       renderItem={(props) => {
         return <Eye {...props} />;
+      }}
+      size={size}
+    />
+  );
+};
+
+export const ViewOffIcon: FC<IconProps> = ({ size = 'md' }) => {
+  return (
+    <BaseIcon
+      renderItem={(props) => {
+        return <EyeOff {...props} />;
       }}
       size={size}
     />

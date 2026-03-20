@@ -8,7 +8,6 @@ import { STORYBOOK_URL } from '../../constants';
 import { RadioControlledPreview } from './_previews/radio-previews';
 
 const radioProps: PropItem[] = [
-  { name: 'name', types: ['string'], defaultValue: null },
   { name: 'labelId', types: ['string'], defaultValue: null },
   { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'options', types: ['Option[]'], defaultValue: null },
@@ -76,7 +75,6 @@ const options = [
   defaultValue="vue"
   isDisabled={false}
   labelId="radio-label"
-  name="framework"
   options={options}
 />`}
           >
@@ -88,7 +86,6 @@ const options = [
                 defaultValue="vue"
                 isDisabled={false}
                 labelId="radio-label"
-                name="framework"
                 options={options}
               />
             </div>
@@ -106,7 +103,6 @@ const options = [
 <Radio
   isDisabled={false}
   labelId="radio-controlled-label"
-  name="framework-controlled"
   onChange={(event) => setValue(event.target.value)}
   options={options}
   value={value}
@@ -126,7 +122,6 @@ const options = [
   defaultValue="vue"
   isDisabled
   labelId="radio-disabled-label"
-  name="framework-disabled"
   options={options}
 />`}
           >
@@ -141,7 +136,6 @@ const options = [
                 defaultValue="vue"
                 isDisabled
                 labelId="radio-disabled-label"
-                name="framework-disabled"
                 options={options}
               />
             </div>

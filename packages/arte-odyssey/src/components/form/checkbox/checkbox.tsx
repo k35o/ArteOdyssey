@@ -62,33 +62,38 @@ export const Checkbox: FC<Props> = ({
   };
 
   return (
-    <button
-      aria-disabled={isDisabledResolved}
-      aria-pressed={checked}
+    <label
       className={cn(
         'inline-flex items-center gap-2 text-left',
         isDisabledResolved
           ? 'cursor-not-allowed text-fg-mute'
           : 'cursor-pointer',
       )}
-      disabled={isDisabledResolved}
-      onClick={() => {
-        if (groupContext) {
-          groupContext.toggleValue(groupItemValue);
-          return;
-        }
-        setChecked(!checked);
-      }}
-      onMouseDown={(event) => {
-        event.preventDefault();
-      }}
-      type="button"
     >
+      <input
+        checked={groupContext ? checked : isControlled ? value : undefined}
+        className="peer sr-only"
+        defaultChecked={
+          groupContext || isControlled ? undefined : defaultChecked
+        }
+        disabled={isDisabledResolved}
+        name={groupContext?.name}
+        onChange={(event) => {
+          if (groupContext) {
+            groupContext.toggleValue(groupItemValue);
+            return;
+          }
+
+          setChecked(event.target.checked);
+        }}
+        type="checkbox"
+        value={groupContext ? groupItemValue : undefined}
+      />
       <span
         aria-hidden={true}
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
-          'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+          'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
           isDisabledResolved && 'border-border-mute bg-bg-mute',
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'
@@ -98,6 +103,6 @@ export const Checkbox: FC<Props> = ({
         {checked ? <CheckIcon size="sm" /> : null}
       </span>
       <span className="text-lg">{label}</span>
-    </button>
+    </label>
   );
 };

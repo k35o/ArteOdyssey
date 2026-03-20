@@ -74,14 +74,10 @@ export const CheckboxCard: FC<Props> = ({
         const optionId = `${groupId}-${option.value}`;
 
         return (
-          <button
-            aria-describedby={
-              option.description ? `${optionId}-description` : undefined
-            }
-            aria-pressed={checked}
+          <label
             className={cn(
               'flex w-full min-w-0 rounded-lg border bg-bg-base p-4 text-left transition-colors',
-              'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+              'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
               checked && 'border-border-info bg-bg-subtle',
               isInvalid
                 ? 'border-border-error'
@@ -89,21 +85,22 @@ export const CheckboxCard: FC<Props> = ({
               disabled &&
                 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
-            disabled={disabled}
             id={optionId}
             key={option.value}
-            onClick={() => {
-              handleToggle(option.value, !checked);
-              requestAnimationFrame(() => {
-                document.activeElement instanceof HTMLElement &&
-                  document.activeElement.blur();
-              });
-            }}
-            onMouseDown={(event) => {
-              event.preventDefault();
-            }}
-            type="button"
           >
+            <input
+              aria-describedby={
+                option.description ? `${optionId}-description` : undefined
+              }
+              checked={checked}
+              className="sr-only"
+              disabled={disabled}
+              onChange={(event) => {
+                handleToggle(option.value, event.target.checked);
+              }}
+              type="checkbox"
+              value={option.value}
+            />
             {option.visual ? (
               <span aria-hidden={true} className="mr-4 shrink-0">
                 {option.visual}
@@ -131,7 +128,7 @@ export const CheckboxCard: FC<Props> = ({
             >
               <CheckIcon size="sm" />
             </span>
-          </button>
+          </label>
         );
       })}
     </fieldset>
