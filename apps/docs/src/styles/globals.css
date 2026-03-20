@@ -1,2 +1,2 @@
 @import 'tailwindcss';
-@import '@k8o/arte-odyssey/styles.css';
+@import '../../../../packages/arte-odyssey/src/styles/index.css';
