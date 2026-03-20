@@ -14,6 +14,7 @@ import {
 const checkboxProps: PropItem[] = [
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'itemValue', types: ['string'], defaultValue: null },
+  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
@@ -116,11 +117,11 @@ export function CheckboxPage() {
             <T k="components.checkbox.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Checkbox label="Unchecked disabled" />
-<Checkbox defaultChecked label="Checked disabled" />`}
+            code={`<Checkbox isDisabled label="Unchecked disabled" />
+<Checkbox defaultChecked isDisabled label="Checked disabled" />`}
           >
-            <Checkbox label="Unchecked disabled" />
-            <Checkbox defaultChecked label="Checked disabled" />
+            <Checkbox isDisabled label="Unchecked disabled" />
+            <Checkbox defaultChecked isDisabled label="Checked disabled" />
           </ComponentPreview>
         </div>
 
