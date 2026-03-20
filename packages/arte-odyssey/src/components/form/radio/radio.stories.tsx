@@ -25,6 +25,7 @@ type Story = StoryObj<typeof Radio>;
 export const Default: Story = {
   render: (props) => {
     const [value, setValue] = useState('react');
+    const { defaultValue: _defaultValue, ...radioProps } = props;
 
     return (
       <div className="w-full max-w-md">
@@ -32,7 +33,7 @@ export const Default: Story = {
           Framework
         </p>
         <Radio
-          {...props}
+          {...radioProps}
           onChange={(event) => {
             setValue(event.target.value);
           }}

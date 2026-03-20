@@ -36,7 +36,6 @@ export function RadioCardControlledPreview() {
         isDisabled={false}
         isInvalid={false}
         labelId="radio-card-preview-label"
-        name="plan"
         onChange={(event) => {
           setValue(event.target.value);
         }}
