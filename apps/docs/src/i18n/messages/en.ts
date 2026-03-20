@@ -122,6 +122,8 @@ export const en = {
   'components.switch.disabledTitle': 'Disabled',
   'components.switch.controlledTitle': 'Controlled',
   'components.radio.description': 'A radio button group.',
+  'components.radioGroup.description':
+    'A group component for mutually exclusive radio options.',
   'components.radio.disabledTitle': 'Disabled',
   'components.radio.defaultValueTitle': 'Default Value',
   'components.autocomplete.description':

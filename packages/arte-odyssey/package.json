@@ -89,6 +89,18 @@
       }
     },
     "./styles.css": "./dist/styles/index.css",
+    "./checkbox-group": {
+      "import": {
+        "types": "./dist/components/form/checkbox-group/index.d.ts",
+        "default": "./dist/components/form/checkbox-group/index.js"
+      }
+    },
+    "./radio-group": {
+      "import": {
+        "types": "./dist/components/form/radio-group/index.d.ts",
+        "default": "./dist/components/form/radio-group/index.js"
+      }
+    },
     "./switch": {
       "import": {
         "types": "./dist/components/form/switch/index.d.ts",

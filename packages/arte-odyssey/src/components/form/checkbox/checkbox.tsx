@@ -3,8 +3,10 @@
 import { type ChangeEventHandler, type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { CheckIcon } from '../../icons';
+import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 
 type BaseProps = {
+  itemValue?: string;
   label: string;
 };
 
@@ -23,29 +25,53 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Checkbox: FC<Props> = ({
+  itemValue,
   label,
   value,
   defaultChecked,
   onChange,
 }) => {
+  const groupContext = useCheckboxGroupContext();
   const [internalChecked, setInternalChecked] = useState(
     defaultChecked ?? false,
   );
   const [isFocus, setIsFocus] = useState(false);
+  const groupItemValue = itemValue ?? '';
+
+  if (groupContext && !itemValue) {
+    throw new Error('Checkbox inside CheckboxGroup requires itemValue');
+  }
 
   const isControlled = value !== undefined;
-  const checked = isControlled ? value : internalChecked;
+  const checked = groupContext
+    ? groupContext.currentValue.includes(groupItemValue)
+    : isControlled
+      ? value
+      : internalChecked;
 
   return (
-    <label className="inline-flex cursor-pointer items-center gap-2">
+    <label
+      className={cn(
+        'inline-flex cursor-pointer items-center gap-2',
+        groupContext?.isDisabled && 'cursor-not-allowed',
+      )}
+    >
       <input
-        checked={isControlled ? value : undefined}
+        checked={groupContext ? checked : isControlled ? value : undefined}
         className="sr-only"
-        defaultChecked={isControlled ? undefined : defaultChecked}
+        defaultChecked={
+          groupContext || isControlled ? undefined : defaultChecked
+        }
+        disabled={groupContext?.isDisabled}
+        name={groupContext?.name}
         onBlur={() => {
           setIsFocus(false);
         }}
         onChange={(e) => {
+          if (groupContext) {
+            groupContext.toggleValue(groupItemValue);
+            return;
+          }
           if (!isControlled) {
             setInternalChecked(e.target.checked);
           }
@@ -65,6 +91,8 @@ export const Checkbox: FC<Props> = ({
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
+          groupContext?.isDisabled &&
+            'border-border-mute bg-bg-mute text-fg-mute',
         )}
       >
         {checked ? <CheckIcon size="sm" /> : null}

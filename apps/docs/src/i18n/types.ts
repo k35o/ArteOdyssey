@@ -109,6 +109,7 @@ export const MESSAGE_KEYS = [
   'components.switch.disabledTitle',
   'components.switch.controlledTitle',
   'components.radio.description',
+  'components.radioGroup.description',
   'components.radio.disabledTitle',
   'components.radio.defaultValueTitle',
   'components.autocomplete.description',

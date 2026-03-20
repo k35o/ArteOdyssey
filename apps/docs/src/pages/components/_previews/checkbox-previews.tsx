@@ -1,6 +1,6 @@
 'use client';
 
-import { Checkbox } from '@k8o/arte-odyssey';
+import { Checkbox, CheckboxGroup } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 export function CheckboxControlledPreview() {
@@ -11,5 +11,27 @@ export function CheckboxControlledPreview() {
       onChange={(e) => setChecked(e.target.checked)}
       value={checked}
     />
+  );
+}
+
+export function CheckboxGroupControlledPreview() {
+  const [value, setValue] = useState(['react']);
+
+  return (
+    <CheckboxGroup name="frameworks" onChange={setValue} value={value}>
+      <Checkbox itemValue="react" label="React" />
+      <Checkbox itemValue="vue" label="Vue" />
+      <Checkbox itemValue="svelte" label="Svelte" />
+    </CheckboxGroup>
+  );
+}
+
+export function CheckboxGroupDisabledPreview() {
+  return (
+    <CheckboxGroup defaultValue={['vue']} isDisabled name="frameworks-disabled">
+      <Checkbox itemValue="react" label="React" />
+      <Checkbox itemValue="vue" label="Vue" />
+      <Checkbox itemValue="svelte" label="Svelte" />
+    </CheckboxGroup>
   );
 }

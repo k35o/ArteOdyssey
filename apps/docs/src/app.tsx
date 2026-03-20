@@ -28,7 +28,7 @@ import { ModalPage } from './pages/components/modal-page';
 import { NumberFieldPage } from './pages/components/number-field-page';
 import { PopoverPage } from './pages/components/popover-page';
 import { ProgressPage } from './pages/components/progress-page';
-import { RadioPage } from './pages/components/radio-page';
+import { RadioGroupPage } from './pages/components/radio-group-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
@@ -131,8 +131,8 @@ const routes: RouteDefinition[] = [
         component: <SwitchPage />,
       }),
       route({
-        path: '/components/radio',
-        component: <RadioPage />,
+        path: '/components/radio-group',
+        component: <RadioGroupPage />,
       }),
       route({
         path: '/components/autocomplete',

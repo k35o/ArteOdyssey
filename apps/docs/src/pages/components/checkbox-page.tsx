@@ -5,10 +5,15 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { CheckboxControlledPreview } from './_previews/checkbox-previews';
+import {
+  CheckboxControlledPreview,
+  CheckboxGroupControlledPreview,
+  CheckboxGroupDisabledPreview,
+} from './_previews/checkbox-previews';
 
 const checkboxProps: PropItem[] = [
   { name: 'label', types: ['string'], defaultValue: null },
+  { name: 'itemValue', types: ['string'], defaultValue: null },
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
@@ -16,6 +21,22 @@ const checkboxProps: PropItem[] = [
     defaultValue: null,
   },
   { name: 'defaultChecked', types: ['boolean'], defaultValue: null },
+];
+
+const checkboxGroupProps: PropItem[] = [
+  { name: 'name', types: ['string'], defaultValue: null },
+  { name: 'labelId', types: ['string'], defaultValue: null },
+  { name: 'describedbyId', types: ['string'], defaultValue: null },
+  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'value', types: ['string[]'], defaultValue: null },
+  {
+    name: 'onChange',
+    types: ['(value: string[]) => void'],
+    defaultValue: null,
+  },
+  { name: 'defaultValue', types: ['string[]'], defaultValue: null },
 ];
 
 export function CheckboxPage() {
@@ -102,6 +123,32 @@ export function CheckboxPage() {
             <Checkbox defaultChecked label="Checked disabled" />
           </ComponentPreview>
         </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">Group</Heading>
+          <ComponentPreview
+            code={`<CheckboxGroup name="frameworks" onChange={setValue} value={value}>
+  <Checkbox itemValue="react" label="React" />
+  <Checkbox itemValue="vue" label="Vue" />
+  <Checkbox itemValue="svelte" label="Svelte" />
+</CheckboxGroup>`}
+          >
+            <CheckboxGroupControlledPreview />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">Group Disabled</Heading>
+          <ComponentPreview
+            code={`<CheckboxGroup defaultValue={['vue']} isDisabled name="frameworks-disabled">
+  <Checkbox itemValue="react" label="React" />
+  <Checkbox itemValue="vue" label="Vue" />
+  <Checkbox itemValue="svelte" label="Svelte" />
+</CheckboxGroup>`}
+          >
+            <CheckboxGroupDisabledPreview />
+          </ComponentPreview>
+        </div>
       </section>
       <Separator color="mute" />
 
@@ -111,6 +158,12 @@ export function CheckboxPage() {
           <T k="components.common.propsTitle" />
         </Heading>
         <PropsTable items={checkboxProps} />
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">CheckboxGroup Props</Heading>
+        <PropsTable items={checkboxGroupProps} />
       </section>
     </div>
   );

@@ -87,11 +87,11 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 
 ### Form Controls
 - **Autocomplete** - Search with suggestions
-- **Checkbox** - Multi-selection input
+- **Checkbox** - Binary selection input
 - **FileField** - File upload with composite pattern
 - **FormControl** - Form field wrapper with label and validation
 - **NumberField** - Numeric input with controls
-- **Radio** - Single selection from options
+- **RadioGroup** - Single selection from options
 - **Slider** - Slider input control
 - **Select** - Dropdown selection
 - **TextField** - Single-line text input

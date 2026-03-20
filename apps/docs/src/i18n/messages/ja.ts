@@ -122,6 +122,8 @@ export const ja = {
   'components.switch.disabledTitle': '無効',
   'components.switch.controlledTitle': '制御モード',
   'components.radio.description': 'ラジオボタングループです。',
+  'components.radioGroup.description':
+    '排他的に選択するラジオオプション用のグループコンポーネントです。',
   'components.radio.disabledTitle': '無効',
   'components.radio.defaultValueTitle': 'デフォルト値',
   'components.autocomplete.description':
