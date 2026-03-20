@@ -48,6 +48,7 @@ export {
   TagIcon,
   UpdateDateIcon,
   ViewIcon,
+  ViewOffIcon,
 } from './lucide';
 export { QiitaIcon } from './qiita';
 export { TwitterIcon } from './twitter';

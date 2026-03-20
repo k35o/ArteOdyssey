@@ -116,16 +116,26 @@ export const ja = {
   'components.checkbox.defaultCheckedTitle': 'デフォルトチェック',
   'components.checkbox.disabledTitle': '無効',
   'components.checkbox.controlledTitle': '制御モード',
+  'components.checkboxCard.description':
+    '選択肢全体をカードとして提示する複数選択コンポーネントです。',
+  'components.checkboxCard.defaultValueTitle': 'デフォルト値',
   'components.switch.description':
     'オン・オフの状態を切り替えるスイッチコンポーネントです。',
   'components.switch.defaultCheckedTitle': 'デフォルトチェック',
   'components.switch.disabledTitle': '無効',
   'components.switch.controlledTitle': '制御モード',
+  'components.passwordInput.description':
+    '表示切り替えボタン付きのパスワード入力フィールドです。',
+  'components.passwordInput.controlledTitle': '制御モード',
+  'components.passwordInput.disabledTitle': '無効',
   'components.radio.description': 'ラジオボタングループです。',
   'components.radioGroup.description':
     '排他的に選択するラジオオプション用のグループコンポーネントです。',
   'components.radio.disabledTitle': '無効',
   'components.radio.defaultValueTitle': 'デフォルト値',
+  'components.radioCard.description':
+    '選択肢全体をカードとして提示する単一選択コンポーネントです。',
+  'components.radioCard.defaultValueTitle': 'デフォルト値',
   'components.autocomplete.description':
     '入力補完付きの選択コンポーネントです。',
   'components.autocomplete.disabledTitle': '無効',
@@ -163,6 +173,9 @@ export const ja = {
   'components.card.widthTitle': 'Width',
   'components.code.description': 'インラインコード表示コンポーネントです。',
   'components.code.colorDetectionTitle': 'カラー検出',
+  'components.table.description':
+    '意味論を保ったまま横スクロールにも対応するテーブルコンポーネントです。',
+  'components.table.emptyStateTitle': '空状態',
   'components.listBox.description':
     'ドロップダウン形式のリスト選択コンポーネントです。',
   'components.baselineStatus.description':

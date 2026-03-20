@@ -12,6 +12,7 @@ import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
 import { CardPage } from './pages/components/card-page';
+import { CheckboxCardPage } from './pages/components/checkbox-card-page';
 import { CheckboxPage } from './pages/components/checkbox-page';
 import { CodePage } from './pages/components/code-page';
 import { DialogPage } from './pages/components/dialog-page';
@@ -26,9 +27,11 @@ import { LinkButtonPage } from './pages/components/link-button-page';
 import { ListBoxPage } from './pages/components/list-box-page';
 import { ModalPage } from './pages/components/modal-page';
 import { NumberFieldPage } from './pages/components/number-field-page';
+import { PasswordInputPage } from './pages/components/password-input-page';
 import { PopoverPage } from './pages/components/popover-page';
 import { ProgressPage } from './pages/components/progress-page';
-import { RadioGroupPage } from './pages/components/radio-group-page';
+import { RadioCardPage } from './pages/components/radio-card-page';
+import { RadioPage } from './pages/components/radio-page';
 import { ScrollLinkedPage } from './pages/components/scroll-linked-page';
 import { SelectPage } from './pages/components/select-page';
 import { SeparatorPage } from './pages/components/separator-page';
@@ -36,6 +39,7 @@ import { SkeletonPage } from './pages/components/skeleton-page';
 import { SliderPage } from './pages/components/slider-page';
 import { SpinnerPage } from './pages/components/spinner-page';
 import { SwitchPage } from './pages/components/switch-page';
+import { TablePage } from './pages/components/table-page';
 import { TabsPage } from './pages/components/tabs-page';
 import { TextFieldPage } from './pages/components/text-field-page';
 import { TextareaPage } from './pages/components/textarea-page';
@@ -127,12 +131,24 @@ const routes: RouteDefinition[] = [
         component: <CheckboxPage />,
       }),
       route({
+        path: '/components/checkbox-card',
+        component: <CheckboxCardPage />,
+      }),
+      route({
         path: '/components/switch',
         component: <SwitchPage />,
       }),
       route({
-        path: '/components/radio-group',
-        component: <RadioGroupPage />,
+        path: '/components/password-input',
+        component: <PasswordInputPage />,
+      }),
+      route({
+        path: '/components/radio',
+        component: <RadioPage />,
+      }),
+      route({
+        path: '/components/radio-card',
+        component: <RadioCardPage />,
       }),
       route({
         path: '/components/autocomplete',
@@ -169,6 +185,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/code',
         component: <CodePage />,
+      }),
+      route({
+        path: '/components/table',
+        component: <TablePage />,
       }),
       route({
         path: '/components/list-box',

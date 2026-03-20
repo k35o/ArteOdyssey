@@ -14,11 +14,14 @@ export { DropdownMenu } from './dropdown-menu';
 export { ErrorBoundary } from './error-boundary';
 export { Autocomplete } from './form/autocomplete';
 export { Checkbox } from './form/checkbox';
+export { CheckboxCard } from './form/checkbox-card';
 export { CheckboxGroup } from './form/checkbox-group';
 export { FileField, FileFieldProvider } from './form/file-field';
 export { FormControl } from './form/form-control';
 export { NumberField } from './form/number-field';
-export { RadioGroup } from './form/radio-group';
+export { PasswordInput } from './form/password-input';
+export { Radio } from './form/radio';
+export { RadioCard } from './form/radio-card';
 export { Select } from './form/select';
 export { Slider } from './form/slider';
 export { Switch } from './form/switch';
@@ -75,6 +78,7 @@ export {
   TwitterIcon,
   UpdateDateIcon,
   ViewIcon,
+  ViewOffIcon,
 } from './icons';
 export { LinkButton } from './link-button';
 export { ListBox } from './list-box';
@@ -90,6 +94,7 @@ export { ScrollLinked } from './scroll-linked';
 export { Separator } from './separator';
 export { Skeleton } from './skeleton';
 export { Spinner } from './spinner';
+export { Table } from './table';
 export { Tabs } from './tabs';
 export { ToastProvider, useToast } from './toast';
 export { Tooltip } from './tooltip';

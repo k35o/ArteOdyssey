@@ -1,0 +1,105 @@
+'use client';
+
+import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
+import { useState } from 'react';
+import { cn } from './../../../helpers/cn';
+import type { Option } from '../../../types/variables';
+
+type BaseProps = {
+  labelId: string;
+  isDisabled: boolean;
+  options: readonly Option[];
+};
+
+type ControlledProps = {
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  defaultValue?: never;
+};
+
+type UncontrolledProps = {
+  defaultValue?: string;
+  value?: never;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+};
+
+type Props = BaseProps & (ControlledProps | UncontrolledProps);
+
+export const Radio: FC<Props> = ({
+  labelId,
+  isDisabled,
+  value,
+  defaultValue,
+  onChange,
+  options,
+}) => {
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const isControlled = value !== undefined;
+  const selectedValue = isControlled ? value : internalValue;
+
+  const selectValue = (nextValue: string) => {
+    if (!isControlled) {
+      setInternalValue(nextValue);
+    }
+    onChange?.({
+      target: { value: nextValue },
+    } as ChangeEvent<HTMLInputElement>);
+  };
+
+  return (
+    <div
+      aria-labelledby={labelId}
+      className={cn(
+        'flex cursor-pointer flex-col gap-2',
+        isDisabled && 'cursor-not-allowed',
+      )}
+      role="radiogroup"
+    >
+      {options.map((option) => (
+        <label
+          className={cn(
+            'flex items-center gap-2 text-left',
+            isDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
+          )}
+          key={option.value}
+        >
+          <input
+            checked={isControlled ? value === option.value : undefined}
+            className="peer sr-only"
+            defaultChecked={
+              isControlled ? undefined : defaultValue === option.value
+            }
+            disabled={isDisabled}
+            name={labelId}
+            onChange={() => {
+              selectValue(option.value);
+            }}
+            type="radio"
+            value={option.value}
+          />
+          <span
+            aria-hidden={true}
+            className={cn(
+              'inline-flex size-5 items-center justify-center rounded-full border-2 transition-colors',
+              'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
+              selectedValue === option.value
+                ? 'border-border-base bg-primary-bg'
+                : 'border-border-mute bg-bg-base',
+              isDisabled && 'border-border-mute bg-bg-mute',
+            )}
+          >
+            <span
+              className={cn(
+                'size-2 rounded-full transition-opacity',
+                selectedValue === option.value
+                  ? 'bg-primary-border opacity-100'
+                  : 'bg-transparent opacity-0',
+              )}
+            />
+          </span>
+          <span>{option.label}</span>
+        </label>
+      ))}
+    </div>
+  );
+};

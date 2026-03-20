@@ -116,16 +116,26 @@ export const en = {
   'components.checkbox.defaultCheckedTitle': 'Default Checked',
   'components.checkbox.disabledTitle': 'Disabled',
   'components.checkbox.controlledTitle': 'Controlled',
+  'components.checkboxCard.description':
+    'A multi-select card group that makes each option a larger click target.',
+  'components.checkboxCard.defaultValueTitle': 'Default Value',
   'components.switch.description':
     'A switch component for binary on/off state.',
   'components.switch.defaultCheckedTitle': 'Default Checked',
   'components.switch.disabledTitle': 'Disabled',
   'components.switch.controlledTitle': 'Controlled',
+  'components.passwordInput.description':
+    'A password field with a built-in visibility toggle.',
+  'components.passwordInput.controlledTitle': 'Controlled',
+  'components.passwordInput.disabledTitle': 'Disabled',
   'components.radio.description': 'A radio button group.',
   'components.radioGroup.description':
     'A group component for mutually exclusive radio options.',
   'components.radio.disabledTitle': 'Disabled',
   'components.radio.defaultValueTitle': 'Default Value',
+  'components.radioCard.description':
+    'A single-select card group for larger, more descriptive choices.',
+  'components.radioCard.defaultValueTitle': 'Default Value',
   'components.autocomplete.description':
     'A selection component with autocomplete.',
   'components.autocomplete.disabledTitle': 'Disabled',
@@ -161,6 +171,9 @@ export const en = {
   'components.card.widthTitle': 'Width',
   'components.code.description': 'An inline code display component.',
   'components.code.colorDetectionTitle': 'Color Detection',
+  'components.table.description':
+    'A semantic table component with horizontal overflow support.',
+  'components.table.emptyStateTitle': 'Empty State',
   'components.listBox.description': 'A dropdown list selection component.',
   'components.baselineStatus.description':
     'Displays browser support status for web features.',

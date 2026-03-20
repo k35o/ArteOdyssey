@@ -1,12 +1,14 @@
 'use client';
 
-import { type ChangeEventHandler, type FC, useState } from 'react';
+import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
+import { useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 
 type BaseProps = {
   itemValue?: string;
+  isDisabled?: boolean;
   label: string;
 };
 
@@ -26,6 +28,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Checkbox: FC<Props> = ({
   itemValue,
+  isDisabled = false,
   label,
   value,
   defaultChecked,
@@ -35,7 +38,6 @@ export const Checkbox: FC<Props> = ({
   const [internalChecked, setInternalChecked] = useState(
     defaultChecked ?? false,
   );
-  const [isFocus, setIsFocus] = useState(false);
   const groupItemValue = itemValue ?? '';
 
   if (groupContext && !itemValue) {
@@ -43,56 +45,59 @@ export const Checkbox: FC<Props> = ({
   }
 
   const isControlled = value !== undefined;
+  const isDisabledResolved = isDisabled || groupContext?.isDisabled;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled
       ? value
       : internalChecked;
 
+  const setChecked = (nextChecked: boolean) => {
+    if (!isControlled) {
+      setInternalChecked(nextChecked);
+    }
+    onChange?.({
+      target: { checked: nextChecked },
+    } as ChangeEvent<HTMLInputElement>);
+  };
+
   return (
     <label
       className={cn(
-        'inline-flex cursor-pointer items-center gap-2',
-        groupContext?.isDisabled && 'cursor-not-allowed',
+        'inline-flex items-center gap-2 text-left',
+        isDisabledResolved
+          ? 'cursor-not-allowed text-fg-mute'
+          : 'cursor-pointer',
       )}
     >
       <input
         checked={groupContext ? checked : isControlled ? value : undefined}
-        className="sr-only"
+        className="peer sr-only"
         defaultChecked={
           groupContext || isControlled ? undefined : defaultChecked
         }
-        disabled={groupContext?.isDisabled}
+        disabled={isDisabledResolved}
         name={groupContext?.name}
-        onBlur={() => {
-          setIsFocus(false);
-        }}
-        onChange={(e) => {
+        onChange={(event) => {
           if (groupContext) {
             groupContext.toggleValue(groupItemValue);
             return;
           }
-          if (!isControlled) {
-            setInternalChecked(e.target.checked);
-          }
-          onChange?.(e);
-        }}
-        onFocus={() => {
-          setIsFocus(true);
+
+          setChecked(event.target.checked);
         }}
         type="checkbox"
+        value={groupContext ? groupItemValue : undefined}
       />
       <span
         aria-hidden={true}
         className={cn(
-          'inline-flex size-5 items-center justify-center rounded-md border-2',
-          isFocus &&
-            'border-transparent outline-hidden ring-2 ring-border-info',
+          'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
+          'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
+          isDisabledResolved && 'border-border-mute bg-bg-mute',
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
-          groupContext?.isDisabled &&
-            'border-border-mute bg-bg-mute text-fg-mute',
         )}
       >
         {checked ? <CheckIcon size="sm" /> : null}

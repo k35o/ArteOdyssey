@@ -91,7 +91,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **FileField** - File upload with composite pattern
 - **FormControl** - Form field wrapper with label and validation
 - **NumberField** - Numeric input with controls
-- **RadioGroup** - Single selection from options
+- **Radio** - Single selection from options
 - **Slider** - Slider input control
 - **Select** - Dropdown selection
 - **TextField** - Single-line text input
