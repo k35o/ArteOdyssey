@@ -45,7 +45,7 @@ export const Checkbox: FC<Props> = ({
   }
 
   const isControlled = value !== undefined;
-  const isDisabledResolved = isDisabled || groupContext?.isDisabled || false;
+  const isDisabledResolved = isDisabled || groupContext?.isDisabled;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled
