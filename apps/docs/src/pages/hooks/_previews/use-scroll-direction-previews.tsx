@@ -1,6 +1,6 @@
 'use client';
 
-import { useScrollDirection } from '@k8o/arte-odyssey/hooks/scroll-direction';
+import { useScrollDirection } from '@k8o/arte-odyssey';
 
 export function UseScrollDirectionPreview() {
   const { x, y } = useScrollDirection();

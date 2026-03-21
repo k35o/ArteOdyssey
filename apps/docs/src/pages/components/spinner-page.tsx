@@ -35,7 +35,7 @@ export function SpinnerPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Spinner } from '@k8o/arte-odyssey/spinner';"
+          code="import { Spinner } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

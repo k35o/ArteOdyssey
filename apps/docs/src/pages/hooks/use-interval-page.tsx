@@ -37,7 +37,7 @@ export function UseIntervalPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useInterval } from '@k8o/arte-odyssey/hooks/interval';"
+          code="import { useInterval } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

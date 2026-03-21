@@ -54,7 +54,7 @@ export function IconButtonPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { IconButton } from '@k8o/arte-odyssey/icon-button';"
+          code="import { IconButton } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

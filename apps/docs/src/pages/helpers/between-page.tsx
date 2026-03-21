@@ -48,7 +48,7 @@ export function BetweenPage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { between } from '@k8o/arte-odyssey/helpers/number/between';"
+          code="import { between } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

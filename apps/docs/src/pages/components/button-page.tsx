@@ -67,7 +67,7 @@ export function ButtonPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Button } from '@k8o/arte-odyssey/button';"
+          code="import { Button } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

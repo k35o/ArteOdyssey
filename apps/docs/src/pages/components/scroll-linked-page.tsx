@@ -41,7 +41,7 @@ export function ScrollLinkedPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { ScrollLinked } from '@k8o/arte-odyssey/scroll-linked';"
+          code="import { ScrollLinked } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

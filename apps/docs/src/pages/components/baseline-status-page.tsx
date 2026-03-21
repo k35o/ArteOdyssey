@@ -36,7 +36,7 @@ export function BaselineStatusPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { BaselineStatus } from '@k8o/arte-odyssey/baseline-status';"
+          code="import { BaselineStatus } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

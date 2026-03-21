@@ -37,7 +37,7 @@ export function UseWindowSizePage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useWindowSize } from '@k8o/arte-odyssey/hooks/window-size';"
+          code="import { useWindowSize } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

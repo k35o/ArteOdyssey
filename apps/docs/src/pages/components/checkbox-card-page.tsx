@@ -63,7 +63,7 @@ export function CheckboxCardPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { CheckboxCard } from '@k8o/arte-odyssey/checkbox-card';"
+          code="import { CheckboxCard } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

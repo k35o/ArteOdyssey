@@ -66,7 +66,7 @@ export function CheckboxPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Checkbox } from '@k8o/arte-odyssey/checkbox';"
+          code="import { Checkbox } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

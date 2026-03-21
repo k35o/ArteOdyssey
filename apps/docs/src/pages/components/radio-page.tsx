@@ -50,7 +50,7 @@ export function RadioPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Radio } from '@k8o/arte-odyssey/radio';"
+          code="import { Radio } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

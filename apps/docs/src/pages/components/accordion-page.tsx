@@ -49,7 +49,7 @@ export function AccordionPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Accordion } from '@k8o/arte-odyssey/accordion';"
+          code="import { Accordion } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

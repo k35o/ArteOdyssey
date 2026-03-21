@@ -30,7 +30,7 @@ export function UseHashPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useHash } from '@k8o/arte-odyssey/hooks/hash';"
+          code="import { useHash } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

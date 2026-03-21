@@ -37,7 +37,7 @@ Required versions:
 
 ```tsx
 // In your app entry point
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
 function App() {
   return (
@@ -51,8 +51,8 @@ function App() {
 2. Use components:
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey/button';
-import { Card } from '@k8o/arte-odyssey/card';
+import { Button } from '@k8o/arte-odyssey';
+import { Card } from '@k8o/arte-odyssey';
 
 function MyPage() {
   return (
@@ -133,7 +133,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 ### Button
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey/button';
+import { Button } from '@k8o/arte-odyssey';
 
 // Primary action
 <Button color="primary" variant="contained" size="md">
@@ -154,9 +154,9 @@ import { Button } from '@k8o/arte-odyssey/button';
 ### Form with Validation
 
 ```tsx
-import { FormControl } from '@k8o/arte-odyssey/form-control';
-import { TextField } from '@k8o/arte-odyssey/text-field';
-import { Button } from '@k8o/arte-odyssey/button';
+import { FormControl } from '@k8o/arte-odyssey';
+import { TextField } from '@k8o/arte-odyssey';
+import { Button } from '@k8o/arte-odyssey';
 
 <form>
   <FormControl
@@ -178,8 +178,8 @@ import { Button } from '@k8o/arte-odyssey/button';
 ### Dialog
 
 ```tsx
-import { Dialog } from '@k8o/arte-odyssey/dialog';
-import { Button } from '@k8o/arte-odyssey/button';
+import { Dialog } from '@k8o/arte-odyssey';
+import { Button } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 function MyComponent() {
@@ -215,12 +215,12 @@ ArteOdyssey supports granular imports to optimize your bundle size:
 
 ```tsx
 // Import specific components
-import { Button } from '@k8o/arte-odyssey/button';
-import { Card } from '@k8o/arte-odyssey/card';
+import { Button } from '@k8o/arte-odyssey';
+import { Card } from '@k8o/arte-odyssey';
 
 // Import specific hooks
-import { useClickAway } from '@k8o/arte-odyssey/hooks/click-away';
-import { useLocalStorage } from '@k8o/arte-odyssey/hooks/local-storage';
+import { useClickAway } from '@k8o/arte-odyssey';
+import { useLocalStorage } from '@k8o/arte-odyssey';
 ```
 
 ## Custom Hooks

@@ -1,6 +1,6 @@
 'use client';
 
-import { findAllColors } from '@k8o/arte-odyssey/helpers/color/find-all-colors';
+import { findAllColors } from '@k8o/arte-odyssey';
 
 const sampleText = 'color: #ff0080; background: hsl(280, 70%, 50%)';
 

@@ -48,7 +48,7 @@ export function SwitchPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Switch } from '@k8o/arte-odyssey/switch';"
+          code="import { Switch } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

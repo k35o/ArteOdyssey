@@ -36,7 +36,7 @@ export function SkeletonPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Skeleton } from '@k8o/arte-odyssey/skeleton';"
+          code="import { Skeleton } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

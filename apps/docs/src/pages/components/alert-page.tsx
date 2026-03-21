@@ -45,7 +45,7 @@ export function AlertPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Alert } from '@k8o/arte-odyssey/alert';"
+          code="import { Alert } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

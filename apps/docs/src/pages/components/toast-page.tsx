@@ -68,7 +68,7 @@ export function ToastPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { ToastProvider, useToast } from '@k8o/arte-odyssey/toast';"
+          code="import { ToastProvider, useToast } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

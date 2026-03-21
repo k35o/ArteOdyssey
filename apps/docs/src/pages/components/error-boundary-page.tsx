@@ -61,7 +61,7 @@ export function ErrorBoundaryPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';"
+          code="import { ErrorBoundary } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
@@ -81,7 +81,7 @@ export function ErrorBoundaryPage() {
             <T k="components.common.basicUsageTitle" />
           </Heading>
           <CodeBlock
-            code={`import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';
+            code={`import { ErrorBoundary } from '@k8o/arte-odyssey';
 
 <ErrorBoundary fallback={<p>Something went wrong.</p>}>
   <MyComponent />
@@ -96,7 +96,7 @@ export function ErrorBoundaryPage() {
             <T k="components.errorBoundary.fallbackRenderTitle" />
           </Heading>
           <CodeBlock
-            code={`import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';
+            code={`import { ErrorBoundary } from '@k8o/arte-odyssey';
 
 <ErrorBoundary
   fallbackRender={({ error, resetErrorBoundary }) => (
@@ -123,7 +123,7 @@ export function ErrorBoundaryPage() {
             <T k="components.errorBoundary.fallbackComponentTitle" />
           </Heading>
           <CodeBlock
-            code={`import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';
+            code={`import { ErrorBoundary } from '@k8o/arte-odyssey';
 import type { FallbackProps } from 'react-error-boundary';
 
 function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
@@ -149,7 +149,7 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
             <T k="components.errorBoundary.resetKeysTitle" />
           </Heading>
           <CodeBlock
-            code={`import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';
+            code={`import { ErrorBoundary } from '@k8o/arte-odyssey';
 
 function App() {
   const [retryKey, setRetryKey] = useState(0);

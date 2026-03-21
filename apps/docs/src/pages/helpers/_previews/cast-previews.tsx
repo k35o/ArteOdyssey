@@ -1,6 +1,6 @@
 'use client';
 
-import { cast } from '@k8o/arte-odyssey/helpers/number/cast';
+import { cast } from '@k8o/arte-odyssey';
 
 const examples = [
   { value: '1.5', step: 1 },

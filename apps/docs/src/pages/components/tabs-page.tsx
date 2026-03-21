@@ -60,10 +60,7 @@ export function TabsPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Tabs } from '@k8o/arte-odyssey/tabs';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Tabs } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

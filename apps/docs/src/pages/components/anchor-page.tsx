@@ -38,7 +38,7 @@ export function AnchorPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Anchor } from '@k8o/arte-odyssey/anchor';"
+          code="import { Anchor } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

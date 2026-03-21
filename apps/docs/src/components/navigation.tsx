@@ -1,8 +1,11 @@
 'use client';
 
 import { useLocation } from '@funstack/router';
-import { DropdownMenu, LinkButton } from '@k8o/arte-odyssey';
-import { NavigationMenuIcon } from '@k8o/arte-odyssey/icons';
+import {
+  DropdownMenu,
+  LinkButton,
+  NavigationMenuIcon,
+} from '@k8o/arte-odyssey';
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';

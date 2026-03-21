@@ -55,8 +55,8 @@ export function DialogPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code={`import { Dialog } from '@k8o/arte-odyssey/dialog';
-import { Modal } from '@k8o/arte-odyssey/modal';`}
+          code={`import { Dialog } from '@k8o/arte-odyssey';
+import { Modal } from '@k8o/arte-odyssey';`}
           lang="ts"
         />
       </section>

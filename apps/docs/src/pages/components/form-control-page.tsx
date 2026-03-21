@@ -54,7 +54,7 @@ export function FormControlPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { FormControl } from '@k8o/arte-odyssey/form-control';"
+          code="import { FormControl } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

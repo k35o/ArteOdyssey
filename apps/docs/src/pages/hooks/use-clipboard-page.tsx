@@ -37,7 +37,7 @@ export function UseClipboardPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useClipboard } from '@k8o/arte-odyssey/hooks/clipboard';"
+          code="import { useClipboard } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

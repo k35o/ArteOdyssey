@@ -55,7 +55,7 @@ export function AutocompletePage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';"
+          code="import { Autocomplete } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

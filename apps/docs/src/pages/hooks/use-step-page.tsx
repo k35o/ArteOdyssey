@@ -65,7 +65,7 @@ export function UseStepPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useStep } from '@k8o/arte-odyssey/hooks/step';"
+          code="import { useStep } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

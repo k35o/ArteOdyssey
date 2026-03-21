@@ -1,6 +1,6 @@
 'use client';
 
-import { Tabs } from '@k8o/arte-odyssey/tabs';
+import { Tabs } from '@k8o/arte-odyssey';
 
 export function TabsBasicPreview() {
   return (

@@ -38,7 +38,7 @@ export function IsInternalRoutePage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { isInternalRoute } from '@k8o/arte-odyssey/helpers/is-internal-route';"
+          code="import { isInternalRoute } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

@@ -43,7 +43,7 @@ export function DrawerPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Drawer } from '@k8o/arte-odyssey/drawer';"
+          code="import { Drawer } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
