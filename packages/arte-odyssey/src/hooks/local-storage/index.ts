@@ -16,11 +16,7 @@ const localStorageSubscribe = (cb: () => void) => {
 
 export const useLocalStorage = <T>(key: string, initialValue: T) => {
   const getSnapshot = () => getLocalStorageItem(key);
-  const store = useSyncExternalStore(
-    localStorageSubscribe,
-    getSnapshot,
-    () => null,
-  );
+  const store = useSyncExternalStore(localStorageSubscribe, getSnapshot, () => null);
 
   const current = useMemo(() => {
     try {

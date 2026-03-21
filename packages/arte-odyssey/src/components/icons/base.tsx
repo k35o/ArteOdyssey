@@ -11,10 +11,6 @@ export const BaseIcon: FC<
   }
 > = ({ size, renderItem }) => {
   return renderItem({
-    className: cn(
-      size === 'sm' && 'size-4',
-      size === 'md' && 'size-6',
-      size === 'lg' && 'size-8',
-    ),
+    className: cn(size === 'sm' && 'size-4', size === 'md' && 'size-6', size === 'lg' && 'size-8'),
   });
 };

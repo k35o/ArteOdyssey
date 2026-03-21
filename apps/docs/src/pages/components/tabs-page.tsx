@@ -5,10 +5,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import {
-  TabsBasicPreview,
-  TabsDefaultSelectedPreview,
-} from './_previews/tabs-previews';
+import { TabsBasicPreview, TabsDefaultSelectedPreview } from './_previews/tabs-previews';
 
 const tabsRootProps: PropItem[] = [
   { name: 'ids', types: ['[string, ...string[]]'], defaultValue: null },
@@ -45,10 +42,7 @@ export function TabsPage() {
           <T k="components.tabs.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-tabs--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-tabs--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>

@@ -34,9 +34,7 @@ describe('useResize', () => {
 
   it('enabled=falseの場合はコールバックが呼ばれない', async () => {
     const callback = vi.fn();
-    const { result } = await renderHook(() =>
-      useResize(callback, { enabled: false }),
-    );
+    const { result } = await renderHook(() => useResize(callback, { enabled: false }));
 
     expect(result.current.current).toBeNull();
     expect(callback).not.toHaveBeenCalled();
@@ -45,9 +43,7 @@ describe('useResize', () => {
   it('debounceMs指定時は指定時間後にコールバックが呼ばれる', async () => {
     vi.useFakeTimers();
     const callback = vi.fn();
-    const { result } = await renderHook(() =>
-      useResize(callback, { debounceMs: 300 }),
-    );
+    const { result } = await renderHook(() => useResize(callback, { debounceMs: 300 }));
 
     const element = document.createElement('div');
     Object.defineProperty(result.current, 'current', {

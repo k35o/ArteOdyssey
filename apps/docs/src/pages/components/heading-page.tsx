@@ -27,10 +27,7 @@ export function HeadingPage() {
           <T k="components.heading.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-heading--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-heading--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -42,10 +39,7 @@ export function HeadingPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Heading } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Heading } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -97,8 +91,8 @@ export function HeadingPage() {
           >
             <div className="max-w-sm">
               <Heading lineClamp={1} type="h3">
-                This is a very long heading text that will be truncated to a
-                single line using line clamp
+                This is a very long heading text that will be truncated to a single line using line
+                clamp
               </Heading>
             </div>
           </ComponentPreview>

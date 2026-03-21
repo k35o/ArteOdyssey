@@ -18,10 +18,7 @@ export function DropdownMenuBasicPreview() {
 export function DropdownMenuIconTriggerPreview() {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.IconTrigger
-        icon={<DarkModeIcon size="lg" />}
-        label="Theme"
-      />
+      <DropdownMenu.IconTrigger icon={<DarkModeIcon size="lg" />} label="Theme" />
       <DropdownMenu.Content>
         <DropdownMenu.Item label="Light" onClick={() => undefined} />
         <DropdownMenu.Item label="Dark" onClick={() => undefined} />

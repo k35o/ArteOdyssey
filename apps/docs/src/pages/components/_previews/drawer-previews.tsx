@@ -30,16 +30,9 @@ export function DrawerCustomContentPreview() {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Open Navigation Drawer</Button>
-      <Drawer
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        title="Navigation"
-      >
+      <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)} title="Navigation">
         <nav className="flex flex-col gap-1">
-          <a
-            className="rounded-md px-3 py-2 font-bold hover:bg-bg-mute"
-            href="/"
-          >
+          <a className="rounded-md px-3 py-2 font-bold hover:bg-bg-mute" href="/">
             Dashboard
           </a>
           <a className="rounded-md px-3 py-2 hover:bg-bg-mute" href="/profile">

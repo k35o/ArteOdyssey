@@ -6,9 +6,7 @@ export function FormControlBasicPreview() {
   return (
     <FormControl
       label="Name"
-      renderInput={(props) => (
-        <TextField {...props} placeholder="Enter your name" />
-      )}
+      renderInput={(props) => <TextField {...props} placeholder="Enter your name" />}
     />
   );
 }
@@ -18,9 +16,7 @@ export function FormControlHelpTextPreview() {
     <FormControl
       helpText="Please enter a valid email address."
       label="Email"
-      renderInput={(props) => (
-        <TextField {...props} placeholder="you@example.com" />
-      )}
+      renderInput={(props) => <TextField {...props} placeholder="you@example.com" />}
     />
   );
 }
@@ -41,9 +37,7 @@ export function FormControlRequiredPreview() {
     <FormControl
       isRequired
       label="Username"
-      renderInput={(props) => (
-        <TextField {...props} placeholder="Required field" />
-      )}
+      renderInput={(props) => <TextField {...props} placeholder="Required field" />}
     />
   );
 }
@@ -53,9 +47,7 @@ export function FormControlDisabledPreview() {
     <FormControl
       isDisabled
       label="Username"
-      renderInput={(props) => (
-        <TextField {...props} placeholder="Disabled field" />
-      )}
+      renderInput={(props) => <TextField {...props} placeholder="Disabled field" />}
     />
   );
 }

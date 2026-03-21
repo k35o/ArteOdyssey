@@ -35,11 +35,7 @@ export const LocaleAnchor: FC<LocaleAnchorProps> = ({
       renderAnchor={
         onClick !== undefined || className !== undefined
           ? (props) => (
-              <a
-                className={className ?? props.className}
-                href={props.href}
-                onClick={onClick}
-              >
+              <a className={className ?? props.className} href={props.href} onClick={onClick}>
                 {props.children}
               </a>
             )

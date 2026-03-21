@@ -2,63 +2,59 @@
   "name": "@k8o/arte-odyssey",
   "version": "3.1.0",
   "description": "k8o's react ui library",
-  "author": "k8o <kosakanoki@gmail.com>",
   "keywords": [
-    "react",
-    "ui",
+    "components",
     "design-system",
     "k8o",
-    "components",
-    "typescript"
+    "react",
+    "typescript",
+    "ui"
   ],
+  "bugs": {
+    "url": "https://github.com/k35o/ArteOdyssey/issues"
+  },
   "license": "MIT",
+  "author": "k8o <kosakanoki@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/k35o/ArteOdyssey.git"
+  },
+  "files": [
+    "dist/**"
+  ],
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      }
+    },
+    "./styles.css": "./dist/styles/index.css"
   },
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
-  "bugs": {
-    "url": "https://github.com/k35o/ArteOdyssey/issues"
-  },
-  "type": "module",
-  "files": [
-    "dist/**"
-  ],
-  "exports": {
-    ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      }
-    },
-    "./styles.css": "./dist/styles/index.css"
-  },
-  "sideEffects": [
-    "*.css"
-  ],
   "scripts": {
-    "build": "pnpm run build:clean && pnpm build:js && pnpm build:css",
-    "build:js": "node scripts/esbuild.js && pnpm build:js:types",
-    "build:js:types": "tsc --project tsconfig.build.json",
+    "build": "vp pack && pnpm build:css",
     "build:css": "mkdir -p dist/styles && cp src/styles/index.css dist/styles/index.css",
-    "build:clean": "rm -rf dist",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui --coverage",
     "test:coverage": "vitest run --coverage",
     "typecheck": "tsc --noEmit",
-    "check": "biome check",
-    "check:write": "biome check --write --unsafe"
+    "check": "vp check",
+    "check:write": "vp check --fix"
   },
   "dependencies": {
     "@floating-ui/react": "0.27.19",
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
-    "esbuild": "0.27.3",
     "lucide-react": "0.577.0",
     "motion": "12.35.1",
     "react-error-boundary": "6.1.1",
@@ -66,24 +62,26 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "5.0.1",
-    "@storybook/addon-a11y": "10.2.19",
-    "@storybook/addon-docs": "10.2.19",
-    "@storybook/addon-vitest": "10.2.19",
-    "@storybook/react-vite": "10.2.19",
+    "@storybook/addon-a11y": "10.3.0",
+    "@storybook/addon-docs": "10.3.0",
+    "@storybook/addon-vitest": "10.3.0",
+    "@storybook/react-vite": "10.3.0",
     "@tailwindcss/postcss": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react-swc": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.1.0",
+    "@vitest/coverage-v8": "4.1.0",
     "@vitest/ui": "4.1.0",
     "postcss": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "storybook": "10.2.19",
+    "storybook": "10.3.0",
     "storybook-addon-mock-date": "2.0.0",
     "tailwindcss": "catalog:",
     "vite": "catalog:",
-    "vitest": "4.1.0",
+    "vite-plus": "catalog:",
+    "vitest": "catalog:",
     "vitest-browser-react": "2.1.0"
   },
   "peerDependencies": {

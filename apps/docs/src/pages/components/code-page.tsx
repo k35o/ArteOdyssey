@@ -6,9 +6,7 @@ import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
-const codeProps: PropItem[] = [
-  { name: 'children', types: ['string'], defaultValue: null },
-];
+const codeProps: PropItem[] = [{ name: 'children', types: ['string'], defaultValue: null }];
 
 export function CodePage() {
   return (
@@ -20,10 +18,7 @@ export function CodePage() {
           <T k="components.code.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-code--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-code--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>

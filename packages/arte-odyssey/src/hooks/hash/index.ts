@@ -3,9 +3,7 @@
 import { useSyncExternalStore } from 'react';
 
 const getHash = () =>
-  typeof window !== 'undefined'
-    ? decodeURIComponent(window.location.hash.replace('#', ''))
-    : null;
+  typeof window !== 'undefined' ? decodeURIComponent(window.location.hash.replace('#', '')) : null;
 
 const subscribe = (callback: () => void) => {
   const { pushState, replaceState } = window.history;

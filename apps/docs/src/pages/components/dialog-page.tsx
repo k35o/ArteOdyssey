@@ -39,10 +39,7 @@ export function DialogPage() {
           <T k="components.dialog.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-dialog--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-dialog--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>

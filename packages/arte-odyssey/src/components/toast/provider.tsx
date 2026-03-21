@@ -27,9 +27,7 @@ type ToastType = {
   message: string;
 };
 
-const SetToastContext = createContext<
-  Dispatch<SetStateAction<ToastType[]>> | undefined
->(undefined);
+const SetToastContext = createContext<Dispatch<SetStateAction<ToastType[]>> | undefined>(undefined);
 
 export const useToast = () => {
   const setToasts = use(SetToastContext);
@@ -138,9 +136,7 @@ export const ToastProvider: FC<
                       aria-atomic={true}
                       className="shadow-lg"
                       role={
-                        toast.status === 'error' || toast.status === 'warning'
-                          ? 'alert'
-                          : 'status'
+                        toast.status === 'error' || toast.status === 'warning' ? 'alert' : 'status'
                       }
                     >
                       <Toast {...toast} />

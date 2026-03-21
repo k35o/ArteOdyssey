@@ -5,10 +5,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import {
-  PopoverBasicPreview,
-  PopoverPlacementPreview,
-} from './_previews/popover-previews';
+import { PopoverBasicPreview, PopoverPlacementPreview } from './_previews/popover-previews';
 
 const popoverRootProps: PropItem[] = [
   {
@@ -52,10 +49,7 @@ export function PopoverPage() {
           <T k="components.popover.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-popover--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-popover--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -67,10 +61,7 @@ export function PopoverPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Popover } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Popover } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

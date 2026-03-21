@@ -29,9 +29,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     bottom: { translateY: -5 },
     left: { translateX: 5 },
     right: { translateX: -5 },
-  }[
-    placement.includes('-') ? (placement.split('-')[0] ?? 'bottom') : placement
-  ];
+  }[placement.includes('-') ? (placement.split('-')[0] ?? 'bottom') : placement];
 
   return (
     <Popover.Content

@@ -66,9 +66,7 @@ const FeatureCard: FC<{ feature: Feature }> = ({ feature }) => {
       <div className="flex flex-col gap-3 p-5">
         <div className="text-fg-mute">{feature.icon}</div>
         <p className="font-medium text-fg-base">{t(feature.title)}</p>
-        <p className="text-fg-mute text-sm leading-relaxed">
-          {t(feature.description)}
-        </p>
+        <p className="text-fg-mute text-sm leading-relaxed">{t(feature.description)}</p>
       </div>
     </Card>
   );

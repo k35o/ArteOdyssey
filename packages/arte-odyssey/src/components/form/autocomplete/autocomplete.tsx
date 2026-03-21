@@ -40,9 +40,7 @@ export const Autocomplete: FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
-  const [internalValue, setInternalValue] = useState<string[]>(
-    defaultValue || [],
-  );
+  const [internalValue, setInternalValue] = useState<string[]>(defaultValue || []);
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
 
@@ -61,9 +59,7 @@ export const Autocomplete: FC<Props> = ({
     [isControlled, onChange],
   );
 
-  const filteredOptions = options.filter((option) =>
-    option.label.includes(text),
-  );
+  const filteredOptions = options.filter((option) => option.label.includes(text));
 
   const reset = useCallback(() => {
     setText('');
@@ -95,9 +91,7 @@ export const Autocomplete: FC<Props> = ({
       <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
         <div className="flex w-full flex-wrap gap-1">
           {currentValue.map((text) => {
-            const label = options.find(
-              (option) => option.value === text,
-            )?.label;
+            const label = options.find((option) => option.value === text)?.label;
             return (
               <div
                 className="inline-flex items-center gap-2 rounded-full bg-bg-mute px-3 py-1 font-medium text-sm"
@@ -178,19 +172,13 @@ export const Autocomplete: FC<Props> = ({
                 });
                 return;
               }
-              if (
-                e.key === 'Enter' &&
-                selectIndex !== undefined &&
-                selectIndex >= 0
-              ) {
+              if (e.key === 'Enter' && selectIndex !== undefined && selectIndex >= 0) {
                 const selected = filteredOptions[selectIndex];
                 if (!selected) {
                   return;
                 }
                 if (currentValue.includes(selected.value)) {
-                  handleChange(
-                    currentValue.filter((v) => v !== selected.value),
-                  );
+                  handleChange(currentValue.filter((v) => v !== selected.value));
                   reset();
                   return;
                 }
@@ -225,9 +213,7 @@ export const Autocomplete: FC<Props> = ({
             role="presentation"
           >
             <ul className="max-h-96 py-2" id={`${id}_listbox`}>
-              {filteredOptions.length === 0 && (
-                <li className="px-3 py-2 text-fg-mute">該当なし</li>
-              )}
+              {filteredOptions.length === 0 && <li className="px-3 py-2 text-fg-mute">該当なし</li>}
               {filteredOptions.map((option, idx) => {
                 const selected = currentValue.includes(option.value);
                 return (
@@ -244,9 +230,7 @@ export const Autocomplete: FC<Props> = ({
                       e.stopPropagation();
                       reset();
                       if (selected) {
-                        handleChange(
-                          currentValue.filter((v) => v !== option.value),
-                        );
+                        handleChange(currentValue.filter((v) => v !== option.value));
                         return;
                       }
                       handleChange([...currentValue, option.value]);

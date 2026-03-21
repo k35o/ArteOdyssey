@@ -30,10 +30,7 @@ export const PropsTable: FC<{ items: readonly PropItem[] }> = ({ items }) => {
       {/* Mobile: card list */}
       <dl className="flex flex-col gap-4 md:hidden">
         {items.map((prop) => (
-          <div
-            className="flex flex-col gap-1 border-border-mute border-b pb-4"
-            key={prop.name}
-          >
+          <div className="flex flex-col gap-1 border-border-mute border-b pb-4" key={prop.name}>
             <dt className="font-medium">
               <Code>{prop.name}</Code>
             </dt>

@@ -50,10 +50,7 @@ export function CheckboxPage() {
           <T k="components.checkbox.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-form-checkbox--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-checkbox--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -65,10 +62,7 @@ export function CheckboxPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Checkbox } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Checkbox } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

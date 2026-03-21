@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  type Ref,
-  use,
-  useId,
-} from 'react';
+import { createContext, type FC, type PropsWithChildren, type Ref, use, useId } from 'react';
 import { Heading } from '../heading';
 import { IconButton } from '../icon-button';
 import { CloseIcon } from '../icons';
@@ -56,10 +49,7 @@ const Header: FC<{
 }> = ({ title, onClose }) => {
   const { rootId } = useDialogContext();
   return (
-    <div
-      className="flex items-center justify-center p-4 pb-2"
-      id={`${rootId}-header`}
-    >
+    <div className="flex items-center justify-center p-4 pb-2" id={`${rootId}-header`}>
       <Heading type="h3">{title}</Heading>
       <div className="absolute top-2 right-2">
         <IconButton

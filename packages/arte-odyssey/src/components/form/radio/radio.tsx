@@ -49,10 +49,7 @@ export const Radio: FC<Props> = ({
   return (
     <div
       aria-labelledby={labelId}
-      className={cn(
-        'flex cursor-pointer flex-col gap-2',
-        isDisabled && 'cursor-not-allowed',
-      )}
+      className={cn('flex cursor-pointer flex-col gap-2', isDisabled && 'cursor-not-allowed')}
       role="radiogroup"
     >
       {options.map((option) => (
@@ -66,9 +63,7 @@ export const Radio: FC<Props> = ({
           <input
             checked={isControlled ? value === option.value : undefined}
             className="peer sr-only"
-            defaultChecked={
-              isControlled ? undefined : defaultValue === option.value
-            }
+            defaultChecked={isControlled ? undefined : defaultValue === option.value}
             disabled={isDisabled}
             name={labelId}
             onChange={() => {

@@ -16,8 +16,7 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({
   fullScreen = false,
   locale = 'ja',
 }) => {
-  const t = (key: 'error.title' | 'error.description' | 'error.retry') =>
-    messages[locale][key];
+  const t = (key: 'error.title' | 'error.description' | 'error.retry') => messages[locale][key];
 
   return (
     <div

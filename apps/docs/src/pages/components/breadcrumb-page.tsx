@@ -36,10 +36,7 @@ export function BreadcrumbPage() {
           <T k="components.breadcrumb.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-breadcrumb--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-breadcrumb--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -51,10 +48,7 @@ export function BreadcrumbPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Breadcrumb } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Breadcrumb } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

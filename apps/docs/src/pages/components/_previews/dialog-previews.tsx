@@ -20,10 +20,7 @@ export function DialogWithModalPreview() {
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} type="center">
         <Dialog.Root>
-          <Dialog.Header
-            onClose={() => setIsOpen(false)}
-            title="Confirmation"
-          />
+          <Dialog.Header onClose={() => setIsOpen(false)} title="Confirmation" />
           <Dialog.Content>
             <p>Are you sure you want to proceed?</p>
           </Dialog.Content>
@@ -40,22 +37,12 @@ export function AlertDialogPreview() {
       <Button onClick={() => setIsOpen(true)}>Delete Item</Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} type="center">
         <Dialog.Root role="alertdialog">
-          <Dialog.Header
-            onClose={() => setIsOpen(false)}
-            title="Delete Confirmation"
-          />
+          <Dialog.Header onClose={() => setIsOpen(false)} title="Delete Confirmation" />
           <Dialog.Content>
             <div className="flex flex-col gap-4">
-              <p>
-                Are you sure you want to delete this item? This action cannot be
-                undone.
-              </p>
+              <p>Are you sure you want to delete this item? This action cannot be undone.</p>
               <div className="flex justify-end gap-2">
-                <Button
-                  color="gray"
-                  onClick={() => setIsOpen(false)}
-                  variant="outlined"
-                >
+                <Button color="gray" onClick={() => setIsOpen(false)} variant="outlined">
                   Cancel
                 </Button>
                 <Button onClick={() => setIsOpen(false)}>Delete</Button>

@@ -46,12 +46,7 @@ const Root: FC<RootProps> = ({ children, className, containerClassName }) => {
         containerClassName,
       )}
     >
-      <table
-        className={cn(
-          'min-w-full border-collapse text-left text-sm',
-          className,
-        )}
-      >
+      <table className={cn('min-w-full border-collapse text-left text-sm', className)}>
         {children}
       </table>
     </div>
@@ -63,11 +58,7 @@ const Head: FC<SectionProps> = ({ children, className }) => {
 };
 
 const Body: FC<SectionProps> = ({ children, className }) => {
-  return (
-    <tbody className={cn('[&_tr:last-child]:border-b-0', className)}>
-      {children}
-    </tbody>
-  );
+  return <tbody className={cn('[&_tr:last-child]:border-b-0', className)}>{children}</tbody>;
 };
 
 const Row: FC<RowProps> = ({ children, className, interactive = false }) => {
@@ -84,11 +75,7 @@ const Row: FC<RowProps> = ({ children, className, interactive = false }) => {
   );
 };
 
-const HeaderCell: FC<HeaderCellProps> = ({
-  align = 'left',
-  children,
-  className,
-}) => {
+const HeaderCell: FC<HeaderCellProps> = ({ align = 'left', children, className }) => {
   return (
     <th
       className={cn(
@@ -129,9 +116,7 @@ const Cell: FC<CellProps> = ({
 
 const Caption: FC<CaptionProps> = ({ children, className }) => {
   return (
-    <caption
-      className={cn('caption-bottom px-4 py-3 text-fg-mute text-sm', className)}
-    >
+    <caption className={cn('caption-bottom px-4 py-3 text-fg-mute text-sm', className)}>
       {children}
     </caption>
   );

@@ -10,9 +10,7 @@ export const Progress: FC<{
   return (
     <div className="w-full rounded-full bg-bg-emphasize">
       <div
-        aria-label={
-          label ?? `${toPrecision(progress / maxProgress).toString()}%`
-        }
+        aria-label={label ?? `${toPrecision(progress / maxProgress).toString()}%`}
         aria-valuemax={maxProgress}
         aria-valuemin={minProgress}
         aria-valuenow={progress}

@@ -58,10 +58,7 @@ export function ListBoxPage() {
           <T k="components.listBox.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-list-box--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-list-box--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -73,10 +70,7 @@ export function ListBoxPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { ListBox } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { ListBox } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

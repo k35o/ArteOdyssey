@@ -9,8 +9,7 @@ export function CommalizePreview() {
     <div className="flex flex-col gap-2">
       {examples.map((value) => (
         <div className="text-sm" key={value}>
-          <code>commalize({value})</code> →{' '}
-          <code className="font-bold">{commalize(value)}</code>
+          <code>commalize({value})</code> → <code className="font-bold">{commalize(value)}</code>
         </div>
       ))}
     </div>

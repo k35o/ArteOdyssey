@@ -35,9 +35,7 @@ export const Checkbox: FC<Props> = ({
   onChange,
 }) => {
   const groupContext = useCheckboxGroupContext();
-  const [internalChecked, setInternalChecked] = useState(
-    defaultChecked ?? false,
-  );
+  const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
   const groupItemValue = itemValue ?? '';
 
   if (groupContext && !itemValue) {
@@ -65,17 +63,13 @@ export const Checkbox: FC<Props> = ({
     <label
       className={cn(
         'inline-flex items-center gap-2 text-left',
-        isDisabledResolved
-          ? 'cursor-not-allowed text-fg-mute'
-          : 'cursor-pointer',
+        isDisabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
       )}
     >
       <input
         checked={groupContext ? checked : isControlled ? value : undefined}
         className="peer sr-only"
-        defaultChecked={
-          groupContext || isControlled ? undefined : defaultChecked
-        }
+        defaultChecked={groupContext || isControlled ? undefined : defaultChecked}
         disabled={isDisabledResolved}
         name={groupContext?.name}
         onChange={(event) => {

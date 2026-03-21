@@ -27,13 +27,7 @@ const getInitials = (name?: string) => {
   return initials || '?';
 };
 
-export const Avatar: FC<Props> = ({
-  alt,
-  fallback,
-  name,
-  size = 'md',
-  src,
-}) => {
+export const Avatar: FC<Props> = ({ alt, fallback, name, size = 'md', src }) => {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const showImage = Boolean(src) && failedSrc !== src;
   const label = alt ?? name ?? 'Avatar';

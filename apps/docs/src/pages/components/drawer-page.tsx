@@ -5,10 +5,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import {
-  DrawerBasicPreview,
-  DrawerCustomContentPreview,
-} from './_previews/drawer-previews';
+import { DrawerBasicPreview, DrawerCustomContentPreview } from './_previews/drawer-previews';
 
 const drawerProps: PropItem[] = [
   { name: 'title', types: ['string'], defaultValue: null },
@@ -27,10 +24,7 @@ export function DrawerPage() {
           <T k="components.drawer.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-drawer--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-drawer--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -42,10 +36,7 @@ export function DrawerPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Drawer } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Drawer } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

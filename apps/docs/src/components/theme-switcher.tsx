@@ -10,11 +10,7 @@ export function ThemeSwitcher() {
 
   return (
     <IconButton
-      label={
-        theme === 'light'
-          ? t('common.switchToDarkMode')
-          : t('common.switchToLightMode')
-      }
+      label={theme === 'light' ? t('common.switchToDarkMode') : t('common.switchToLightMode')}
       onClick={toggleTheme}
     >
       {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}

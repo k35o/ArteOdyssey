@@ -35,9 +35,7 @@ describe('useWindowResize', () => {
     const resizedWindowSize = { width: 1000, height: 1000 };
 
     const callback = vi.fn();
-    const { act } = await renderHook(() =>
-      useWindowResize(callback, { debounceMs: 300 }),
-    );
+    const { act } = await renderHook(() => useWindowResize(callback, { debounceMs: 300 }));
 
     // 初回のレンダリング時は呼ばれない
     expect(callback).not.toHaveBeenCalled();

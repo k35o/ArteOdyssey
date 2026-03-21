@@ -1,10 +1,6 @@
 'use client';
 
-import type {
-  FloatingContext,
-  Placement,
-  ReferenceType,
-} from '@floating-ui/react';
+import type { FloatingContext, Placement, ReferenceType } from '@floating-ui/react';
 import {
   type CSSProperties,
   createContext,
@@ -139,10 +135,7 @@ export const usePopoverContent = () => {
   );
 };
 
-export const usePopoverTrigger = (): Omit<
-  HTMLProps<HTMLButtonElement>,
-  'selected' | 'active'
-> => {
+export const usePopoverTrigger = (): Omit<HTMLProps<HTMLButtonElement>, 'selected' | 'active'> => {
   const popover = usePopoverContext();
   return useMemo(() => {
     switch (popover.type) {
@@ -157,9 +150,7 @@ export const usePopoverTrigger = (): Omit<
           },
           'aria-haspopup': 'dialog',
           'aria-expanded': popover.isOpen,
-          'aria-controls': popover.isOpen
-            ? `${popover.rootId}_list`
-            : undefined,
+          'aria-controls': popover.isOpen ? `${popover.rootId}_list` : undefined,
           ref: popover.setTriggerRef,
         };
       case 'tooltip':
@@ -190,9 +181,7 @@ export const usePopoverTrigger = (): Omit<
           },
           'aria-haspopup': 'menu',
           'aria-expanded': popover.isOpen,
-          'aria-controls': popover.isOpen
-            ? `${popover.rootId}_list`
-            : undefined,
+          'aria-controls': popover.isOpen ? `${popover.rootId}_list` : undefined,
           ref: popover.setTriggerRef,
         };
       case 'listbox':
@@ -215,9 +204,7 @@ export const usePopoverTrigger = (): Omit<
           role: 'combobox',
           'aria-haspopup': 'listbox',
           'aria-expanded': popover.isOpen,
-          'aria-controls': popover.isOpen
-            ? `${popover.rootId}_list`
-            : undefined,
+          'aria-controls': popover.isOpen ? `${popover.rootId}_list` : undefined,
           ref: popover.setTriggerRef,
         };
     }

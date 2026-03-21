@@ -1,21 +1,7 @@
 'use client';
 
-import type {
-  ChangeEvent,
-  ChangeEventHandler,
-  FC,
-  PropsWithChildren,
-  ReactElement,
-} from 'react';
-import {
-  createContext,
-  use,
-  useCallback,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import type { ChangeEvent, ChangeEventHandler, FC, PropsWithChildren, ReactElement } from 'react';
+import { createContext, use, useCallback, useId, useMemo, useRef, useState } from 'react';
 import { uuidV4 } from '../../../helpers/uuid-v4';
 import { IconButton } from '../../icon-button';
 import { CloseIcon } from '../../icons';
@@ -86,10 +72,7 @@ const Root = ({
       const newFiles = files.map((file) => ({ file, id: uuidV4() }));
       const updatedFiles =
         multiple || webkitDirectory
-          ? [...acceptedFiles, ...newFiles].slice(
-              0,
-              maxFiles ?? Number.POSITIVE_INFINITY,
-            )
+          ? [...acceptedFiles, ...newFiles].slice(0, maxFiles ?? Number.POSITIVE_INFINITY)
           : newFiles.slice(0, 1);
 
       setAcceptedFiles(updatedFiles);
@@ -162,11 +145,7 @@ const Root = ({
 };
 
 const Trigger: FC<{
-  renderItem: (props: {
-    onClick: () => void;
-    disabled: boolean;
-    invalid: boolean;
-  }) => ReactElement;
+  renderItem: (props: { onClick: () => void; disabled: boolean; invalid: boolean }) => ReactElement;
 }> = ({ renderItem }) => {
   const context = useFileFieldContext();
   return renderItem({

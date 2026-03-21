@@ -58,10 +58,7 @@ export const Default: Story = {
 export const TriggerByIcon: Story = {
   render: () => (
     <DropdownMenu.Root>
-      <DropdownMenu.IconTrigger
-        icon={<DarkModeIcon size="lg" />}
-        label="テーマ切替"
-      />
+      <DropdownMenu.IconTrigger icon={<DarkModeIcon size="lg" />} label="テーマ切替" />
       <DropdownMenu.Content>
         <DropdownMenu.Item
           label="ライト"

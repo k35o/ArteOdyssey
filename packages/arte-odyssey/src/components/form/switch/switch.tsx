@@ -42,9 +42,7 @@ export const Switch: FC<Props> = ({
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
-  const [internalChecked, setInternalChecked] = useState(
-    defaultChecked ?? false,
-  );
+  const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
 
   const isControlled = value !== undefined;
   const isSelected = isControlled ? value : internalChecked;
@@ -84,9 +82,7 @@ export const Switch: FC<Props> = ({
           className={cn(
             'inline-flex h-7 w-12 items-center rounded-full border transition-colors',
             isInvalid && 'border-border-error',
-            isSelected
-              ? 'border-border-base bg-primary-bg'
-              : 'border-border-mute bg-bg-mute',
+            isSelected ? 'border-border-base bg-primary-bg' : 'border-border-mute bg-bg-mute',
             isDisabled && 'border-border-mute bg-bg-subtle',
             'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
           )}

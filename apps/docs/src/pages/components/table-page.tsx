@@ -42,10 +42,7 @@ export function TablePage() {
           <T k="components.table.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-table--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-table--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -56,10 +53,7 @@ export function TablePage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Table } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Table } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -143,9 +137,7 @@ export function TablePage() {
                 </Table.Row>
               </Table.Head>
               <Table.Body>
-                <Table.EmptyState colSpan={3}>
-                  No records have been added yet.
-                </Table.EmptyState>
+                <Table.EmptyState colSpan={3}>No records have been added yet.</Table.EmptyState>
               </Table.Body>
             </Table.Root>
           </ComponentPreview>

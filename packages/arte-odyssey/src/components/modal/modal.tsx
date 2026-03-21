@@ -102,8 +102,7 @@ export const Modal: FC<
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [dialogOpen, setDialogOpen] = useState(defaultOpen ?? false);
 
-  const realDialogOpen =
-    isOpen === true || isOpen === false ? isOpen : dialogOpen;
+  const realDialogOpen = isOpen === true || isOpen === false ? isOpen : dialogOpen;
   const realOnClose = useCallback(() => {
     onClose?.();
     if (isOpen === undefined) {
@@ -135,14 +134,10 @@ export const Modal: FC<
       animate={realDialogOpen ? 'open' : 'closed'}
       className={cn(
         'border-border-mute bg-bg-base shadow-md backdrop:bg-back-drop',
-        type === 'center' &&
-          'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg dark:border',
-        type === 'bottom' &&
-          'mt-auto w-screen max-w-screen rounded-t-lg dark:border-t',
-        type === 'right' &&
-          'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg dark:border-l',
-        type === 'left' &&
-          'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg dark:border-r',
+        type === 'center' && 'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg dark:border',
+        type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg dark:border-t',
+        type === 'right' && 'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg dark:border-l',
+        type === 'left' && 'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg dark:border-r',
       )}
       exit="closed"
       initial="closed"

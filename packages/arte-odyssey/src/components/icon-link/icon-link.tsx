@@ -38,8 +38,7 @@ export const IconLink = <T extends string>({
       'inline-flex rounded-full transition-colors hover:bg-bg-subtle active:bg-bg-emphasize focus-visible:ring-2 focus-visible:ring-border-info',
       bg === 'base' && 'bg-bg-base',
       bg === 'transparent' && 'bg-transparent',
-      bg === 'primary' &&
-        'bg-primary-bg hover:bg-primary-bg/90 active:bg-primary-bg-emphasize',
+      bg === 'primary' && 'bg-primary-bg hover:bg-primary-bg/90 active:bg-primary-bg-emphasize',
       size === 'sm' && 'p-1',
       size === 'md' && 'p-2',
       size === 'lg' && 'p-3',

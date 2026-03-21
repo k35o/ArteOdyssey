@@ -7,28 +7,16 @@ function ToastDemo() {
 
   return (
     <div className="flex flex-wrap gap-2">
-      <Button
-        color="primary"
-        onClick={() => onOpen('success', 'Operation completed successfully')}
-      >
+      <Button color="primary" onClick={() => onOpen('success', 'Operation completed successfully')}>
         Success
       </Button>
-      <Button
-        color="gray"
-        onClick={() => onOpen('info', 'Here is some information')}
-      >
+      <Button color="gray" onClick={() => onOpen('info', 'Here is some information')}>
         Info
       </Button>
-      <Button
-        color="gray"
-        onClick={() => onOpen('warning', 'Please check your input')}
-      >
+      <Button color="gray" onClick={() => onOpen('warning', 'Please check your input')}>
         Warning
       </Button>
-      <Button
-        color="gray"
-        onClick={() => onOpen('error', 'Something went wrong')}
-      >
+      <Button color="gray" onClick={() => onOpen('error', 'Something went wrong')}>
         Error
       </Button>
     </div>

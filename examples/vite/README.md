@@ -5,6 +5,7 @@ This example demonstrates how to use ArteOdyssey UI components in a Vite + React
 ## Overview
 
 This example showcases:
+
 - Basic setup of ArteOdyssey in a Vite project
 - Usage of Button component with icons
 - Tailwind CSS integration
@@ -52,10 +53,12 @@ examples/vite/
 ## What's Included
 
 ### Components Used
+
 - **Button** - Interactive button with icon support
 - **PlusIcon** - Icon from the ArteOdyssey icon collection
 
 ### Features Demonstrated
+
 - State management with React hooks
 - Component styling with Tailwind CSS
 - Icon integration
@@ -72,12 +75,15 @@ examples/vite/
 ## Key Configuration
 
 ### Vite Configuration
+
 The project uses `@vitejs/plugin-react-swc` for fast React development with SWC compilation.
 
 ### Tailwind CSS
+
 Tailwind CSS is configured via `@tailwindcss/vite` plugin for optimal performance and development experience.
 
 ### TypeScript
+
 Full TypeScript support with strict configuration for type safety.
 
 ## Usage Example

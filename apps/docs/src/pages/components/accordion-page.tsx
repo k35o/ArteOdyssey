@@ -33,10 +33,7 @@ export function AccordionPage() {
           <T k="components.accordion.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-accordion--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-accordion--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -48,10 +45,7 @@ export function AccordionPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Accordion } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Accordion } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

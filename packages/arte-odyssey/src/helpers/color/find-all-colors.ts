@@ -5,9 +5,7 @@
  * @param text - 色の値を検索するテキスト
  * @returns 色の値、開始位置、終了位置を含む色オブジェクトの配列
  */
-export function findAllColors(
-  text: string,
-): { color: string; start: number; end: number }[] {
+export function findAllColors(text: string): { color: string; start: number; end: number }[] {
   const results: { color: string; start: number; end: number }[] = [];
 
   // 対応する括弧の内容を見つけるヘルパー関数
@@ -106,14 +104,10 @@ export function findAllColors(
       // 完全な単語かどうかをチェック
       const beforeChar = index > 0 ? (lowerText[index - 1] ?? ' ') : ' ';
       const afterChar =
-        index + color.length < lowerText.length
-          ? (lowerText[index + color.length] ?? ' ')
-          : ' ';
+        index + color.length < lowerText.length ? (lowerText[index + color.length] ?? ' ') : ' ';
 
       // 前後が英数字でないことを確認（完全一致のみ）
-      const isWordBoundary = !(
-        /[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar)
-      );
+      const isWordBoundary = !(/[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar));
 
       if (isWordBoundary) {
         results.push({
@@ -159,9 +153,7 @@ if (import.meta.vitest) {
     describe('単一の色の場合', () => {
       it('HSL色を見つける', () => {
         const result = findAllColors('hsl(280, 70%, 50%)');
-        expect(result).toEqual([
-          { color: 'hsl(280, 70%, 50%)', start: 0, end: 18 },
-        ]);
+        expect(result).toEqual([{ color: 'hsl(280, 70%, 50%)', start: 0, end: 18 }]);
       });
 
       it('HEX色を見つける', () => {
@@ -227,9 +219,7 @@ if (import.meta.vitest) {
       });
 
       it('ネストした括弧を含む色を見つける', () => {
-        const result = findAllColors(
-          'hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',
-        );
+        const result = findAllColors('hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)');
         expect(result).toEqual([
           {
             color: 'hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',

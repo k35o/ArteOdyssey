@@ -10,12 +10,14 @@ catalog:
   '@tailwindcss/vite': 4.2.1
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
-  '@vitejs/plugin-react-swc': 4.3.0
+  '@vitejs/plugin-react': 6.0.1
   postcss: 8.5.8
   react: 19.2.4
   react-dom: 19.2.4
   tailwindcss: 4.2.1
-  vite: 7.3.1
+  vite: 8.0.1
+  vitest: 4.1.0
+  vite-plus: 0.1.13
 
 ignoredBuiltDependencies:
   - edgedriver
@@ -24,11 +26,24 @@ ignoredBuiltDependencies:
 
 minimumReleaseAge: 10080
 
+minimumReleaseAgeExclude:
+  - vite
+  - vite-plus
+  - rolldown
+  - '@rolldown/*'
+  - '@oxc-project/*'
+  - '@voidzero-dev/*'
+  - '@storybook/*'
+  - storybook
+  - oxlint
+  - '@oxlint/*'
+  - oxlint-tsgolint
+  - '@oxlint-tsgolint/*'
+  - oxfmt
+  - '@oxfmt/*'
+
 onlyBuiltDependencies:
-  - '@swc/core'
   - '@tailwindcss/oxide'
   - agent-browser
-  - esbuild
-  - lefthook
 
 verifyDepsBeforeRun: install

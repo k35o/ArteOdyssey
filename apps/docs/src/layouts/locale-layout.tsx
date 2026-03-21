@@ -1,14 +1,7 @@
 'use client';
 
 import { Outlet, useLocation } from '@funstack/router';
-import {
-  Drawer,
-  ErrorBoundary,
-  Heading,
-  IconButton,
-  ListIcon,
-  Separator,
-} from '@k8o/arte-odyssey';
+import { Drawer, ErrorBoundary, Heading, IconButton, ListIcon, Separator } from '@k8o/arte-odyssey';
 import { useEffect, useState } from 'react';
 import { ErrorFallback } from '../components/error-fallback';
 import { LocaleAnchor } from '../components/locale-anchor';
@@ -18,13 +11,7 @@ import { componentCategories } from '../data/components-nav';
 import { helperCategories } from '../data/helpers-nav';
 import { hookCategories } from '../data/hooks-nav';
 import type { NavCategory } from '../data/nav-types';
-import {
-  detectLocale,
-  isLocale,
-  LocaleProvider,
-  useLocale,
-  useTranslation,
-} from '../i18n';
+import { detectLocale, isLocale, LocaleProvider, useLocale, useTranslation } from '../i18n';
 import { ThemeProvider } from '../theme/context';
 
 type SideNavConfig = {
@@ -74,10 +61,7 @@ function OutletWithErrorBoundary() {
   return (
     <ErrorBoundary
       fallbackRender={({ resetErrorBoundary }) => (
-        <ErrorFallback
-          locale={locale}
-          resetErrorBoundary={resetErrorBoundary}
-        />
+        <ErrorFallback locale={locale} resetErrorBoundary={resetErrorBoundary} />
       )}
       resetKeys={[location.entryId]}
     >
@@ -169,11 +153,7 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
   return (
     <ErrorBoundary
       fallbackRender={({ resetErrorBoundary }) => (
-        <ErrorFallback
-          fullScreen
-          locale={localeParam}
-          resetErrorBoundary={resetErrorBoundary}
-        />
+        <ErrorFallback fullScreen locale={localeParam} resetErrorBoundary={resetErrorBoundary} />
       )}
       resetKeys={[location.entryId]}
     >

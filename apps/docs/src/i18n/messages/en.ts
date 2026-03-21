@@ -35,30 +35,22 @@ export const en = {
   'getStarted.introduction':
     'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. It provides a minimal design with a calm, serene aesthetic that makes use of whitespace.',
   'getStarted.installationTitle': 'Installation',
-  'getStarted.installationDescription':
-    'Install with your preferred package manager.',
+  'getStarted.installationDescription': 'Install with your preferred package manager.',
   'getStarted.setupTitle': 'Setup',
   'getStarted.setupDescription':
     'After installation, complete the following two configuration steps.',
-  'getStarted.setupCssDescription':
-    'Import the CSS file at your application entry point.',
-  'getStarted.setupProviderDescription':
-    'Wrap your application with ArteOdysseyProvider.',
+  'getStarted.setupCssDescription': 'Import the CSS file at your application entry point.',
+  'getStarted.setupProviderDescription': 'Wrap your application with ArteOdysseyProvider.',
   'getStarted.usageTitle': 'Usage',
-  'getStarted.usageDescription':
-    'Once setup is complete, you can import and use components.',
+  'getStarted.usageDescription': 'Once setup is complete, you can import and use components.',
   'getStarted.requirementsTitle': 'Requirements',
-  'getStarted.requirementsDescription':
-    'ArteOdyssey requires the following peer dependencies.',
+  'getStarted.requirementsDescription': 'ArteOdyssey requires the following peer dependencies.',
   'getStarted.nextStepsTitle': 'Next Steps',
-  'getStarted.nextStepsComponents':
-    'Browse the component catalog to discover available UI parts',
+  'getStarted.nextStepsComponents': 'Browse the component catalog to discover available UI parts',
   'getStarted.nextStepsTheming': 'Learn how to customize the theme',
-  'getStarted.nextStepsStorybook':
-    'View detailed documentation for each component in Storybook',
+  'getStarted.nextStepsStorybook': 'View detailed documentation for each component in Storybook',
   'getStarted.packageManagerLabel': 'Package manager',
-  'components.description':
-    'A catalog of UI components provided by ArteOdyssey.',
+  'components.description': 'A catalog of UI components provided by ArteOdyssey.',
   'components.categoryButtons': 'Buttons',
   'components.categoryNavigation': 'Navigation',
   'components.categoryForms': 'Forms',
@@ -71,8 +63,7 @@ export const en = {
   'components.common.importTitle': 'Import',
   'components.common.usageTitle': 'Usage',
   'components.common.propsTitle': 'Props',
-  'components.button.description':
-    'A button component that triggers user actions.',
+  'components.button.description': 'A button component that triggers user actions.',
   'components.button.variantsTitle': 'Variants',
   'components.button.colorsTitle': 'Colors',
   'components.button.sizesTitle': 'Sizes',
@@ -83,8 +74,7 @@ export const en = {
   'components.iconButton.sizesTitle': 'Sizes',
   'components.iconButton.backgroundsTitle': 'Backgrounds',
   'components.iconButton.disabledTitle': 'Disabled',
-  'components.linkButton.description':
-    'A button component that functions as a link.',
+  'components.linkButton.description': 'A button component that functions as a link.',
   'components.linkButton.variantsTitle': 'Variants',
   'components.linkButton.colorsTitle': 'Colors',
   'components.linkButton.sizesTitle': 'Sizes',
@@ -119,31 +109,26 @@ export const en = {
   'components.checkboxCard.description':
     'A multi-select card group that makes each option a larger click target.',
   'components.checkboxCard.defaultValueTitle': 'Default Value',
-  'components.switch.description':
-    'A switch component for binary on/off state.',
+  'components.switch.description': 'A switch component for binary on/off state.',
   'components.switch.defaultCheckedTitle': 'Default Checked',
   'components.switch.disabledTitle': 'Disabled',
   'components.switch.controlledTitle': 'Controlled',
-  'components.passwordInput.description':
-    'A password field with a built-in visibility toggle.',
+  'components.passwordInput.description': 'A password field with a built-in visibility toggle.',
   'components.passwordInput.controlledTitle': 'Controlled',
   'components.passwordInput.disabledTitle': 'Disabled',
   'components.radio.description': 'A radio button group.',
-  'components.radioGroup.description':
-    'A group component for mutually exclusive radio options.',
+  'components.radioGroup.description': 'A group component for mutually exclusive radio options.',
   'components.radio.disabledTitle': 'Disabled',
   'components.radio.defaultValueTitle': 'Default Value',
   'components.radioCard.description':
     'A single-select card group for larger, more descriptive choices.',
   'components.radioCard.defaultValueTitle': 'Default Value',
-  'components.autocomplete.description':
-    'A selection component with autocomplete.',
+  'components.autocomplete.description': 'A selection component with autocomplete.',
   'components.autocomplete.disabledTitle': 'Disabled',
   'components.autocomplete.invalidTitle': 'Invalid',
   'components.autocomplete.requiredTitle': 'Required',
   'components.autocomplete.multipleSelectionTitle': 'Multiple Selection',
-  'components.slider.description':
-    'A single-thumb slider input with a styled track and handle.',
+  'components.slider.description': 'A single-thumb slider input with a styled track and handle.',
   'components.slider.minMaxStepTitle': 'Min / Max / Step',
   'components.slider.disabledTitle': 'Disabled',
   'components.fileField.description': 'A file upload field.',
@@ -171,12 +156,10 @@ export const en = {
   'components.card.widthTitle': 'Width',
   'components.code.description': 'An inline code display component.',
   'components.code.colorDetectionTitle': 'Color Detection',
-  'components.table.description':
-    'A semantic table component with horizontal overflow support.',
+  'components.table.description': 'A semantic table component with horizontal overflow support.',
   'components.table.emptyStateTitle': 'Empty State',
   'components.listBox.description': 'A dropdown list selection component.',
-  'components.baselineStatus.description':
-    'Displays browser support status for web features.',
+  'components.baselineStatus.description': 'Displays browser support status for web features.',
   'components.baselineStatus.differentFeaturesTitle': 'Different Features',
   'components.progress.description': 'A progress bar component.',
   'components.progress.differentValuesTitle': 'Different Values',
@@ -184,23 +167,18 @@ export const en = {
   'components.heading.description': 'A heading component.',
   'components.heading.typesTitle': 'Types',
   'components.heading.lineClampTitle': 'Line Clamp',
-  'components.alert.description':
-    'An alert that displays status-based messages.',
+  'components.alert.description': 'An alert that displays status-based messages.',
   'components.alert.statusesTitle': 'Statuses',
-  'components.skeleton.description':
-    'A loading placeholder for content that has not arrived yet.',
+  'components.skeleton.description': 'A loading placeholder for content that has not arrived yet.',
   'components.skeleton.shapesTitle': 'Shapes',
   'components.skeleton.sizesTitle': 'Sizes',
   'components.skeleton.animationTitle': 'Animation',
   'components.spinner.description': 'A loading spinner.',
   'components.spinner.sizesTitle': 'Sizes',
-  'components.toast.description':
-    'A toast for temporary notification messages.',
-  'components.tooltip.description':
-    'A tooltip that shows supplementary info on hover.',
+  'components.toast.description': 'A toast for temporary notification messages.',
+  'components.tooltip.description': 'A tooltip that shows supplementary info on hover.',
   'components.dialog.description': 'A dialog component.',
-  'components.drawer.description':
-    'A drawer that slides in from the screen edge.',
+  'components.drawer.description': 'A drawer that slides in from the screen edge.',
   'components.modal.description': 'A modal dialog component.',
   'components.popover.description': 'Floating content anchored to an element.',
   'components.dropdownMenu.description': 'A dropdown menu component.',
@@ -212,8 +190,7 @@ export const en = {
   'components.tabs.defaultSelectedTitle': 'Default Selected',
   'components.breadcrumb.description': 'A breadcrumb navigation component.',
   'components.breadcrumb.sizesTitle': 'Sizes',
-  'components.scrollLinked.description':
-    'A progress bar linked to scroll position.',
+  'components.scrollLinked.description': 'A progress bar linked to scroll position.',
   'components.errorBoundary.description': 'An error boundary component.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.typesTitle': 'Types',
@@ -245,33 +222,22 @@ export const en = {
   'hooks.common.basicUsageTitle': 'Basic Usage',
   'hooks.common.parametersTitle': 'Parameters',
   'hooks.common.returnValueTitle': 'Return Value',
-  'hooks.useClickAway.description':
-    'A hook that detects clicks outside a specified element.',
-  'hooks.useClient.description':
-    'A hook that returns whether the code is running on the client.',
-  'hooks.useClipboard.description':
-    'A hook that provides clipboard read/write operations.',
-  'hooks.useHash.description':
-    'A hook that tracks the URL hash and reacts to changes.',
-  'hooks.useInterval.description':
-    'A hook that executes a callback at regular intervals.',
+  'hooks.useClickAway.description': 'A hook that detects clicks outside a specified element.',
+  'hooks.useClient.description': 'A hook that returns whether the code is running on the client.',
+  'hooks.useClipboard.description': 'A hook that provides clipboard read/write operations.',
+  'hooks.useHash.description': 'A hook that tracks the URL hash and reacts to changes.',
+  'hooks.useInterval.description': 'A hook that executes a callback at regular intervals.',
   'hooks.useLocalStorage.description':
     'A hook that persists state in localStorage with cross-tab sync.',
   'hooks.useLocalStorage.removeTitle': 'Remove Value',
-  'hooks.useResize.description':
-    'A hook that observes element size changes via ResizeObserver.',
-  'hooks.useScrollDirection.description':
-    'A hook that detects the current scroll direction.',
-  'hooks.useStep.description':
-    'A hook for step-based navigation with keyboard support.',
-  'hooks.useTimeout.description':
-    'A hook that executes a callback after a specified delay.',
+  'hooks.useResize.description': 'A hook that observes element size changes via ResizeObserver.',
+  'hooks.useScrollDirection.description': 'A hook that detects the current scroll direction.',
+  'hooks.useStep.description': 'A hook for step-based navigation with keyboard support.',
+  'hooks.useTimeout.description': 'A hook that executes a callback after a specified delay.',
   'hooks.useWindowResize.description':
     'A hook that listens to window resize events with optional debounce.',
-  'hooks.useWindowSize.description':
-    'A hook that returns the current window dimensions.',
-  'helpers.description':
-    'A catalog of helper functions provided by ArteOdyssey.',
+  'hooks.useWindowSize.description': 'A hook that returns the current window dimensions.',
+  'helpers.description': 'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
   'helpers.categoryColor': 'Color',
   'helpers.categoryNumber': 'Number',
@@ -281,16 +247,14 @@ export const en = {
   'helpers.common.basicUsageTitle': 'Basic Usage',
   'helpers.common.parametersTitle': 'Parameters',
   'helpers.common.returnValueTitle': 'Return Value',
-  'helpers.cn.description':
-    'A class name utility combining clsx and tailwind-merge.',
+  'helpers.cn.description': 'A class name utility combining clsx and tailwind-merge.',
   'helpers.findAllColors.description':
     'A function that detects all CSS color values and their positions in text.',
   'helpers.between.description':
     'A function that clamps a number between a minimum and maximum value.',
   'helpers.cast.description':
     'A function that converts a string to a number with precision control.',
-  'helpers.commalize.description':
-    'A function that formats a number with comma separators.',
+  'helpers.commalize.description': 'A function that formats a number with comma separators.',
   'helpers.toPrecision.description':
     'A function that rounds a number to a specified number of decimal places.',
   'helpers.uuidV4.description': 'A function that generates a UUID v4 string.',

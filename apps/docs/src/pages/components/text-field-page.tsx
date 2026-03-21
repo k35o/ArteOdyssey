@@ -45,10 +45,7 @@ export function TextFieldPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { TextField } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { TextField } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -65,11 +62,7 @@ export function TextFieldPage() {
   isRequired={false}
 />`}
           >
-            <TextField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
-            />
+            <TextField isDisabled={false} isInvalid={false} isRequired={false} />
           </ComponentPreview>
         </div>
 

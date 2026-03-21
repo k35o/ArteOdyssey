@@ -128,10 +128,7 @@ describe('useScrollDirection', () => {
 
     unmount();
 
-    expect(removeEventListenerSpy).toHaveBeenCalledWith(
-      'scroll',
-      expect.any(Function),
-    );
+    expect(removeEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function));
   });
 
   it('スクロールイベントがpassive: trueで登録される', async () => {
@@ -139,11 +136,9 @@ describe('useScrollDirection', () => {
 
     await renderHook(() => useScrollDirection());
 
-    expect(addEventListenerSpy).toHaveBeenCalledWith(
-      'scroll',
-      expect.any(Function),
-      { passive: true },
-    );
+    expect(addEventListenerSpy).toHaveBeenCalledWith('scroll', expect.any(Function), {
+      passive: true,
+    });
   });
 
   describe('Threshold parameter', () => {

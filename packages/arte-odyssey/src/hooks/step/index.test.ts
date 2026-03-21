@@ -7,9 +7,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 10;
 
-    const { result } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result } = await renderHook(() => useStep({ initialCount, maxCount }));
 
     expect(result.current.count).toBe(initialCount);
     expect(result.current.isDisabledBack).toBeTruthy();
@@ -19,9 +17,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 10;
 
-    const { result, act } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result, act } = await renderHook(() => useStep({ initialCount, maxCount }));
     act(() => {
       result.current.next();
     });
@@ -34,9 +30,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 10;
 
-    const { result, act } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result, act } = await renderHook(() => useStep({ initialCount, maxCount }));
     act(() => {
       result.current.back();
     });
@@ -49,9 +43,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result, act } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result, act } = await renderHook(() => useStep({ initialCount, maxCount }));
     act(() => {
       result.current.next();
       result.current.next();
@@ -65,9 +57,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result, act } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result, act } = await renderHook(() => useStep({ initialCount, maxCount }));
     act(() => {
       result.current.next();
       result.current.next();
@@ -82,9 +72,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result, act } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result, act } = await renderHook(() => useStep({ initialCount, maxCount }));
     act(() => {
       result.current.next();
       result.current.back();
@@ -98,9 +86,7 @@ describe('useStep', () => {
     const initialCount = 1;
     const maxCount = 3;
 
-    const { result } = await renderHook(() =>
-      useStep({ initialCount, maxCount }),
-    );
+    const { result } = await renderHook(() => useStep({ initialCount, maxCount }));
 
     await userEvent.keyboard('{arrowright}');
     expect(result.current.count).toBe(initialCount + 1);

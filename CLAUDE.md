@@ -5,14 +5,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Architecture
 
 ArteOdyssey is a monorepo React UI library (`@k8o/arte-odyssey`) built with:
-- **Turborepo** for monorepo orchestration
-- **pnpm** for package management (v10.30.3, Node.js >=24.13.0)
+- **Vite+** (`vp`) as unified toolchain (dev, build, test, lint, format, task runner)
+- **pnpm** for package management (v10.32.1, Node.js >=24.13.0)
 - **TypeScript** (strict mode, `noUncheckedIndexedAccess: true`)
-- **Biome** for linting and formatting (no ESLint/Prettier)
-- **Vitest** for testing with browser mode (Playwright/Chromium)
+- **Oxlint/Oxfmt** for linting and formatting (via `vp check`)
+- **Vitest** for testing with browser mode (Playwright/Chromium, via `vp test`)
 - **Storybook** for component documentation
 - **Tailwind CSS 4** with semantic design tokens
-- **esbuild** for bundling, TypeScript for declaration generation
+- **tsdown** for library bundling (via `vp pack`), TypeScript for declaration generation
 - **Changesets** for versioning and publishing
 
 ### Project Structure
@@ -25,7 +25,6 @@ packages/
       helpers/          # Utility functions
       styles/           # Tailwind CSS entry (index.css)
     .storybook/         # Storybook config
-    scripts/            # Build scripts (esbuild.js)
 examples/
   vite/                # Example Vite app
   nextjs/              # Example Next.js app
@@ -39,7 +38,7 @@ All commands run from the repository root unless noted.
 
 ### Building
 ```bash
-pnpm build              # Build all packages (clean + esbuild + tsc declarations + CSS)
+pnpm build              # Build all packages (vp pack + CSS copy)
 pnpm typecheck          # Type checking across all packages
 ```
 
@@ -61,8 +60,8 @@ Tests are split into 3 Vitest projects:
 
 ### Code Quality
 ```bash
-pnpm check             # Run Biome linting/formatting checks
-pnpm check:write       # Run Biome checks and auto-fix issues
+pnpm check             # Run Oxlint/Oxfmt linting/formatting checks
+pnpm check:write       # Run checks and auto-fix issues
 ```
 
 ### Storybook
@@ -74,12 +73,11 @@ pnpm storybook         # Start Storybook dev server on port 6006
 ## Code Conventions
 
 ### Formatting & Linting
-- Biome with **single quotes**, 2-space indentation
-- Use `type` keyword, not `interface` (enforced by `useConsistentTypeDefinitions`)
-- Tailwind classes must be sorted (enforced by Biome `useSortedClasses`)
+- Oxfmt with **single quotes**, 2-space indentation
+- Use `type` keyword, not `interface`
 - No `@ts-ignore` (use `@ts-expect-error` with explanation if needed)
 - No skipped tests (`test.skip`, `describe.skip`)
-- Git pre-commit hook: Lefthook runs `biome check --write` and auto-stages fixes
+- Git pre-commit hook: `vp staged` runs `vp check --fix` and auto-stages fixes
 
 ### Component Pattern
 Each component lives in its own directory with 3 files:

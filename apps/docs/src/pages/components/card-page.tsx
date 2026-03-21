@@ -30,10 +30,7 @@ export function CardPage() {
           <T k="components.card.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-card--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-card--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
