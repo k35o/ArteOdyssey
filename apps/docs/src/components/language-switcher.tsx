@@ -18,11 +18,7 @@ export function LanguageSwitcher() {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger
-        size="sm"
-        text={LOCALE_LABELS[locale]}
-        variant="skeleton"
-      />
+      <DropdownMenu.Trigger size="sm" text={LOCALE_LABELS[locale]} variant="skeleton" />
       <DropdownMenu.Content>
         {LOCALES.map((l) => (
           <DropdownMenu.Item

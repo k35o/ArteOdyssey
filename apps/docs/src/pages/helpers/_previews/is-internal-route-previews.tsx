@@ -10,9 +10,7 @@ export function IsInternalRoutePreview() {
       {examples.map((href) => (
         <div className="text-sm" key={href}>
           <code>isInternalRoute('{href}')</code> →{' '}
-          <code className="font-bold">
-            {isInternalRoute(href) ? 'true' : 'false'}
-          </code>
+          <code className="font-bold">{isInternalRoute(href) ? 'true' : 'false'}</code>
         </div>
       ))}
     </div>

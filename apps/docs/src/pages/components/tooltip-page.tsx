@@ -5,10 +5,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import {
-  TooltipBasicPreview,
-  TooltipPlacementPreview,
-} from './_previews/tooltip-previews';
+import { TooltipBasicPreview, TooltipPlacementPreview } from './_previews/tooltip-previews';
 
 const tooltipRootProps: PropItem[] = [
   {
@@ -41,10 +38,7 @@ export function TooltipPage() {
           <T k="components.tooltip.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-tooltip--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-tooltip--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -56,10 +50,7 @@ export function TooltipPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Tooltip } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Tooltip } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

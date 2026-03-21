@@ -47,10 +47,7 @@ export function UseResizePage() {
         <Heading type="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { useResize } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { useResize } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

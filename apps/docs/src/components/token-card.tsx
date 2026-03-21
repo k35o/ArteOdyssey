@@ -9,13 +9,7 @@ export type TokenDef = {
   dark: { source: string; hex: string };
 };
 
-export function TokenCard({
-  token,
-  type = 'fill',
-}: {
-  token: TokenDef;
-  type?: 'fill' | 'border';
-}) {
+export function TokenCard({ token, type = 'fill' }: { token: TokenDef; type?: 'fill' | 'border' }) {
   const { theme } = useTheme();
   const { source, hex } = token[theme];
 

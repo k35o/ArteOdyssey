@@ -35,10 +35,7 @@ export function TextareaPage() {
           <T k="components.textarea.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-form-textarea--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-textarea--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -50,10 +47,7 @@ export function TextareaPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Textarea } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Textarea } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

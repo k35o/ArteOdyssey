@@ -59,10 +59,7 @@ export function DropdownMenuPage() {
           <T k="components.dropdownMenu.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-dropdown-menu--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-dropdown-menu--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -74,10 +71,7 @@ export function DropdownMenuPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { DropdownMenu } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { DropdownMenu } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

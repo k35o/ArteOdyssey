@@ -37,10 +37,7 @@ export function FindAllColorsPage() {
         <Heading type="h2">
           <T k="helpers.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { findAllColors } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { findAllColors } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

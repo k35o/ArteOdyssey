@@ -445,8 +445,7 @@ const SHADOWS = [
   },
   {
     name: 'xl',
-    value:
-      '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+    value: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
   },
   { name: '2xl', value: '0 25px 50px -12px rgb(0 0 0 / 0.25)' },
 ] as const;
@@ -515,9 +514,7 @@ export function Theming() {
                       style={{ backgroundColor: family.hexes[i] }}
                     />
                     <span className="font-medium text-xs">{shade}</span>
-                    <span className="text-fg-subtle text-xs">
-                      {family.hexes[i]}
-                    </span>
+                    <span className="text-fg-subtle text-xs">{family.hexes[i]}</span>
                   </div>
                 ))}
               </div>
@@ -647,9 +644,7 @@ export function Theming() {
             <div className="flex flex-col gap-3 p-4">
               {TEXT_SIZES.map((size) => (
                 <div className="flex items-baseline gap-4" key={size.name}>
-                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                    {size.name}
-                  </code>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">{size.name}</code>
                   <span
                     className="truncate"
                     style={{
@@ -677,18 +672,11 @@ export function Theming() {
             <div className="flex flex-col gap-3 p-4">
               {FONT_WEIGHTS.map((weight) => (
                 <div className="flex items-baseline gap-4" key={weight.name}>
-                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                    {weight.name}
-                  </code>
-                  <span
-                    className="text-lg"
-                    style={{ fontWeight: weight.value }}
-                  >
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">{weight.name}</code>
+                  <span className="text-lg" style={{ fontWeight: weight.value }}>
                     ArteOdyssey
                   </span>
-                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">
-                    {weight.value}
-                  </span>
+                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">{weight.value}</span>
                 </div>
               ))}
             </div>
@@ -704,15 +692,11 @@ export function Theming() {
             <div className="flex flex-col gap-3 p-4">
               {LETTER_SPACINGS.map((ls) => (
                 <div className="flex items-baseline gap-4" key={ls.name}>
-                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                    {ls.name}
-                  </code>
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">{ls.name}</code>
                   <span className="text-lg" style={{ letterSpacing: ls.value }}>
                     ArteOdyssey
                   </span>
-                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">
-                    {ls.value}
-                  </span>
+                  <span className="ml-auto shrink-0 text-fg-subtle text-xs">{ls.value}</span>
                 </div>
               ))}
             </div>
@@ -728,19 +712,12 @@ export function Theming() {
             <div className="flex flex-col gap-3 p-4">
               {LINE_HEIGHTS.map((lh) => (
                 <div className="flex items-center gap-4" key={lh.name}>
-                  <code className="w-20 shrink-0 text-fg-subtle text-sm">
-                    {lh.name}
-                  </code>
-                  <div
-                    className="flex-1 text-sm"
-                    style={{ lineHeight: lh.value }}
-                  >
-                    The quick brown fox jumps over the lazy dog. The quick brown
-                    fox jumps over the lazy dog.
+                  <code className="w-20 shrink-0 text-fg-subtle text-sm">{lh.name}</code>
+                  <div className="flex-1 text-sm" style={{ lineHeight: lh.value }}>
+                    The quick brown fox jumps over the lazy dog. The quick brown fox jumps over the
+                    lazy dog.
                   </div>
-                  <span className="shrink-0 text-fg-subtle text-xs">
-                    {lh.value}
-                  </span>
+                  <span className="shrink-0 text-fg-subtle text-xs">{lh.value}</span>
                 </div>
               ))}
             </div>
@@ -811,13 +788,8 @@ export function Theming() {
           <div className="flex flex-col gap-2 p-4">
             {SPACING_SCALE.map((space) => (
               <div className="flex items-center gap-3" key={space.name}>
-                <code className="w-8 shrink-0 text-right text-fg-subtle text-sm">
-                  {space.name}
-                </code>
-                <div
-                  className="h-4 rounded bg-primary-bg"
-                  style={{ width: space.px }}
-                />
+                <code className="w-8 shrink-0 text-right text-fg-subtle text-sm">{space.name}</code>
+                <div className="h-4 rounded bg-primary-bg" style={{ width: space.px }} />
                 <span className="text-fg-subtle text-xs">
                   {space.rem} ({space.px})
                 </span>
@@ -840,9 +812,7 @@ export function Theming() {
           <div className="flex flex-col gap-2 p-4">
             {BREAKPOINTS.map((bp) => (
               <div className="flex items-center gap-4" key={bp.name}>
-                <code className="w-10 shrink-0 font-medium text-sm">
-                  {bp.name}
-                </code>
+                <code className="w-10 shrink-0 font-medium text-sm">{bp.name}</code>
                 <span className="text-fg-subtle text-xs">
                   ≥ {bp.px} ({bp.rem})
                 </span>

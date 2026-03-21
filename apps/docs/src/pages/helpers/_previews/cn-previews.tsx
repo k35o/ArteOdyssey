@@ -17,12 +17,7 @@ export function CnPreview() {
         Merged classes
       </div>
       <div className="flex items-center gap-4">
-        <div
-          className={cn(
-            'rounded-lg px-4 py-2 text-sm',
-            isActive && 'bg-bg-mute',
-          )}
-        >
+        <div className={cn('rounded-lg px-4 py-2 text-sm', isActive && 'bg-bg-mute')}>
           Conditional classes
         </div>
         <button

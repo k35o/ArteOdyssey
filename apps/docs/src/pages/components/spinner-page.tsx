@@ -20,10 +20,7 @@ export function SpinnerPage() {
           <T k="components.spinner.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-spinner--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-spinner--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -34,10 +31,7 @@ export function SpinnerPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Spinner } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Spinner } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

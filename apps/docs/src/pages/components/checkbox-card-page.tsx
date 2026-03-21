@@ -62,10 +62,7 @@ export function CheckboxCardPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { CheckboxCard } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { CheckboxCard } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -145,10 +142,7 @@ const [value, setValue] = useState(['comments']);
 />`}
           >
             <div className="w-full max-w-2xl">
-              <p
-                className="mb-3 font-medium text-fg-base"
-                id="features-default-label"
-              >
+              <p className="mb-3 font-medium text-fg-base" id="features-default-label">
                 有効にする機能を選択
               </p>
               <CheckboxCard

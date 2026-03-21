@@ -26,10 +26,7 @@ export function RadioCardControlledPreview() {
 
   return (
     <div className="w-full max-w-2xl">
-      <p
-        className="mb-3 font-medium text-fg-base"
-        id="radio-card-preview-label"
-      >
+      <p className="mb-3 font-medium text-fg-base" id="radio-card-preview-label">
         プランを選択
       </p>
       <RadioCard

@@ -22,10 +22,7 @@ export function UseLocalStorageBasicPreview() {
 }
 
 export function UseLocalStorageRemovePreview() {
-  const [value, setValue, handleRemove] = useLocalStorage(
-    'demo-name',
-    'ArteOdyssey',
-  );
+  const [value, setValue, handleRemove] = useLocalStorage('demo-name', 'ArteOdyssey');
 
   return (
     <div className="flex items-center gap-4">

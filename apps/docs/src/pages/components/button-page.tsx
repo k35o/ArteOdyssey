@@ -1,11 +1,4 @@
-import {
-  Anchor,
-  Button,
-  ChevronIcon,
-  Heading,
-  MailIcon,
-  Separator,
-} from '@k8o/arte-odyssey';
+import { Anchor, Button, ChevronIcon, Heading, MailIcon, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -51,10 +44,7 @@ export function ButtonPage() {
           <T k="components.button.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-button--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-button--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -66,10 +56,7 @@ export function ButtonPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Button } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Button } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -152,9 +139,7 @@ export function ButtonPage() {
 </Button>`}
           >
             <Button startIcon={<MailIcon size="sm" />}>Send Email</Button>
-            <Button endIcon={<ChevronIcon direction="right" size="sm" />}>
-              Next
-            </Button>
+            <Button endIcon={<ChevronIcon direction="right" size="sm" />}>Next</Button>
           </ComponentPreview>
         </div>
 

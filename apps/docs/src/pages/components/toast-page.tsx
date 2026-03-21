@@ -5,10 +5,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import {
-  ToastBasicPreview,
-  ToastCloseAllPreview,
-} from './_previews/toast-previews';
+import { ToastBasicPreview, ToastCloseAllPreview } from './_previews/toast-previews';
 
 const toastProviderProps: PropItem[] = [
   {
@@ -52,10 +49,7 @@ export function ToastPage() {
           <T k="components.toast.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-toast--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-toast--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -67,10 +61,7 @@ export function ToastPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { ToastProvider, useToast } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { ToastProvider, useToast } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

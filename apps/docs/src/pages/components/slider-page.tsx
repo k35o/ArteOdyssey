@@ -34,10 +34,7 @@ export function SliderPage() {
           <T k="components.slider.description" />
         </p>
         <div>
-          <Anchor
-            href={`${STORYBOOK_URL}/?path=/docs/components-form-slider--docs`}
-            openInNewTab
-          >
+          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-slider--docs`} openInNewTab>
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -48,10 +45,7 @@ export function SliderPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Slider } from '@k8o/arte-odyssey';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Slider } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -69,12 +63,7 @@ export function SliderPage() {
 />`}
           >
             <div className="w-full">
-              <Slider
-                defaultValue={50}
-                isDisabled={false}
-                isInvalid={false}
-                isRequired={false}
-              />
+              <Slider defaultValue={50} isDisabled={false} isInvalid={false} isRequired={false} />
             </div>
           </ComponentPreview>
         </div>
@@ -121,12 +110,7 @@ export function SliderPage() {
 />`}
           >
             <div className="w-full">
-              <Slider
-                defaultValue={30}
-                isDisabled
-                isInvalid={false}
-                isRequired={false}
-              />
+              <Slider defaultValue={30} isDisabled isInvalid={false} isRequired={false} />
             </div>
           </ComponentPreview>
         </div>

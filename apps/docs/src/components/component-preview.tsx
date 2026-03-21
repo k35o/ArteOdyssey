@@ -7,11 +7,7 @@ type Props = {
   lang?: 'tsx' | 'ts';
 };
 
-export const ComponentPreview: FC<Props> = ({
-  children,
-  code,
-  lang = 'tsx',
-}) => {
+export const ComponentPreview: FC<Props> = ({ children, code, lang = 'tsx' }) => {
   return (
     <div className="flex flex-col">
       <div className="flex flex-wrap items-center gap-4 rounded-t-lg border border-border-mute p-6">
