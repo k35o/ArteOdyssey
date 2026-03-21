@@ -37,6 +37,13 @@ src/components/<name>/
 
 3. Add re-export in `src/index.ts` if the component should be available from the root entry point.
 
+## Props Naming Conventions
+
+### Boolean Props
+- **状態を表す boolean** → `is` prefix を付ける: `isOpen`, `isDisabled`, `isInvalid`, `isRequired`, `isExternal`
+- **モード・バリアントを表す boolean** → prefix なし: `interactive`, `animate`, `current`, `fullWidth`, `multiple`
+- **ネイティブ HTML 属性** → そのまま: `disabled`, `checked`, `required`
+
 ## Component Authoring Patterns
 
 ### Standard Component

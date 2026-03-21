@@ -76,7 +76,7 @@ const Header: FC<{
   );
 };
 
-export const Content: FC<PropsWithChildren> = ({ children }) => {
+const Content: FC<PropsWithChildren> = ({ children }) => {
   const { rootId } = useDialogContext();
   return (
     // biome-ignore lint/a11y/noStaticElementInteractions: propagationなので

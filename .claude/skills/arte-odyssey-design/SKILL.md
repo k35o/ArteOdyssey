@@ -54,8 +54,7 @@ npm install @k8o/arte-odyssey
 
 ```tsx
 import '@k8o/arte-odyssey/styles.css';
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
-import { Button } from '@k8o/arte-odyssey/button';
+import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 ```
 
 ## 美学ガイドライン
@@ -169,12 +168,12 @@ import { Button } from '@k8o/arte-odyssey/button';
 シャドウまたはボーダーで区切り。`appearance` prop で切り替え。
 
 ```tsx
-<Card title="設定" appearance="bordered">
+<Card appearance="bordered">
   <p>カードのコンテンツ</p>
 </Card>
 
 // クリック可能なカード
-<InteractiveCard title="記事" appearance="shadow">
+<InteractiveCard appearance="shadow">
   <p>ホバーでスケールアップ</p>
 </InteractiveCard>
 ```
