@@ -5,6 +5,7 @@ This example demonstrates how to use ArteOdyssey UI components in a Next.js appl
 ## Overview
 
 This example showcases:
+
 - Basic setup of ArteOdyssey in a Next.js project
 - Usage of Button component with icons
 - Client-side component integration
@@ -55,10 +56,12 @@ examples/nextjs/
 ## What's Included
 
 ### Components Used
+
 - **Button** - Interactive button with icon support
 - **PlusIcon** - Icon from the ArteOdyssey icon collection
 
 ### Features Demonstrated
+
 - Client-side state management with React hooks
 - Next.js App Router integration
 - Component styling with Tailwind CSS
@@ -79,15 +82,19 @@ examples/nextjs/
 ## Key Configuration
 
 ### Next.js Configuration
+
 The project uses Next.js 15.5.2 with:
+
 - **Turbopack** for faster development and builds
 - **App Router** for modern Next.js routing
 - **TypeScript** with Next.js typegen
 
 ### Tailwind CSS
+
 Tailwind CSS is configured with PostCSS for optimal integration with Next.js.
 
 ### Client Components
+
 ArteOdyssey components are used in client components (marked with `'use client'`) since they include interactive features and state management.
 
 ## Usage Example
@@ -166,13 +173,9 @@ export default function Page() {
 }
 
 // Client component
-'use client';
+('use client');
 function InteractiveSection() {
-  return (
-    <Button onClick={() => alert('Hello!')}>
-      Click me
-    </Button>
-  );
+  return <Button onClick={() => alert('Hello!')}>Click me</Button>;
 }
 ```
 
