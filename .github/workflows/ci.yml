@@ -22,8 +22,8 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-  biome:
-    name: Biome
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -32,8 +32,8 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
-      - name: Run Biome
-        run: pnpm biome ci
+      - name: Run lint and format check
+        run: pnpm check
 
   types:
     name: TypeScript
