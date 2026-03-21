@@ -23,6 +23,7 @@ import { FileFieldPage } from './pages/components/file-field-page';
 import { FormControlPage } from './pages/components/form-control-page';
 import { HeadingPage } from './pages/components/heading-page';
 import { IconButtonPage } from './pages/components/icon-button-page';
+import { IconLinkPage } from './pages/components/icon-link-page';
 import { LinkButtonPage } from './pages/components/link-button-page';
 import { ListBoxPage } from './pages/components/list-box-page';
 import { ModalPage } from './pages/components/modal-page';
@@ -101,6 +102,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/icon-button',
         component: <IconButtonPage />,
+      }),
+      route({
+        path: '/components/icon-link',
+        component: <IconLinkPage />,
       }),
       route({
         path: '/components/link-button',
