@@ -2,7 +2,7 @@
 
 import { MotionConfig } from 'motion/react';
 import type { FC, PropsWithChildren } from 'react';
-import { ToastProvider } from '../toast';
+import { ToastProvider } from '../feedback/toast';
 
 export const ArteOdysseyProvider: FC<PropsWithChildren> = ({ children }) => {
   return (

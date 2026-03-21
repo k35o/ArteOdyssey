@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { Button } from '../../button';
+import { Button } from '../../buttons/button';
 import { FileField } from './file-field';
 
 const meta: Meta<typeof FileField.Root> = {
