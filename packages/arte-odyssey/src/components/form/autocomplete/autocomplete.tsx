@@ -3,7 +3,7 @@
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
-import { IconButton } from '../../icon-button';
+import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 
 type BaseProps = {

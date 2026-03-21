@@ -7,6 +7,7 @@ export const componentCategories: NavCategory[] = [
       { name: 'Button', path: '/components/button' },
       { name: 'IconButton', path: '/components/icon-button' },
       { name: 'LinkButton', path: '/components/link-button' },
+      { name: 'IconLink', path: '/components/icon-link' },
     ],
   },
   {
@@ -80,6 +81,9 @@ export const componentCategories: NavCategory[] = [
   },
   {
     titleKey: 'components.categoryUtility',
-    items: [{ name: 'ErrorBoundary', path: '/components/error-boundary' }],
+    items: [
+      { name: 'Icons', path: '/components/icons' },
+      { name: 'ErrorBoundary', path: '/components/error-boundary' },
+    ],
   },
 ];

@@ -3,7 +3,7 @@
 import type { ChangeEvent, ChangeEventHandler, FC, PropsWithChildren, ReactElement } from 'react';
 import { createContext, use, useCallback, useId, useMemo, useRef, useState } from 'react';
 import { uuidV4 } from '../../../helpers/uuid-v4';
-import { IconButton } from '../../icon-button';
+import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
 
 type AcceptedFile = {
