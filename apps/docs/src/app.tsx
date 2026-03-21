@@ -24,6 +24,7 @@ import { FormControlPage } from './pages/components/form-control-page';
 import { HeadingPage } from './pages/components/heading-page';
 import { IconButtonPage } from './pages/components/icon-button-page';
 import { IconLinkPage } from './pages/components/icon-link-page';
+import { IconsPage } from './pages/components/icons-page';
 import { LinkButtonPage } from './pages/components/link-button-page';
 import { ListBoxPage } from './pages/components/list-box-page';
 import { ModalPage } from './pages/components/modal-page';
@@ -266,6 +267,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/scroll-linked',
         component: <ScrollLinkedPage />,
+      }),
+      route({
+        path: '/components/icons',
+        component: <IconsPage />,
       }),
       route({
         path: '/components/error-boundary',

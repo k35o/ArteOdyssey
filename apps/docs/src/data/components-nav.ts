@@ -81,6 +81,9 @@ export const componentCategories: NavCategory[] = [
   },
   {
     titleKey: 'components.categoryUtility',
-    items: [{ name: 'ErrorBoundary', path: '/components/error-boundary' }],
+    items: [
+      { name: 'Icons', path: '/components/icons' },
+      { name: 'ErrorBoundary', path: '/components/error-boundary' },
+    ],
   },
 ];

@@ -194,6 +194,7 @@ export const en = {
   'components.breadcrumb.description': 'A breadcrumb navigation component.',
   'components.breadcrumb.sizesTitle': 'Sizes',
   'components.scrollLinked.description': 'A progress bar linked to scroll position.',
+  'components.icons.description': 'A catalog of icon components provided by ArteOdyssey.',
   'components.errorBoundary.description': 'An error boundary component.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.typesTitle': 'Types',

@@ -189,6 +189,7 @@ export const MESSAGE_KEYS = [
   'components.breadcrumb.description',
   'components.breadcrumb.sizesTitle',
   'components.scrollLinked.description',
+  'components.icons.description',
   'components.errorBoundary.description',
   'components.common.basicUsageTitle',
   'components.modal.typesTitle',

@@ -201,6 +201,7 @@ export const ja = {
   'components.breadcrumb.description': 'ナビゲーションのパンくずリストです。',
   'components.breadcrumb.sizesTitle': 'サイズ',
   'components.scrollLinked.description': 'スクロール位置に連動するプログレスバーです。',
+  'components.icons.description': 'ArteOdysseyが提供するアイコンコンポーネントの一覧です。',
   'components.errorBoundary.description': 'エラーバウンダリコンポーネントです。',
   'components.common.basicUsageTitle': '基本的な使い方',
   'components.modal.typesTitle': 'タイプ',
