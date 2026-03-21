@@ -99,9 +99,9 @@ components/button/
 ### Exports
 Granular exports via package.json exports field:
 ```ts
-import { Button } from '@k8o/arte-odyssey/button';
-import { useClickAway } from '@k8o/arte-odyssey/hooks/click-away';
-import { cn } from '@k8o/arte-odyssey/helpers/cn';
+import { Button } from '@k8o/arte-odyssey';
+import { useClickAway } from '@k8o/arte-odyssey';
+import { cn } from '@k8o/arte-odyssey';
 ```
 
 ### Styling & Design Tokens

@@ -1,1 +1,1 @@
-export { FileField, FileFieldProvider } from './file-field';
+export { FileField } from './file-field';

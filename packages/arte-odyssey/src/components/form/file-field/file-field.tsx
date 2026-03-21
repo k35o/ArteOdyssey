@@ -35,7 +35,7 @@ type FileFieldContext = {
 
 const FileFieldContext = createContext<FileFieldContext | null>(null);
 
-export const FileFieldProvider = FileFieldContext;
+const FileFieldProvider = FileFieldContext;
 
 const useFileFieldContext = (): FileFieldContext => {
   const fileField = use(FileFieldContext);
