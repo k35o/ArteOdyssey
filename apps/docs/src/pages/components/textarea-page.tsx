@@ -51,7 +51,7 @@ export function TextareaPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Textarea } from '@k8o/arte-odyssey/textarea';"
+          code="import { Textarea } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

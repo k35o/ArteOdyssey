@@ -43,7 +43,7 @@ export function HeadingPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Heading } from '@k8o/arte-odyssey/heading';"
+          code="import { Heading } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

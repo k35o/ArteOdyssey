@@ -64,7 +64,7 @@ export function LinkButtonPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { LinkButton } from '@k8o/arte-odyssey/link-button';"
+          code="import { LinkButton } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

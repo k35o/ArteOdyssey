@@ -1,6 +1,6 @@
 'use client';
 
-import { isInternalRoute } from '@k8o/arte-odyssey/helpers/is-internal-route';
+import { isInternalRoute } from '@k8o/arte-odyssey';
 
 const examples = ['/about', '/docs/getting-started', 'https://example.com'];
 

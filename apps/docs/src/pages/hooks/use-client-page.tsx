@@ -30,7 +30,7 @@ export function UseClientPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useClient } from '@k8o/arte-odyssey/hooks/client';"
+          code="import { useClient } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

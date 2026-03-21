@@ -35,10 +35,7 @@ export function CodePage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Code } from '@k8o/arte-odyssey/code';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Code } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

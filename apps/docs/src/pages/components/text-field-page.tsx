@@ -46,7 +46,7 @@ export function TextFieldPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { TextField } from '@k8o/arte-odyssey/text-field';"
+          code="import { TextField } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

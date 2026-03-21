@@ -75,7 +75,7 @@ export function DropdownMenuPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { DropdownMenu } from '@k8o/arte-odyssey/dropdown-menu';"
+          code="import { DropdownMenu } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

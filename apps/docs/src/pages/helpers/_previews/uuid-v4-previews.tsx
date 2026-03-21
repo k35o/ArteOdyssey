@@ -1,6 +1,6 @@
 'use client';
 
-import { uuidV4 } from '@k8o/arte-odyssey/helpers/uuid-v4';
+import { uuidV4 } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 export function UuidV4Preview() {

@@ -38,7 +38,7 @@ export function CommalizePage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { commalize } from '@k8o/arte-odyssey/helpers/number/commalize';"
+          code="import { commalize } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

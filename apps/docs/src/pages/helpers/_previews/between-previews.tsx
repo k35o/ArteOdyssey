@@ -1,6 +1,6 @@
 'use client';
 
-import { between } from '@k8o/arte-odyssey/helpers/number/between';
+import { between } from '@k8o/arte-odyssey';
 
 const examples = [
   { value: 5, min: 0, max: 10 },

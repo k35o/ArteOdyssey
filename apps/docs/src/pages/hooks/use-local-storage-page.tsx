@@ -58,7 +58,7 @@ export function UseLocalStoragePage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useLocalStorage } from '@k8o/arte-odyssey/hooks/local-storage';"
+          code="import { useLocalStorage } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

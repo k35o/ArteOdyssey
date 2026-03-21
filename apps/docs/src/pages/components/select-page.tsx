@@ -54,7 +54,7 @@ export function SelectPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Select } from '@k8o/arte-odyssey/select';"
+          code="import { Select } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

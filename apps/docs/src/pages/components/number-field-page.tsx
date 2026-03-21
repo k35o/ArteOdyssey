@@ -50,7 +50,7 @@ export function NumberFieldPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { NumberField } from '@k8o/arte-odyssey/number-field';"
+          code="import { NumberField } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

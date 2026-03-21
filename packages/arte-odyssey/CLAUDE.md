@@ -110,9 +110,7 @@ Standard pattern: `focus-visible:border-transparent focus-visible:outline-hidden
 
 ```
 @k8o/arte-odyssey              → dist/index.js        (all components)
-@k8o/arte-odyssey/button       → dist/components/button/index.js
-@k8o/arte-odyssey/hooks/*      → dist/hooks/*/index.js
-@k8o/arte-odyssey/helpers/cn   → dist/helpers/cn.js
+@k8o/arte-odyssey             → dist/index.js
 @k8o/arte-odyssey/styles.css   → dist/styles/index.css
 ```
 

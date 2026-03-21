@@ -30,7 +30,7 @@ export function UuidV4Page() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { uuidV4 } from '@k8o/arte-odyssey/helpers/uuid-v4';"
+          code="import { uuidV4 } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

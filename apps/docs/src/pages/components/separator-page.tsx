@@ -45,7 +45,7 @@ export function SeparatorPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Separator } from '@k8o/arte-odyssey/separator';"
+          code="import { Separator } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

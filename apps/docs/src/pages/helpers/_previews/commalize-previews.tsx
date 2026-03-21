@@ -1,6 +1,6 @@
 'use client';
 
-import { commalize } from '@k8o/arte-odyssey/helpers/number/commalize';
+import { commalize } from '@k8o/arte-odyssey';
 
 const examples = [100, 1000, 1000000, 1234567.89];
 

@@ -6,9 +6,9 @@ import {
   ErrorBoundary,
   Heading,
   IconButton,
+  ListIcon,
   Separator,
 } from '@k8o/arte-odyssey';
-import { ListIcon } from '@k8o/arte-odyssey/icons';
 import { useEffect, useState } from 'react';
 import { ErrorFallback } from '../components/error-fallback';
 import { LocaleAnchor } from '../components/locale-anchor';

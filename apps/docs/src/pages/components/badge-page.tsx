@@ -46,7 +46,7 @@ export function BadgePage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Badge } from '@k8o/arte-odyssey/badge';"
+          code="import { Badge } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

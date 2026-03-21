@@ -38,7 +38,7 @@ export function AvatarPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Avatar } from '@k8o/arte-odyssey/avatar';"
+          code="import { Avatar } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

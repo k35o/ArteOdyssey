@@ -1,6 +1,6 @@
 'use client';
 
-import { useClipboard } from '@k8o/arte-odyssey/hooks/clipboard';
+import { useClipboard } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 export function UseClipboardPreview() {

@@ -39,7 +39,7 @@ export function ProgressPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Progress } from '@k8o/arte-odyssey/progress';"
+          code="import { Progress } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

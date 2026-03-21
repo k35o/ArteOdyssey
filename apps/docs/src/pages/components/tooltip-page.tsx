@@ -57,7 +57,7 @@ export function TooltipPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Tooltip } from '@k8o/arte-odyssey/tooltip';"
+          code="import { Tooltip } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

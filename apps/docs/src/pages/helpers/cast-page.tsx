@@ -47,10 +47,7 @@ export function CastPage() {
         <Heading type="h2">
           <T k="helpers.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { cast } from '@k8o/arte-odyssey/helpers/number/cast';"
-          lang="ts"
-        />
+        <CodeBlock code="import { cast } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

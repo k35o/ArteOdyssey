@@ -45,10 +45,7 @@ export function CardPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { Card } from '@k8o/arte-odyssey/card';"
-          lang="ts"
-        />
+        <CodeBlock code="import { Card } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

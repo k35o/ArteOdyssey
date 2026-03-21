@@ -45,7 +45,7 @@ export function UseScrollDirectionPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useScrollDirection } from '@k8o/arte-odyssey/hooks/scroll-direction';"
+          code="import { useScrollDirection } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

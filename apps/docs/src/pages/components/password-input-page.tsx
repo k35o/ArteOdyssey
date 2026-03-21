@@ -55,7 +55,7 @@ export function PasswordInputPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { PasswordInput } from '@k8o/arte-odyssey/password-input';"
+          code="import { PasswordInput } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

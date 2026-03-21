@@ -1,6 +1,6 @@
 'use client';
 
-import { useInterval } from '@k8o/arte-odyssey/hooks/interval';
+import { useInterval } from '@k8o/arte-odyssey';
 import { useCallback, useState } from 'react';
 
 export function UseIntervalPreview() {

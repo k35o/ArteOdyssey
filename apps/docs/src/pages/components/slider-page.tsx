@@ -49,7 +49,7 @@ export function SliderPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Slider } from '@k8o/arte-odyssey/slider';"
+          code="import { Slider } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

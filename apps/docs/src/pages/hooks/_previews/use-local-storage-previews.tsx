@@ -1,6 +1,6 @@
 'use client';
 
-import { useLocalStorage } from '@k8o/arte-odyssey/hooks/local-storage';
+import { useLocalStorage } from '@k8o/arte-odyssey';
 
 export function UseLocalStorageBasicPreview() {
   const [value, setValue] = useLocalStorage('demo-count', 0);

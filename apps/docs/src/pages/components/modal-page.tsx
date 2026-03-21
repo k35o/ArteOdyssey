@@ -49,7 +49,7 @@ export function ModalPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Modal } from '@k8o/arte-odyssey/modal';"
+          code="import { Modal } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

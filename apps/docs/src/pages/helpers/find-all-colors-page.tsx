@@ -38,7 +38,7 @@ export function FindAllColorsPage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { findAllColors } from '@k8o/arte-odyssey/helpers/color/find-all-colors';"
+          code="import { findAllColors } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

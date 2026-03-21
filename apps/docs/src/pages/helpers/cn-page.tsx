@@ -37,10 +37,7 @@ export function CnPage() {
         <Heading type="h2">
           <T k="helpers.common.importTitle" />
         </Heading>
-        <CodeBlock
-          code="import { cn } from '@k8o/arte-odyssey/helpers/cn';"
-          lang="ts"
-        />
+        <CodeBlock code="import { cn } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 

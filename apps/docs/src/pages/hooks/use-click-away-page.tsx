@@ -45,7 +45,7 @@ export function UseClickAwayPage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useClickAway } from '@k8o/arte-odyssey/hooks/click-away';"
+          code="import { useClickAway } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

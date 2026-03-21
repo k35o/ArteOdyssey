@@ -1,16 +1,19 @@
 'use client';
 
-import { Card, Heading, LinkButton, Separator } from '@k8o/arte-odyssey';
 import {
   AccessibilityIcon,
   AtomIcon,
   BlogIcon,
+  Card,
   DarkModeIcon,
   GitHubIcon,
+  Heading,
+  LinkButton,
   PaletteIcon,
+  Separator,
   ShieldCheckIcon,
   SparklesIcon,
-} from '@k8o/arte-odyssey/icons';
+} from '@k8o/arte-odyssey';
 import type { FC, ReactNode } from 'react';
 import { STORYBOOK_URL } from '../constants';
 import { useTranslation } from '../i18n';

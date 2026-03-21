@@ -63,7 +63,7 @@ export function RadioCardPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { RadioCard } from '@k8o/arte-odyssey/radio-card';"
+          code="import { RadioCard } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

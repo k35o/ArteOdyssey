@@ -43,7 +43,7 @@ export function ToPrecisionPage() {
           <T k="helpers.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { toPrecision } from '@k8o/arte-odyssey/helpers/number/to-precision';"
+          code="import { toPrecision } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

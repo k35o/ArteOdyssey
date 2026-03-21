@@ -57,7 +57,7 @@ export function TablePage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Table } from '@k8o/arte-odyssey/table';"
+          code="import { Table } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

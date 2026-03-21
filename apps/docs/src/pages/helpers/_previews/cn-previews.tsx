@@ -1,6 +1,6 @@
 'use client';
 
-import { cn } from '@k8o/arte-odyssey/helpers/cn';
+import { cn } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 export function CnPreview() {

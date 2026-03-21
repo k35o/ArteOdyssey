@@ -1,6 +1,6 @@
 'use client';
 
-import { toPrecision } from '@k8o/arte-odyssey/helpers/number/to-precision';
+import { toPrecision } from '@k8o/arte-odyssey';
 
 const examples = [
   { value: 1.2345, precision: 0 },

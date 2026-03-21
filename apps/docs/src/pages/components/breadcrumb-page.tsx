@@ -52,7 +52,7 @@ export function BreadcrumbPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { Breadcrumb } from '@k8o/arte-odyssey/breadcrumb';"
+          code="import { Breadcrumb } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

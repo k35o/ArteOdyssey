@@ -1,6 +1,6 @@
 'use client';
 
-import { useClickAway } from '@k8o/arte-odyssey/hooks/click-away';
+import { useClickAway } from '@k8o/arte-odyssey';
 import { useState } from 'react';
 
 export function UseClickAwayPreview() {

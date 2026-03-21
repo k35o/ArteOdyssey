@@ -74,7 +74,7 @@ export function ListBoxPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { ListBox } from '@k8o/arte-odyssey/list-box';"
+          code="import { ListBox } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

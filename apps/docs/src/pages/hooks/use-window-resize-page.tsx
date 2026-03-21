@@ -40,7 +40,7 @@ export function UseWindowResizePage() {
           <T k="hooks.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { useWindowResize } from '@k8o/arte-odyssey/hooks/window-resize';"
+          code="import { useWindowResize } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>

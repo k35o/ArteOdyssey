@@ -53,7 +53,7 @@ export function FileFieldPage() {
           <T k="components.common.importTitle" />
         </Heading>
         <CodeBlock
-          code="import { FileField } from '@k8o/arte-odyssey/file-field';"
+          code="import { FileField } from '@k8o/arte-odyssey';"
           lang="ts"
         />
       </section>
