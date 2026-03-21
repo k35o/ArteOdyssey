@@ -65,9 +65,7 @@ const MenuProvider: FC<
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [listNavigation],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
 
   const handleSelect = (index: number) => {
     const key = options[index]?.key;

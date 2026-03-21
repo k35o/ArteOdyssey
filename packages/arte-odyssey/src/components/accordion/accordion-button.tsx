@@ -24,12 +24,7 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       type="button"
     >
       {children}
-      <span
-        className={cn(
-          'transition-transform duration-150',
-          open && 'rotate-180',
-        )}
-      >
+      <span className={cn('transition-transform duration-150', open && 'rotate-180')}>
         <ChevronIcon direction="down" />
       </span>
     </button>

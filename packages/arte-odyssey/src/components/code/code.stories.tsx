@@ -44,8 +44,7 @@ export const NamedColor: Story = {
 
 export const ComplexCSS: Story = {
   args: {
-    children:
-      'background-color: hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',
+    children: 'background-color: hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',
   },
 };
 

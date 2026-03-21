@@ -7,11 +7,7 @@ export const Code: FC<{
   const colors = findAllColors(children);
 
   if (colors.length === 0) {
-    return (
-      <code className="m-0.5 rounded-md bg-bg-mute px-1.5 sm:py-0.5">
-        {children}
-      </code>
-    );
+    return <code className="m-0.5 rounded-md bg-bg-mute px-1.5 sm:py-0.5">{children}</code>;
   }
 
   // 各色の前にカラースウォッチを挿入してコンテンツを構築

@@ -8,8 +8,7 @@ const isInvalidCharacter = (value: string): boolean => {
 };
 
 // 数値になり得ない文字を削除する
-const sanitize = (value: string): string =>
-  value.split('').filter(isInvalidCharacter).join('');
+const sanitize = (value: string): string => value.split('').filter(isInvalidCharacter).join('');
 
 // 数値を綺麗に変換する
 const parse = (value: string | number): number => {
@@ -29,17 +28,10 @@ const countDecimalPlaces = (value: number): number => {
   return p;
 };
 
-export const cast = (
-  value: string,
-  step: number,
-  precision?: number,
-): number => {
+export const cast = (value: string, step: number, precision?: number): number => {
   const parsedValue = parse(sanitize(value));
   if (Number.isNaN(parsedValue)) return 0;
-  const decimalPlaces = Math.max(
-    countDecimalPlaces(step),
-    countDecimalPlaces(parsedValue),
-  );
+  const decimalPlaces = Math.max(countDecimalPlaces(step), countDecimalPlaces(parsedValue));
   return toPrecision(parsedValue, precision ?? decimalPlaces);
 };
 

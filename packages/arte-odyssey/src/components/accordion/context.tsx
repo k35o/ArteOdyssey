@@ -1,13 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  use,
-  useCallback,
-  useState,
-} from 'react';
+import { createContext, type FC, type PropsWithChildren, use, useCallback, useState } from 'react';
 
 const OpenContext = createContext(false);
 

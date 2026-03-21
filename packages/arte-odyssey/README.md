@@ -21,6 +21,7 @@ npm install react react-dom typescript tailwindcss
 ```
 
 Required versions:
+
 - React ≥19.0.0
 - TypeScript ≥5.9.0
 - Tailwind CSS ≥4.0.0
@@ -78,6 +79,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 ## Component Categories
 
 ### Layout & Navigation
+
 - **Accordion** - Collapsible content panels
 - **Breadcrumb** - Navigation path indicator
 - **Card** / **InteractiveCard** - Flexible content container (with hover interaction)
@@ -86,6 +88,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **ScrollLinked** - Scroll progress indicator
 
 ### Form Controls
+
 - **Autocomplete** - Search with suggestions
 - **Checkbox** - Binary selection input
 - **FileField** - File upload with composite pattern
@@ -98,6 +101,7 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **Textarea** - Multi-line text input
 
 ### Buttons & Links
+
 - **Button** - Primary action button
 - **IconButton** - Button with icon only
 - **LinkButton** - Button styled as link
@@ -105,12 +109,14 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **IconLink** - Link with icon
 
 ### Feedback & Status
+
 - **Alert** - Important messages and notifications
 - **Toast** - Temporary notification messages
 - **Progress** - Progress indication
 - **BaselineStatus** - Web standard support indicator
 
 ### Overlays & Modals
+
 - **Dialog** - Modal dialog boxes
 - **Drawer** - Slide-out panel
 - **Modal** - Overlay modal component
@@ -119,11 +125,13 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 - **DropdownMenu** - Action menu component
 
 ### Data Display
+
 - **Code** - Formatted code display
 - **Heading** - Typography heading component
 - **ListBox** - Selectable list component
 
 ### Utilities
+
 - **ErrorBoundary** - Error handling wrapper
 - **ArteOdysseyProvider** - Context providers for the library
 - **Icons** - Icon component collection
@@ -163,16 +171,10 @@ import { Button } from '@k8o/arte-odyssey';
     label="Email"
     isRequired
     errorText={error}
-    renderInput={(props) => (
-      <TextField
-        {...props}
-        id="email"
-        placeholder="Enter your email"
-      />
-    )}
+    renderInput={(props) => <TextField {...props} id="email" placeholder="Enter your email" />}
   />
   <Button type="submit">Submit</Button>
-</form>
+</form>;
 ```
 
 ### Dialog
@@ -187,20 +189,13 @@ function MyComponent() {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>
-        Open Dialog
-      </Button>
+      <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
       {isOpen && (
         <Dialog.Root>
-          <Dialog.Header
-            title="Confirm Action"
-            onClose={() => setIsOpen(false)}
-          />
+          <Dialog.Header title="Confirm Action" onClose={() => setIsOpen(false)} />
           <Dialog.Content>
             <p>Are you sure you want to continue?</p>
-            <Button onClick={() => setIsOpen(false)}>
-              Confirm
-            </Button>
+            <Button onClick={() => setIsOpen(false)}>Confirm</Button>
           </Dialog.Content>
         </Dialog.Root>
       )}

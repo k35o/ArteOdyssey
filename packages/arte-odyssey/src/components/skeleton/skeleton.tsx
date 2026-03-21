@@ -7,11 +7,7 @@ type Props = {
   size?: 'sm' | 'md' | 'lg';
 };
 
-export const Skeleton: FC<Props> = ({
-  animate = true,
-  shape = 'rect',
-  size = 'md',
-}) => {
+export const Skeleton: FC<Props> = ({ animate = true, shape = 'rect', size = 'md' }) => {
   return (
     <div
       aria-hidden={true}

@@ -33,8 +33,7 @@ export const LinkButton = <T extends string>({
   }) => ReactNode;
 }) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
-  const props =
-    type === 'internal' ? {} : { target: '_blank', rel: 'noopener noreferrer' };
+  const props = type === 'internal' ? {} : { target: '_blank', rel: 'noopener noreferrer' };
   const className = cn(
     'rounded-lg border-2 text-center font-bold transition-colors',
     {

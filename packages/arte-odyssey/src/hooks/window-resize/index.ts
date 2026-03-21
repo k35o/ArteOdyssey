@@ -12,10 +12,7 @@ type Options = {
   debounceMs?: number;
 };
 
-export const useWindowResize = (
-  callback: (size: Size) => void,
-  options: Options = {},
-): void => {
+export const useWindowResize = (callback: (size: Size) => void, options: Options = {}): void => {
   const { enabled = true, debounceMs } = options;
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 

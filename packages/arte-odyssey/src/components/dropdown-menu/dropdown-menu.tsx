@@ -21,12 +21,7 @@ import { IconButton } from '../icon-button';
 import { ChevronIcon } from '../icons';
 import { Popover } from '../popover';
 import { useFloatingUIContext } from '../popover/hooks';
-import {
-  MenuContextProvider,
-  useMenuContent,
-  useMenuItem,
-  useMenuTrigger,
-} from './hooks';
+import { MenuContextProvider, useMenuContent, useMenuItem, useMenuTrigger } from './hooks';
 
 const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
   children,
@@ -51,9 +46,7 @@ const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
-    [listNavigation],
-  );
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
 
   return (
     <MenuContextProvider
@@ -90,10 +83,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({
-  label,
-  onClick,
-}) => {
+const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({ label, onClick }) => {
   const props = useMenuItem({ onClick });
 
   return (

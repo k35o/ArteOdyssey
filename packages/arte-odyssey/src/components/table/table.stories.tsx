@@ -64,9 +64,7 @@ export const Empty: Story = {
           </Table.Row>
         </Table.Head>
         <Table.Body>
-          <Table.EmptyState colSpan={3}>
-            No records have been added yet.
-          </Table.EmptyState>
+          <Table.EmptyState colSpan={3}>No records have been added yet.</Table.EmptyState>
         </Table.Body>
       </Table.Root>
     );

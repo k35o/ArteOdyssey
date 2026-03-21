@@ -37,9 +37,7 @@ export const WithContainer: Story = {
           >
             <Story args={{ container: containerRef }} />
             <div className="h-[200vh] p-4">
-              <h2 className="mb-4 font-bold text-xl">
-                コンテナ内スクロールの例
-              </h2>
+              <h2 className="mb-4 font-bold text-xl">コンテナ内スクロールの例</h2>
               <p className="mb-4">
                 このコンテナ内をスクロールすると、上部にプログレスバーが表示されます。
               </p>

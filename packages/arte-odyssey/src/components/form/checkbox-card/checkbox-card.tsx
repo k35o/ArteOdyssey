@@ -62,11 +62,7 @@ export const CheckboxCard: FC<Props> = ({
   return (
     <fieldset
       aria-labelledby={labelId}
-      className={cn(
-        'm-0 w-full min-w-0 border-0 p-0',
-        'grid gap-3',
-        isDisabled && 'opacity-70',
-      )}
+      className={cn('m-0 w-full min-w-0 border-0 p-0', 'grid gap-3', isDisabled && 'opacity-70')}
     >
       {options.map((option) => {
         const checked = selectedValues.includes(option.value);
@@ -79,19 +75,14 @@ export const CheckboxCard: FC<Props> = ({
               'flex w-full min-w-0 rounded-lg border bg-bg-base p-4 text-left transition-colors',
               'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
               checked && 'border-border-info bg-bg-subtle',
-              isInvalid
-                ? 'border-border-error'
-                : 'border-border-mute hover:bg-bg-mute',
-              disabled &&
-                'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
+              isInvalid ? 'border-border-error' : 'border-border-mute hover:bg-bg-mute',
+              disabled && 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
             id={optionId}
             key={option.value}
           >
             <input
-              aria-describedby={
-                option.description ? `${optionId}-description` : undefined
-              }
+              aria-describedby={option.description ? `${optionId}-description` : undefined}
               checked={checked}
               className="sr-only"
               disabled={disabled}
@@ -109,10 +100,7 @@ export const CheckboxCard: FC<Props> = ({
             <span className="flex min-w-0 flex-1 flex-col gap-1">
               <span className="font-medium text-fg-base">{option.label}</span>
               {option.description ? (
-                <span
-                  className="text-fg-mute text-sm"
-                  id={`${optionId}-description`}
-                >
+                <span className="text-fg-mute text-sm" id={`${optionId}-description`}>
                   {option.description}
                 </span>
               ) : null}

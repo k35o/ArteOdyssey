@@ -51,9 +51,7 @@ export const NumberField: FC<Props> = ({
   const initialValue = defaultValue ?? value ?? 0;
 
   const [internalValue, setInternalValue] = useState(initialValue);
-  const [displayValue, setDisplayValue] = useState(
-    initialValue.toFixed(precision),
-  );
+  const [displayValue, setDisplayValue] = useState(initialValue.toFixed(precision));
   const [prevValue, setPrevValue] = useState(initialValue);
 
   const currentValue = isControlled ? value : internalValue;

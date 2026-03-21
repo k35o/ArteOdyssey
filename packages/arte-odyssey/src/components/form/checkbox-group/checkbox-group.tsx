@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  createContext,
-  type FC,
-  type PropsWithChildren,
-  use,
-  useState,
-} from 'react';
+import { createContext, type FC, type PropsWithChildren, use, useState } from 'react';
 import { cn } from '../../../helpers/cn';
 
 type CheckboxGroupContextValue = {
@@ -16,9 +10,7 @@ type CheckboxGroupContextValue = {
   toggleValue: (value: string) => void;
 };
 
-const CheckboxGroupContext = createContext<
-  CheckboxGroupContextValue | undefined
->(undefined);
+const CheckboxGroupContext = createContext<CheckboxGroupContextValue | undefined>(undefined);
 
 export const useCheckboxGroupContext = () => use(CheckboxGroupContext);
 

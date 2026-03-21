@@ -1,13 +1,7 @@
 'use client';
 
 import { useListItem } from '@floating-ui/react';
-import {
-  createContext,
-  type HTMLProps,
-  type RefObject,
-  use,
-  useMemo,
-} from 'react';
+import { createContext, type HTMLProps, type RefObject, use, useMemo } from 'react';
 import { useOpenContext } from '../popover/hooks';
 
 export type Option = {
@@ -21,12 +15,8 @@ type MenuContext = {
   selectedIndex: number | null;
   handleSelect: (index: number) => void;
   itemElementsRef: RefObject<(HTMLElement | null)[]>;
-  getTriggerProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
-  getContentProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
+  getTriggerProps: (userProps?: HTMLProps<HTMLElement>) => Record<string, unknown>;
+  getContentProps: (userProps?: HTMLProps<HTMLElement>) => Record<string, unknown>;
   getItemProps: (
     userProps?: Omit<HTMLProps<HTMLElement>, 'selected' | 'active'>,
   ) => Record<string, unknown>;

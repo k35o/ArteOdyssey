@@ -104,10 +104,7 @@ export const CheckIcon: FC<IconProps> = ({ size = 'md' }) => {
   );
 };
 
-export const AlertIcon: FC<IconProps & { status: Status }> = ({
-  status,
-  size = 'md',
-}) => {
+export const AlertIcon: FC<IconProps & { status: Status }> = ({ status, size = 'md' }) => {
   return (
     <BaseIcon
       renderItem={(props) => {

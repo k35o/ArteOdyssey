@@ -36,11 +36,7 @@ export { ListBox } from './list-box';
 export { Modal } from './modal';
 export { Popover, useOpenContext } from './popover';
 export { Progress } from './progress';
-export {
-  ArteOdysseyProvider,
-  PortalRootProvider,
-  usePortalRoot,
-} from './providers';
+export { ArteOdysseyProvider, PortalRootProvider, usePortalRoot } from './providers';
 export { ScrollLinked } from './scroll-linked';
 export { Separator } from './separator';
 export { Skeleton } from './skeleton';

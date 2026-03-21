@@ -14,12 +14,8 @@ import { useOpenContext } from '../popover/hooks';
 type MenuContext = {
   activeIndex: number | null;
   itemElementsRef: RefObject<(HTMLElement | null)[]>;
-  getTriggerProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
-  getContentProps: (
-    userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
+  getTriggerProps: (userProps?: HTMLProps<HTMLElement>) => Record<string, unknown>;
+  getContentProps: (userProps?: HTMLProps<HTMLElement>) => Record<string, unknown>;
   getItemProps: (
     userProps?: Omit<HTMLProps<HTMLButtonElement>, 'selected' | 'active'>,
   ) => Record<string, unknown>;

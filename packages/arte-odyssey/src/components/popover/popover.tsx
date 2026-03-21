@@ -32,12 +32,7 @@ const Root: FC<
     type?: 'dialog' | 'menu' | 'tooltip' | 'listbox';
     flipDisabled?: boolean;
   }>
-> = ({
-  children,
-  type = 'menu',
-  placement = 'bottom-start',
-  flipDisabled = false,
-}) => {
+> = ({ children, type = 'menu', placement = 'bottom-start', flipDisabled = false }) => {
   const id = useId();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -131,8 +126,7 @@ const Content: FC<{
   renderItem: (props: Record<string, unknown>) => ReactElement;
   motionVariants?: Variants;
 }> = ({ renderItem, motionVariants = contentMotionVariants }) => {
-  const { isOpen, isHover, context, setContentRef, contentStyles, itemProps } =
-    usePopoverContent();
+  const { isOpen, isHover, context, setContentRef, contentStyles, itemProps } = usePopoverContent();
 
   const root = usePortalRoot();
   const protalProps = root ? { root } : {};
@@ -141,18 +135,9 @@ const Content: FC<{
     <AnimatePresence>
       {isOpen && (
         <FloatingPortal {...protalProps}>
-          <FloatingFocusManager
-            context={context}
-            disabled={isHover}
-            modal={false}
-          >
+          <FloatingFocusManager context={context} disabled={isHover} modal={false}>
             <div ref={setContentRef} style={contentStyles}>
-              <motion.div
-                animate="open"
-                exit="closed"
-                initial="closed"
-                variants={motionVariants}
-              >
+              <motion.div animate="open" exit="closed" initial="closed" variants={motionVariants}>
                 {renderItem(itemProps)}
               </motion.div>
             </div>
