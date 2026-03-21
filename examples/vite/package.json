@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vp dev",
     "typecheck": "tsc --noEmit",
-    "check": "biome check",
-    "check:write": "biome check --write ."
+    "check": "vp check",
+    "check:write": "vp check --fix"
   },
   "dependencies": {
     "@k8o/arte-odyssey": "workspace:^",
@@ -17,9 +17,10 @@
   "devDependencies": {
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitejs/plugin-react-swc": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-plus": "catalog:"
   }
 }

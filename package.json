@@ -1,14 +1,14 @@
 {
-  "private": true,
   "name": "arte-odyssey",
-  "type": "module",
+  "private": true,
   "description": "k8o's react ui library",
+  "license": "MIT",
+  "author": "k8o",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/k35o/ArteOdyssey.git"
   },
-  "author": "k8o",
-  "license": "MIT",
+  "type": "module",
   "scripts": {
     "build": "turbo run build --filter='!./examples/**'",
     "test": "turbo run test",
@@ -19,12 +19,7 @@
     "check:write": "turbo run check:write",
     "release": "pnpm build && changeset publish"
   },
-  "engines": {
-    "node": ">=24.13.0"
-  },
-  "packageManager": "pnpm@10.32.1",
   "devDependencies": {
-    "@biomejs/biome": "2.4.6",
     "@changesets/changelog-github": "0.6.0",
     "@changesets/cli": "2.30.0",
     "@commitlint/cli": "20.4.3",
@@ -32,9 +27,13 @@
     "@types/node": "24.12.0",
     "agent-browser": "0.16.3",
     "cosmiconfig": "latest",
-    "lefthook": "2.1.3",
     "playwright": "1.58.2",
     "turbo": "2.8.14",
-    "typescript": "5.9.3"
-  }
+    "typescript": "5.9.3",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=24.13.0"
+  },
+  "packageManager": "pnpm@10.32.1"
 }

@@ -7,8 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "typecheck": "tsc -b",
-    "check": "biome check",
-    "check:write": "biome check --write ."
+    "check": "vp check",
+    "check:write": "vp check --fix"
   },
   "dependencies": {
     "@funstack/router": "1.1.0",
@@ -17,6 +17,7 @@
     "@tailwindcss/postcss": "catalog:",
     "motion": "12.35.1",
     "postcss": "catalog:",
+    "react-error-boundary": "6.1.1",
     "shiki": "4.0.1",
     "tailwindcss": "catalog:"
   },
@@ -26,6 +27,6 @@
     "@vitejs/plugin-react": "5.2.0",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "vite": "catalog:"
+    "vite": "7.3.1"
   }
 }
