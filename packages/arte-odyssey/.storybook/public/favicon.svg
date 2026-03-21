@@ -1,0 +1,6 @@
+<svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- 傘 -->
+  <path d="M20,55 C30,25 70,25 80,55" fill="none" stroke="#5EEAD4" stroke-width="10" stroke-linecap="round"/>
+  <!-- ノード -->
+  <circle cx="25" cy="55" r="8" fill="#67E8F9"/>
+</svg>
