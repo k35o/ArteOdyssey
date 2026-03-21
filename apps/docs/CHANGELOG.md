@@ -1,5 +1,12 @@
 # docs
 
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`602125d`](https://github.com/k35o/ArteOdyssey/commit/602125dcd0f80a4c5b3191349155efca53b243b7), [`cd8edb4`](https://github.com/k35o/ArteOdyssey/commit/cd8edb4f9e1e22f46981d680688f0da4e9641083), [`68e9652`](https://github.com/k35o/ArteOdyssey/commit/68e9652037a48390bcd9c91e7f14e5fab667a663), [`a9ea042`](https://github.com/k35o/ArteOdyssey/commit/a9ea04278950d1851b63358eb97ed8f67b5ced2b), [`a97db65`](https://github.com/k35o/ArteOdyssey/commit/a97db651a1151f57c846de5acf253b34a609039f), [`970d2ed`](https://github.com/k35o/ArteOdyssey/commit/970d2ed6b265ec8be9171cda90beb9dcf1ff90cf)]:
+  - @k8o/arte-odyssey@4.0.0
+
 ## 0.0.1
 
 ### Patch Changes
