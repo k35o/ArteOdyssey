@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 4.1.0
+
+### Minor Changes
+
+- [#339](https://github.com/k35o/ArteOdyssey/pull/339) [`dec8ccb`](https://github.com/k35o/ArteOdyssey/commit/dec8ccba100bc396737e0f1cf2ef512041c099f2) Thanks [@k35o](https://github.com/k35o)! - ArteOdyssey のアイコンを変更
+
 ## 4.0.0
 
 ### Major Changes
