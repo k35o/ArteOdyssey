@@ -63,8 +63,8 @@ importers:
         specifier: 24.12.0
         version: 24.12.0
       agent-browser:
-        specifier: 0.20.0
-        version: 0.20.0
+        specifier: 0.20.6
+        version: 0.20.6
       cosmiconfig:
         specifier: latest
         version: 9.0.1(typescript@5.9.3)
@@ -2076,8 +2076,8 @@ packages:
     engines: {node: '>=0.4.0'}
     hasBin: true
 
-  agent-browser@0.20.0:
-    resolution: {integrity: sha512-SQjQjAhuIMXdqqigSFwfEZjQDixD+snGZI3ORClJB+OR6XFd0uwldxGVnpGcCeKEWhUeeflWya+1WgLEmxm8SQ==}
+  agent-browser@0.20.6:
+    resolution: {integrity: sha512-n5C/txjzKD/5K2Mpw6UPXd++sAaBhPr3xLkVK11PDfTeCD+uo7fzhDIaLvFiccAA8HR57nHxZP+YI8jW3Kdadg==}
     hasBin: true
 
   ajv@8.17.1:
@@ -5352,7 +5352,7 @@ snapshots:
 
   acorn@8.15.0: {}
 
-  agent-browser@0.20.0: {}
+  agent-browser@0.20.6: {}
 
   ajv@8.17.1:
     dependencies:
