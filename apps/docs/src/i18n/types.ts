@@ -56,7 +56,7 @@ export const MESSAGE_KEYS = [
   'components.categoryFeedback',
   'components.categoryOverlays',
   'components.categoryLayout',
-  'components.categoryUtility',
+  'components.categoryMedia',
   'components.common.storybookLink',
   'components.common.importTitle',
   'components.common.usageTitle',

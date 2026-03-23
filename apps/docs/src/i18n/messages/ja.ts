@@ -61,7 +61,7 @@ export const ja = {
   'components.categoryFeedback': 'Feedback',
   'components.categoryOverlays': 'Overlays',
   'components.categoryLayout': 'Layout',
-  'components.categoryUtility': 'Utility',
+  'components.categoryMedia': 'Media',
   'components.common.storybookLink': 'Storybookで確認',
   'components.common.importTitle': 'インポート',
   'components.common.usageTitle': '使い方',

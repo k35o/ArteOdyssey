@@ -58,7 +58,7 @@ export const en = {
   'components.categoryFeedback': 'Feedback',
   'components.categoryOverlays': 'Overlays',
   'components.categoryLayout': 'Layout',
-  'components.categoryUtility': 'Utility',
+  'components.categoryMedia': 'Media',
   'components.common.storybookLink': 'View in Storybook',
   'components.common.importTitle': 'Import',
   'components.common.usageTitle': 'Usage',
