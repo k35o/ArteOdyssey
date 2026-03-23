@@ -1,0 +1,85 @@
+# CLAUDE.md — apps/docs
+
+Documentation site for `@k8o/arte-odyssey`, built with Vite and `@funstack/router`.
+
+## Commands
+
+```bash
+pnpm dev               # Start dev server
+pnpm build             # Production build
+pnpm typecheck         # Type check
+pnpm check             # Oxlint/Oxfmt lint/format check
+pnpm check:write       # Oxlint/Oxfmt lint/format auto-fix
+```
+
+## Architecture
+
+- **Routing**: `@funstack/router` with `@funstack/static` for SSG
+- **i18n**: Custom i18n system in `src/i18n/` with locale-based routing (`/ja/`, `/en/`)
+- **Styling**: Tailwind CSS 4, uses `@k8o/arte-odyssey` design tokens
+- **Root provider**: `ArteOdysseyProvider` wraps the entire app in `src/router.tsx`
+
+### Directory Structure
+```
+src/
+  app.tsx              # App entry with route definitions
+  router.tsx           # Router wrapper with ArteOdysseyProvider
+  constants.ts         # Shared constants (e.g. STORYBOOK_URL)
+  components/          # Shared doc components (CodeBlock, PropsTable, etc.)
+  data/                # Navigation data (components-nav, helpers-nav, hooks-nav)
+  i18n/                # i18n system (context, locales, messages, utils)
+  layouts/             # Layout components (locale-layout)
+  pages/               # Documentation pages
+    components/        # Component doc pages + _previews/
+    helpers/           # Helper doc pages + _previews/
+    hooks/             # Hook doc pages + _previews/
+  styles/              # CSS entry
+  theme/               # Theme utilities
+```
+
+## Page Patterns
+
+### Component Documentation Page
+
+Each component/helper/hook has a dedicated page file (`<name>-page.tsx`) following this structure:
+
+1. **Header**: `Heading` + description via `<T>` i18n component + Storybook link
+2. **Import section**: `CodeBlock` showing import statement
+3. **Usage section**: Multiple `ComponentPreview` blocks demonstrating variants, sizes, states, etc.
+4. **Props table**: `PropsTable` with `PropItem[]` array
+
+```tsx
+export function ButtonPage() {
+  return (
+    <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      {/* Header */}
+      {/* Import */}
+      {/* Usage examples with ComponentPreview */}
+      {/* Props table */}
+    </div>
+  );
+}
+```
+
+### Preview Components
+
+Complex interactive previews live in `_previews/<name>-previews.tsx` and are imported by the page.
+
+## Shared Doc Components
+
+| Component          | Purpose                                     |
+| ------------------ | ------------------------------------------- |
+| `CodeBlock`        | Syntax-highlighted code with Shiki          |
+| `ComponentPreview` | Live preview + code block combo             |
+| `PropsTable`       | Props documentation table                   |
+| `T`                | i18n translation component                  |
+| `InstallTabs`      | Package manager install command tabs         |
+| `TokenCard`        | Design token display card                   |
+
+## Key Dependencies
+
+- **@funstack/router** + **@funstack/static** for routing and SSG
+- **@k8o/arte-odyssey** (workspace) for UI components
+- **shiki** for syntax highlighting
+- **motion** for animations
+- **react-error-boundary** for error handling
