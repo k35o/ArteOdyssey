@@ -6,7 +6,6 @@ import { useState } from 'react';
 export function DialogBasicPreview() {
   return (
     <Dialog.Root>
-      {/* biome-ignore lint/suspicious/noEmptyBlockStatements: noop for demo */}
       <Dialog.Header onClose={() => {}} title="Dialog Title" />
       <Dialog.Content>Dialog content here</Dialog.Content>
     </Dialog.Root>

@@ -11,7 +11,6 @@ export function ScrollLinkedBasicPreview() {
         aria-label="Scroll demo container"
         className="relative h-64 overflow-y-scroll rounded-lg border border-border-mute"
         ref={containerRef}
-        // biome-ignore lint/a11y/noNoninteractiveTabindex: Scrollable region requires keyboard access
         tabIndex={0}
       >
         <ScrollLinked container={containerRef} />
@@ -22,11 +21,7 @@ export function ScrollLinkedBasicPreview() {
           </p>
           <div className="space-y-4">
             {Array.from({ length: 15 }, (_, i) => (
-              <p
-                className="rounded-lg bg-bg-mute p-4"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static demo content
-                key={`block-${i}`}
-              >
+              <p className="rounded-lg bg-bg-mute p-4" key={`block-${i}`}>
                 Content block {i + 1}
               </p>
             ))}

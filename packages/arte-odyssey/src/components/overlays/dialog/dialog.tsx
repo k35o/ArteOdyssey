@@ -69,8 +69,6 @@ const Header: FC<{
 const Content: FC<PropsWithChildren> = ({ children }) => {
   const { rootId } = useDialogContext();
   return (
-    // biome-ignore lint/a11y/noStaticElementInteractions: propagationなので
-    // biome-ignore lint/a11y/useKeyWithClickEvents: propagationなので
     <div
       className="p-4"
       id={`${rootId}-content`}
