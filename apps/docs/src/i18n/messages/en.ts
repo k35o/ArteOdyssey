@@ -195,6 +195,7 @@ export const en = {
   'components.breadcrumb.sizesTitle': 'Sizes',
   'components.scrollLinked.description': 'A progress bar linked to scroll position.',
   'components.icons.description': 'A catalog of icon components provided by ArteOdyssey.',
+  'components.icons.sizesTitle': 'Sizes',
   'components.errorBoundary.description': 'An error boundary component.',
   'components.common.basicUsageTitle': 'Basic Usage',
   'components.modal.typesTitle': 'Types',
