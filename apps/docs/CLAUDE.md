@@ -20,6 +20,7 @@ pnpm check:write       # Oxlint/Oxfmt lint/format auto-fix
 - **Root provider**: `ArteOdysseyProvider` wraps the entire app in `src/router.tsx`
 
 ### Directory Structure
+
 ```
 src/
   app.tsx              # App entry with route definitions
@@ -67,14 +68,14 @@ Complex interactive previews live in `_previews/<name>-previews.tsx` and are imp
 
 ## Shared Doc Components
 
-| Component          | Purpose                                     |
-| ------------------ | ------------------------------------------- |
-| `CodeBlock`        | Syntax-highlighted code with Shiki          |
-| `ComponentPreview` | Live preview + code block combo             |
-| `PropsTable`       | Props documentation table                   |
-| `T`                | i18n translation component                  |
-| `InstallTabs`      | Package manager install command tabs         |
-| `TokenCard`        | Design token display card                   |
+| Component          | Purpose                              |
+| ------------------ | ------------------------------------ |
+| `CodeBlock`        | Syntax-highlighted code with Shiki   |
+| `ComponentPreview` | Live preview + code block combo      |
+| `PropsTable`       | Props documentation table            |
+| `T`                | i18n translation component           |
+| `InstallTabs`      | Package manager install command tabs |
+| `TokenCard`        | Design token display card            |
 
 ## @funstack/router
 
