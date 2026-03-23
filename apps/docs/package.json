@@ -15,7 +15,7 @@
     "@funstack/static": "1.1.0",
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/postcss": "catalog:",
-    "motion": "12.36.0",
+    "motion": "12.37.0",
     "postcss": "catalog:",
     "react-error-boundary": "6.1.1",
     "shiki": "4.0.2",
