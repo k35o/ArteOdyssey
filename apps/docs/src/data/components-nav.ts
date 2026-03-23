@@ -80,7 +80,7 @@ export const componentCategories: NavCategory[] = [
     ],
   },
   {
-    titleKey: 'components.categoryUtility',
+    titleKey: 'components.categoryMedia',
     items: [{ name: 'Icons', path: '/components/icons' }],
   },
 ];

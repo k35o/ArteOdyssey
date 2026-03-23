@@ -93,6 +93,32 @@ export function IconsPage() {
       </section>
       <Separator color="mute" />
 
+      {/* Sizes */}
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="components.icons.sizesTitle" />
+        </Heading>
+        <div className="flex items-end gap-6">
+          {(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const).map((size) => (
+            <div key={size} className="flex flex-col items-center gap-2">
+              <CheckIcon size={size} />
+              <p className="text-fg-mute text-sm">{size}</p>
+            </div>
+          ))}
+        </div>
+        <CodeBlock
+          code={`<CheckIcon size="xs" />  {/* 12px */}
+<CheckIcon size="sm" />  {/* 16px */}
+<CheckIcon size="md" />  {/* 24px (default) */}
+<CheckIcon size="lg" />  {/* 32px */}
+<CheckIcon size="xl" />  {/* 40px */}
+<CheckIcon size="2xl" /> {/* 48px */}
+<CheckIcon size="3xl" /> {/* 56px */}`}
+          lang="tsx"
+        />
+      </section>
+      <Separator color="mute" />
+
       {/* Icon Gallery */}
       <section className="flex flex-col gap-4">
         <Heading type="h2">
