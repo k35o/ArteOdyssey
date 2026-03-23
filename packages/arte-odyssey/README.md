@@ -66,15 +66,9 @@ function MyPage() {
 }
 ```
 
-## AI Agent Skills
+## AI Agent Documentation
 
-ArteOdyssey provides an Agent Skill for AI coding assistants. It gives your agent knowledge of the design system, component APIs, and design principles.
-
-```bash
-npx skills add k35o/ArteOdyssey --skill arte-odyssey-usage
-```
-
-Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](https://agentskills.io/) compatible tools.
+ArteOdyssey includes design system documentation in `docs/` directory. When installed via npm, AI coding assistants can reference `node_modules/@k8o/arte-odyssey/docs/GUIDE.md` for design principles, component APIs, and usage patterns.
 
 ## Component Categories
 
