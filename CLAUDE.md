@@ -28,8 +28,6 @@ packages/
 examples/
   vite/                # Example Vite app
   nextjs/              # Example Next.js app
-skills/
-  arte-odyssey-usage/  # AI agent skill for library consumers
 ```
 
 ## Development Commands

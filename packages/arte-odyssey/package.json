@@ -20,7 +20,8 @@
     "url": "git+https://github.com/k35o/ArteOdyssey.git"
   },
   "files": [
-    "dist/**"
+    "dist/**",
+    "docs/**"
   ],
   "type": "module",
   "sideEffects": [

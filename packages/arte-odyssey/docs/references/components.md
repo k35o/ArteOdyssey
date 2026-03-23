@@ -24,10 +24,8 @@ import { Card } from '@k8o/arte-odyssey/card';
 import { Accordion, AccordionItem } from '@k8o/arte-odyssey/accordion';
 
 <Accordion>
-  <AccordionItem title="セクション1">
-    コンテンツ
-  </AccordionItem>
-</Accordion>
+  <AccordionItem title="セクション1">コンテンツ</AccordionItem>
+</Accordion>;
 ```
 
 ### Breadcrumb
@@ -41,7 +39,7 @@ import { Breadcrumb, BreadcrumbItem } from '@k8o/arte-odyssey/breadcrumb';
   <BreadcrumbItem href="/">ホーム</BreadcrumbItem>
   <BreadcrumbItem href="/products">製品</BreadcrumbItem>
   <BreadcrumbItem>詳細</BreadcrumbItem>
-</Breadcrumb>
+</Breadcrumb>;
 ```
 
 ### Card / InteractiveCard
@@ -63,6 +61,7 @@ import { Card, InteractiveCard } from '@k8o/arte-odyssey/card';
 ```
 
 Props:
+
 - `variant`: `'primary'` | `'secondary'`
 - `title`: string
 - `width`: `'full'` | `'fit'`
@@ -82,7 +81,7 @@ import { Tabs, TabList, Tab, TabPanel } from '@k8o/arte-odyssey/tabs';
   </TabList>
   <TabPanel>パネル1</TabPanel>
   <TabPanel>パネル2</TabPanel>
-</Tabs>
+</Tabs>;
 ```
 
 ### Separator
@@ -138,10 +137,11 @@ import { IconButton } from '@k8o/arte-odyssey/icon-button';
 
 <IconButton label="閉じる" bg="transparent" size="md">
   <XIcon />
-</IconButton>
+</IconButton>;
 ```
 
 Props:
+
 - `bg`: `'transparent'` | `'base'` | `'primary'`（デフォルト: `'transparent'`）
 - `size`: `'sm'` | `'md'` | `'lg'`
 - `label`: string（必須、aria-label として使用）
@@ -153,7 +153,9 @@ Props:
 ```tsx
 import { LinkButton } from '@k8o/arte-odyssey/link-button';
 
-<LinkButton href="/page" color="gray" variant="outlined">リンク</LinkButton>
+<LinkButton href="/page" color="gray" variant="outlined">
+  リンク
+</LinkButton>;
 ```
 
 ### IconLink
@@ -165,7 +167,7 @@ import { IconLink } from '@k8o/arte-odyssey/icon-link';
 
 <IconLink href="/home" bg="base" label="ホーム">
   <HomeIcon />
-</IconLink>
+</IconLink>;
 ```
 
 ### Anchor
@@ -177,7 +179,7 @@ import { Anchor } from '@k8o/arte-odyssey/anchor';
 
 <Anchor href="https://example.com" isExternal>
   外部リンク
-</Anchor>
+</Anchor>;
 ```
 
 ## フォーム
@@ -187,7 +189,7 @@ import { Anchor } from '@k8o/arte-odyssey/anchor';
 ```tsx
 import { TextField } from '@k8o/arte-odyssey/text-field';
 
-<TextField id="email" defaultValue="" placeholder="example@mail.com" />
+<TextField id="email" defaultValue="" placeholder="example@mail.com" />;
 ```
 
 ### Textarea
@@ -195,7 +197,7 @@ import { TextField } from '@k8o/arte-odyssey/text-field';
 ```tsx
 import { Textarea } from '@k8o/arte-odyssey/textarea';
 
-<Textarea label="説明" rows={4} value={value} onChange={onChange} />
+<Textarea label="説明" rows={4} value={value} onChange={onChange} />;
 ```
 
 ### Checkbox
@@ -203,7 +205,9 @@ import { Textarea } from '@k8o/arte-odyssey/textarea';
 ```tsx
 import { Checkbox } from '@k8o/arte-odyssey/checkbox';
 
-<Checkbox checked={checked} onChange={onChange}>同意する</Checkbox>
+<Checkbox checked={checked} onChange={onChange}>
+  同意する
+</Checkbox>;
 ```
 
 ### Radio
@@ -220,7 +224,7 @@ import { Radio } from '@k8o/arte-odyssey/radio';
     { value: 'b', label: '選択肢B' },
   ]}
   value={value}
-/>
+/>;
 ```
 
 ### Select
@@ -236,7 +240,7 @@ import { Select } from '@k8o/arte-odyssey/select';
   ]}
   value={value}
   onChange={onChange}
-/>
+/>;
 ```
 
 ### NumberField
@@ -244,7 +248,7 @@ import { Select } from '@k8o/arte-odyssey/select';
 ```tsx
 import { NumberField } from '@k8o/arte-odyssey/number-field';
 
-<NumberField label="数量" min={0} max={100} value={value} onChange={onChange} />
+<NumberField label="数量" min={0} max={100} value={value} onChange={onChange} />;
 ```
 
 ### RangeField
@@ -252,7 +256,7 @@ import { NumberField } from '@k8o/arte-odyssey/number-field';
 ```tsx
 import { RangeField } from '@k8o/arte-odyssey/range-field';
 
-<RangeField label="音量" min={0} max={100} value={value} onChange={onChange} />
+<RangeField label="音量" min={0} max={100} value={value} onChange={onChange} />;
 ```
 
 ### Autocomplete
@@ -260,7 +264,7 @@ import { RangeField } from '@k8o/arte-odyssey/range-field';
 ```tsx
 import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
 
-<Autocomplete label="検索" options={options} value={value} onChange={onChange} />
+<Autocomplete label="検索" options={options} value={value} onChange={onChange} />;
 ```
 
 ### FileField
@@ -273,10 +277,11 @@ import { FileField } from '@k8o/arte-odyssey/file-field';
 <FileField.Root accept="image/*" multiple maxFiles={5}>
   <FileField.Trigger>ファイルを選択</FileField.Trigger>
   <FileField.ItemList />
-</FileField.Root>
+</FileField.Root>;
 ```
 
 Props (Root):
+
 - `accept`: string
 - `multiple`: boolean
 - `maxFiles`: number
@@ -291,7 +296,7 @@ import { FormControl } from '@k8o/arte-odyssey/form-control';
 
 <FormControl label="ラベル" error="エラーメッセージ" isRequired>
   <TextField id="name" />
-</FormControl>
+</FormControl>;
 ```
 
 ## フィードバック
@@ -320,7 +325,7 @@ toast.show({ message: '保存しました', status: 'success' });
 ```tsx
 import { Progress } from '@k8o/arte-odyssey/progress';
 
-<Progress value={50} max={100} />
+<Progress value={50} max={100} />;
 ```
 
 ### BaselineStatus
@@ -330,7 +335,7 @@ Web API のブラウザサポート状況を表示。
 ```tsx
 import { BaselineStatus } from '@k8o/arte-odyssey/baseline-status';
 
-<BaselineStatus featureId="dialog" />
+<BaselineStatus featureId="dialog" />;
 ```
 
 ## オーバーレイ
@@ -342,7 +347,7 @@ import { Dialog } from '@k8o/arte-odyssey/dialog';
 
 <Dialog open={open} onClose={onClose} title="確認">
   コンテンツ
-</Dialog>
+</Dialog>;
 ```
 
 ### Drawer
@@ -352,7 +357,7 @@ import { Drawer } from '@k8o/arte-odyssey/drawer';
 
 <Drawer open={open} onClose={onClose} position="right">
   コンテンツ
-</Drawer>
+</Drawer>;
 ```
 
 ### Modal
@@ -362,7 +367,7 @@ import { Modal } from '@k8o/arte-odyssey/modal';
 
 <Modal open={open} onClose={onClose}>
   コンテンツ
-</Modal>
+</Modal>;
 ```
 
 ### Popover
@@ -370,9 +375,7 @@ import { Modal } from '@k8o/arte-odyssey/modal';
 ```tsx
 import { Popover } from '@k8o/arte-odyssey/popover';
 
-<Popover trigger={<Button>開く</Button>}>
-  ポップオーバーコンテンツ
-</Popover>
+<Popover trigger={<Button>開く</Button>}>ポップオーバーコンテンツ</Popover>;
 ```
 
 ### Tooltip
@@ -382,7 +385,7 @@ import { Tooltip } from '@k8o/arte-odyssey/tooltip';
 
 <Tooltip content="ヒント">
   <Button>ホバー</Button>
-</Tooltip>
+</Tooltip>;
 ```
 
 ### DropdownMenu
@@ -393,7 +396,7 @@ import { DropdownMenu, DropdownMenuItem } from '@k8o/arte-odyssey/dropdown-menu'
 <DropdownMenu trigger={<Button>メニュー</Button>}>
   <DropdownMenuItem onClick={handleClick}>アイテム1</DropdownMenuItem>
   <DropdownMenuItem>アイテム2</DropdownMenuItem>
-</DropdownMenu>
+</DropdownMenu>;
 ```
 
 ## データ表示
@@ -403,9 +406,7 @@ import { DropdownMenu, DropdownMenuItem } from '@k8o/arte-odyssey/dropdown-menu'
 ```tsx
 import { Code } from '@k8o/arte-odyssey/code';
 
-<Code language="typescript">
-  {`const x = 1;`}
-</Code>
+<Code language="typescript">{`const x = 1;`}</Code>;
 ```
 
 ### Heading
@@ -413,7 +414,7 @@ import { Code } from '@k8o/arte-odyssey/code';
 ```tsx
 import { Heading } from '@k8o/arte-odyssey/heading';
 
-<Heading level={1}>見出し</Heading>
+<Heading level={1}>見出し</Heading>;
 ```
 
 ### TextTag
@@ -421,7 +422,7 @@ import { Heading } from '@k8o/arte-odyssey/heading';
 ```tsx
 import { TextTag } from '@k8o/arte-odyssey/text-tag';
 
-<TextTag>タグ</TextTag>
+<TextTag>タグ</TextTag>;
 ```
 
 ### ListBox
@@ -432,7 +433,7 @@ import { ListBox, ListBoxItem } from '@k8o/arte-odyssey/list-box';
 <ListBox>
   <ListBoxItem>アイテム1</ListBoxItem>
   <ListBoxItem>アイテム2</ListBoxItem>
-</ListBox>
+</ListBox>;
 ```
 
 ## ユーティリティ
@@ -444,5 +445,5 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
 
 <ArteOdysseyProvider>
   <App />
-</ArteOdysseyProvider>
+</ArteOdysseyProvider>;
 ```

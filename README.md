@@ -20,15 +20,9 @@ pnpm add @k8o/arte-odyssey
 yarn add @k8o/arte-odyssey
 ```
 
-## AI Agent Skills
+## AI Agent Documentation
 
-ArteOdyssey provides an [Agent Skill](https://agentskills.io/) for AI coding assistants. It gives your agent knowledge of the design system, component APIs, and design principles.
-
-```bash
-npx skills add k35o/ArteOdyssey --skill arte-odyssey-usage
-```
-
-Compatible with Claude Code, Cursor, GitHub Copilot, and other Agent Skills compatible tools.
+ArteOdyssey includes design system documentation in the published npm package. When installed, AI coding assistants can reference `node_modules/@k8o/arte-odyssey/docs/GUIDE.md` for design principles, component APIs, and usage patterns.
 
 ## Development
 
@@ -66,8 +60,6 @@ packages/
 examples/
   vite/                  # Vite example application
   nextjs/                # Next.js example application
-skills/
-  arte-odyssey-usage/    # AI agent skill for library users
 ```
 
 ### Available Scripts
