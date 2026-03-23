@@ -18,7 +18,6 @@ import { CodePage } from './pages/components/code-page';
 import { DialogPage } from './pages/components/dialog-page';
 import { DrawerPage } from './pages/components/drawer-page';
 import { DropdownMenuPage } from './pages/components/dropdown-menu-page';
-import { ErrorBoundaryPage } from './pages/components/error-boundary-page';
 import { FileFieldPage } from './pages/components/file-field-page';
 import { FormControlPage } from './pages/components/form-control-page';
 import { HeadingPage } from './pages/components/heading-page';
@@ -271,10 +270,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/icons',
         component: <IconsPage />,
-      }),
-      route({
-        path: '/components/error-boundary',
-        component: <ErrorBoundaryPage />,
       }),
       route({
         path: '/theming',

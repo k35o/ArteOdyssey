@@ -1,7 +1,8 @@
 'use client';
 
 import { Outlet, useLocation } from '@funstack/router';
-import { Drawer, ErrorBoundary, Heading, IconButton, ListIcon, Separator } from '@k8o/arte-odyssey';
+import { Drawer, Heading, IconButton, ListIcon, Separator } from '@k8o/arte-odyssey';
+import { ErrorBoundary } from 'react-error-boundary';
 import { useEffect, useState } from 'react';
 import { ErrorFallback } from '../components/error-fallback';
 import { LocaleAnchor } from '../components/locale-anchor';

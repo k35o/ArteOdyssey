@@ -132,7 +132,6 @@ Compatible with Claude Code, Cursor, GitHub Copilot, and other [Agent Skills](ht
 
 ### Utilities
 
-- **ErrorBoundary** - Error handling wrapper
 - **ArteOdysseyProvider** - Context providers for the library
 - **Icons** - Icon component collection
 

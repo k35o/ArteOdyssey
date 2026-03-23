@@ -807,16 +807,6 @@ Props:
 
 ## ユーティリティ
 
-### ErrorBoundary
-
-```tsx
-import { ErrorBoundary } from '@k8o/arte-odyssey';
-
-<ErrorBoundary fallback={<div>エラーが発生しました</div>}>
-  <App />
-</ErrorBoundary>
-```
-
 ### ArteOdysseyProvider
 
 ```tsx

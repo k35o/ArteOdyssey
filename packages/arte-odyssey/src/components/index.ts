@@ -44,4 +44,3 @@ export { Modal } from './overlays/modal';
 export { Popover, useOpenContext } from './overlays/popover';
 export { Tooltip } from './overlays/tooltip';
 export { ArteOdysseyProvider, PortalRootProvider, usePortalRoot } from './providers';
-export { ErrorBoundary } from './utility/error-boundary';

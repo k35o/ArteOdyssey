@@ -437,16 +437,6 @@ import { ListBox, ListBoxItem } from '@k8o/arte-odyssey/list-box';
 
 ## ユーティリティ
 
-### ErrorBoundary
-
-```tsx
-import { ErrorBoundary } from '@k8o/arte-odyssey/error-boundary';
-
-<ErrorBoundary fallback={<div>エラーが発生しました</div>}>
-  <App />
-</ErrorBoundary>
-```
-
 ### ArteOdysseyProvider
 
 ```tsx
