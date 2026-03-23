@@ -181,11 +181,21 @@ import { ArteOdysseyProvider, Button } from '@k8o/arte-odyssey';
 ### フォーム
 
 ```tsx
-<TextField id="email" placeholder="example@mail.com" />
+<FormControl
+  label="メールアドレス"
+  isRequired
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
+/>
 <Separator className="my-8" />
 <FileField.Root accept="image/*" multiple>
-  <FileField.Trigger>ファイルを選択</FileField.Trigger>
-  <FileField.ItemList />
+  <FileField.Trigger
+    renderItem={({ onClick, disabled }) => (
+      <Button onClick={onClick} disabled={disabled}>ファイルを選択</Button>
+    )}
+  />
+  <FileField.ItemList clearable />
 </FileField.Root>
 ```
 

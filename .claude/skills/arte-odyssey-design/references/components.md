@@ -13,6 +13,36 @@ import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 import { Button, Card, Dialog } from '@k8o/arte-odyssey';
 ```
 
+## アイコン
+
+すべてのアイコンは `size` prop を受け取る。
+
+```tsx
+import { CheckIcon, ChevronIcon, AlertIcon } from '@k8o/arte-odyssey';
+
+<CheckIcon size="md" />
+<ChevronIcon direction="right" size="sm" />
+<AlertIcon status="error" size="lg" />
+```
+
+Props:
+- `size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl'`（デフォルト: `'md'`）
+
+サイズマッピング:
+| サイズ | クラス | ピクセル |
+|--------|--------|---------|
+| `xs` | `size-3` | 12px |
+| `sm` | `size-4` | 16px |
+| `md` | `size-6` | 24px |
+| `lg` | `size-8` | 32px |
+| `xl` | `size-10` | 40px |
+| `2xl` | `size-12` | 48px |
+| `3xl` | `size-14` | 56px |
+
+特殊アイコン:
+- `ChevronIcon`: `direction: 'up' | 'down' | 'left' | 'right'`（必須）
+- `AlertIcon`: `status: 'success' | 'info' | 'warning' | 'error'`（必須）
+
 ## レイアウト・ナビゲーション
 
 ### Accordion
@@ -201,7 +231,7 @@ import { Button } from '@k8o/arte-odyssey';
 import { IconButton } from '@k8o/arte-odyssey';
 
 <IconButton label="閉じる" bg="transparent" size="md">
-  <XIcon />
+  <CloseIcon />
 </IconButton>
 ```
 
@@ -222,6 +252,12 @@ import { LinkButton } from '@k8o/arte-odyssey';
 </LinkButton>
 ```
 
+Props:
+- `href`: string（必須）
+- `openInNewTab?: boolean`
+- `renderAnchor?: FC`（カスタムアンカーコンポーネント）
+- `active?: boolean`
+
 ### IconLink
 
 アイコンのみのリンク。IconButton と同じ `bg` prop。
@@ -233,6 +269,11 @@ import { IconLink } from '@k8o/arte-odyssey';
   <HomeIcon />
 </IconLink>
 ```
+
+Props:
+- `href`: string（必須）
+- `openInNewTab?: boolean`
+- `renderAnchor?: FC`
 
 ### Anchor
 
@@ -248,6 +289,32 @@ import { Anchor } from '@k8o/arte-odyssey';
 
 ## フォーム
 
+### FormControl
+
+フォームフィールドのラッパー。`renderInput` で入力コンポーネントに id / isDisabled 等を渡す。
+
+```tsx
+import { FormControl } from '@k8o/arte-odyssey';
+
+<FormControl
+  label="メールアドレス"
+  helpText="連絡先として使用します"
+  errorText={errors.email}
+  isRequired
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
+/>
+```
+
+Props:
+- `label`: string（必須）
+- `labelAs?: 'label' | 'legend'`（デフォルト: `'label'`）
+- `helpText?: string`
+- `errorText?: string`
+- `isDisabled?: boolean`, `isInvalid?: boolean`, `isRequired?: boolean`
+- `renderInput`: `(props: { id, describedbyId, labelId, isDisabled, isInvalid, isRequired }) => ReactElement`（必須）
+
 ### TextField
 
 テキスト入力。
@@ -257,10 +324,19 @@ import { TextField } from '@k8o/arte-odyssey';
 
 <TextField
   id="email"
-  defaultValue=""
+  describedbyId={describedbyId}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
   placeholder="example@mail.com"
 />
 ```
+
+Props:
+- `id: string`, `name?: string`, `describedbyId?: string`
+- `isInvalid?: boolean`, `isDisabled?: boolean`, `isRequired?: boolean`
+- `placeholder?: string`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### Textarea
 
@@ -270,22 +346,39 @@ import { TextField } from '@k8o/arte-odyssey';
 import { Textarea } from '@k8o/arte-odyssey';
 
 <Textarea
-  label="説明"
+  id="description"
+  describedbyId={describedbyId}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
   rows={4}
-  value={value}
-  onChange={onChange}
+  fullHeight={false}
+  autoResize={false}
 />
 ```
+
+Props:
+- `id: string`, `name?: string`, `describedbyId: string | undefined`
+- `isInvalid: boolean`, `isDisabled: boolean`, `isRequired: boolean`
+- `rows?: number`, `fullHeight?: boolean`, `autoResize?: boolean`
+- `placeholder?: string`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### Checkbox
 
 ```tsx
 import { Checkbox } from '@k8o/arte-odyssey';
 
-<Checkbox checked={checked} onChange={onChange}>
-  同意する
-</Checkbox>
+<Checkbox label="同意する" isDisabled={false} />
+// CheckboxGroup 内で使う場合
+<Checkbox label="選択肢A" itemValue="a" />
 ```
+
+Props:
+- `label: string`（必須）
+- `itemValue?: string`（CheckboxGroup 内で必須）
+- `isDisabled?: boolean`
+- Controlled: `value: boolean` + `onChange` / Uncontrolled: `defaultChecked`
 
 ### CheckboxGroup
 
@@ -295,15 +388,18 @@ import { Checkbox } from '@k8o/arte-odyssey';
 import { CheckboxGroup } from '@k8o/arte-odyssey';
 
 <CheckboxGroup name="options" value={value} onChange={onChange}>
-  <CheckboxGroup.Item value="a">選択肢A</CheckboxGroup.Item>
-  <CheckboxGroup.Item value="b">選択肢B</CheckboxGroup.Item>
+  <CheckboxGroup.Item itemValue="a" label="選択肢A" />
+  <CheckboxGroup.Item itemValue="b" label="選択肢B" />
 </CheckboxGroup>
 ```
 
 Props (Root):
-- `name`: string（必須）
-- `value?: string[]`, `onChange?: (value: string[]) => void`, `defaultValue?: string[]`
+- `name: string`（必須）
+- `labelId?: string`, `describedbyId?: string`
 - `isDisabled?: boolean`, `isInvalid?: boolean`, `isRequired?: boolean`
+- Controlled: `value: string[]` + `onChange` / Uncontrolled: `defaultValue?: string[]`
+
+Note: `CheckboxGroup.Item` は `Checkbox` コンポーネントのエイリアス。
 
 ### CheckboxCard
 
@@ -324,21 +420,35 @@ import { CheckboxCard } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `isDisabled`: boolean（必須）
-- `options`: `ReadonlyArray<{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }>`
-- `value?: string[]`, `onChange?: (value: string[]) => void`, `defaultValue?: string[]`
+- `isDisabled: boolean`（必須）
+- `options: ReadonlyArray<{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }>`
 - `isInvalid?: boolean`
+- Controlled: `value: string[]` + `onChange` / Uncontrolled: `defaultValue?: string[]`
 
 ### Radio
+
+ラジオボタン。options prop でアイテムを定義。
 
 ```tsx
 import { Radio } from '@k8o/arte-odyssey';
 
-<Radio value={value} onChange={onChange}>
-  <Radio.Item value="a">選択肢A</Radio.Item>
-  <Radio.Item value="b">選択肢B</Radio.Item>
-</Radio>
+<Radio
+  labelId="plan-label"
+  isDisabled={false}
+  options={[
+    { value: 'a', label: '選択肢A' },
+    { value: 'b', label: '選択肢B' },
+  ]}
+  value={value}
+  onChange={onChange}
+/>
 ```
+
+Props:
+- `labelId: string`（必須）
+- `isDisabled: boolean`（必須）
+- `options: readonly Option[]`（`{ value: string; label: string }`）
+- Controlled: `value: string` + `onChange` / Uncontrolled: `defaultValue?: string`
 
 ### RadioCard
 
@@ -360,11 +470,11 @@ import { RadioCard } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `labelId`: string（必須）
-- `isDisabled`: boolean（必須）
-- `options`: `ReadonlyArray<{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }>`
-- `value?: string`, `onChange?: ChangeEventHandler`, `defaultValue?: string`
+- `labelId: string`（必須）
+- `isDisabled: boolean`（必須）
+- `options: ReadonlyArray<{ value: string; label: string; description?: string; visual?: ReactNode; disabled?: boolean }>`
 - `isInvalid?: boolean`
+- Controlled: `value: string` + `onChange` / Uncontrolled: `defaultValue?: string`
 
 ### Select
 
@@ -372,7 +482,11 @@ Props:
 import { Select } from '@k8o/arte-odyssey';
 
 <Select
-  label="選択"
+  id="category"
+  describedbyId={describedbyId}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
   options={[
     { value: '1', label: 'オプション1' },
     { value: '2', label: 'オプション2' },
@@ -382,6 +496,12 @@ import { Select } from '@k8o/arte-odyssey';
 />
 ```
 
+Props:
+- `id: string`, `describedbyId?: string`
+- `isInvalid: boolean`, `isDisabled: boolean`, `isRequired: boolean`
+- `options: readonly Option[]`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
+
 ### NumberField
 
 数値入力。
@@ -390,13 +510,25 @@ import { Select } from '@k8o/arte-odyssey';
 import { NumberField } from '@k8o/arte-odyssey';
 
 <NumberField
-  label="数量"
+  id="quantity"
+  describedbyId={describedbyId}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
   min={0}
   max={100}
-  value={value}
-  onChange={onChange}
+  step={1}
+  precision={0}
+  placeholder="0"
 />
 ```
+
+Props:
+- `id: string`, `describedbyId?: string`
+- `isInvalid: boolean`, `isDisabled: boolean`, `isRequired: boolean`
+- `min?: number`, `max?: number`, `step?: number`, `precision?: number`
+- `placeholder?: string`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### Slider
 
@@ -418,9 +550,9 @@ import { Slider } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `isDisabled`: boolean（必須）, `isInvalid`: boolean（必須）, `isRequired`: boolean（必須）
+- `isDisabled: boolean`（必須）, `isInvalid: boolean`（必須）, `isRequired: boolean`（必須）
 - `min?: number`, `max?: number`, `step?: number`
-- `value?: number`, `onChange?: (value: number) => void`, `defaultValue?: number`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### PasswordInput
 
@@ -439,9 +571,9 @@ import { PasswordInput } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `isDisabled`: boolean（必須）, `isInvalid`: boolean（必須）, `isRequired`: boolean（必須）
-- `value?: string`, `onChange?: ChangeEventHandler`, `defaultValue?: string`
+- `isDisabled: boolean`（必須）, `isInvalid: boolean`（必須）, `isRequired: boolean`（必須）
 - `showLabel?: string`, `hideLabel?: string`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### Switch
 
@@ -461,9 +593,9 @@ import { Switch } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `label`: string（必須）
-- `isDisabled`: boolean（必須）, `isInvalid`: boolean（必須）, `isRequired`: boolean（必須）
-- `value?: boolean`, `onChange?: ChangeEventHandler`, `defaultChecked?: boolean`
+- `label: string`（必須）
+- `isDisabled: boolean`（必須）, `isInvalid: boolean`（必須）, `isRequired: boolean`（必須）
+- Controlled: `value: boolean` + `onChange` / Uncontrolled: `defaultChecked`
 
 ### Autocomplete
 
@@ -473,12 +605,25 @@ Props:
 import { Autocomplete } from '@k8o/arte-odyssey';
 
 <Autocomplete
-  label="検索"
-  options={options}
+  id="search"
+  describedbyId={describedbyId}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
+  options={[
+    { value: '1', label: 'オプション1' },
+    { value: '2', label: 'オプション2' },
+  ]}
   value={value}
   onChange={onChange}
 />
 ```
+
+Props:
+- `id: string`, `describedbyId: string | undefined`
+- `isInvalid: boolean`, `isDisabled: boolean`, `isRequired: boolean`
+- `options: readonly Option[]`
+- Controlled: `value` + `onChange` / Uncontrolled: `defaultValue`
 
 ### FileField
 
@@ -488,28 +633,28 @@ import { Autocomplete } from '@k8o/arte-odyssey';
 import { FileField } from '@k8o/arte-odyssey';
 
 <FileField.Root accept="image/*" multiple maxFiles={5}>
-  <FileField.Trigger>ファイルを選択</FileField.Trigger>
-  <FileField.ItemList />
+  <FileField.Trigger
+    renderItem={({ onClick, disabled }) => (
+      <Button onClick={onClick} disabled={disabled}>ファイルを選択</Button>
+    )}
+  />
+  <FileField.ItemList clearable />
 </FileField.Root>
 ```
 
 Props (Root):
-- `accept`: string
-- `multiple`: boolean
-- `maxFiles`: number
-- `isDisabled`, `isInvalid`, `isRequired`: boolean
+- `id?: string`, `name?: string`, `describedbyId?: string`
+- `accept?: string`, `multiple?: boolean`, `maxFiles?: number`
+- `isDisabled?: boolean`, `isInvalid?: boolean`, `isRequired?: boolean`
+- `webkitDirectory?: boolean`
+- `onChange?: ChangeEventHandler`
 
-### FormControl
+Props (Trigger):
+- `renderItem: (props: { onClick, disabled, invalid }) => ReactElement`（必須）
 
-フォームフィールドのラッパー。
-
-```tsx
-import { FormControl } from '@k8o/arte-odyssey';
-
-<FormControl label="ラベル" error="エラーメッセージ" isRequired>
-  <input />
-</FormControl>
-```
+Props (ItemList):
+- `showWebkitRelativePath?: boolean`
+- `clearable?: boolean`
 
 ## フィードバック
 
@@ -554,8 +699,8 @@ import { Progress } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `progress`: number（必須）
-- `maxProgress`: number（必須）
+- `progress: number`（必須）
+- `maxProgress: number`（必須）
 - `minProgress?: number`
 - `label?: string`
 
@@ -582,7 +727,7 @@ import { Badge } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `text`: string（必須）
+- `text: string`（必須）
 - `tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error'`
 - `variant?: 'solid' | 'outline'`
 - `size?: 'sm' | 'md'`
@@ -619,9 +764,9 @@ import { Drawer } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `title`: ReactNode（必須）
-- `isOpen`: boolean（必須）
-- `onClose`: `() => void`（必須）
+- `title: ReactNode`（必須）
+- `isOpen: boolean`（必須）
+- `onClose: () => void`（必須）
 - `side?: 'left' | 'right'`
 
 ### Modal
@@ -629,7 +774,7 @@ Props:
 ```tsx
 import { Modal } from '@k8o/arte-odyssey';
 
-<Modal isOpen={isOpen} onClose={onClose}>
+<Modal isOpen={isOpen} onClose={onClose} type="center">
   コンテンツ
 </Modal>
 ```
@@ -639,6 +784,7 @@ Props:
 - `onClose?: () => void`
 - `type?: 'center' | 'bottom' | 'right' | 'left'`
 - `defaultOpen?: boolean`
+- `ref?: RefObject<HTMLDialogElement>`
 
 ### Popover
 
@@ -689,6 +835,14 @@ import { DropdownMenu } from '@k8o/arte-odyssey';
     <DropdownMenu.Item label="アイテム2" onClick={handleClick} />
   </DropdownMenu.Content>
 </DropdownMenu.Root>
+
+// アイコンのみのトリガー
+<DropdownMenu.Root placement="bottom">
+  <DropdownMenu.IconTrigger icon={<NavigationMenuIcon />} label="メニュー" />
+  <DropdownMenu.Content>
+    <DropdownMenu.Item label="アイテム" onClick={handleClick} />
+  </DropdownMenu.Content>
+</DropdownMenu.Root>
 ```
 
 Props:
@@ -711,7 +865,7 @@ import { Code } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `children`: string（必須）
+- `children: string`（必須）
 
 ### Heading
 
@@ -725,7 +879,7 @@ import { Heading } from '@k8o/arte-odyssey';
 ```
 
 Props:
-- `type`: `'h1'` | `'h2'` | `'h3'` | `'h4'` | `'h5'` | `'h6'`（必須）
+- `type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'`（必須）
 - `id?: string`
 - `lineClamp?: number`
 
