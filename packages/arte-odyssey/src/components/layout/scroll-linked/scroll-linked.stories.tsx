@@ -32,7 +32,6 @@ export const WithContainer: Story = {
             aria-label="スクロールコンテナの例"
             className="relative h-96 overflow-y-scroll rounded-lg border border-border-mute"
             ref={containerRef}
-            // biome-ignore lint/a11y/noNoninteractiveTabindex: Scrollable region requires keyboard access for accessibility
             tabIndex={0}
           >
             <Story args={{ container: containerRef }} />
@@ -46,7 +45,6 @@ export const WithContainer: Story = {
               </p>
               <div className="mt-8 space-y-4">
                 {Array.from({ length: 20 }, (_, i) => (
-                  // biome-ignore lint/suspicious/noArrayIndexKey: Static demo content
                   <p className="rounded-lg bg-bg-mute p-4" key={`content-${i}`}>
                     コンテンツブロック {i + 1}
                   </p>

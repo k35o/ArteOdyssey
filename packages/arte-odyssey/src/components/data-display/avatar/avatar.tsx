@@ -45,7 +45,6 @@ export const Avatar: FC<Props> = ({ alt, fallback, name, size = 'md', src }) => 
       role="img"
     >
       {showImage ? (
-        // biome-ignore lint/performance/noImgElement: This UI library must render a standard img element for framework-agnostic usage.
         <img
           alt={alt ?? ''}
           className="size-full object-cover"

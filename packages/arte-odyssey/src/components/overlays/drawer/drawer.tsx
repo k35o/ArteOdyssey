@@ -39,8 +39,6 @@ export const Drawer: FC<
             </IconButton>
           </div>
         </div>
-        {/** biome-ignore lint/a11y/noStaticElementInteractions:　propagationなので */}
-        {/** biome-ignore lint/a11y/useKeyWithClickEvents: propagationなので */}
         <div
           className="flex-1 overflow-y-auto overscroll-contain p-4"
           id={`${rootId}-content`}
