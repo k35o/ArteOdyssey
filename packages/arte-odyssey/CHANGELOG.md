@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 4.2.0
+
+### Minor Changes
+
+- [#343](https://github.com/k35o/ArteOdyssey/pull/343) [`e2c9259`](https://github.com/k35o/ArteOdyssey/commit/e2c9259231fd89c9ca7e75a2ff2e01c686b45a0e) Thanks [@k35o](https://github.com/k35o)! - ErrorBoundary の re-export を削除。react-error-boundary を直接利用してください。
+
 ## 4.1.0
 
 ### Minor Changes
