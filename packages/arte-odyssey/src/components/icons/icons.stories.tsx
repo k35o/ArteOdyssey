@@ -56,6 +56,23 @@ const meta: Meta<typeof SVGAElement> = {
 export default meta;
 type Story = StoryObj<FC>;
 
+const sizes = ['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const;
+
+export const Sizes: Story = {
+  render: () => {
+    return (
+      <div className="flex items-end gap-6">
+        {sizes.map((size) => (
+          <div key={size} className="flex flex-col items-center gap-2">
+            <CheckIcon size={size} />
+            <p className="text-fg-mute text-sm">{size}</p>
+          </div>
+        ))}
+      </div>
+    );
+  },
+};
+
 export const Primary: Story = {
   render: () => {
     return (

@@ -2,7 +2,17 @@ import type { FC, ReactNode } from 'react';
 import { cn } from './../../helpers/cn';
 
 export type BaseIconProps = {
-  size: 'sm' | 'md' | 'lg';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl';
+};
+
+const sizeClass: Record<BaseIconProps['size'], string> = {
+  xs: 'size-3',
+  sm: 'size-4',
+  md: 'size-6',
+  lg: 'size-8',
+  xl: 'size-10',
+  '2xl': 'size-12',
+  '3xl': 'size-14',
 };
 
 export const BaseIcon: FC<
@@ -11,6 +21,6 @@ export const BaseIcon: FC<
   }
 > = ({ size, renderItem }) => {
   return renderItem({
-    className: cn(size === 'sm' && 'size-4', size === 'md' && 'size-6', size === 'lg' && 'size-8'),
+    className: cn(sizeClass[size]),
   });
 };
