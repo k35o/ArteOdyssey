@@ -76,6 +76,23 @@ Complex interactive previews live in `_previews/<name>-previews.tsx` and are imp
 | `InstallTabs`      | Package manager install command tabs         |
 | `TokenCard`        | Design token display card                   |
 
+## @funstack/router
+
+`@funstack/router` is a modern React router built on the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation_API) (not the History API). It uses the [URLPattern API](https://developer.mozilla.org/en-US/docs/Web/API/URLPattern) for path matching.
+
+### Entrypoints
+
+- `@funstack/router` — Main entrypoint. Provides `Router`, `Outlet`, hooks (`useLocation`, `useRouteParams`, etc.), and route definition utilities (`route()`, `routeState()`).
+- `@funstack/router/server` — Server entrypoint for React Server Components. Provides `route()` and `routeState()` for defining routes in server modules.
+
+### Detailed Docs
+
+API references, examples, and best practices are available at:
+
+```
+node_modules/@funstack/router/dist/docs/index.md
+```
+
 ## Key Dependencies
 
 - **@funstack/router** + **@funstack/static** for routing and SSG
