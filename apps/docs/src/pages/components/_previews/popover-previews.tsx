@@ -15,7 +15,6 @@ export function PopoverBasicPreview() {
       <Popover.Content
         renderItem={(props) => (
           <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
-            {/* biome-ignore lint/a11y/useFocusableInteractive: demo content */}
             <div role="menuitem">Popover content goes here.</div>
           </div>
         )}
@@ -38,7 +37,6 @@ export function PopoverPlacementPreview() {
         <Popover.Content
           renderItem={(props) => (
             <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
-              {/* biome-ignore lint/a11y/useFocusableInteractive: demo content */}
               <div role="menuitem">Top placement</div>
             </div>
           )}
@@ -55,7 +53,6 @@ export function PopoverPlacementPreview() {
         <Popover.Content
           renderItem={(props) => (
             <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
-              {/* biome-ignore lint/a11y/useFocusableInteractive: demo content */}
               <div role="menuitem">Right placement</div>
             </div>
           )}
@@ -72,7 +69,6 @@ export function PopoverPlacementPreview() {
         <Popover.Content
           renderItem={(props) => (
             <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
-              {/* biome-ignore lint/a11y/useFocusableInteractive: demo content */}
               <div role="menuitem">Bottom placement</div>
             </div>
           )}
@@ -89,7 +85,6 @@ export function PopoverPlacementPreview() {
         <Popover.Content
           renderItem={(props) => (
             <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
-              {/* biome-ignore lint/a11y/useFocusableInteractive: demo content */}
               <div role="menuitem">Left placement</div>
             </div>
           )}

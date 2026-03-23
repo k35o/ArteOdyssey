@@ -1,11 +1,9 @@
-// biome-ignore lint/style/useConsistentTypeDefinitions: global type augmentation requires interface for declaration merging
 interface NavigationNavigateOptions {
   state?: unknown;
   history?: 'auto' | 'push' | 'replace';
   info?: unknown;
 }
 
-// biome-ignore lint/style/useConsistentTypeDefinitions: global type augmentation requires interface for declaration merging
 interface NavigationResult {
   committed: Promise<NavigationHistoryEntry>;
   finished: Promise<NavigationHistoryEntry>;
