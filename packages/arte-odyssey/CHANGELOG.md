@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 4.2.1
+
+### Patch Changes
+
+- [#351](https://github.com/k35o/ArteOdyssey/pull/351) [`b844daa`](https://github.com/k35o/ArteOdyssey/commit/b844daa5e3555820f47c22d87a794584e1493356) Thanks [@k35o](https://github.com/k35o)! - Allow passing `name` to additional form components, including autocomplete, radio-card, checkbox-card, select, number-field, checkbox, and radio.
+
 ## 4.2.0
 
 ### Minor Changes
