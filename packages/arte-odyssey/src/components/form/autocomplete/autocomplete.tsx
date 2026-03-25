@@ -8,6 +8,7 @@ import { CloseIcon } from '../../icons';
 
 type BaseProps = {
   id: string;
+  name?: string;
   describedbyId: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
@@ -31,6 +32,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Autocomplete: FC<Props> = ({
   id,
+  name,
   describedbyId,
   isInvalid,
   isDisabled,
@@ -88,6 +90,11 @@ export const Autocomplete: FC<Props> = ({
       )}
       ref={ref}
     >
+      {name
+        ? currentValue.map((selectedValue) => (
+            <input key={selectedValue} name={name} type="hidden" value={selectedValue} />
+          ))
+        : null}
       <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
         <div className="flex w-full flex-wrap gap-1">
           {currentValue.map((text) => {

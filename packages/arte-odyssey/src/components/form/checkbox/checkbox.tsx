@@ -7,6 +7,7 @@ import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 
 type BaseProps = {
+  name?: string;
   itemValue?: string;
   isDisabled?: boolean;
   label: string;
@@ -27,6 +28,7 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Checkbox: FC<Props> = ({
+  name,
   itemValue,
   isDisabled = false,
   label,
@@ -71,7 +73,7 @@ export const Checkbox: FC<Props> = ({
         className="peer sr-only"
         defaultChecked={groupContext || isControlled ? undefined : defaultChecked}
         disabled={isDisabledResolved}
-        name={groupContext?.name}
+        name={groupContext?.name ?? name}
         onChange={(event) => {
           if (groupContext) {
             groupContext.toggleValue(groupItemValue);

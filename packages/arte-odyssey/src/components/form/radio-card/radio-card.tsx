@@ -14,6 +14,7 @@ export type RadioCardOption = Readonly<{
 
 type BaseProps = {
   labelId: string;
+  name?: string;
   isDisabled: boolean;
   isInvalid?: boolean;
   options: readonly RadioCardOption[];
@@ -35,6 +36,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const RadioCard: FC<Props> = ({
   labelId,
+  name,
   isDisabled,
   isInvalid = false,
   options,
@@ -77,6 +79,7 @@ export const RadioCard: FC<Props> = ({
       aria-labelledby={labelId}
       className={cn('m-0 w-full min-w-0 border-0 p-0', 'grid gap-3', isDisabled && 'opacity-70')}
     >
+      {name ? <input name={name} type="hidden" value={currentValue ?? ''} /> : null}
       {options.map((option, index) => {
         const checked = currentValue === option.value;
         const disabled = isDisabled || option.disabled;

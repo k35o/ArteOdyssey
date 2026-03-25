@@ -5,6 +5,7 @@ import { ChevronIcon } from '../../icons';
 
 type BaseProps = {
   id: string;
+  name?: string;
   describedbyId: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
@@ -28,6 +29,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Select: FC<Props> = ({
   id,
+  name,
   describedbyId,
   isInvalid,
   isDisabled,
@@ -52,6 +54,7 @@ export const Select: FC<Props> = ({
         defaultValue={defaultValue}
         disabled={isDisabled}
         id={id}
+        name={name}
         onChange={onChange}
         value={value}
       >

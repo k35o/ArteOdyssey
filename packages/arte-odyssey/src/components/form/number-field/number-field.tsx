@@ -7,6 +7,7 @@ import { MinusIcon, PlusIcon } from '../../icons';
 
 type BaseProps = {
   id?: string;
+  name?: string;
   describedbyId?: string | undefined;
   isInvalid: boolean;
   isDisabled: boolean;
@@ -34,6 +35,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const NumberField: FC<Props> = ({
   id,
+  name,
   describedbyId,
   isInvalid,
   isDisabled,
@@ -93,6 +95,7 @@ export const NumberField: FC<Props> = ({
         disabled={isDisabled}
         id={id}
         inputMode="decimal"
+        name={name}
         onBlur={() => {
           const newValue = between(cast(displayValue, precision), min, max);
           handleChange(newValue);
