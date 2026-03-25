@@ -7,6 +7,7 @@ import type { Option } from '../../../types/variables';
 
 type BaseProps = {
   labelId: string;
+  name?: string;
   isDisabled: boolean;
   options: readonly Option[];
 };
@@ -27,6 +28,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Radio: FC<Props> = ({
   labelId,
+  name,
   isDisabled,
   value,
   defaultValue,
@@ -65,7 +67,7 @@ export const Radio: FC<Props> = ({
             className="peer sr-only"
             defaultChecked={isControlled ? undefined : defaultValue === option.value}
             disabled={isDisabled}
-            name={labelId}
+            name={name ?? labelId}
             onChange={() => {
               selectValue(option.value);
             }}

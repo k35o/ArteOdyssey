@@ -15,6 +15,7 @@ export type CheckboxCardOption = Readonly<{
 
 type BaseProps = {
   labelId?: string;
+  name?: string;
   isDisabled: boolean;
   isInvalid?: boolean;
   options: readonly CheckboxCardOption[];
@@ -36,6 +37,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const CheckboxCard: FC<Props> = ({
   labelId,
+  name,
   isDisabled,
   isInvalid = false,
   options,
@@ -86,6 +88,7 @@ export const CheckboxCard: FC<Props> = ({
               checked={checked}
               className="sr-only"
               disabled={disabled}
+              name={name}
               onChange={(event) => {
                 handleToggle(option.value, event.target.checked);
               }}
