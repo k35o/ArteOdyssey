@@ -1,5 +1,6 @@
 import funstackStatic from '@funstack/static';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
@@ -8,6 +9,7 @@ export default defineConfig({
       root: './src/root.tsx',
       app: './src/app.tsx',
     }),
+    tailwindcss(),
     react(),
   ],
   optimizeDeps: {
