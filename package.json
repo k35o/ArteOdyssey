@@ -10,7 +10,7 @@
   },
   "type": "module",
   "scripts": {
-    "build": "vp run build --filter './packages/*'",
+    "build": "vp run build --filter './packages/*' --filter './apps/*'",
     "test": "vp run test -r",
     "test:ui": "vp run test:ui -r",
     "test:coverage": "vp run test:coverage -r",
