@@ -1,6 +1,7 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, use, useCallback, useState } from 'react';
+import { createContext, type FC, type PropsWithChildren, use } from 'react';
+import { useDisclosure } from '../../../hooks/disclosure';
 
 const OpenContext = createContext(false);
 
@@ -32,15 +33,11 @@ export const AccordionItemProvider: FC<
     id: string;
   }>
 > = ({ defaultOpen = false, id, children }) => {
-  const [open, setOpen] = useState(defaultOpen);
-
-  const toggleOpen = useCallback(() => {
-    setOpen((open) => !open);
-  }, []);
+  const { isOpen, toggle } = useDisclosure(defaultOpen);
 
   return (
-    <OpenContext value={open}>
-      <ToggleOpenContext value={toggleOpen}>
+    <OpenContext value={isOpen}>
+      <ToggleOpenContext value={toggle}>
         <ItemIdContext value={id}>{children}</ItemIdContext>
       </ToggleOpenContext>
     </OpenContext>
