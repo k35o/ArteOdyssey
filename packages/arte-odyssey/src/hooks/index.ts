@@ -1,6 +1,7 @@
 export { useClickAway } from './click-away';
 export { useClient } from './client';
 export { useClipboard } from './clipboard';
+export { useDebounce } from './debounce';
 export { useHash } from './hash';
 export { useInterval } from './interval';
 export { useBreakpoint } from './breakpoint';
@@ -8,6 +9,7 @@ export { useLocalStorage } from './local-storage';
 export { useResize } from './resize';
 export { useScrollDirection } from './scroll-direction';
 export { useStep } from './step';
+export { useThrottle } from './throttle';
 export { useTimeout } from './timeout';
 export { useWindowResize } from './window-resize';
 export { useWindowSize } from './window-size';
