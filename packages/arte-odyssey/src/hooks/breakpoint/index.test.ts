@@ -19,14 +19,13 @@ describe('useBreakpoint', () => {
 
   it('メディアクエリの変更に応じて値が更新される', async () => {
     await page.viewport(600, 400);
-    const { result, act } = await renderHook(() => useBreakpoint('sm'));
+    const { result } = await renderHook(() => useBreakpoint('sm'));
 
     expect(result.current).toBe(false);
 
-    await act(async () => {
-      await page.viewport(800, 600);
+    await page.viewport(800, 600);
+    await vi.waitFor(() => {
+      expect(result.current).toBe(true);
     });
-
-    expect(result.current).toBe(true);
   });
 });
