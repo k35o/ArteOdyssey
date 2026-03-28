@@ -3,6 +3,7 @@ export { useClient } from './client';
 export { useClipboard } from './clipboard';
 export { useHash } from './hash';
 export { useInterval } from './interval';
+export { useBreakpoint } from './breakpoint';
 export { useLocalStorage } from './local-storage';
 export { useResize } from './resize';
 export { useScrollDirection } from './scroll-direction';
