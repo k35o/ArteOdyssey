@@ -57,11 +57,11 @@
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
     "lucide-react": "0.577.0",
-    "motion": "12.37.0",
+    "motion": "12.38.0",
     "tailwind-merge": "3.5.0"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "5.0.1",
+    "@chromatic-com/storybook": "5.0.2",
     "@storybook/addon-a11y": "10.3.1",
     "@storybook/addon-docs": "10.3.1",
     "@storybook/addon-vitest": "10.3.1",
