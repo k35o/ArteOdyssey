@@ -10,13 +10,13 @@
   },
   "type": "module",
   "scripts": {
-    "build": "turbo run build --filter='!./examples/**'",
-    "test": "turbo run test",
-    "test:ui": "turbo run test:ui",
-    "test:coverage": "turbo run test:coverage",
-    "typecheck": "turbo run typecheck",
-    "check": "turbo run check",
-    "check:write": "turbo run check:write",
+    "build": "vp run build --filter './packages/*' --filter './apps/*'",
+    "test": "vp run test -r",
+    "test:ui": "vp run test:ui -r",
+    "test:coverage": "vp run test:coverage -r",
+    "typecheck": "vp run typecheck -r",
+    "check": "vp run check -r",
+    "check:write": "vp run check:write -r",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
@@ -28,7 +28,6 @@
     "agent-browser": "0.21.4",
     "cosmiconfig": "latest",
     "playwright": "1.58.2",
-    "turbo": "2.8.20",
     "typescript": "5.9.3",
     "vite-plus": "catalog:"
   },

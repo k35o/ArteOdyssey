@@ -9,6 +9,7 @@ jobs:
   tests:
     name: Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout branch
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -20,11 +21,12 @@ jobs:
         run: pnpm exec playwright install
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm --filter @k8o/arte-odyssey test
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout branch
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
@@ -38,6 +40,7 @@ jobs:
   types:
     name: TypeScript
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - name: Checkout branch
         uses: actions/checkout@0c366fd6a839edf440554fa01a7085ccba70ac98
