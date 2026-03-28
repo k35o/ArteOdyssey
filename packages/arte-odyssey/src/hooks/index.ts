@@ -1,6 +1,7 @@
 export { useClickAway } from './click-away';
 export { useClient } from './client';
 export { useClipboard } from './clipboard';
+export { useDisclosure } from './disclosure';
 export { useHash } from './hash';
 export { useInterval } from './interval';
 export { useLocalStorage } from './local-storage';
