@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@funstack/router": "1.1.0",
-    "@funstack/static": "1.1.0",
+    "@funstack/static": "1.1.2",
     "@k8o/arte-odyssey": "workspace:^",
     "@tailwindcss/vite": "catalog:",
     "motion": "12.38.0",
