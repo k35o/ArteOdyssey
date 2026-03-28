@@ -45,7 +45,7 @@
     "build:css": "mkdir -p dist/styles && cp src/styles/index.css dist/styles/index.css",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
-    "test": "vp test",
+    "test": "vp test run",
     "test:ui": "vp test --ui --coverage",
     "test:coverage": "vp test run --coverage",
     "typecheck": "tsc --noEmit",
