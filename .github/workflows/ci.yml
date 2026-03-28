@@ -21,7 +21,7 @@ jobs:
         run: pnpm exec playwright install
 
       - name: Run tests
-        run: pnpm test
+        run: pnpm --filter @k8o/arte-odyssey test
 
   lint:
     name: Lint
