@@ -56,7 +56,7 @@
     "@floating-ui/react": "0.27.19",
     "baseline-status": "1.1.1",
     "clsx": "2.1.1",
-    "lucide-react": "0.577.0",
+    "lucide-react": "1.7.0",
     "motion": "12.38.0",
     "tailwind-merge": "3.5.0"
   },
