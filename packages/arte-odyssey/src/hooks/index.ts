@@ -2,6 +2,7 @@ export { useClickAway } from './click-away';
 export { useClient } from './client';
 export { useClipboard } from './clipboard';
 export { useDebounce } from './debounce';
+export { useDisclosure } from './disclosure';
 export { useHash } from './hash';
 export { useInterval } from './interval';
 export { useBreakpoint } from './breakpoint';

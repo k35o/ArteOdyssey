@@ -16,11 +16,10 @@ import {
   type HTMLProps,
   type PropsWithChildren,
   type ReactElement,
-  useCallback,
   useEffect,
   useId,
-  useState,
 } from 'react';
+import { useDisclosure } from '../../../hooks/disclosure';
 import { usePortalRoot } from '../../providers';
 import { PopoverProvider, usePopoverContent, usePopoverTrigger } from './hooks';
 
@@ -34,7 +33,7 @@ const Root: FC<
   }>
 > = ({ children, type = 'menu', placement = 'bottom-start', flipDisabled = false }) => {
   const id = useId();
-  const [isOpen, setIsOpen] = useState(false);
+  const { isOpen, open, close, toggle } = useDisclosure();
 
   const {
     refs,
@@ -58,22 +57,10 @@ const Root: FC<
     transform: false,
   });
 
-  const toggleOpen = useCallback(() => {
-    setIsOpen((prev) => !prev);
-  }, []);
-
-  const onOpen = useCallback(() => {
-    setIsOpen(true);
-  }, []);
-
-  const onClose = useCallback(() => {
-    setIsOpen(false);
-  }, []);
-
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        close();
       }
     };
 
@@ -82,7 +69,7 @@ const Root: FC<
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [onClose]);
+  }, [close]);
 
   return (
     <PopoverProvider
@@ -90,9 +77,9 @@ const Root: FC<
         rootId: id,
         type,
         isOpen,
-        toggleOpen,
-        onOpen,
-        onClose,
+        toggleOpen: toggle,
+        onOpen: open,
+        onClose: close,
         context,
         placement: computedPlacement,
         triggerRef: refs.domReference,

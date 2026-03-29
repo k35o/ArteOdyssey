@@ -1,7 +1,7 @@
 'use client';
 
 import type { ChangeEventHandler, FC } from 'react';
-import { useState } from 'react';
+import { useDisclosure } from '../../../hooks/disclosure';
 import { cn } from '../../../helpers/cn';
 import { ViewIcon, ViewOffIcon } from '../../icons';
 
@@ -47,7 +47,7 @@ export const PasswordInput: FC<Props> = ({
   value,
   onChange,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const { isOpen: isVisible, toggle: toggleVisible } = useDisclosure();
 
   return (
     <div className="relative w-full">
@@ -81,9 +81,7 @@ export const PasswordInput: FC<Props> = ({
           isDisabled && 'cursor-not-allowed text-fg-mute/70',
         )}
         disabled={isDisabled}
-        onClick={() => {
-          setIsVisible((current) => !current);
-        }}
+        onClick={toggleVisible}
         type="button"
       >
         {isVisible ? <ViewOffIcon size="sm" /> : <ViewIcon size="sm" />}
