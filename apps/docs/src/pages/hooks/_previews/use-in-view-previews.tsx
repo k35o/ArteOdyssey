@@ -1,0 +1,20 @@
+'use client';
+
+import { useInView } from '@k8o/arte-odyssey';
+import { useRef } from 'react';
+
+export function UseInViewPreview() {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { threshold: 0.5 });
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div
+        className="rounded-lg border border-border-mute bg-bg-subtle p-6 text-center transition-colors"
+        ref={ref}
+      >
+        <p className="text-fg-base font-medium">{isInView ? 'Visible' : 'Not visible'}</p>
+      </div>
+    </div>
+  );
+}

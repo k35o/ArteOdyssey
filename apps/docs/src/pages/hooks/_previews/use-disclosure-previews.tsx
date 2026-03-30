@@ -1,0 +1,31 @@
+'use client';
+
+import { Button, useDisclosure } from '@k8o/arte-odyssey';
+
+export function UseDisclosurePreview() {
+  const { isOpen, open, close, toggle } = useDisclosure();
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex gap-2">
+        <Button onClick={toggle} size="sm">
+          Toggle
+        </Button>
+        <Button color="gray" onClick={open} size="sm">
+          Open
+        </Button>
+        <Button color="gray" onClick={close} size="sm">
+          Close
+        </Button>
+      </div>
+      <p className="text-fg-base">
+        State: <span className="font-medium">{isOpen ? 'Open' : 'Closed'}</span>
+      </p>
+      {isOpen ? (
+        <div className="rounded-lg border border-border-mute bg-bg-subtle p-4">
+          <p className="text-fg-base">Content is visible</p>
+        </div>
+      ) : null}
+    </div>
+  );
+}

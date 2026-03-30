@@ -112,6 +112,9 @@ export const en = {
   'components.checkboxCard.description':
     'A multi-select card group that makes each option a larger click target.',
   'components.checkboxCard.defaultValueTitle': 'Default Value',
+  'components.checkboxGroup.description':
+    'A group component for managing multiple checkboxes as a single value.',
+  'components.checkboxGroup.disabledTitle': 'Disabled',
   'components.switch.description': 'A switch component for binary on/off state.',
   'components.switch.defaultCheckedTitle': 'Default Checked',
   'components.switch.disabledTitle': 'Disabled',
@@ -222,6 +225,8 @@ export const en = {
   'hooks.categoryStateStorage': 'State & Storage',
   'hooks.categoryTiming': 'Timing',
   'hooks.categoryUtility': 'Utility',
+  'hooks.categoryPerformance': 'Performance',
+  'hooks.categoryObserver': 'Observer',
   'hooks.common.importTitle': 'Import',
   'hooks.common.usageTitle': 'Usage',
   'hooks.common.basicUsageTitle': 'Basic Usage',
@@ -241,6 +246,20 @@ export const en = {
   'hooks.useTimeout.description': 'A hook that executes a callback after a specified delay.',
   'hooks.useWindowResize.description':
     'A hook that listens to window resize events with optional debounce.',
+  'hooks.useBreakpoint.description':
+    'A hook that checks whether the viewport matches a given breakpoint.',
+  'hooks.useDebounce.description': 'A hook that debounces a value with a specified delay.',
+  'hooks.useDebouncedCallback.description':
+    'A hook that returns a debounced version of the provided callback.',
+  'hooks.useDisclosure.description':
+    'A hook for managing open/close state with open, close, and toggle actions.',
+  'hooks.useIntersectionObserver.description':
+    'A hook that observes element visibility via IntersectionObserver.',
+  'hooks.useInView.description':
+    'A hook that returns whether an element is currently visible in the viewport.',
+  'hooks.useThrottle.description': 'A hook that throttles a value with a specified interval.',
+  'hooks.useThrottledCallback.description':
+    'A hook that returns a throttled version of the provided callback.',
   'hooks.useWindowSize.description': 'A hook that returns the current window dimensions.',
   'helpers.description': 'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
