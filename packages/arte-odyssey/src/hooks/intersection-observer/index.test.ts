@@ -1,5 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
-import { useIntersectionObserver } from './index';
+import { useIntersectionObserver } from './use-intersection-observer';
 
 describe('useIntersectionObserver', () => {
   afterEach(() => {

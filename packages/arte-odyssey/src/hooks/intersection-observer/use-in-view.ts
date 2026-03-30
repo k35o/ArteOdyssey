@@ -1,7 +1,7 @@
 'use client';
 
 import { type RefObject, useEffect, useState } from 'react';
-import { useIntersectionObserver } from './index';
+import { useIntersectionObserver } from './use-intersection-observer';
 
 type UseInViewOptions = {
   threshold?: number | number[];
@@ -19,10 +19,10 @@ export const useInView = <T extends Element = HTMLElement>(
   const [hasBeenInView, setHasBeenInView] = useState(false);
 
   useEffect(() => {
-    if (isIntersecting && !hasBeenInView) {
+    if (isIntersecting) {
       setHasBeenInView(true);
     }
-  }, [isIntersecting, hasBeenInView]);
+  }, [isIntersecting]);
 
   return once ? hasBeenInView : isIntersecting;
 };
