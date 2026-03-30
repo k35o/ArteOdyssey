@@ -114,7 +114,6 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    // ビューポートから出る
     if (storedCallback && storedElement) {
       storedCallback(
         [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
@@ -122,7 +121,6 @@ describe('useInView', () => {
       );
     }
 
-    // onceなのでtrueを維持
     await vi.waitFor(() => {
       expect(result.current).toBe(true);
     });

@@ -1,6 +1,6 @@
 'use client';
 
-import { type RefObject, useEffect, useState } from 'react';
+import { type RefObject, useCallback, useState } from 'react';
 import { useIntersectionObserver } from './use-intersection-observer';
 
 type UseInViewOptions = {
@@ -15,14 +15,13 @@ export const useInView = <T extends Element = HTMLElement>(
   options: UseInViewOptions = {},
 ): boolean => {
   const { once = false, ...observerOptions } = options;
-  const { isIntersecting } = useIntersectionObserver(ref, observerOptions);
-  const [hasBeenInView, setHasBeenInView] = useState(false);
+  const [isInView, setIsInView] = useState(false);
 
-  useEffect(() => {
-    if (isIntersecting) {
-      setHasBeenInView(true);
-    }
-  }, [isIntersecting]);
+  const handleEntry = useCallback((entry: IntersectionObserverEntry) => {
+    setIsInView(entry.isIntersecting);
+  }, []);
 
-  return once ? hasBeenInView : isIntersecting;
+  useIntersectionObserver(ref, handleEntry, { ...observerOptions, once });
+
+  return isInView;
 };

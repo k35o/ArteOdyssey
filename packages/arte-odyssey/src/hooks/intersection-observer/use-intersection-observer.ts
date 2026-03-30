@@ -1,24 +1,20 @@
 'use client';
 
-import { type RefObject, useEffect, useState } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 type UseIntersectionObserverOptions = {
   threshold?: number | number[];
   root?: Element | null;
   rootMargin?: string;
-};
-
-type UseIntersectionObserverReturn = {
-  entry: IntersectionObserverEntry | undefined;
-  isIntersecting: boolean;
+  once?: boolean;
 };
 
 export const useIntersectionObserver = <T extends Element = HTMLElement>(
   ref: RefObject<T | null>,
+  callback: (entry: IntersectionObserverEntry) => void,
   options: UseIntersectionObserverOptions = {},
-): UseIntersectionObserverReturn => {
-  const { threshold = 0, root = null, rootMargin = '0px' } = options;
-  const [entry, setEntry] = useState<IntersectionObserverEntry>();
+): void => {
+  const { threshold = 0, root = null, rootMargin = '0px', once = false } = options;
 
   useEffect(() => {
     const element = ref.current;
@@ -27,7 +23,10 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry) {
-          setEntry(entry);
+          callback(entry);
+          if (once && entry.isIntersecting) {
+            observer.disconnect();
+          }
         }
       },
       { threshold, root, rootMargin },
@@ -37,10 +36,5 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
     return () => {
       observer.disconnect();
     };
-  }, [ref, threshold, root, rootMargin]);
-
-  return {
-    entry,
-    isIntersecting: entry?.isIntersecting ?? false,
-  };
+  }, [ref, callback, threshold, root, rootMargin, once]);
 };
