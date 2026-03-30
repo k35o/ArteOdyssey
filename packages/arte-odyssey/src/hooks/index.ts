@@ -9,6 +9,7 @@ export { useInterval } from './interval';
 export { useBreakpoint } from './breakpoint';
 export { useLocalStorage } from './local-storage';
 export { useResize } from './resize';
+export { useSessionStorage } from './session-storage';
 export { useScrollDirection } from './scroll-direction';
 export { useStep } from './step';
 export { useThrottle, useThrottledCallback } from './throttle';

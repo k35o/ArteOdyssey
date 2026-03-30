@@ -246,6 +246,8 @@ export const ja = {
   'hooks.useInterval.description': '一定間隔でコールバックを実行するフックです。',
   'hooks.useLocalStorage.description': 'localStorageに状態を永続化し、タブ間で同期するフックです。',
   'hooks.useLocalStorage.removeTitle': '値の削除',
+  'hooks.useSessionStorage.description': 'sessionStorageに状態を永続化するフックです。',
+  'hooks.useSessionStorage.removeTitle': '値の削除',
   'hooks.useResize.description': 'ResizeObserverで要素のサイズ変更を監視するフックです。',
   'hooks.useScrollDirection.description': '現在のスクロール方向を検出するフックです。',
   'hooks.useStep.description': 'キーボードサポート付きのステップベースナビゲーションフックです。',

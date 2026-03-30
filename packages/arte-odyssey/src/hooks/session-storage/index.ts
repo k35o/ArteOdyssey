@@ -5,19 +5,19 @@ import { useCallback, useMemo, useRef, useSyncExternalStore } from 'react';
 const dispatchStorageEvent = (key: string, newValue: string | null) =>
   window.dispatchEvent(new StorageEvent('storage', { key, newValue }));
 
-const getLocalStorageItem = (key: string) => window.localStorage.getItem(key);
+const getSessionStorageItem = (key: string) => window.sessionStorage.getItem(key);
 
-const localStorageSubscribe = (cb: () => void) => {
+const sessionStorageSubscribe = (cb: () => void) => {
   window.addEventListener('storage', cb);
   return () => {
     window.removeEventListener('storage', cb);
   };
 };
 
-export const useLocalStorage = <T>(key: string, initialValue: T) => {
+export const useSessionStorage = <T>(key: string, initialValue: T) => {
   const initialValueRef = useRef(initialValue);
-  const getSnapshot = () => getLocalStorageItem(key);
-  const store = useSyncExternalStore(localStorageSubscribe, getSnapshot, () => null);
+  const getSnapshot = () => getSessionStorageItem(key);
+  const store = useSyncExternalStore(sessionStorageSubscribe, getSnapshot, () => null);
 
   const current = useMemo(() => {
     try {
@@ -32,7 +32,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
   }, [store]);
 
   const handleRemove = useCallback(() => {
-    window.localStorage.removeItem(key);
+    window.sessionStorage.removeItem(key);
     dispatchStorageEvent(key, null);
   }, [key]);
 
@@ -42,7 +42,7 @@ export const useLocalStorage = <T>(key: string, initialValue: T) => {
         handleRemove();
       } else {
         const stringifiedValue = JSON.stringify(value);
-        window.localStorage.setItem(key, stringifiedValue);
+        window.sessionStorage.setItem(key, stringifiedValue);
         dispatchStorageEvent(key, stringifiedValue);
       }
     },

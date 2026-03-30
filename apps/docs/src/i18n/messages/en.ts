@@ -240,6 +240,8 @@ export const en = {
   'hooks.useLocalStorage.description':
     'A hook that persists state in localStorage with cross-tab sync.',
   'hooks.useLocalStorage.removeTitle': 'Remove Value',
+  'hooks.useSessionStorage.description': 'A hook that persists state in sessionStorage.',
+  'hooks.useSessionStorage.removeTitle': 'Remove Value',
   'hooks.useResize.description': 'A hook that observes element size changes via ResizeObserver.',
   'hooks.useScrollDirection.description': 'A hook that detects the current scroll direction.',
   'hooks.useStep.description': 'A hook for step-based navigation with keyboard support.',

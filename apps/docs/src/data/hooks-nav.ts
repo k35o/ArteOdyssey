@@ -15,6 +15,7 @@ export const hookCategories: NavCategory[] = [
     items: [
       { name: 'useClipboard', path: '/hooks/use-clipboard' },
       { name: 'useLocalStorage', path: '/hooks/use-local-storage' },
+      { name: 'useSessionStorage', path: '/hooks/use-session-storage' },
       { name: 'useHash', path: '/hooks/use-hash' },
     ],
   },
