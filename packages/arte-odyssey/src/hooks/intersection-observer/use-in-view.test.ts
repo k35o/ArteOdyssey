@@ -1,50 +1,6 @@
 import { renderHook } from 'vitest-browser-react';
 import { useInView } from './use-in-view';
 
-const createMockIntersectionObserver = (isIntersecting: boolean) => {
-  let latestCallback: IntersectionObserverCallback | undefined;
-  let latestElement: Element | undefined;
-
-  const MockObserver = vi.fn((callback: IntersectionObserverCallback) => {
-    latestCallback = callback;
-    return {
-      observe: vi.fn((el: Element) => {
-        latestElement = el;
-        callback(
-          [
-            {
-              isIntersecting,
-              intersectionRatio: isIntersecting ? 1 : 0,
-              target: el,
-            } as IntersectionObserverEntry,
-          ],
-          {} as IntersectionObserver,
-        );
-      }),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    };
-  });
-
-  return {
-    MockObserver,
-    triggerIntersection(value: boolean) {
-      if (latestCallback && latestElement) {
-        latestCallback(
-          [
-            {
-              isIntersecting: value,
-              intersectionRatio: value ? 1 : 0,
-              target: latestElement,
-            } as IntersectionObserverEntry,
-          ],
-          {} as IntersectionObserver,
-        );
-      }
-    },
-  };
-};
-
 describe('useInView', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -58,8 +14,22 @@ describe('useInView', () => {
   });
 
   it('要素がビューポート内にある場合trueを返す', async () => {
-    const { MockObserver } = createMockIntersectionObserver(true);
-    vi.stubGlobal('IntersectionObserver', MockObserver);
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        private callback: IntersectionObserverCallback;
+        constructor(callback: IntersectionObserverCallback) {
+          this.callback = callback;
+        }
+        observe(el: Element) {
+          this.callback(
+            [{ isIntersecting: true, target: el } as IntersectionObserverEntry],
+            {} as IntersectionObserver,
+          );
+        }
+        disconnect() {}
+      },
+    );
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -70,9 +40,71 @@ describe('useInView', () => {
     });
   });
 
+  it('ビューポートから出るとfalseに戻る', async () => {
+    let storedCallback: IntersectionObserverCallback | undefined;
+    let storedElement: Element | undefined;
+
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        private callback: IntersectionObserverCallback;
+        constructor(callback: IntersectionObserverCallback) {
+          this.callback = callback;
+          storedCallback = callback;
+        }
+        observe(el: Element) {
+          storedElement = el;
+          this.callback(
+            [{ isIntersecting: true, target: el } as IntersectionObserverEntry],
+            {} as IntersectionObserver,
+          );
+        }
+        disconnect() {}
+      },
+    );
+
+    const div = document.createElement('div');
+    const ref = { current: div };
+    const { result } = await renderHook(() => useInView(ref));
+
+    await vi.waitFor(() => {
+      expect(result.current).toBe(true);
+    });
+
+    if (storedCallback && storedElement) {
+      storedCallback(
+        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      );
+    }
+
+    await vi.waitFor(() => {
+      expect(result.current).toBe(false);
+    });
+  });
+
   it('onceオプションでビューポートから出てもtrueを維持する', async () => {
-    const { MockObserver, triggerIntersection } = createMockIntersectionObserver(true);
-    vi.stubGlobal('IntersectionObserver', MockObserver);
+    let storedCallback: IntersectionObserverCallback | undefined;
+    let storedElement: Element | undefined;
+
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        private callback: IntersectionObserverCallback;
+        constructor(callback: IntersectionObserverCallback) {
+          this.callback = callback;
+          storedCallback = callback;
+        }
+        observe(el: Element) {
+          storedElement = el;
+          this.callback(
+            [{ isIntersecting: true, target: el } as IntersectionObserverEntry],
+            {} as IntersectionObserver,
+          );
+        }
+        disconnect() {}
+      },
+    );
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -82,8 +114,15 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    triggerIntersection(false);
+    // ビューポートから出る
+    if (storedCallback && storedElement) {
+      storedCallback(
+        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
+        {} as IntersectionObserver,
+      );
+    }
 
+    // onceなのでtrueを維持
     await vi.waitFor(() => {
       expect(result.current).toBe(true);
     });

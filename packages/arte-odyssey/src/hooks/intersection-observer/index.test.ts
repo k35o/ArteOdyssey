@@ -1,29 +1,6 @@
 import { renderHook } from 'vitest-browser-react';
 import { useIntersectionObserver } from './index';
 
-const createMockIntersectionObserver = (isIntersecting: boolean) => {
-  const MockObserver = vi.fn((callback: IntersectionObserverCallback) => {
-    return {
-      observe: vi.fn((el: Element) => {
-        callback(
-          [
-            {
-              isIntersecting,
-              intersectionRatio: isIntersecting ? 1 : 0,
-              target: el,
-            } as IntersectionObserverEntry,
-          ],
-          {} as IntersectionObserver,
-        );
-      }),
-      unobserve: vi.fn(),
-      disconnect: vi.fn(),
-    };
-  });
-
-  return { MockObserver };
-};
-
 describe('useIntersectionObserver', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -38,8 +15,24 @@ describe('useIntersectionObserver', () => {
   });
 
   it('要素が交差している場合isIntersectingがtrueになる', async () => {
-    const { MockObserver } = createMockIntersectionObserver(true);
-    vi.stubGlobal('IntersectionObserver', MockObserver);
+    const observeSpy = vi.fn();
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: IntersectionObserverCallback) {
+          observeSpy.mockImplementation((el: Element) => {
+            callback(
+              [{ isIntersecting: true, target: el } as IntersectionObserverEntry],
+              {} as IntersectionObserver,
+            );
+          });
+        }
+        observe(el: Element) {
+          observeSpy(el);
+        }
+        disconnect() {}
+      },
+    );
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -51,8 +44,24 @@ describe('useIntersectionObserver', () => {
   });
 
   it('要素が交差していない場合isIntersectingがfalseになる', async () => {
-    const { MockObserver } = createMockIntersectionObserver(false);
-    vi.stubGlobal('IntersectionObserver', MockObserver);
+    const observeSpy = vi.fn();
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(callback: IntersectionObserverCallback) {
+          observeSpy.mockImplementation((el: Element) => {
+            callback(
+              [{ isIntersecting: false, target: el } as IntersectionObserverEntry],
+              {} as IntersectionObserver,
+            );
+          });
+        }
+        observe(el: Element) {
+          observeSpy(el);
+        }
+        disconnect() {}
+      },
+    );
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -65,14 +74,23 @@ describe('useIntersectionObserver', () => {
   });
 
   it('オプションがIntersectionObserverに渡される', async () => {
-    const { MockObserver } = createMockIntersectionObserver(true);
-    vi.stubGlobal('IntersectionObserver', MockObserver);
+    const optionsSpy = vi.fn();
+    vi.stubGlobal(
+      'IntersectionObserver',
+      class {
+        constructor(_: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+          optionsSpy(options);
+        }
+        observe() {}
+        disconnect() {}
+      },
+    );
 
     const div = document.createElement('div');
     const ref = { current: div };
     await renderHook(() => useIntersectionObserver(ref, { threshold: 0.5, rootMargin: '10px' }));
 
-    expect(MockObserver).toHaveBeenCalledWith(expect.any(Function), {
+    expect(optionsSpy).toHaveBeenCalledWith({
       threshold: 0.5,
       root: null,
       rootMargin: '10px',

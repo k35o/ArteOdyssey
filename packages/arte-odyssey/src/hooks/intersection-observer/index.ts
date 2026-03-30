@@ -1,5 +1,6 @@
 'use client';
 
+export { useInView } from './use-in-view';
 import { type RefObject, useEffect, useRef, useState } from 'react';
 
 type UseIntersectionObserverOptions = {
@@ -24,10 +25,6 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
   useEffect(() => {
     const element = ref.current;
     if (!element) return;
-
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
