@@ -24,7 +24,10 @@ export const useDebounce = <T>(value: T, delay: number): T => {
 export const useDebouncedCallback = <T extends AnyFunction>(callback: T, delay: number) => {
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const callbackRef = useRef(callback);
-  callbackRef.current = callback;
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  });
 
   useEffect(() => {
     return () => {

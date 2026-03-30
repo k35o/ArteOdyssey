@@ -35,7 +35,10 @@ export const useThrottledCallback = <T extends AnyFunction>(callback: T, interva
   const lastCalledRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const callbackRef = useRef(callback);
-  callbackRef.current = callback;
+
+  useEffect(() => {
+    callbackRef.current = callback;
+  });
 
   useEffect(() => {
     return () => {
