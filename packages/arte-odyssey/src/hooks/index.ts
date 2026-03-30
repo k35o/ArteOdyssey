@@ -4,6 +4,8 @@ export { useClipboard } from './clipboard';
 export { useDebounce, useDebouncedCallback } from './debounce';
 export { useDisclosure } from './disclosure';
 export { useHash } from './hash';
+export { useIntersectionObserver } from './intersection-observer';
+export { useInView } from './intersection-observer/use-in-view';
 export { useInterval } from './interval';
 export { useBreakpoint } from './breakpoint';
 export { useLocalStorage } from './local-storage';
