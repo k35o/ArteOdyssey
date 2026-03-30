@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import { type FC, useRef } from 'react';
 import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
 import { useClickAway } from '.';
@@ -6,7 +6,8 @@ import { useClickAway } from '.';
 const OutsideClicker: FC<{
   callback: () => void;
 }> = ({ callback }: { callback: () => void }) => {
-  const ref = useClickAway<HTMLDivElement>(callback);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickAway(ref, callback);
   return (
     <>
       <div ref={ref}>Element</div>

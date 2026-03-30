@@ -1,13 +1,18 @@
 'use client';
 
 import { useClickAway } from '@k8o/arte-odyssey';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export function UseClickAwayPreview() {
   const [isOpen, setIsOpen] = useState(false);
-  const ref = useClickAway<HTMLDivElement>(() => {
-    setIsOpen(false);
-  }, isOpen);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickAway(
+    ref,
+    () => {
+      setIsOpen(false);
+    },
+    isOpen,
+  );
 
   return (
     <div className="flex flex-col items-start gap-4">

@@ -6,6 +6,11 @@ import { T } from '../../components/t';
 
 const parameters: PropItem[] = [
   {
+    name: 'ref',
+    types: ['RefObject<T | null>'],
+    defaultValue: null,
+  },
+  {
     name: 'callback',
     types: ['(entry: ResizeObserverEntry) => void'],
     defaultValue: null,
@@ -24,8 +29,8 @@ const parameters: PropItem[] = [
 
 const returnValue: PropItem[] = [
   {
-    name: 'ref',
-    types: ['RefObject<T | null>'],
+    name: 'void',
+    types: ['void'],
     defaultValue: null,
   },
 ];
@@ -62,8 +67,9 @@ export function UseResizePage() {
           </Heading>
           <CodeBlock
             code={`const [size, setSize] = useState({ width: 0, height: 0 });
+const ref = useRef<HTMLDivElement>(null);
 
-const ref = useResize<HTMLDivElement>((entry) => {
+useResize(ref, (entry) => {
   const { width, height } = entry.contentRect;
   setSize({ width, height });
 }, { debounceMs: 100 });

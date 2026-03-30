@@ -2,17 +2,9 @@ import { renderHook } from 'vitest-browser-react';
 import { useIntersectionObserver } from './index';
 
 const createMockIntersectionObserver = (isIntersecting: boolean) => {
-  const instances: Array<{
-    callback: IntersectionObserverCallback;
-    element: Element | undefined;
-  }> = [];
-
   const MockObserver = vi.fn((callback: IntersectionObserverCallback) => {
-    const instance = {
-      callback,
-      element: undefined as Element | undefined,
+    return {
       observe: vi.fn((el: Element) => {
-        instance.element = el;
         callback(
           [
             {
@@ -27,11 +19,9 @@ const createMockIntersectionObserver = (isIntersecting: boolean) => {
       unobserve: vi.fn(),
       disconnect: vi.fn(),
     };
-    instances.push(instance);
-    return instance;
   });
 
-  return { MockObserver, instances };
+  return { MockObserver };
 };
 
 describe('useIntersectionObserver', () => {
@@ -42,7 +32,8 @@ describe('useIntersectionObserver', () => {
   });
 
   it('初期状態ではisIntersectingはfalseである', async () => {
-    const { result } = await renderHook(() => useIntersectionObserver());
+    const ref = { current: null };
+    const { result } = await renderHook(() => useIntersectionObserver(ref));
 
     expect(result.current.isIntersecting).toBe(false);
     expect(result.current.entry).toBeUndefined();
@@ -52,10 +43,9 @@ describe('useIntersectionObserver', () => {
     const { MockObserver } = createMockIntersectionObserver(true);
     window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
 
-    const { result } = await renderHook(() => useIntersectionObserver());
-
     const div = document.createElement('div');
-    result.current.ref(div);
+    const ref = { current: div };
+    const { result } = await renderHook(() => useIntersectionObserver(ref));
 
     await vi.waitFor(() => {
       expect(result.current.isIntersecting).toBe(true);
@@ -66,10 +56,9 @@ describe('useIntersectionObserver', () => {
     const { MockObserver } = createMockIntersectionObserver(false);
     window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
 
-    const { result } = await renderHook(() => useIntersectionObserver());
-
     const div = document.createElement('div');
-    result.current.ref(div);
+    const ref = { current: div };
+    const { result } = await renderHook(() => useIntersectionObserver(ref));
 
     await vi.waitFor(() => {
       expect(result.current.entry).toBeDefined();
@@ -81,12 +70,9 @@ describe('useIntersectionObserver', () => {
     const { MockObserver } = createMockIntersectionObserver(true);
     window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
 
-    const { result } = await renderHook(() =>
-      useIntersectionObserver({ threshold: 0.5, rootMargin: '10px' }),
-    );
-
     const div = document.createElement('div');
-    result.current.ref(div);
+    const ref = { current: div };
+    await renderHook(() => useIntersectionObserver(ref, { threshold: 0.5, rootMargin: '10px' }));
 
     expect(MockObserver).toHaveBeenCalledWith(expect.any(Function), {
       threshold: 0.5,

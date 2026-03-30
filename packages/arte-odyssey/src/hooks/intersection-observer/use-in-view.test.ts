@@ -52,23 +52,23 @@ describe('useInView', () => {
     window.IntersectionObserver = originalIO;
   });
 
-  it('初期状態ではisInViewはfalseである', async () => {
-    const { result } = await renderHook(() => useInView());
+  it('初期状態ではfalseを返す', async () => {
+    const ref = { current: null };
+    const { result } = await renderHook(() => useInView(ref));
 
-    expect(result.current.isInView).toBe(false);
+    expect(result.current).toBe(false);
   });
 
-  it('要素がビューポート内にある場合isInViewがtrueになる', async () => {
+  it('要素がビューポート内にある場合trueを返す', async () => {
     const { MockObserver } = createMockIntersectionObserver(true);
     window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
 
-    const { result } = await renderHook(() => useInView());
-
     const div = document.createElement('div');
-    result.current.ref(div);
+    const ref = { current: div };
+    const { result } = await renderHook(() => useInView(ref));
 
     await vi.waitFor(() => {
-      expect(result.current.isInView).toBe(true);
+      expect(result.current).toBe(true);
     });
   });
 
@@ -76,19 +76,18 @@ describe('useInView', () => {
     const { MockObserver, triggerIntersection } = createMockIntersectionObserver(true);
     window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
 
-    const { result } = await renderHook(() => useInView({ once: true }));
-
     const div = document.createElement('div');
-    result.current.ref(div);
+    const ref = { current: div };
+    const { result } = await renderHook(() => useInView(ref, { once: true }));
 
     await vi.waitFor(() => {
-      expect(result.current.isInView).toBe(true);
+      expect(result.current).toBe(true);
     });
 
     triggerIntersection(false);
 
     await vi.waitFor(() => {
-      expect(result.current.isInView).toBe(true);
+      expect(result.current).toBe(true);
     });
   });
 });

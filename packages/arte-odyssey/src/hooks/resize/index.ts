@@ -8,11 +8,11 @@ type Options = {
 };
 
 export const useResize = <T extends Element = HTMLElement>(
+  ref: RefObject<T | null>,
   callback: (entry: ResizeObserverEntry) => void,
   options: Options = {},
-): RefObject<T | null> => {
+): void => {
   const { enabled = true, debounceMs } = options;
-  const ref = useRef<T>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
@@ -44,7 +44,5 @@ export const useResize = <T extends Element = HTMLElement>(
       }
       observer.disconnect();
     };
-  }, [callback, enabled, debounceMs]);
-
-  return ref;
+  }, [ref, callback, enabled, debounceMs]);
 };

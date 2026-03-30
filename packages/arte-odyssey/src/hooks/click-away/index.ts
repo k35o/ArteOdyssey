@@ -1,13 +1,12 @@
 'use client';
 
-import { type RefObject, useEffect, useRef } from 'react';
+import { type RefObject, useEffect } from 'react';
 
 export const useClickAway = <T extends Element = HTMLElement>(
+  ref: RefObject<T | null>,
   callback: (e: Event) => void,
   enabled = true,
-): RefObject<T | null> => {
-  const ref = useRef<T>(null);
-
+): void => {
   useEffect(() => {
     if (!enabled) return;
 
@@ -25,7 +24,5 @@ export const useClickAway = <T extends Element = HTMLElement>(
       document.removeEventListener('mousedown', handler);
       document.removeEventListener('touchstart', handler);
     };
-  }, [callback, enabled]);
-
-  return ref;
+  }, [ref, callback, enabled]);
 };

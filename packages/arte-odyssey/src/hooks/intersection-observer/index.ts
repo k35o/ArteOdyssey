@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { type RefObject, useEffect, useRef, useState } from 'react';
 
 type UseIntersectionObserverOptions = {
   threshold?: number | number[];
@@ -8,30 +8,26 @@ type UseIntersectionObserverOptions = {
   rootMargin?: string;
 };
 
-type UseIntersectionObserverReturn<T extends Element> = {
-  ref: (node: T | null) => void;
+type UseIntersectionObserverReturn = {
   entry: IntersectionObserverEntry | undefined;
   isIntersecting: boolean;
 };
 
 export const useIntersectionObserver = <T extends Element = HTMLElement>(
+  ref: RefObject<T | null>,
   options: UseIntersectionObserverOptions = {},
-): UseIntersectionObserverReturn<T> => {
+): UseIntersectionObserverReturn => {
   const { threshold = 0, root = null, rootMargin = '0px' } = options;
   const [entry, setEntry] = useState<IntersectionObserverEntry>();
   const observerRef = useRef<IntersectionObserver>(undefined);
-  const nodeRef = useRef<T | null>(null);
 
-  const cleanup = useCallback(() => {
+  useEffect(() => {
+    const element = ref.current;
+    if (!element) return;
+
     if (observerRef.current) {
       observerRef.current.disconnect();
-      observerRef.current = undefined;
     }
-  }, []);
-
-  const observe = useCallback(() => {
-    cleanup();
-    if (!nodeRef.current) return;
 
     observerRef.current = new IntersectionObserver(
       ([entry]) => {
@@ -41,24 +37,14 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
       },
       { threshold, root, rootMargin },
     );
-    observerRef.current.observe(nodeRef.current);
-  }, [threshold, root, rootMargin, cleanup]);
+    observerRef.current.observe(element);
 
-  useEffect(() => {
-    observe();
-    return cleanup;
-  }, [observe, cleanup]);
-
-  const ref = useCallback(
-    (node: T | null) => {
-      nodeRef.current = node;
-      observe();
-    },
-    [observe],
-  );
+    return () => {
+      observerRef.current?.disconnect();
+    };
+  }, [ref, threshold, root, rootMargin]);
 
   return {
-    ref,
     entry,
     isIntersecting: entry?.isIntersecting ?? false,
   };
