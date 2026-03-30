@@ -46,10 +46,8 @@ const createMockIntersectionObserver = (isIntersecting: boolean) => {
 };
 
 describe('useInView', () => {
-  const originalIO = window.IntersectionObserver;
-
   afterEach(() => {
-    window.IntersectionObserver = originalIO;
+    vi.restoreAllMocks();
   });
 
   it('初期状態ではfalseを返す', async () => {
@@ -61,7 +59,7 @@ describe('useInView', () => {
 
   it('要素がビューポート内にある場合trueを返す', async () => {
     const { MockObserver } = createMockIntersectionObserver(true);
-    window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
+    vi.stubGlobal('IntersectionObserver', MockObserver);
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -74,7 +72,7 @@ describe('useInView', () => {
 
   it('onceオプションでビューポートから出てもtrueを維持する', async () => {
     const { MockObserver, triggerIntersection } = createMockIntersectionObserver(true);
-    window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
+    vi.stubGlobal('IntersectionObserver', MockObserver);
 
     const div = document.createElement('div');
     const ref = { current: div };

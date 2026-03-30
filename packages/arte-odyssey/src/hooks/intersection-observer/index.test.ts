@@ -25,10 +25,8 @@ const createMockIntersectionObserver = (isIntersecting: boolean) => {
 };
 
 describe('useIntersectionObserver', () => {
-  const originalIO = window.IntersectionObserver;
-
   afterEach(() => {
-    window.IntersectionObserver = originalIO;
+    vi.restoreAllMocks();
   });
 
   it('初期状態ではisIntersectingはfalseである', async () => {
@@ -41,7 +39,7 @@ describe('useIntersectionObserver', () => {
 
   it('要素が交差している場合isIntersectingがtrueになる', async () => {
     const { MockObserver } = createMockIntersectionObserver(true);
-    window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
+    vi.stubGlobal('IntersectionObserver', MockObserver);
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -54,7 +52,7 @@ describe('useIntersectionObserver', () => {
 
   it('要素が交差していない場合isIntersectingがfalseになる', async () => {
     const { MockObserver } = createMockIntersectionObserver(false);
-    window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
+    vi.stubGlobal('IntersectionObserver', MockObserver);
 
     const div = document.createElement('div');
     const ref = { current: div };
@@ -68,7 +66,7 @@ describe('useIntersectionObserver', () => {
 
   it('オプションがIntersectionObserverに渡される', async () => {
     const { MockObserver } = createMockIntersectionObserver(true);
-    window.IntersectionObserver = MockObserver as unknown as typeof IntersectionObserver;
+    vi.stubGlobal('IntersectionObserver', MockObserver);
 
     const div = document.createElement('div');
     const ref = { current: div };
