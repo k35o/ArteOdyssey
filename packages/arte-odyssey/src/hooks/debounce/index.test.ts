@@ -2,101 +2,87 @@ import { renderHook } from 'vitest-browser-react';
 import { useDebounce } from './index';
 
 describe('useDebounce', () => {
-  beforeEach(() => {
-    vi.useFakeTimers();
-  });
-
-  afterEach(() => {
-    vi.useRealTimers();
-  });
-
   describe('値のデバウンス', () => {
     it('初期値をそのまま返す', async () => {
+      vi.useFakeTimers();
       const { result } = await renderHook(() => useDebounce('hello', 300));
 
       expect(result.current).toBe('hello');
+      vi.useRealTimers();
     });
 
     it('delay経過後に値が更新される', async () => {
-      const { result, rerender, act } = await renderHook(
+      const { result, rerender } = await renderHook(
         (props?: { value: string }) => useDebounce(props?.value ?? 'initial', 300),
         { initialProps: { value: 'initial' } },
       );
 
+      vi.useFakeTimers();
       rerender({ value: 'updated' });
 
       expect(result.current).toBe('initial');
 
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
+      vi.advanceTimersByTime(300);
 
       expect(result.current).toBe('updated');
+      vi.useRealTimers();
     });
 
     it('delay内に値が変更されたらタイマーがリセットされる', async () => {
-      const { result, rerender, act } = await renderHook(
+      const { result, rerender } = await renderHook(
         (props?: { value: string }) => useDebounce(props?.value ?? 'initial', 300),
         { initialProps: { value: 'initial' } },
       );
 
+      vi.useFakeTimers();
       rerender({ value: 'first' });
-
-      await act(async () => {
-        vi.advanceTimersByTime(200);
-      });
+      vi.advanceTimersByTime(200);
 
       rerender({ value: 'second' });
-
-      await act(async () => {
-        vi.advanceTimersByTime(200);
-      });
+      vi.advanceTimersByTime(200);
 
       expect(result.current).toBe('initial');
 
-      await act(async () => {
-        vi.advanceTimersByTime(100);
-      });
+      vi.advanceTimersByTime(100);
 
       expect(result.current).toBe('second');
+      vi.useRealTimers();
     });
   });
 
   describe('コールバックのデバウンス', () => {
     it('delay経過後にコールバックが呼ばれる', async () => {
       const callback = vi.fn();
-      const { result, act } = await renderHook(() => useDebounce(callback, 300));
+      vi.useFakeTimers();
 
-      act(() => {
-        result.current('arg1');
-      });
+      const { result } = await renderHook(() => useDebounce(callback, 300));
+
+      result.current('arg1');
 
       expect(callback).not.toHaveBeenCalled();
 
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
+      vi.advanceTimersByTime(300);
 
       expect(callback).toHaveBeenCalledOnce();
       expect(callback).toHaveBeenCalledWith('arg1');
+      vi.useRealTimers();
     });
 
     it('delay内に複数回呼ばれたら最後の呼び出しだけ実行される', async () => {
       const callback = vi.fn();
-      const { result, act } = await renderHook(() => useDebounce(callback, 300));
+      vi.useFakeTimers();
 
-      act(() => {
-        result.current('first');
-        result.current('second');
-        result.current('third');
-      });
+      const { result } = await renderHook(() => useDebounce(callback, 300));
 
-      await act(async () => {
-        vi.advanceTimersByTime(300);
-      });
+      result.current('first');
+      result.current('second');
+      result.current('third');
+
+      vi.advanceTimersByTime(300);
 
       expect(callback).toHaveBeenCalledOnce();
       expect(callback).toHaveBeenCalledWith('third');
+      vi.useRealTimers();
     });
   });
 });
