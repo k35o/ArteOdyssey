@@ -5,22 +5,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyFunction = (...args: any[]) => any;
 
-export function useThrottle<T extends AnyFunction>(
-  callback: T,
-  interval: number,
-): (...args: Parameters<T>) => void;
-export function useThrottle<T>(value: T, interval: number): T;
-export function useThrottle<T>(
-  valueOrCallback: T,
-  interval: number,
-): T | ((...args: unknown[]) => void) {
-  if (typeof valueOrCallback === 'function') {
-    return useThrottledCallback(valueOrCallback as AnyFunction, interval);
-  }
-  return useThrottledValue(valueOrCallback, interval);
-}
-
-const useThrottledValue = <T>(value: T, interval: number): T => {
+export const useThrottle = <T>(value: T, interval: number): T => {
   const [throttledValue, setThrottledValue] = useState(value);
   const lastUpdatedRef = useRef(0);
 
@@ -46,7 +31,7 @@ const useThrottledValue = <T>(value: T, interval: number): T => {
   return throttledValue;
 };
 
-const useThrottledCallback = <T extends AnyFunction>(callback: T, interval: number) => {
+export const useThrottledCallback = <T extends AnyFunction>(callback: T, interval: number) => {
   const lastCalledRef = useRef(0);
   const timerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
   const callbackRef = useRef(callback);

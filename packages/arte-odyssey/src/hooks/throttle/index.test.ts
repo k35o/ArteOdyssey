@@ -1,73 +1,67 @@
 import { renderHook } from 'vitest-browser-react';
-import { useThrottle } from './index';
+import { useThrottle, useThrottledCallback } from './index';
 
 describe('useThrottle', () => {
-  describe('値のスロットリング', () => {
-    it('初期値をそのまま返す', async () => {
-      const { result } = await renderHook(() => useThrottle('hello', 50));
+  it('初期値をそのまま返す', async () => {
+    const { result } = await renderHook(() => useThrottle('hello', 50));
 
-      expect(result.current).toBe('hello');
-    });
-
-    it('interval経過後に値が更新される', async () => {
-      const { result, rerender } = await renderHook(
-        (props?: { value: string }) => useThrottle(props?.value ?? 'initial', 50),
-        { initialProps: { value: 'initial' } },
-      );
-
-      rerender({ value: 'updated' });
-
-      await vi.waitFor(() => {
-        expect(result.current).toBe('updated');
-      });
-    });
+    expect(result.current).toBe('hello');
   });
 
-  describe('コールバックのスロットリング', () => {
-    it('最初の呼び出しは即座に実行される', async () => {
-      const callback = vi.fn();
-      const { result } = await renderHook(() => useThrottle(callback, 50));
+  it('interval経過後に値が更新される', async () => {
+    const { result, rerender } = await renderHook(
+      (props?: { value: string }) => useThrottle(props?.value ?? 'initial', 50),
+      { initialProps: { value: 'initial' } },
+    );
 
-      result.current('arg1');
+    rerender({ value: 'updated' });
 
-      expect(callback).toHaveBeenCalledOnce();
-      expect(callback).toHaveBeenCalledWith('arg1');
+    await vi.waitFor(() => {
+      expect(result.current).toBe('updated');
     });
+  });
+});
 
-    it('interval内の連続呼び出しは最後の1回だけ遅延実行される', async () => {
-      const callback = vi.fn();
-      const { result } = await renderHook(() => useThrottle(callback, 100));
+describe('useThrottledCallback', () => {
+  it('最初の呼び出しは即座に実行される', async () => {
+    const callback = vi.fn();
+    const { result } = await renderHook(() => useThrottledCallback(callback, 50));
 
-      result.current('first');
-      expect(callback).toHaveBeenCalledOnce();
+    result.current('arg1');
 
-      result.current('second');
-      result.current('third');
-      expect(callback).toHaveBeenCalledOnce();
+    expect(callback).toHaveBeenCalledOnce();
+    expect(callback).toHaveBeenCalledWith('arg1');
+  });
 
-      await vi.waitFor(() => {
-        expect(callback).toHaveBeenCalledTimes(2);
-      });
-      expect(callback).toHaveBeenLastCalledWith('third');
-    });
+  it('interval内の連続呼び出しは最後の1回だけ遅延実行される', async () => {
+    const callback = vi.fn();
+    const { result } = await renderHook(() => useThrottledCallback(callback, 100));
 
-    it('interval経過後は再び即座に実行される', async () => {
-      const callback = vi.fn();
-      const { result } = await renderHook(() => useThrottle(callback, 50));
+    result.current('first');
+    expect(callback).toHaveBeenCalledOnce();
 
-      result.current('first');
-      expect(callback).toHaveBeenCalledOnce();
+    result.current('second');
+    result.current('third');
+    expect(callback).toHaveBeenCalledOnce();
 
-      await vi.waitFor(() => {
-        expect(callback).toHaveBeenCalledOnce();
-      });
-
-      // interval経過を待つ
-      await new Promise((resolve) => setTimeout(resolve, 60));
-
-      result.current('second');
+    await vi.waitFor(() => {
       expect(callback).toHaveBeenCalledTimes(2);
-      expect(callback).toHaveBeenLastCalledWith('second');
     });
+    expect(callback).toHaveBeenLastCalledWith('third');
+  });
+
+  it('interval経過後は再び即座に実行される', async () => {
+    const callback = vi.fn();
+    const { result } = await renderHook(() => useThrottledCallback(callback, 50));
+
+    result.current('first');
+    expect(callback).toHaveBeenCalledOnce();
+
+    // interval経過を待つ
+    await new Promise((resolve) => setTimeout(resolve, 60));
+
+    result.current('second');
+    expect(callback).toHaveBeenCalledTimes(2);
+    expect(callback).toHaveBeenLastCalledWith('second');
   });
 });
