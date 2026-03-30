@@ -13,6 +13,7 @@ import { BreadcrumbPage } from './pages/components/breadcrumb-page';
 import { ButtonPage } from './pages/components/button-page';
 import { CardPage } from './pages/components/card-page';
 import { CheckboxCardPage } from './pages/components/checkbox-card-page';
+import { CheckboxGroupPage } from './pages/components/checkbox-group-page';
 import { CheckboxPage } from './pages/components/checkbox-page';
 import { CodePage } from './pages/components/code-page';
 import { DialogPage } from './pages/components/dialog-page';
@@ -58,15 +59,23 @@ import { ToPrecisionPage } from './pages/helpers/to-precision-page';
 import { UuidV4Page } from './pages/helpers/uuid-v4-page';
 import { Home } from './pages/home';
 import { HooksPage } from './pages/hooks';
+import { UseBreakpointPage } from './pages/hooks/use-breakpoint-page';
 import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
 import { UseClientPage } from './pages/hooks/use-client-page';
 import { UseClipboardPage } from './pages/hooks/use-clipboard-page';
+import { UseDebouncePage } from './pages/hooks/use-debounce-page';
+import { UseDebouncedCallbackPage } from './pages/hooks/use-debounced-callback-page';
+import { UseDisclosurePage } from './pages/hooks/use-disclosure-page';
 import { UseHashPage } from './pages/hooks/use-hash-page';
+import { UseInViewPage } from './pages/hooks/use-in-view-page';
+import { UseIntersectionObserverPage } from './pages/hooks/use-intersection-observer-page';
 import { UseIntervalPage } from './pages/hooks/use-interval-page';
 import { UseLocalStoragePage } from './pages/hooks/use-local-storage-page';
 import { UseResizePage } from './pages/hooks/use-resize-page';
 import { UseScrollDirectionPage } from './pages/hooks/use-scroll-direction-page';
 import { UseStepPage } from './pages/hooks/use-step-page';
+import { UseThrottlePage } from './pages/hooks/use-throttle-page';
+import { UseThrottledCallbackPage } from './pages/hooks/use-throttled-callback-page';
 import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
 import { UseWindowSizePage } from './pages/hooks/use-window-size-page';
@@ -138,6 +147,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/checkbox-card',
         component: <CheckboxCardPage />,
+      }),
+      route({
+        path: '/components/checkbox-group',
+        component: <CheckboxGroupPage />,
       }),
       route({
         path: '/components/switch',
@@ -280,6 +293,10 @@ const routes: RouteDefinition[] = [
         component: <HooksPage />,
       }),
       route({
+        path: '/hooks/use-breakpoint',
+        component: <UseBreakpointPage />,
+      }),
+      route({
         path: '/hooks/use-click-away',
         component: <UseClickAwayPage />,
       }),
@@ -292,8 +309,28 @@ const routes: RouteDefinition[] = [
         component: <UseClipboardPage />,
       }),
       route({
+        path: '/hooks/use-debounce',
+        component: <UseDebouncePage />,
+      }),
+      route({
+        path: '/hooks/use-debounced-callback',
+        component: <UseDebouncedCallbackPage />,
+      }),
+      route({
+        path: '/hooks/use-disclosure',
+        component: <UseDisclosurePage />,
+      }),
+      route({
         path: '/hooks/use-hash',
         component: <UseHashPage />,
+      }),
+      route({
+        path: '/hooks/use-in-view',
+        component: <UseInViewPage />,
+      }),
+      route({
+        path: '/hooks/use-intersection-observer',
+        component: <UseIntersectionObserverPage />,
       }),
       route({
         path: '/hooks/use-interval',
@@ -314,6 +351,14 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-step',
         component: <UseStepPage />,
+      }),
+      route({
+        path: '/hooks/use-throttle',
+        component: <UseThrottlePage />,
+      }),
+      route({
+        path: '/hooks/use-throttled-callback',
+        component: <UseThrottledCallbackPage />,
       }),
       route({
         path: '/hooks/use-timeout',
