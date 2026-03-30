@@ -8,6 +8,11 @@ import { UseClickAwayPreview } from './_previews/use-click-away-previews';
 
 const parameters: PropItem[] = [
   {
+    name: 'ref',
+    types: ['RefObject<T | null>'],
+    defaultValue: null,
+  },
+  {
     name: 'callback',
     types: ['(e: Event) => void'],
     defaultValue: null,
@@ -21,8 +26,8 @@ const parameters: PropItem[] = [
 
 const returnValue: PropItem[] = [
   {
-    name: 'ref',
-    types: ['RefObject<T | null>'],
+    name: 'void',
+    types: ['void'],
     defaultValue: null,
   },
 ];
@@ -59,7 +64,8 @@ export function UseClickAwayPage() {
           </Heading>
           <ComponentPreview
             code={`const [isOpen, setIsOpen] = useState(false);
-const ref = useClickAway<HTMLDivElement>(() => {
+const ref = useRef<HTMLDivElement>(null);
+useClickAway(ref, () => {
   setIsOpen(false);
 }, isOpen);
 

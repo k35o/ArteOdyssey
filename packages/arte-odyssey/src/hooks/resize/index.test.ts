@@ -4,80 +4,39 @@ import { useResize } from '.';
 describe('useResize', () => {
   it('要素のリサイズ時にコールバックが呼ばれる', async () => {
     const callback = vi.fn();
-    const { result } = await renderHook(() => useResize(callback));
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const ref = { current: div };
 
-    const element = document.createElement('div');
-    Object.defineProperty(result.current, 'current', {
-      writable: true,
-      value: element,
+    await renderHook(() => useResize(ref, callback));
+
+    await vi.waitFor(() => {
+      expect(callback).toHaveBeenCalled();
     });
 
-    const observer = new ResizeObserver(callback);
-    observer.observe(element);
+    document.body.removeChild(div);
+  });
 
-    // ResizeObserverのトリガーをシミュレート
-    const contentRect = new DOMRectReadOnly(0, 0, 100, 100);
-    const entry = {
-      target: element,
-      contentRect,
-      borderBoxSize: [],
-      contentBoxSize: [],
-      devicePixelContentBoxSize: [],
-    } as unknown as ResizeObserverEntry;
+  it('debounceMs指定時は指定時間後にコールバックが呼ばれる', async () => {
+    const callback = vi.fn();
+    const div = document.createElement('div');
+    document.body.appendChild(div);
+    const ref = { current: div };
 
-    callback(entry);
+    await renderHook(() => useResize(ref, callback, { debounceMs: 50 }));
 
-    expect(callback).toHaveBeenCalled();
+    await vi.waitFor(() => {
+      expect(callback).toHaveBeenCalled();
+    });
 
-    observer.disconnect();
+    document.body.removeChild(div);
   });
 
   it('enabled=falseの場合はコールバックが呼ばれない', async () => {
     const callback = vi.fn();
-    const { result } = await renderHook(() => useResize(callback, { enabled: false }));
+    const ref = { current: document.createElement('div') };
+    await renderHook(() => useResize(ref, callback, { enabled: false }));
 
-    expect(result.current.current).toBeNull();
     expect(callback).not.toHaveBeenCalled();
-  });
-
-  it('debounceMs指定時は指定時間後にコールバックが呼ばれる', async () => {
-    vi.useFakeTimers();
-    const callback = vi.fn();
-    const { result } = await renderHook(() => useResize(callback, { debounceMs: 300 }));
-
-    const element = document.createElement('div');
-    Object.defineProperty(result.current, 'current', {
-      writable: true,
-      value: element,
-    });
-
-    const observer = new ResizeObserver((entries) => {
-      for (const entry of entries) {
-        callback(entry);
-      }
-    });
-    observer.observe(element);
-
-    const contentRect = new DOMRectReadOnly(0, 0, 100, 100);
-    const entry = {
-      target: element,
-      contentRect,
-      borderBoxSize: [],
-      contentBoxSize: [],
-      devicePixelContentBoxSize: [],
-    } as unknown as ResizeObserverEntry;
-
-    // 初回の呼び出しはまだ発火しない
-    callback(entry);
-    expect(callback).toHaveBeenCalledTimes(1);
-
-    vi.advanceTimersByTime(299);
-    expect(callback).toHaveBeenCalledTimes(1);
-
-    vi.advanceTimersByTime(1);
-    expect(callback).toHaveBeenCalledTimes(1);
-
-    observer.disconnect();
-    vi.useRealTimers();
   });
 });

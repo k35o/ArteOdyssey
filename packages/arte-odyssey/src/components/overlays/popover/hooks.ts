@@ -9,6 +9,7 @@ import {
   type RefObject,
   use,
   useMemo,
+  useRef,
 } from 'react';
 import { useClickAway } from './../../../hooks/click-away';
 
@@ -67,15 +68,20 @@ export const useOpenContext = () => {
 export const usePopoverContent = () => {
   const popover = usePopoverContext();
   const isHover = popover.type === 'tooltip';
-  const ref = useClickAway<HTMLDivElement>((event) => {
-    if (!popover.isOpen) {
-      return;
-    }
-    if (popover.triggerRef.current?.contains(event.target as HTMLElement)) {
-      return;
-    }
-    popover.onClose();
-  }, !isHover);
+  const ref = useRef<HTMLDivElement>(null);
+  useClickAway(
+    ref,
+    (event) => {
+      if (!popover.isOpen) {
+        return;
+      }
+      if (popover.triggerRef.current?.contains(event.target as HTMLElement)) {
+        return;
+      }
+      popover.onClose();
+    },
+    !isHover,
+  );
 
   const itemProps = useMemo(() => {
     switch (popover.type) {
