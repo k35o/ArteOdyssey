@@ -9,7 +9,7 @@ export type PropItem = {
 
 const TypeCodes: FC<{ types: readonly string[] }> = ({ types }) => {
   return (
-    <span className="flex flex-wrap items-center gap-1">
+    <span className="inline-flex items-center gap-1">
       {types.map((type, i) => (
         <span className="flex items-center gap-1" key={type}>
           {i > 0 && <span className="text-fg-mute/60">|</span>}
