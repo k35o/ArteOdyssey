@@ -233,6 +233,8 @@ export const MESSAGE_KEYS = [
   'hooks.useInterval.description',
   'hooks.useLocalStorage.description',
   'hooks.useLocalStorage.removeTitle',
+  'hooks.useSessionStorage.description',
+  'hooks.useSessionStorage.removeTitle',
   'hooks.useResize.description',
   'hooks.useScrollDirection.description',
   'hooks.useStep.description',

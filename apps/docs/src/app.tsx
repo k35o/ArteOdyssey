@@ -71,6 +71,7 @@ import { UseInViewPage } from './pages/hooks/use-in-view-page';
 import { UseIntersectionObserverPage } from './pages/hooks/use-intersection-observer-page';
 import { UseIntervalPage } from './pages/hooks/use-interval-page';
 import { UseLocalStoragePage } from './pages/hooks/use-local-storage-page';
+import { UseSessionStoragePage } from './pages/hooks/use-session-storage-page';
 import { UseResizePage } from './pages/hooks/use-resize-page';
 import { UseScrollDirectionPage } from './pages/hooks/use-scroll-direction-page';
 import { UseStepPage } from './pages/hooks/use-step-page';
@@ -339,6 +340,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-local-storage',
         component: <UseLocalStoragePage />,
+      }),
+      route({
+        path: '/hooks/use-session-storage',
+        component: <UseSessionStoragePage />,
       }),
       route({
         path: '/hooks/use-resize',
