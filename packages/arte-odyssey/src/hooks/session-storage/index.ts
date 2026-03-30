@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo, useSyncExternalStore } from 'react';
+import { useCallback, useMemo, useRef, useSyncExternalStore } from 'react';
 
 const dispatchStorageEvent = (key: string, newValue: string | null) =>
   window.dispatchEvent(new StorageEvent('storage', { key, newValue }));
@@ -15,20 +15,21 @@ const sessionStorageSubscribe = (cb: () => void) => {
 };
 
 export const useSessionStorage = <T>(key: string, initialValue: T) => {
+  const initialValueRef = useRef(initialValue);
   const getSnapshot = () => getSessionStorageItem(key);
   const store = useSyncExternalStore(sessionStorageSubscribe, getSnapshot, () => null);
 
   const current = useMemo(() => {
     try {
       if (store === null) {
-        return initialValue;
+        return initialValueRef.current;
       }
       return JSON.parse(store) as T;
     } catch (e) {
       console.error(e);
-      return initialValue;
+      return initialValueRef.current;
     }
-  }, [store, initialValue]);
+  }, [store]);
 
   const handleRemove = useCallback(() => {
     window.sessionStorage.removeItem(key);
