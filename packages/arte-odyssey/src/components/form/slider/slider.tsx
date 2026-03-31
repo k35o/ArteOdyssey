@@ -1,8 +1,8 @@
 'use client';
 
 import type { CSSProperties, FC } from 'react';
-import { useState } from 'react';
 import { cn } from '../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 
 type BaseProps = {
   id?: string;
@@ -45,21 +45,16 @@ export const Slider: FC<Props> = ({
   min = 0,
 }) => {
   const isControlled = value !== undefined;
-  const initialValue = defaultValue ?? value ?? min;
-  const [internalValue, setInternalValue] = useState(initialValue);
-  const currentValue = isControlled ? value : internalValue;
+  const [currentValue, handleChange] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? min,
+    onChange,
+  });
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
   const style = {
     '--slider-progress': `${Math.min(Math.max(progress, 0), 100)}%`,
   } as CSSProperties;
-
-  const handleChange = (newValue: number) => {
-    if (!isControlled) {
-      setInternalValue(newValue);
-    }
-    onChange?.(newValue);
-  };
 
   return (
     <div

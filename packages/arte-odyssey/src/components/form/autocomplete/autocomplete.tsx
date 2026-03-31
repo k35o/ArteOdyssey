@@ -2,6 +2,7 @@
 
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from './../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 import type { Option } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -42,24 +43,16 @@ export const Autocomplete: FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
-  const [internalValue, setInternalValue] = useState<string[]>(defaultValue || []);
-  const isControlled = value !== undefined;
-  const currentValue = isControlled ? value : internalValue;
+  const [currentValue, handleChange] = useControllableState({
+    value,
+    defaultValue: defaultValue || [],
+    onChange,
+  });
 
   const ref = useRef<HTMLDivElement>(null);
   const [open, setOpen] = useState(false);
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
-
-  const handleChange = useCallback(
-    (newValue: string[]) => {
-      if (!isControlled) {
-        setInternalValue(newValue);
-      }
-      onChange?.(newValue);
-    },
-    [isControlled, onChange],
-  );
 
   const filteredOptions = options.filter((option) => option.label.includes(text));
 

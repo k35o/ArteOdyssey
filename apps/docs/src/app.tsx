@@ -79,6 +79,9 @@ import { UseThrottlePage } from './pages/hooks/use-throttle-page';
 import { UseThrottledCallbackPage } from './pages/hooks/use-throttled-callback-page';
 import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
+import { UseControllableStatePage } from './pages/hooks/use-controllable-state-page';
+import { UseHoverPage } from './pages/hooks/use-hover-page';
+import { UseScrollLockPage } from './pages/hooks/use-scroll-lock-page';
 import { UseWindowSizePage } from './pages/hooks/use-window-size-page';
 import { RootRedirect } from './pages/root-redirect';
 import { Theming } from './pages/theming';
@@ -372,6 +375,18 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-window-resize',
         component: <UseWindowResizePage />,
+      }),
+      route({
+        path: '/hooks/use-scroll-lock',
+        component: <UseScrollLockPage />,
+      }),
+      route({
+        path: '/hooks/use-hover',
+        component: <UseHoverPage />,
+      }),
+      route({
+        path: '/hooks/use-controllable-state',
+        component: <UseControllableStatePage />,
       }),
       route({
         path: '/hooks/use-window-size',

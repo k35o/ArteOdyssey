@@ -5,15 +5,18 @@ export const hookCategories: NavCategory[] = [
     titleKey: 'hooks.categoryDomInteraction',
     items: [
       { name: 'useClickAway', path: '/hooks/use-click-away' },
+      { name: 'useHover', path: '/hooks/use-hover' },
       { name: 'useResize', path: '/hooks/use-resize' },
-      { name: 'useWindowResize', path: '/hooks/use-window-resize' },
       { name: 'useScrollDirection', path: '/hooks/use-scroll-direction' },
+      { name: 'useScrollLock', path: '/hooks/use-scroll-lock' },
+      { name: 'useWindowResize', path: '/hooks/use-window-resize' },
     ],
   },
   {
     titleKey: 'hooks.categoryStateStorage',
     items: [
       { name: 'useClipboard', path: '/hooks/use-clipboard' },
+      { name: 'useControllableState', path: '/hooks/use-controllable-state' },
       { name: 'useLocalStorage', path: '/hooks/use-local-storage' },
       { name: 'useSessionStorage', path: '/hooks/use-session-storage' },
       { name: 'useHash', path: '/hooks/use-hash' },
