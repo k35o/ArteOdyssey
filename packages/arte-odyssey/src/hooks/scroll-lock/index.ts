@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 type UseScrollLockReturn = {
   lock: () => void;
@@ -20,6 +20,15 @@ export const useScrollLock = (): UseScrollLockReturn => {
     if (originalStyleRef.current === null) return;
     document.body.style.overflow = originalStyleRef.current;
     originalStyleRef.current = null;
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (originalStyleRef.current !== null) {
+        document.body.style.overflow = originalStyleRef.current;
+        originalStyleRef.current = null;
+      }
+    };
   }, []);
 
   return { lock, unlock };

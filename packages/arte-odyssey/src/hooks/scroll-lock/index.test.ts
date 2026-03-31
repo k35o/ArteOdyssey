@@ -47,6 +47,18 @@ describe('useScrollLock', () => {
     expect(document.body.style.overflow).toBe('auto');
   });
 
+  it('アンマウント時にロックが解除される', async () => {
+    document.body.style.overflow = 'auto';
+
+    const { result, unmount } = await renderHook(() => useScrollLock());
+
+    result.current.lock();
+    expect(document.body.style.overflow).toBe('hidden');
+
+    unmount();
+    expect(document.body.style.overflow).toBe('auto');
+  });
+
   it('元のoverflowが空文字の場合も正しく復元される', async () => {
     document.body.style.overflow = '';
 

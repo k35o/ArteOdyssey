@@ -44,7 +44,6 @@ export const Slider: FC<Props> = ({
   max = 100,
   min = 0,
 }) => {
-  const isControlled = value !== undefined;
   const [currentValue, handleChange] = useControllableState({
     value,
     defaultValue: defaultValue ?? min,
@@ -88,7 +87,6 @@ export const Slider: FC<Props> = ({
           isInvalid &&
             '[&::-moz-range-thumb]:border-border-error [&::-webkit-slider-thumb]:border-border-error [&:focus-visible::-moz-range-thumb]:ring-border-error [&:focus-visible::-webkit-slider-thumb]:ring-border-error',
         )}
-        defaultValue={isControlled ? undefined : defaultValue}
         disabled={isDisabled}
         id={id}
         max={max}
@@ -100,7 +98,7 @@ export const Slider: FC<Props> = ({
         required={isRequired}
         step={step}
         type="range"
-        value={isControlled ? value : undefined}
+        value={currentValue}
       />
     </div>
   );

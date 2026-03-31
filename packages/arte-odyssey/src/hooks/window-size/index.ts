@@ -7,10 +7,17 @@ type Size = {
   height: number;
 };
 
-const getSnapshot = (): Size => ({
-  width: window.innerWidth,
-  height: window.innerHeight,
-});
+let cachedSnapshot: Size = { width: 0, height: 0 };
+
+const getSnapshot = (): Size => {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  if (cachedSnapshot.width === w && cachedSnapshot.height === h) {
+    return cachedSnapshot;
+  }
+  cachedSnapshot = { width: w, height: h };
+  return cachedSnapshot;
+};
 
 const getServerSnapshot = (): Size => ({
   width: 0,
