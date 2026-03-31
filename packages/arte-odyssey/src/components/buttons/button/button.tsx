@@ -28,7 +28,7 @@ export const Button: FC<
   return (
     <button
       className={cn(
-        'cursor-pointer rounded-lg border-2 text-center font-bold transition-colors',
+        'cursor-pointer rounded-full border-2 text-center font-bold transition-colors',
         {
           'border-transparent bg-primary-bg text-fg hover:bg-primary-bg/90 active:bg-primary-bg/80':
             variant === 'contained' && color === 'primary',
