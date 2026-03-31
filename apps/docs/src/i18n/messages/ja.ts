@@ -266,6 +266,10 @@ export const ja = {
   'hooks.useThrottle.description': '指定した間隔で値をスロットルするフックです。',
   'hooks.useThrottledCallback.description': 'コールバック関数のスロットル版を返すフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
+  'hooks.useScrollLock.description': 'bodyのスクロールをロック・アンロックするフックです。',
+  'hooks.useHover.description': '要素のホバー状態を検出するフックです。',
+  'hooks.useControllableState.description':
+    'controlled/uncontrolledコンポーネントの状態を管理するフックです。',
   'helpers.description': 'ArteOdysseyが提供するヘルパー関数の一覧です。',
   'helpers.categoryStyling': 'スタイリング',
   'helpers.categoryColor': 'カラー',

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useRef, useSyncExternalStore } from 'react';
 
 type ScrollDirection = {
   x: 'left' | 'right';
@@ -8,47 +8,75 @@ type ScrollDirection = {
 };
 
 export const useScrollDirection = (threshold = 50): ScrollDirection => {
-  const [scrollDirection, setScrollDirection] = useState<ScrollDirection>({
+  const stateRef = useRef<{
+    direction: ScrollDirection;
+    prevScrollX: number;
+    prevScrollY: number;
+  }>({
+    direction: { x: 'right', y: 'up' },
+    prevScrollX: 0,
+    prevScrollY: 0,
+  });
+
+  const subscribe = useCallback(
+    (callback: () => void): (() => void) => {
+      const handleScroll = (): void => {
+        const currentScrollY = window.scrollY;
+        const currentScrollX = window.scrollX;
+        const state = stateRef.current;
+
+        let changed = false;
+        const newDirection: ScrollDirection = { ...state.direction };
+
+        if (currentScrollY > state.prevScrollY && currentScrollY > threshold) {
+          if (newDirection.y !== 'down') {
+            newDirection.y = 'down';
+            changed = true;
+          }
+        } else if (currentScrollY < state.prevScrollY) {
+          if (newDirection.y !== 'up') {
+            newDirection.y = 'up';
+            changed = true;
+          }
+        }
+
+        if (currentScrollX > state.prevScrollX && currentScrollX > threshold) {
+          if (newDirection.x !== 'right') {
+            newDirection.x = 'right';
+            changed = true;
+          }
+        } else if (currentScrollX < state.prevScrollX) {
+          if (newDirection.x !== 'left') {
+            newDirection.x = 'left';
+            changed = true;
+          }
+        }
+
+        stateRef.current = {
+          direction: newDirection,
+          prevScrollX: currentScrollX,
+          prevScrollY: currentScrollY,
+        };
+
+        if (changed) {
+          callback();
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    },
+    [threshold],
+  );
+
+  const getSnapshot = (): ScrollDirection => stateRef.current.direction;
+
+  const getServerSnapshot = (): ScrollDirection => ({
     x: 'right',
     y: 'up',
   });
-  const [prevScrollY, setPrevScrollY] = useState(0);
-  const [prevScrollX, setPrevScrollX] = useState(0);
 
-  useEffect(() => {
-    const handleScroll = (): void => {
-      const currentScrollY = window.scrollY;
-      const currentScrollX = window.scrollX;
-
-      const newDirection: ScrollDirection = { ...scrollDirection };
-
-      // Vertical scroll direction
-      if (currentScrollY > prevScrollY && currentScrollY > threshold) {
-        newDirection.y = 'down';
-      } else if (currentScrollY < prevScrollY) {
-        newDirection.y = 'up';
-      }
-
-      // Horizontal scroll direction
-      if (currentScrollX > prevScrollX && currentScrollX > threshold) {
-        newDirection.x = 'right';
-      } else if (currentScrollX < prevScrollX) {
-        newDirection.x = 'left';
-      }
-
-      setScrollDirection(newDirection);
-      setPrevScrollY(currentScrollY);
-      setPrevScrollX(currentScrollX);
-    };
-
-    window.addEventListener('scroll', handleScroll, {
-      passive: true,
-    });
-
-    return (): void => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [prevScrollY, prevScrollX, scrollDirection, threshold]);
-
-  return scrollDirection;
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };

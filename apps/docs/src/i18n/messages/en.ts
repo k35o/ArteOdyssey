@@ -263,6 +263,10 @@ export const en = {
   'hooks.useThrottledCallback.description':
     'A hook that returns a throttled version of the provided callback.',
   'hooks.useWindowSize.description': 'A hook that returns the current window dimensions.',
+  'hooks.useScrollLock.description': 'A hook that locks and unlocks body scroll.',
+  'hooks.useHover.description': 'A hook that detects hover state of an element.',
+  'hooks.useControllableState.description':
+    'A hook that manages controlled/uncontrolled component state.',
   'helpers.description': 'A catalog of helper functions provided by ArteOdyssey.',
   'helpers.categoryStyling': 'Styling',
   'helpers.categoryColor': 'Color',

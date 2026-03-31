@@ -1,7 +1,8 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, use, useState } from 'react';
+import { createContext, type FC, type PropsWithChildren, use } from 'react';
 import { cn } from '../../../helpers/cn';
+import { useControllableState } from '../../../hooks/controllable-state';
 
 type CheckboxGroupContextValue = {
   currentValue: string[];
@@ -49,9 +50,11 @@ const Root: FC<RootProps> = ({
   onChange,
   value,
 }) => {
-  const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState(defaultValue ?? []);
-  const currentValue = isControlled ? value : internalValue;
+  const [currentValue, setCurrentValue] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? [],
+    onChange,
+  });
   void isRequired;
 
   const toggleValue = (targetValue: string) => {
@@ -59,11 +62,7 @@ const Root: FC<RootProps> = ({
       ? currentValue.filter((item) => item !== targetValue)
       : [...currentValue, targetValue];
 
-    if (!isControlled) {
-      setInternalValue(nextValue);
-    }
-
-    onChange?.(nextValue);
+    setCurrentValue(nextValue);
   };
 
   return (
