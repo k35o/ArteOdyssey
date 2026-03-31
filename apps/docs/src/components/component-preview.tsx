@@ -10,7 +10,7 @@ type Props = {
 export const ComponentPreview: FC<Props> = ({ children, code, lang = 'tsx' }) => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-4 rounded-t-lg border border-border-mute p-6">
+      <div className="flex flex-wrap items-center gap-4 rounded-t-lg border border-border-base bg-bg-subtle p-6">
         {children}
       </div>
       <div className="[&_pre]:rounded-t-none [&_pre]:border-t-0">
