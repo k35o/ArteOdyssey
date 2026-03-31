@@ -10,7 +10,7 @@ export const InteractiveCard: FC<CardProps> = ({
 }) => (
   <div
     className={cn(
-      'rounded-lg transition-transform hover:scale-[1.02] active:scale-[0.98]',
+      'rounded-xl transition-transform hover:scale-[1.02] active:scale-[0.98]',
       appearance === 'shadow' && 'shadow-sm',
       appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',
