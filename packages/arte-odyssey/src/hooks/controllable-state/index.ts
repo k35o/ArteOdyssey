@@ -20,18 +20,21 @@ export const useControllableState = <T>({
   const currentValueRef = useRef(currentValue);
   currentValueRef.current = currentValue;
 
-  const setValue = useCallback(
-    (next: T | ((prev: T) => T)) => {
-      const nextValue =
-        typeof next === 'function' ? (next as (prev: T) => T)(currentValueRef.current) : next;
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
 
-      if (!isControlled) {
-        setInternalValue(nextValue);
-      }
-      onChange?.(nextValue);
-    },
-    [isControlled, onChange],
-  );
+  const isControlledRef = useRef(isControlled);
+  isControlledRef.current = isControlled;
+
+  const setValue = useCallback((next: T | ((prev: T) => T)) => {
+    const nextValue =
+      typeof next === 'function' ? (next as (prev: T) => T)(currentValueRef.current) : next;
+
+    if (!isControlledRef.current) {
+      setInternalValue(nextValue);
+    }
+    onChangeRef.current?.(nextValue);
+  }, []);
 
   return [currentValue, setValue];
 };

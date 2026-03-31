@@ -70,4 +70,38 @@ describe('useScrollLock', () => {
     result.current.unlock();
     expect(document.body.style.overflow).toBe('');
   });
+
+  it('複数インスタンスで使用した場合、全てunlockされるまでロックが維持される', async () => {
+    document.body.style.overflow = 'auto';
+
+    const { result: resultA } = await renderHook(() => useScrollLock());
+    const { result: resultB } = await renderHook(() => useScrollLock());
+
+    resultA.current.lock();
+    resultB.current.lock();
+    expect(document.body.style.overflow).toBe('hidden');
+
+    resultA.current.unlock();
+    expect(document.body.style.overflow).toBe('hidden');
+
+    resultB.current.unlock();
+    expect(document.body.style.overflow).toBe('auto');
+  });
+
+  it('複数インスタンスの一方がアンマウントしても他方のロックが維持される', async () => {
+    document.body.style.overflow = 'auto';
+
+    const { result: resultA, unmount: unmountA } = await renderHook(() => useScrollLock());
+    const { result: resultB } = await renderHook(() => useScrollLock());
+
+    resultA.current.lock();
+    resultB.current.lock();
+    expect(document.body.style.overflow).toBe('hidden');
+
+    unmountA();
+    expect(document.body.style.overflow).toBe('hidden');
+
+    resultB.current.unlock();
+    expect(document.body.style.overflow).toBe('auto');
+  });
 });

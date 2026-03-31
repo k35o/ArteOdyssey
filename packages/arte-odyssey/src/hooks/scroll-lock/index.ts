@@ -7,26 +7,41 @@ type UseScrollLockReturn = {
   unlock: () => void;
 };
 
+let lockCount = 0;
+let originalOverflow: string | null = null;
+
 export const useScrollLock = (): UseScrollLockReturn => {
-  const originalStyleRef = useRef<string | null>(null);
+  const isLockedRef = useRef(false);
 
   const lock = useCallback(() => {
-    if (originalStyleRef.current !== null) return;
-    originalStyleRef.current = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    if (isLockedRef.current) return;
+    isLockedRef.current = true;
+    if (lockCount === 0) {
+      originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+    }
+    lockCount++;
   }, []);
 
   const unlock = useCallback(() => {
-    if (originalStyleRef.current === null) return;
-    document.body.style.overflow = originalStyleRef.current;
-    originalStyleRef.current = null;
+    if (!isLockedRef.current) return;
+    isLockedRef.current = false;
+    lockCount--;
+    if (lockCount === 0 && originalOverflow !== null) {
+      document.body.style.overflow = originalOverflow;
+      originalOverflow = null;
+    }
   }, []);
 
   useEffect(() => {
     return () => {
-      if (originalStyleRef.current !== null) {
-        document.body.style.overflow = originalStyleRef.current;
-        originalStyleRef.current = null;
+      if (isLockedRef.current) {
+        isLockedRef.current = false;
+        lockCount--;
+        if (lockCount === 0 && originalOverflow !== null) {
+          document.body.style.overflow = originalOverflow;
+          originalOverflow = null;
+        }
       }
     };
   }, []);
