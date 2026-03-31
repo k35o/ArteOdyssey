@@ -90,7 +90,7 @@ export const RadioCard: FC<Props> = ({
             aria-describedby={option.description ? `${optionId}-description` : undefined}
             aria-pressed={checked}
             className={cn(
-              'flex w-full min-w-0 rounded-lg border bg-bg-base p-4 text-left transition-colors',
+              'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
               'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
               checked && 'border-border-info bg-bg-subtle',
               isInvalid ? 'border-border-error' : 'border-border-mute hover:bg-bg-mute',

@@ -57,7 +57,7 @@ export const PasswordInput: FC<Props> = ({
         aria-required={isRequired}
         autoComplete={autoComplete}
         className={cn(
-          'w-full rounded-lg border border-border-base bg-bg-base px-3 py-2 pr-12',
+          'w-full rounded-xl border border-border-base bg-bg-base px-3 py-2 pr-12',
           'aria-invalid:border-border-error',
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
