@@ -89,10 +89,10 @@
   --gray-300: oklch(0.840 0.012 265);
   --gray-400: oklch(0.750 0.015 265);
   --gray-500: oklch(0.660 0.018 265);
-  --gray-600: oklch(0.575 0.020 265);
-  --gray-700: oklch(0.490 0.020 265);
-  --gray-800: oklch(0.410 0.018 265);
-  --gray-900: oklch(0.370 0.015 265);
+  --gray-600: oklch(0.520 0.020 265);
+  --gray-700: oklch(0.420 0.018 265);
+  --gray-800: oklch(0.300 0.015 265);
+  --gray-900: oklch(0.250 0.012 265);
 
   /* Red — H: 25 */
   --red-50: oklch(0.975 0.016 25);
@@ -274,8 +274,8 @@
   --bg-error: var(--red-900);
 
   --border-base: var(--gray-600);
-  --border-subtle: var(--gray-900);
-  --border-mute: var(--gray-800);
+  --border-subtle: var(--gray-800);
+  --border-mute: var(--gray-700);
   --border-emphasize: var(--gray-500);
   --border-inverse: var(--gray-300);
   --border-info: var(--blue-400);
