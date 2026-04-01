@@ -35,7 +35,7 @@ export const LinkButton = <T extends string>({
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
   const props = type === 'internal' ? {} : { target: '_blank', rel: 'noopener noreferrer' };
   const className = cn(
-    'rounded-lg border-2 text-center font-bold transition-colors',
+    'rounded-full border-2 text-center font-bold transition-colors',
     {
       'border-transparent bg-primary-bg text-fg hover:bg-primary-bg/90 active:bg-primary-bg/80':
         variant === 'contained' && color === 'primary',

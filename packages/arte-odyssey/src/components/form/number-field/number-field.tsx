@@ -136,7 +136,7 @@ export const NumberField: FC<Props> = ({
       <div aria-hidden="true" className="absolute right-0 flex h-full flex-col">
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-tr-lg border-border-base border-b border-l bg-bg-mute',
+            'flex w-6 grow items-center justify-center rounded-tr-xl border-border-base border-b border-l bg-bg-mute',
             'disabled:cursor-not-allowed',
           )}
           disabled={isDisabled}
@@ -157,7 +157,7 @@ export const NumberField: FC<Props> = ({
         </button>
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-br-lg border-border-base border-l bg-bg-mute',
+            'flex w-6 grow items-center justify-center rounded-br-xl border-border-base border-l bg-bg-mute',
             'disabled:cursor-not-allowed',
           )}
           disabled={isDisabled}
