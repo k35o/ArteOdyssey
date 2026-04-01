@@ -14,7 +14,7 @@ export function TokenCard({ token, type = 'fill' }: { token: TokenDef; type?: 'f
   const { source } = token[theme];
 
   return (
-    <Card appearance="bordered">
+    <Card appearance="shadow">
       <div className="flex items-center gap-3 px-3 py-2">
         <div
           className="h-6 w-6 shrink-0 rounded-md"
