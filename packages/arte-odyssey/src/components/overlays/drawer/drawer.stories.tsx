@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { fn } from 'storybook/test';
+import { fn, waitFor } from 'storybook/test';
 import { Drawer } from './drawer';
 
 const meta: Meta<typeof Drawer> = {
@@ -11,6 +11,14 @@ export default meta;
 type Story = StoryObj<typeof Drawer>;
 
 export const Default: Story = {
+  play: async ({ canvas }) => {
+    await waitFor(() => {
+      const dialog = canvas.getByRole('dialog');
+      if (getComputedStyle(dialog).opacity !== '1') {
+        throw new Error('waiting for animation');
+      }
+    });
+  },
   args: {
     isOpen: true,
     onClose: fn(),

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import { screen, waitFor } from 'storybook/test';
 import { Button } from '../../buttons/button';
 import { Tooltip } from './tooltip';
 
@@ -41,5 +42,12 @@ export const Default: Story = {
     });
     trigger.focus();
     await userEvent.keyboard('{Enter}');
+    await waitFor(() => {
+      const tooltip = screen.getByRole('tooltip');
+      const animated = tooltip.closest('[style*="opacity"]') ?? tooltip;
+      if (getComputedStyle(animated).opacity !== '1') {
+        throw new Error('waiting for animation');
+      }
+    });
   },
 };
