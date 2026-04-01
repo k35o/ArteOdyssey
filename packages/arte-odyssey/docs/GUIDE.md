@@ -13,7 +13,7 @@ npm install @k8o/arte-odyssey
 import '@k8o/arte-odyssey/styles.css';
 
 // 2. Provider でアプリを囲む
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
 function App() {
   return (
@@ -24,8 +24,7 @@ function App() {
 }
 
 // 3. コンポーネントを使う
-import { Button } from '@k8o/arte-odyssey/button';
-import { Card } from '@k8o/arte-odyssey/card';
+import { Button, Card } from '@k8o/arte-odyssey';
 ```
 
 ### Tailwind CSS の設定
@@ -126,8 +125,7 @@ import { Card } from '@k8o/arte-odyssey/card';
 `color` と `variant` で統一されたスタイル。
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey/button';
-import { LinkButton } from '@k8o/arte-odyssey/link-button';
+import { Button, LinkButton } from '@k8o/arte-odyssey';
 
 // プライマリアクション
 <Button color="primary" variant="contained">保存する</Button>
@@ -147,8 +145,7 @@ import { LinkButton } from '@k8o/arte-odyssey/link-button';
 `bg` prop でスタイルを制御（`variant` ではない）。
 
 ```tsx
-import { IconButton } from '@k8o/arte-odyssey/icon-button';
-import { IconLink } from '@k8o/arte-odyssey/icon-link';
+import { IconButton, IconLink } from '@k8o/arte-odyssey';
 
 <IconButton bg="transparent" label="コピー"><CopyIcon /></IconButton>
 <IconButton bg="primary" label="送信"><SendIcon /></IconButton>
@@ -160,34 +157,38 @@ import { IconLink } from '@k8o/arte-odyssey/icon-link';
 `appearance` prop でシャドウかボーダーかを選択。
 
 ```tsx
-import { Card, InteractiveCard } from '@k8o/arte-odyssey/card';
+import { Card, InteractiveCard } from '@k8o/arte-odyssey';
 
 // 静的カード
-<Card title="設定" appearance="bordered">
-  <p>カードのコンテンツ</p>
+<Card appearance="bordered">
+  <div className="p-6">カードのコンテンツ</div>
 </Card>
 
 // クリック可能なカード（ホバーでスケールアップ）
-<InteractiveCard title="記事" appearance="shadow">
-  <p>コンテンツ</p>
+<InteractiveCard appearance="shadow">
+  <div className="p-6">コンテンツ</div>
 </InteractiveCard>
 ```
 
 ### フォーム
 
+`FormControl` + 各フォームコンポーネントの `renderInput` パターン。
+
 ```tsx
-import { TextField } from '@k8o/arte-odyssey/text-field';
-import { Select } from '@k8o/arte-odyssey/select';
-import { FileField } from '@k8o/arte-odyssey/file-field';
+import { FormControl, TextField, Select, FileField } from '@k8o/arte-odyssey';
 
-<TextField id="email" placeholder="example@mail.com" />
+<FormControl label="メール" isRequired renderInput={(props) => (
+  <TextField {...props} placeholder="example@mail.com" />
+)} />
 
-<Select
-  label="カテゴリ"
-  options={[{ value: '1', label: 'オプション1' }]}
-  value={value}
-  onChange={onChange}
-/>
+<FormControl label="カテゴリ" renderInput={(props) => (
+  <Select
+    {...props}
+    options={[{ value: '1', label: 'オプション1' }]}
+    value={value}
+    onChange={onChange}
+  />
+)} />
 
 <FileField.Root accept="image/*" multiple>
   <FileField.Trigger>ファイルを選択</FileField.Trigger>
@@ -230,3 +231,5 @@ AI が生成したと一目でわかるUIの特徴を避ける。
 - スペーシング・レイアウト: [references/spatial-design.md](references/spatial-design.md)
 - インタラクション: [references/interaction-design.md](references/interaction-design.md)
 - コンポーネント一覧: [references/components.md](references/components.md)
+- Hooks: [references/hooks.md](references/hooks.md)
+- ヘルパー・型: [references/helpers.md](references/helpers.md)

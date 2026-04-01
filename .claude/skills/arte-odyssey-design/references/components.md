@@ -277,15 +277,20 @@ Props:
 
 ### Anchor
 
-テキストリンク。
+テキストリンク。外部リンクには自動で新規タブアイコンが付く。
 
 ```tsx
 import { Anchor } from '@k8o/arte-odyssey';
 
-<Anchor href="https://example.com" isExternal>
-  外部リンク
-</Anchor>
+<Anchor href="https://example.com">外部リンク</Anchor>
+<Anchor href="/about">内部リンク</Anchor>
+<Anchor href="/docs" openInNewTab>新規タブで開く</Anchor>
 ```
+
+Props:
+- `href`: string（必須）
+- `openInNewTab?: boolean`
+- `renderAnchor?: FC`（カスタムリンクコンポーネント）
 
 ## フォーム
 
@@ -663,10 +668,13 @@ Props (ItemList):
 ```tsx
 import { Alert } from '@k8o/arte-odyssey';
 
-<Alert status="info" | "success" | "warning" | "error">
-  メッセージ
-</Alert>
+<Alert status="info" message="情報メッセージ" />
+<Alert status="error" message={['エラー1', 'エラー2']} />
 ```
+
+Props:
+- `status`: `'info'` | `'success'` | `'warning'` | `'error'`
+- `message`: `string | string[]`
 
 ### Toast
 

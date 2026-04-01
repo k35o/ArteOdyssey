@@ -51,11 +51,11 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 見出しには `Heading` コンポーネントを使う。
 
 ```tsx
-import { Heading } from '@k8o/arte-odyssey/heading';
+import { Heading } from '@k8o/arte-odyssey';
 
-<Heading level={1}>ページタイトル</Heading>
-<Heading level={2}>セクション見出し</Heading>
-<Heading level={3}>サブセクション</Heading>
+<Heading type="h1">ページタイトル</Heading>
+<Heading type="h2">セクション見出し</Heading>
+<Heading type="h3">サブセクション</Heading>
 ```
 
 ## やってはいけないこと

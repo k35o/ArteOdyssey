@@ -61,14 +61,14 @@ className = 'px-3 py-2'; // 水平に余裕、垂直はコンパクト
 ```tsx
 // Good: 余白の差で関連度を示す
 <section className="mt-12">
-  <Heading level={2}>セクション</Heading>
+  <Heading type="h2">セクション</Heading>
   <p className="mt-2">直接関連する説明</p>
   <div className="mt-8">やや離れたコンテンツ</div>
 </section>
 
 // Bad: すべて同じ余白
 <section className="mt-4">
-  <Heading level={2}>セクション</Heading>
+  <Heading type="h2">セクション</Heading>
   <p className="mt-4">説明</p>
   <div className="mt-4">コンテンツ</div>
 </section>
@@ -79,7 +79,7 @@ className = 'px-3 py-2'; // 水平に余裕、垂直はコンパクト
 すべてのコンテンツをカードに入れる必要はない。余白と Separator で十分なケースが多い。
 
 ```tsx
-import { Separator } from '@k8o/arte-odyssey/separator';
+import { Separator } from '@k8o/arte-odyssey';
 
 // Good: Separator で区切る
 <div>

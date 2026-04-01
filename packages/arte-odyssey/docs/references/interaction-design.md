@@ -52,11 +52,16 @@ className = 'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:rin
 - `FormControl` コンポーネントでラベル・エラー表示を統一
 
 ```tsx
-import { FormControl } from '@k8o/arte-odyssey/form-control';
+import { FormControl, TextField } from '@k8o/arte-odyssey';
 
-<FormControl label="メールアドレス" error="入力してください" isRequired>
-  <TextField id="email" placeholder="example@mail.com" />
-</FormControl>;
+<FormControl
+  label="メールアドレス"
+  errorText="入力してください"
+  isRequired
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
+/>
 ```
 
 ## アクセシビリティ

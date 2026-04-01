@@ -7,105 +7,10 @@
 import '@k8o/arte-odyssey/styles.css';
 
 // プロバイダー（アプリルートで1回）
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
-// 各コンポーネント（個別インポート）
-import { Button } from '@k8o/arte-odyssey/button';
-import { Card } from '@k8o/arte-odyssey/card';
-```
-
-## レイアウト・ナビゲーション
-
-### Accordion
-
-折りたたみ可能なセクション。
-
-```tsx
-import { Accordion, AccordionItem } from '@k8o/arte-odyssey/accordion';
-
-<Accordion>
-  <AccordionItem title="セクション1">コンテンツ</AccordionItem>
-</Accordion>;
-```
-
-### Breadcrumb
-
-パンくずリスト。
-
-```tsx
-import { Breadcrumb, BreadcrumbItem } from '@k8o/arte-odyssey/breadcrumb';
-
-<Breadcrumb>
-  <BreadcrumbItem href="/">ホーム</BreadcrumbItem>
-  <BreadcrumbItem href="/products">製品</BreadcrumbItem>
-  <BreadcrumbItem>詳細</BreadcrumbItem>
-</Breadcrumb>;
-```
-
-### Card / InteractiveCard
-
-コンテンツをグループ化するカード。
-
-```tsx
-import { Card, InteractiveCard } from '@k8o/arte-odyssey/card';
-
-// 静的カード
-<Card title="タイトル" variant="primary" width="full" appearance="shadow">
-  <div className="p-6">コンテンツ</div>
-</Card>
-
-// クリック可能なカード（hover:scale-[1.02], active:scale-[0.98]）
-<InteractiveCard title="記事" appearance="bordered">
-  <div className="p-6">コンテンツ</div>
-</InteractiveCard>
-```
-
-Props:
-
-- `variant`: `'primary'` | `'secondary'`
-- `title`: string
-- `width`: `'full'` | `'fit'`
-- `appearance`: `'shadow'` | `'bordered'`
-
-### Tabs
-
-タブ切り替え。
-
-```tsx
-import { Tabs, TabList, Tab, TabPanel } from '@k8o/arte-odyssey/tabs';
-
-<Tabs>
-  <TabList>
-    <Tab>タブ1</Tab>
-    <Tab>タブ2</Tab>
-  </TabList>
-  <TabPanel>パネル1</TabPanel>
-  <TabPanel>パネル2</TabPanel>
-</Tabs>;
-```
-
-### Separator
-
-区切り線。
-
-```tsx
-import { Separator } from '@k8o/arte-odyssey/separator';
-
-<Separator />
-<Separator color="mute" />
-<Separator color="subtle" />
-<Separator orientation="vertical" />
-```
-
-### ScrollLinked
-
-スクロール進捗をプログレスバーで表示。
-
-```tsx
-import { ScrollLinked } from '@k8o/arte-odyssey/scroll-linked';
-
-<ScrollLinked />
-<ScrollLinked container={containerRef} />
+// コンポーネント（すべてルートからインポート）
+import { Button, Card, TextField } from '@k8o/arte-odyssey';
 ```
 
 ## ボタン・リンク
@@ -113,7 +18,7 @@ import { ScrollLinked } from '@k8o/arte-odyssey/scroll-linked';
 ### Button
 
 ```tsx
-import { Button } from '@k8o/arte-odyssey/button';
+import { Button } from '@k8o/arte-odyssey';
 
 <Button
   size="sm" | "md" | "lg"
@@ -133,11 +38,11 @@ import { Button } from '@k8o/arte-odyssey/button';
 アイコンのみのボタン。`bg` prop でスタイルを制御。
 
 ```tsx
-import { IconButton } from '@k8o/arte-odyssey/icon-button';
+import { IconButton } from '@k8o/arte-odyssey';
 
 <IconButton label="閉じる" bg="transparent" size="md">
   <XIcon />
-</IconButton>;
+</IconButton>
 ```
 
 Props:
@@ -151,11 +56,11 @@ Props:
 リンクスタイルのボタン。Button と同じ `color` / `variant` props。
 
 ```tsx
-import { LinkButton } from '@k8o/arte-odyssey/link-button';
+import { LinkButton } from '@k8o/arte-odyssey';
 
 <LinkButton href="/page" color="gray" variant="outlined">
   リンク
-</LinkButton>;
+</LinkButton>
 ```
 
 ### IconLink
@@ -163,57 +68,305 @@ import { LinkButton } from '@k8o/arte-odyssey/link-button';
 アイコンのみのリンク。IconButton と同じ `bg` prop。
 
 ```tsx
-import { IconLink } from '@k8o/arte-odyssey/icon-link';
+import { IconLink } from '@k8o/arte-odyssey';
 
 <IconLink href="/home" bg="base" label="ホーム">
   <HomeIcon />
-</IconLink>;
+</IconLink>
 ```
 
 ### Anchor
 
-テキストリンク。
+テキストリンク。外部リンクには自動で新規タブアイコンが付く。
 
 ```tsx
-import { Anchor } from '@k8o/arte-odyssey/anchor';
+import { Anchor } from '@k8o/arte-odyssey';
 
-<Anchor href="https://example.com" isExternal>
-  外部リンク
-</Anchor>;
+<Anchor href="https://example.com">外部リンク</Anchor>
+<Anchor href="/about">内部リンク</Anchor>
+<Anchor href="/docs" openInNewTab>新規タブで開く</Anchor>
+```
+
+Props:
+
+- `href`: string（必須）
+- `openInNewTab`: boolean
+- `renderAnchor`: カスタムリンクレンダラー（Next.js の Link 等）
+
+## レイアウト・ナビゲーション
+
+### Accordion
+
+折りたたみ可能なセクション。Compound component パターン。
+
+```tsx
+import { Accordion } from '@k8o/arte-odyssey';
+
+<Accordion.Root>
+  <Accordion.Item>
+    <Accordion.Button>セクション1</Accordion.Button>
+    <Accordion.Panel>コンテンツ</Accordion.Panel>
+  </Accordion.Item>
+</Accordion.Root>
+```
+
+### Breadcrumb
+
+パンくずリスト。Compound component パターン。
+
+```tsx
+import { Breadcrumb } from '@k8o/arte-odyssey';
+
+<Breadcrumb.List>
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/">ホーム</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/products">製品</Breadcrumb.Link>
+  </Breadcrumb.Item>
+  <Breadcrumb.Separator />
+  <Breadcrumb.Item>
+    <Breadcrumb.Link href="/products/1" current>詳細</Breadcrumb.Link>
+  </Breadcrumb.Item>
+</Breadcrumb.List>
+```
+
+Props (Breadcrumb.List):
+
+- `size`: `'sm'` | `'md'` | `'lg'`
+
+Props (Breadcrumb.Link):
+
+- `href`: string
+- `current`: boolean
+- `component`: カスタムリンクコンポーネント
+
+### Tabs
+
+タブ切り替え。Compound component パターン。
+
+```tsx
+import { Tabs } from '@k8o/arte-odyssey';
+
+<Tabs.Root ids={['tab1', 'tab2']}>
+  <Tabs.List label="タブ">
+    <Tabs.Tab id="tab1">タブ1</Tabs.Tab>
+    <Tabs.Tab id="tab2">タブ2</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel id="tab1">パネル1</Tabs.Panel>
+  <Tabs.Panel id="tab2">パネル2</Tabs.Panel>
+</Tabs.Root>
+```
+
+Props (Tabs.Root):
+
+- `ids`: `[string, ...string[]]`（必須）
+- `defaultSelectedId`: string | null
+
+### Card / InteractiveCard
+
+コンテンツをグループ化するカード。
+
+```tsx
+import { Card, InteractiveCard } from '@k8o/arte-odyssey';
+
+// 静的カード
+<Card variant="primary" width="full" appearance="shadow">
+  <div className="p-6">コンテンツ</div>
+</Card>
+
+// クリック可能なカード（hover:scale-[1.02], active:scale-[0.98]）
+<InteractiveCard appearance="bordered">
+  <div className="p-6">コンテンツ</div>
+</InteractiveCard>
+```
+
+Props:
+
+- `variant`: `'primary'` | `'secondary'`
+- `width`: `'full'` | `'fit'`
+- `appearance`: `'shadow'` | `'bordered'`
+
+### Separator
+
+区切り線。
+
+```tsx
+import { Separator } from '@k8o/arte-odyssey';
+
+<Separator />
+<Separator color="mute" />
+<Separator color="subtle" />
+<Separator orientation="vertical" />
+```
+
+### ScrollLinked
+
+スクロール進捗をプログレスバーで表示。
+
+```tsx
+import { ScrollLinked } from '@k8o/arte-odyssey';
+
+<ScrollLinked />
+<ScrollLinked container={containerRef} />
 ```
 
 ## フォーム
 
+フォームコンポーネントは `FormControl` の `renderInput` パターンと組み合わせて使用する。各フォームコンポーネントは controlled / uncontrolled の両方に対応。
+
+### FormControl
+
+フォームフィールドのラッパー。ラベル・ヘルプテキスト・エラー表示を統一する。
+
+```tsx
+import { FormControl, TextField } from '@k8o/arte-odyssey';
+
+<FormControl
+  label="メールアドレス"
+  errorText="入力してください"
+  helpText="会社のメールアドレスを入力してください"
+  isRequired
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
+/>
+```
+
+Props:
+
+- `label`: string（必須）
+- `labelAs`: `'label'` | `'legend'`
+- `helpText`: string
+- `errorText`: string
+- `isDisabled`, `isInvalid`, `isRequired`: boolean
+
+`renderInput` は `{ id, describedbyId, labelId, isDisabled, isInvalid, isRequired }` を受け取る。
+
 ### TextField
 
 ```tsx
-import { TextField } from '@k8o/arte-odyssey/text-field';
+import { TextField } from '@k8o/arte-odyssey';
 
-<TextField id="email" defaultValue="" placeholder="example@mail.com" />;
+// Uncontrolled
+<TextField id="email" defaultValue="" placeholder="example@mail.com"
+  isInvalid={false} isDisabled={false} isRequired={false} />
+
+// Controlled
+<TextField id="email" value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false} />
 ```
 
 ### Textarea
 
 ```tsx
-import { Textarea } from '@k8o/arte-odyssey/textarea';
+import { Textarea } from '@k8o/arte-odyssey';
 
-<Textarea label="説明" rows={4} value={value} onChange={onChange} />;
+<Textarea id="description" value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false} />
+```
+
+### NumberField
+
+```tsx
+import { NumberField } from '@k8o/arte-odyssey';
+
+<NumberField id="quantity" min={0} max={100} value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false} />
+```
+
+### PasswordInput
+
+パスワード入力。表示/非表示トグル付き。
+
+```tsx
+import { PasswordInput } from '@k8o/arte-odyssey';
+
+<PasswordInput id="password" value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false}
+  showLabel="表示" hideLabel="非表示" />
+```
+
+### Select
+
+```tsx
+import { Select } from '@k8o/arte-odyssey';
+
+<Select
+  id="category"
+  options={[
+    { value: '1', label: 'オプション1' },
+    { value: '2', label: 'オプション2' },
+  ]}
+  value={value}
+  onChange={onChange}
+  isInvalid={false}
+  isDisabled={false}
+  isRequired={false}
+/>
+```
+
+### Autocomplete
+
+```tsx
+import { Autocomplete } from '@k8o/arte-odyssey';
+
+<Autocomplete options={options} value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false} />
 ```
 
 ### Checkbox
 
 ```tsx
-import { Checkbox } from '@k8o/arte-odyssey/checkbox';
+import { Checkbox } from '@k8o/arte-odyssey';
 
-<Checkbox checked={checked} onChange={onChange}>
+// Controlled
+<Checkbox value={checked} onChange={onChange}>
   同意する
-</Checkbox>;
+</Checkbox>
+
+// Uncontrolled
+<Checkbox defaultChecked>
+  同意する
+</Checkbox>
+```
+
+### CheckboxGroup
+
+複数チェックボックスのグループ。コンテキストで子の Checkbox と連携する。
+
+```tsx
+import { CheckboxGroup } from '@k8o/arte-odyssey';
+
+<CheckboxGroup name="interests" isDisabled={false}>
+  {/* 子の Checkbox は useCheckboxGroupContext() 経由でグループと連携 */}
+</CheckboxGroup>
+```
+
+### CheckboxCard
+
+カードスタイルのチェックボックス。
+
+```tsx
+import { CheckboxCard } from '@k8o/arte-odyssey';
+
+<CheckboxCard
+  name="plan"
+  isDisabled={false}
+  options={[
+    { value: 'basic', label: 'ベーシック', description: '月額980円' },
+    { value: 'pro', label: 'プロ', description: '月額1,980円', visual: <Icon /> },
+  ]}
+  value={selected}
+  onChange={onChange}
+/>
 ```
 
 ### Radio
 
 ```tsx
-import { Radio } from '@k8o/arte-odyssey/radio';
+import { Radio } from '@k8o/arte-odyssey';
 
 <Radio
   labelId="example-radio"
@@ -224,47 +377,49 @@ import { Radio } from '@k8o/arte-odyssey/radio';
     { value: 'b', label: '選択肢B' },
   ]}
   value={value}
-/>;
+/>
 ```
 
-### Select
+### RadioCard
+
+カードスタイルのラジオボタン。
 
 ```tsx
-import { Select } from '@k8o/arte-odyssey/select';
+import { RadioCard } from '@k8o/arte-odyssey';
 
-<Select
-  label="選択"
+<RadioCard
+  labelId="plan-radio"
+  name="plan"
+  isDisabled={false}
   options={[
-    { value: '1', label: 'オプション1' },
-    { value: '2', label: 'オプション2' },
+    { value: 'basic', label: 'ベーシック', description: '月額980円' },
+    { value: 'pro', label: 'プロ', description: '月額1,980円', visual: <Icon /> },
   ]}
   value={value}
   onChange={onChange}
-/>;
+/>
 ```
 
-### NumberField
+### Slider
+
+レンジスライダー。
 
 ```tsx
-import { NumberField } from '@k8o/arte-odyssey/number-field';
+import { Slider } from '@k8o/arte-odyssey';
 
-<NumberField label="数量" min={0} max={100} value={value} onChange={onChange} />;
+<Slider min={0} max={100} step={1} value={value} onChange={onChange}
+  isInvalid={false} isDisabled={false} isRequired={false} />
 ```
 
-### RangeField
+### Switch
+
+トグルスイッチ。
 
 ```tsx
-import { RangeField } from '@k8o/arte-odyssey/range-field';
+import { Switch } from '@k8o/arte-odyssey';
 
-<RangeField label="音量" min={0} max={100} value={value} onChange={onChange} />;
-```
-
-### Autocomplete
-
-```tsx
-import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
-
-<Autocomplete label="検索" options={options} value={value} onChange={onChange} />;
+<Switch label="通知を有効にする" value={checked} onChange={onChange}
+  isDisabled={false} isInvalid={false} isRequired={false} />
 ```
 
 ### FileField
@@ -272,12 +427,12 @@ import { Autocomplete } from '@k8o/arte-odyssey/autocomplete';
 コンポジットパターンのファイルアップロード。
 
 ```tsx
-import { FileField } from '@k8o/arte-odyssey/file-field';
+import { FileField } from '@k8o/arte-odyssey';
 
 <FileField.Root accept="image/*" multiple maxFiles={5}>
   <FileField.Trigger>ファイルを選択</FileField.Trigger>
   <FileField.ItemList />
-</FileField.Root>;
+</FileField.Root>
 ```
 
 Props (Root):
@@ -287,45 +442,99 @@ Props (Root):
 - `maxFiles`: number
 - `isDisabled`, `isInvalid`, `isRequired`: boolean
 
-### FormControl
+## データ表示
 
-フォームフィールドのラッパー（ラベル・エラー表示を統一）。
+### Heading
+
+セマンティック見出し。`type` prop で HTML 要素を指定。
 
 ```tsx
-import { FormControl } from '@k8o/arte-odyssey/form-control';
+import { Heading } from '@k8o/arte-odyssey';
 
-<FormControl label="ラベル" error="エラーメッセージ" isRequired>
-  <TextField id="name" />
-</FormControl>;
+<Heading type="h1">ページタイトル</Heading>
+<Heading type="h2">セクション見出し</Heading>
+<Heading type="h3">サブセクション</Heading>
 ```
 
-## フィードバック
+Props:
 
-### Alert
+- `type`: `'h1'` | `'h2'` | `'h3'` | `'h4'` | `'h5'` | `'h6'`（必須）
+- `lineClamp`: number
+
+### Avatar
+
+ユーザーアバター。
 
 ```tsx
-import { Alert } from '@k8o/arte-odyssey/alert';
+import { Avatar } from '@k8o/arte-odyssey';
 
-<Alert status="info" | "success" | "warning" | "error">
-  メッセージ
-</Alert>
+<Avatar src="/avatar.jpg" alt="ユーザー名" size="md" />
+<Avatar name="田中太郎" fallback="田" size="lg" />
 ```
 
-### Toast
+Props:
+
+- `src`: string
+- `alt`: string
+- `name`: string
+- `fallback`: string
+- `size`: `'sm'` | `'md'` | `'lg'`
+
+### Badge
+
+ステータスバッジ。
 
 ```tsx
-import { useToast } from '@k8o/arte-odyssey/toast';
+import { Badge } from '@k8o/arte-odyssey';
 
-const toast = useToast();
-toast.show({ message: '保存しました', status: 'success' });
+<Badge text="新着" tone="info" variant="solid" />
+<Badge text="完了" tone="success" variant="outline" />
+<Badge text="フィルター" interactive />
 ```
 
-### Progress
+Props:
+
+- `text`: string（必須）
+- `size`: `'sm'` | `'md'`
+- `tone`: `'neutral'` | `'info'` | `'success'` | `'warning'` | `'error'`
+- `variant`: `'solid'` | `'outline'`
+- `interactive`: boolean（true でボタンとして描画）
+
+### Code
+
+インラインコード表示。
 
 ```tsx
-import { Progress } from '@k8o/arte-odyssey/progress';
+import { Code } from '@k8o/arte-odyssey';
 
-<Progress value={50} max={100} />;
+<Code>{`const x = 1;`}</Code>
+```
+
+Props:
+
+- `children`: string
+
+### Table
+
+データテーブル。Compound component パターン。
+
+```tsx
+import { Table } from '@k8o/arte-odyssey';
+
+<Table.Root>
+  <Table.Header>
+    <Table.Row>
+      <Table.HeaderCell>名前</Table.HeaderCell>
+      <Table.HeaderCell align="right">金額</Table.HeaderCell>
+    </Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row interactive>
+      <Table.Cell>商品A</Table.Cell>
+      <Table.Cell align="right">¥1,000</Table.Cell>
+    </Table.Row>
+  </Table.Body>
+</Table.Root>
 ```
 
 ### BaselineStatus
@@ -333,117 +542,251 @@ import { Progress } from '@k8o/arte-odyssey/progress';
 Web API のブラウザサポート状況を表示。
 
 ```tsx
-import { BaselineStatus } from '@k8o/arte-odyssey/baseline-status';
+import { BaselineStatus } from '@k8o/arte-odyssey';
 
-<BaselineStatus featureId="dialog" />;
+<BaselineStatus featureId="dialog" />
 ```
+
+## フィードバック
+
+### Alert
+
+```tsx
+import { Alert } from '@k8o/arte-odyssey';
+
+<Alert status="info" message="情報メッセージ" />
+<Alert status="error" message={['エラー1', 'エラー2']} />
+```
+
+Props:
+
+- `status`: `'info'` | `'success'` | `'warning'` | `'error'`
+- `message`: `string | string[]`
+
+### Toast
+
+```tsx
+import { useToast } from '@k8o/arte-odyssey';
+
+const { onOpen, onClose, onCloseAll } = useToast();
+
+onOpen('success', '保存しました');
+onOpen('error', 'エラーが発生しました');
+```
+
+`ToastProvider` は `ArteOdysseyProvider` に含まれるため、別途ラップ不要。
+
+- `onOpen`: `(status: Status, message: string) => void`
+- `onClose`: `(id: string) => void`
+- `onCloseAll`: `() => void`
+
+### Progress
+
+```tsx
+import { Progress } from '@k8o/arte-odyssey';
+
+<Progress progress={50} maxProgress={100} />
+<Progress progress={50} maxProgress={100} minProgress={0} label="進捗" />
+```
+
+Props:
+
+- `progress`: number
+- `maxProgress`: number
+- `minProgress`: number
+- `label`: string
+
+### Spinner
+
+ローディングスピナー。
+
+```tsx
+import { Spinner } from '@k8o/arte-odyssey';
+
+<Spinner size="md" label="読み込み中" />
+```
+
+Props:
+
+- `size`: `'sm'` | `'md'` | `'lg'`
+- `label`: string
+
+### Skeleton
+
+コンテンツプレースホルダー。
+
+```tsx
+import { Skeleton } from '@k8o/arte-odyssey';
+
+<Skeleton shape="rect" size="md" />
+<Skeleton shape="circle" size="lg" />
+<Skeleton shape="rect" size="sm" animate={false} />
+```
+
+Props:
+
+- `shape`: `'rect'` | `'circle'`
+- `size`: `'sm'` | `'md'` | `'lg'`
+- `animate`: boolean
 
 ## オーバーレイ
 
-### Dialog
+### Modal
+
+ベースのオーバーレイコンポーネント。`<dialog>` 要素を使用。
 
 ```tsx
-import { Dialog } from '@k8o/arte-odyssey/dialog';
+import { Modal } from '@k8o/arte-odyssey';
 
-<Dialog open={open} onClose={onClose} title="確認">
+<Modal isOpen={open} onClose={onClose} type="center">
   コンテンツ
-</Dialog>;
+</Modal>
+```
+
+Props:
+
+- `type`: `'center'` | `'bottom'` | `'right'` | `'left'`
+- `isOpen`: boolean
+- `defaultOpen`: boolean
+- `onClose`: () => void
+
+### Dialog
+
+Compound component パターン。Modal と組み合わせて使用。
+
+```tsx
+import { Modal, Dialog } from '@k8o/arte-odyssey';
+
+<Modal isOpen={open} onClose={onClose}>
+  <Dialog.Root>
+    <Dialog.Header title="確認" onClose={onClose} />
+    <Dialog.Content>
+      コンテンツ
+    </Dialog.Content>
+  </Dialog.Root>
+</Modal>
 ```
 
 ### Drawer
 
-```tsx
-import { Drawer } from '@k8o/arte-odyssey/drawer';
-
-<Drawer open={open} onClose={onClose} position="right">
-  コンテンツ
-</Drawer>;
-```
-
-### Modal
+サイドパネル。内部で Modal を使用。
 
 ```tsx
-import { Modal } from '@k8o/arte-odyssey/modal';
+import { Drawer } from '@k8o/arte-odyssey';
 
-<Modal open={open} onClose={onClose}>
+<Drawer title="メニュー" isOpen={open} onClose={onClose} side="right">
   コンテンツ
-</Modal>;
+</Drawer>
 ```
+
+Props:
+
+- `title`: ReactNode
+- `isOpen`: boolean
+- `onClose`: () => void
+- `side`: `'left'` | `'right'`（デフォルト: `'right'`）
 
 ### Popover
 
-```tsx
-import { Popover } from '@k8o/arte-odyssey/popover';
+Floating UI ベースのポップオーバー。Compound component パターン。
 
-<Popover trigger={<Button>開く</Button>}>ポップオーバーコンテンツ</Popover>;
+```tsx
+import { Popover } from '@k8o/arte-odyssey';
+
+<Popover.Root placement="bottom">
+  <Popover.Trigger renderItem={(props) => (
+    <Button {...props}>開く</Button>
+  )} />
+  <Popover.Content renderItem={(props) => (
+    <div {...props}>ポップオーバーコンテンツ</div>
+  )} />
+</Popover.Root>
 ```
+
+Props (Root):
+
+- `placement`: Placement（Floating UI の配置）
+- `type`: `'dialog'` | `'menu'` | `'tooltip'` | `'listbox'`
+- `flipDisabled`: boolean
 
 ### Tooltip
 
-```tsx
-import { Tooltip } from '@k8o/arte-odyssey/tooltip';
+ツールチップ。Compound component パターン。
 
-<Tooltip content="ヒント">
-  <Button>ホバー</Button>
-</Tooltip>;
+```tsx
+import { Tooltip } from '@k8o/arte-odyssey';
+
+<Tooltip.Root placement="top">
+  <Tooltip.Trigger renderItem={(props) => (
+    <Button {...props}>ホバー</Button>
+  )} />
+  <Tooltip.Content>ヒント</Tooltip.Content>
+</Tooltip.Root>
 ```
 
 ### DropdownMenu
 
-```tsx
-import { DropdownMenu, DropdownMenuItem } from '@k8o/arte-odyssey/dropdown-menu';
-
-<DropdownMenu trigger={<Button>メニュー</Button>}>
-  <DropdownMenuItem onClick={handleClick}>アイテム1</DropdownMenuItem>
-  <DropdownMenuItem>アイテム2</DropdownMenuItem>
-</DropdownMenu>;
-```
-
-## データ表示
-
-### Code
+ドロップダウンメニュー。Compound component パターン。
 
 ```tsx
-import { Code } from '@k8o/arte-odyssey/code';
+import { DropdownMenu } from '@k8o/arte-odyssey';
 
-<Code language="typescript">{`const x = 1;`}</Code>;
+<DropdownMenu.Root>
+  <DropdownMenu.Trigger text="メニュー" />
+  <DropdownMenu.Content>
+    <DropdownMenu.Item label="アイテム1" onClick={handleClick} />
+    <DropdownMenu.Item label="アイテム2" onClick={handleClick} />
+  </DropdownMenu.Content>
+</DropdownMenu.Root>
 ```
 
-### Heading
+Trigger バリアント:
 
-```tsx
-import { Heading } from '@k8o/arte-odyssey/heading';
-
-<Heading level={1}>見出し</Heading>;
-```
-
-### TextTag
-
-```tsx
-import { TextTag } from '@k8o/arte-odyssey/text-tag';
-
-<TextTag>タグ</TextTag>;
-```
+- `DropdownMenu.Trigger`: テキストベース（`text`, `size`, `variant`）
+- `DropdownMenu.IconTrigger`: アイコンベース（`icon`, `label`）
 
 ### ListBox
 
-```tsx
-import { ListBox, ListBoxItem } from '@k8o/arte-odyssey/list-box';
+リスト選択。Compound component パターン。
 
-<ListBox>
-  <ListBoxItem>アイテム1</ListBoxItem>
-  <ListBoxItem>アイテム2</ListBoxItem>
-</ListBox>;
+```tsx
+import { ListBox } from '@k8o/arte-odyssey';
+
+<ListBox.Root
+  options={[
+    { key: '1', label: 'オプション1' },
+    { key: '2', label: 'オプション2' },
+  ]}
+  value={value}
+  onSelect={onSelect}
+>
+  <ListBox.Trigger size="md" />
+  <ListBox.Content />
+</ListBox.Root>
 ```
 
-## ユーティリティ
+## プロバイダー
 
 ### ArteOdysseyProvider
 
+アプリのルートで1回ラップする。MotionConfig と ToastProvider を含む。
+
 ```tsx
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey/providers';
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
 <ArteOdysseyProvider>
   <App />
-</ArteOdysseyProvider>;
+</ArteOdysseyProvider>
+```
+
+### PortalRootProvider
+
+Portal のルート要素を指定する。
+
+```tsx
+import { PortalRootProvider, usePortalRoot } from '@k8o/arte-odyssey';
+
+<PortalRootProvider value={containerRef}>
+  {children}
+</PortalRootProvider>
 ```
