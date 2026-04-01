@@ -1,4 +1,4 @@
-import { page } from '@vitest/browser/context';
+import { page } from 'vitest/browser';
 import { renderHook } from 'vitest-browser-react';
 import { useBreakpoint } from './index';
 
