@@ -522,12 +522,12 @@ Props:
 import { Table } from '@k8o/arte-odyssey';
 
 <Table.Root>
-  <Table.Header>
+  <Table.Head>
     <Table.Row>
       <Table.HeaderCell>名前</Table.HeaderCell>
       <Table.HeaderCell align="right">金額</Table.HeaderCell>
     </Table.Row>
-  </Table.Header>
+  </Table.Head>
   <Table.Body>
     <Table.Row interactive>
       <Table.Cell>商品A</Table.Cell>
