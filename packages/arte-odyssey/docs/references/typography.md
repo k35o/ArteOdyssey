@@ -15,15 +15,17 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 
 ## フォントサイズスケール
 
-| Tailwind クラス | 値       | 用途                 |
-| --------------- | -------- | -------------------- |
-| `text-xs`       | 0.75rem  | 注釈、キャプション   |
-| `text-sm`       | 0.875rem | 補足テキスト、ラベル |
-| `text-md`       | 1rem     | 本文（デフォルト）   |
-| `text-lg`       | 1.125rem | 小見出し             |
-| `text-xl`       | 1.25rem  | 見出し               |
-| `text-2xl`      | 1.5rem   | 大見出し             |
-| `text-3xl`      | 1.875rem | ページタイトル       |
+| Tailwind クラス  | 値       | 用途                 |
+| ---------------- | -------- | -------------------- |
+| `text-xs`        | 0.75rem  | 注釈、キャプション   |
+| `text-sm`        | 0.875rem | 補足テキスト、ラベル |
+| `text-md`        | 1rem     | 本文（デフォルト）   |
+| `text-lg`        | 1.125rem | 小見出し             |
+| `text-xl`        | 1.25rem  | 見出し               |
+| `text-2xl`       | 1.5rem   | 大見出し             |
+| `text-3xl`       | 1.875rem | ページタイトル       |
+| `text-emphasize` | 3rem     | 強調表示             |
+| `text-highlight` | 6rem     | ハイライト表示       |
 
 ## フォントウェイト
 
@@ -42,26 +44,38 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 
 日本語テキストは欧文より広い行間が必要。
 
-- 本文: `leading-relaxed` (1.625) を推奨
-- 見出し: `leading-tight` (1.25) か `leading-snug` (1.375)
-- リスト内: デフォルトの `leading-normal` (1.5)
+| Tailwind クラス   | 値    | 用途                     |
+| ----------------- | ----- | ------------------------ |
+| `leading-none`    | 1     | 特殊用途（highlight 等） |
+| `leading-tight`   | 1.25  | 見出し                   |
+| `leading-snug`    | 1.375 | 小見出し                 |
+| `leading-normal`  | 1.5   | リスト内、デフォルト     |
+| `leading-relaxed` | 1.625 | 本文（推奨）             |
+| `leading-loose`   | 2     | 広い行間が必要な場合     |
+
+## 字間
+
+| Tailwind クラス   | 値      | 用途             |
+| ----------------- | ------- | ---------------- |
+| `tracking-none`   | 0em     | デフォルト       |
+| `tracking-normal` | 0.025em | 少し広げたい場合 |
 
 ## Heading コンポーネント
 
 見出しには `Heading` コンポーネントを使う。
 
 ```tsx
-import { Heading } from '@k8o/arte-odyssey/heading';
+import { Heading } from '@k8o/arte-odyssey';
 
-<Heading level={1}>ページタイトル</Heading>
-<Heading level={2}>セクション見出し</Heading>
-<Heading level={3}>サブセクション</Heading>
+<Heading type="h1">ページタイトル</Heading>
+<Heading type="h2">セクション見出し</Heading>
+<Heading type="h3">サブセクション</Heading>
 ```
 
 ## やってはいけないこと
 
 - 3種類以上のフォントウェイトを1画面で使う
-- `text-3xl` より大きいサイズを使う（ページタイトル以外）
+- `text-3xl` より大きいサイズを通常テキストに使う（`text-emphasize` / `text-highlight` は特殊用途）
 - `uppercase` や `tracking-widest` を日本語テキストに適用する
 - テキストにグラデーションをかける
 - フォントサイズだけで階層を作る（余白も活用する）
