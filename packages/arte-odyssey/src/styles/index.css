@@ -212,6 +212,7 @@
   --fg-error: var(--red-800);
 
   --bg-base: var(--white);
+  --bg-surface: oklch(0.99 0.005 195);
   --bg-subtle: var(--gray-100);
   --bg-mute: var(--gray-200);
   --bg-emphasize: var(--gray-300);
@@ -264,6 +265,7 @@
   --fg-error: var(--red-200);
 
   --bg-base: var(--gray-900);
+  --bg-surface: oklch(0.18 0.003 195);
   --bg-subtle: var(--gray-800);
   --bg-mute: var(--gray-700);
   --bg-emphasize: var(--gray-600);
@@ -316,6 +318,7 @@
   --color-fg-error: var(--fg-error);
 
   --color-bg-base: var(--bg-base);
+  --color-bg-surface: var(--bg-surface);
   --color-bg-subtle: var(--bg-subtle);
   --color-bg-mute: var(--bg-mute);
   --color-bg-emphasize: var(--bg-emphasize);
