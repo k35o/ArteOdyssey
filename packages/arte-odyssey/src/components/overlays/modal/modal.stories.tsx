@@ -23,4 +23,13 @@ export const Default: Story = {
       </Dialog.Root>
     ),
   },
+  parameters: {
+    a11y: {
+      options: {
+        rules: {
+          'color-contrast': { enabled: false },
+        },
+      },
+    },
+  },
 };

@@ -4,23 +4,24 @@ import { T } from '../components/t';
 import type { TokenDef } from '../components/token-card';
 import { TokenCard } from '../components/token-card';
 
-const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900] as const;
+const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
 const COLOR_FAMILIES = [
   {
     name: 'Gray',
     prefix: 'gray',
     oklchValues: [
-      'oklch(0.975 0.003 265)',
-      'oklch(0.945 0.005 265)',
-      'oklch(0.900 0.008 265)',
-      'oklch(0.840 0.012 265)',
-      'oklch(0.750 0.015 265)',
-      'oklch(0.660 0.018 265)',
-      'oklch(0.520 0.020 265)',
-      'oklch(0.420 0.018 265)',
-      'oklch(0.300 0.015 265)',
-      'oklch(0.250 0.012 265)',
+      'oklch(0.975 0.002 205)',
+      'oklch(0.945 0.003 205)',
+      'oklch(0.900 0.005 205)',
+      'oklch(0.840 0.007 205)',
+      'oklch(0.750 0.009 205)',
+      'oklch(0.660 0.012 205)',
+      'oklch(0.520 0.012 205)',
+      'oklch(0.420 0.006 205)',
+      'oklch(0.300 0.004 205)',
+      'oklch(0.250 0.003 205)',
+      'oklch(0.180 0.002 205)',
     ],
   },
   {
@@ -37,6 +38,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.220 25)',
       'oklch(0.410 0.180 25)',
       'oklch(0.370 0.140 25)',
+      'oklch(0.180 0.100 25)',
     ],
   },
   {
@@ -53,6 +55,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.230 350)',
       'oklch(0.410 0.190 350)',
       'oklch(0.370 0.150 350)',
+      'oklch(0.180 0.108 350)',
     ],
   },
   {
@@ -69,6 +72,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.265 305)',
       'oklch(0.410 0.220 305)',
       'oklch(0.370 0.175 305)',
+      'oklch(0.180 0.125 305)',
     ],
   },
   {
@@ -85,6 +89,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.128 210)',
       'oklch(0.410 0.105 210)',
       'oklch(0.370 0.082 210)',
+      'oklch(0.180 0.058 210)',
     ],
   },
   {
@@ -101,6 +106,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.260 260)',
       'oklch(0.410 0.215 260)',
       'oklch(0.370 0.165 260)',
+      'oklch(0.180 0.118 260)',
     ],
   },
   {
@@ -117,6 +123,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.120 180)',
       'oklch(0.410 0.098 180)',
       'oklch(0.370 0.078 180)',
+      'oklch(0.180 0.055 180)',
     ],
   },
   {
@@ -133,6 +140,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.180 150)',
       'oklch(0.410 0.140 150)',
       'oklch(0.370 0.108 150)',
+      'oklch(0.180 0.075 150)',
     ],
   },
   {
@@ -149,6 +157,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.135 90)',
       'oklch(0.410 0.110 90)',
       'oklch(0.370 0.085 90)',
+      'oklch(0.180 0.060 90)',
     ],
   },
   {
@@ -165,6 +174,7 @@ const COLOR_FAMILIES = [
       'oklch(0.490 0.200 55)',
       'oklch(0.410 0.165 55)',
       'oklch(0.370 0.128 55)',
+      'oklch(0.180 0.090 55)',
     ],
   },
 ] as const;
@@ -217,6 +227,11 @@ const BG_TOKENS: TokenDef[] = [
     name: 'bg-base',
     light: { source: 'white' },
     dark: { source: 'gray-900' },
+  },
+  {
+    name: 'bg-surface',
+    light: { source: 'gray-50' },
+    dark: { source: 'gray-950' },
   },
   {
     name: 'bg-subtle',
@@ -508,7 +523,7 @@ export function Theming() {
           {COLOR_FAMILIES.map((family) => (
             <div className="flex flex-col gap-1" key={family.prefix}>
               <span className="font-medium text-sm">{family.name}</span>
-              <div className="grid grid-cols-5 gap-2 sm:grid-cols-10">
+              <div className="grid grid-cols-5 gap-2 sm:grid-cols-11">
                 {SHADES.map((shade, i) => (
                   <div
                     className="flex flex-col items-center gap-1"

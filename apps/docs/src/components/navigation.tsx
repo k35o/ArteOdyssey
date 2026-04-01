@@ -21,7 +21,7 @@ export function Navigation() {
   const location = useLocation();
 
   return (
-    <nav className="bg-bg-base">
+    <nav className="bg-bg-surface">
       <div className="flex items-center justify-between px-6 py-4 md:px-8">
         <div className="md:hidden">
           <DropdownMenu.Root>

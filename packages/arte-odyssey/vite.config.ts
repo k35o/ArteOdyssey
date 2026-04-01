@@ -42,6 +42,9 @@ export default defineConfig({
             instances: [
               {
                 browser: 'chromium',
+                context: {
+                  reducedMotion: 'reduce',
+                },
               },
             ],
           },
@@ -57,6 +60,9 @@ export default defineConfig({
             instances: [
               {
                 browser: 'chromium',
+                context: {
+                  reducedMotion: 'reduce',
+                },
               },
             ],
             provider: playwright(),

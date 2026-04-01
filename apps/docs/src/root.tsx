@@ -16,7 +16,7 @@ if (t === 'dark' || (!t && matchMedia('(prefers-color-scheme:dark)').matches)) {
 }`}
         </script>
       </head>
-      <body className="bg-bg-subtle text-fg-base">{children}</body>
+      <body className="bg-bg-surface text-fg-base">{children}</body>
     </html>
   );
 }
