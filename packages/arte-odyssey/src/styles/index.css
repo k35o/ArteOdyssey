@@ -274,8 +274,8 @@
   --bg-error: var(--red-900);
 
   --border-base: var(--gray-600);
-  --border-subtle: var(--gray-800);
-  --border-mute: var(--gray-700);
+  --border-subtle: var(--gray-700);
+  --border-mute: var(--gray-600);
   --border-emphasize: var(--gray-500);
   --border-inverse: var(--gray-300);
   --border-info: var(--blue-400);
