@@ -11,7 +11,7 @@ import { useTranslation } from '../i18n';
 const HookCard: FC<{ item: NavItem }> = ({ item }) => {
   return (
     <LocaleAnchor path={item.path} unstyled>
-      <InteractiveCard appearance="bordered">
+      <InteractiveCard appearance="shadow">
         <div className="px-4 py-3">
           <span className="font-medium text-fg-base text-sm">{item.name}</span>
         </div>
