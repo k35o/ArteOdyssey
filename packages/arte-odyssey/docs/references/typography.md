@@ -15,27 +15,27 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 
 ## フォントサイズスケール
 
-| Tailwind クラス | 値 | 用途 |
-|-----------------|-----|------|
-| `text-xs` | 0.75rem | 注釈、キャプション |
-| `text-sm` | 0.875rem | 補足テキスト、ラベル |
-| `text-md` | 1rem | 本文（デフォルト） |
-| `text-lg` | 1.125rem | 小見出し |
-| `text-xl` | 1.25rem | 見出し |
-| `text-2xl` | 1.5rem | 大見出し |
-| `text-3xl` | 1.875rem | ページタイトル |
-| `text-emphasize` | 3rem | 強調表示 |
-| `text-highlight` | 6rem | ハイライト表示 |
+| Tailwind クラス  | 値       | 用途                 |
+| ---------------- | -------- | -------------------- |
+| `text-xs`        | 0.75rem  | 注釈、キャプション   |
+| `text-sm`        | 0.875rem | 補足テキスト、ラベル |
+| `text-md`        | 1rem     | 本文（デフォルト）   |
+| `text-lg`        | 1.125rem | 小見出し             |
+| `text-xl`        | 1.25rem  | 見出し               |
+| `text-2xl`       | 1.5rem   | 大見出し             |
+| `text-3xl`       | 1.875rem | ページタイトル       |
+| `text-emphasize` | 3rem     | 強調表示             |
+| `text-highlight` | 6rem     | ハイライト表示       |
 
 ## フォントウェイト
 
 ウェイトは控えめに使う。太字の多用は「静けさ」を損なう。
 
-| Tailwind クラス | 値 | 用途 |
-|-----------------|-----|------|
-| `font-normal` | 400 | 本文 |
-| `font-medium` | 450 | 強調テキスト（控えめな強調） |
-| `font-bold` | 700 | 見出し、ボタンラベル |
+| Tailwind クラス | 値  | 用途                         |
+| --------------- | --- | ---------------------------- |
+| `font-normal`   | 400 | 本文                         |
+| `font-medium`   | 450 | 強調テキスト（控えめな強調） |
+| `font-bold`     | 700 | 見出し、ボタンラベル         |
 
 - `font-semibold` (600) や `font-extrabold` (800) は使わない
 - `font-medium` が 450 であることに注意（一般的な 500 より軽い）
@@ -44,20 +44,20 @@ font-family: 'Noto Sans JP', 'M PLUS 2', sans-serif;
 
 日本語テキストは欧文より広い行間が必要。
 
-| Tailwind クラス | 値 | 用途 |
-|-----------------|-----|------|
-| `leading-none` | 1 | 特殊用途（highlight 等） |
-| `leading-tight` | 1.25 | 見出し |
-| `leading-snug` | 1.375 | 小見出し |
-| `leading-normal` | 1.5 | リスト内、デフォルト |
-| `leading-relaxed` | 1.625 | 本文（推奨） |
-| `leading-loose` | 2 | 広い行間が必要な場合 |
+| Tailwind クラス   | 値    | 用途                     |
+| ----------------- | ----- | ------------------------ |
+| `leading-none`    | 1     | 特殊用途（highlight 等） |
+| `leading-tight`   | 1.25  | 見出し                   |
+| `leading-snug`    | 1.375 | 小見出し                 |
+| `leading-normal`  | 1.5   | リスト内、デフォルト     |
+| `leading-relaxed` | 1.625 | 本文（推奨）             |
+| `leading-loose`   | 2     | 広い行間が必要な場合     |
 
 ## 字間
 
-| Tailwind クラス | 値 | 用途 |
-|-----------------|-----|------|
-| `tracking-none` | 0em | デフォルト |
+| Tailwind クラス   | 値      | 用途             |
+| ----------------- | ------- | ---------------- |
+| `tracking-none`   | 0em     | デフォルト       |
 | `tracking-normal` | 0.025em | 少し広げたい場合 |
 
 ## Heading コンポーネント

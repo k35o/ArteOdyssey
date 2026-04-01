@@ -92,9 +92,7 @@ useClickAway(ref, (e) => {
 ```tsx
 const { isHovered, hoverProps } = useHover();
 
-<div {...hoverProps}>
-  {isHovered ? 'ホバー中' : '通常'}
-</div>
+<div {...hoverProps}>{isHovered ? 'ホバー中' : '通常'}</div>;
 ```
 
 `hoverProps` は `{ onPointerEnter, onPointerLeave }` を含む。
@@ -192,9 +190,13 @@ useWindowResize(
 ```tsx
 const ref = useRef<HTMLDivElement>(null);
 
-useResize(ref, (entry) => {
-  console.log(entry.contentRect);
-}, { enabled: true, debounceMs: 100 });
+useResize(
+  ref,
+  (entry) => {
+    console.log(entry.contentRect);
+  },
+  { enabled: true, debounceMs: 100 },
+);
 ```
 
 引数:
@@ -210,9 +212,13 @@ useResize(ref, (entry) => {
 ```tsx
 const ref = useRef<HTMLDivElement>(null);
 
-useIntersectionObserver(ref, (entry) => {
-  console.log(entry.isIntersecting);
-}, { threshold: 0.5 });
+useIntersectionObserver(
+  ref,
+  (entry) => {
+    console.log(entry.isIntersecting);
+  },
+  { threshold: 0.5 },
+);
 ```
 
 引数:

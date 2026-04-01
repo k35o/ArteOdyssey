@@ -29,8 +29,8 @@ cn('px-4 py-2', 'px-6'); // → 'py-2 px-6'
 import { between } from '@k8o/arte-odyssey';
 
 between(150, 0, 100); // → 100
-between(-5, 0, 100);  // → 0
-between(50, 0, 100);  // → 50
+between(-5, 0, 100); // → 0
+between(50, 0, 100); // → 50
 ```
 
 ### commalize
@@ -40,7 +40,7 @@ between(50, 0, 100);  // → 50
 ```tsx
 import { commalize } from '@k8o/arte-odyssey';
 
-commalize(1000);    // → '1,000'
+commalize(1000); // → '1,000'
 commalize(1234567); // → '1,234,567'
 ```
 
@@ -69,7 +69,7 @@ import { cast } from '@k8o/arte-odyssey';
 ```tsx
 import { isInternalRoute } from '@k8o/arte-odyssey';
 
-isInternalRoute('/about');           // → true
+isInternalRoute('/about'); // → true
 isInternalRoute('https://ext.com'); // → false
 ```
 
