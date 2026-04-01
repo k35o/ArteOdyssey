@@ -1,5 +1,12 @@
 # example-vite
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`eb9d8cf`](https://github.com/k35o/ArteOdyssey/commit/eb9d8cfeeeca41ef0926510120efae62e80f201d), [`8762e91`](https://github.com/k35o/ArteOdyssey/commit/8762e91fe17b16014b05e830a042755eff458ebb), [`1e9fb8c`](https://github.com/k35o/ArteOdyssey/commit/1e9fb8c39c372c13440d5fe2bcd246b1ebd3ac90), [`a1dc58b`](https://github.com/k35o/ArteOdyssey/commit/a1dc58bd6737976599586039636228e549549b36), [`a7154b7`](https://github.com/k35o/ArteOdyssey/commit/a7154b7d8ff2f9710b7648314c57af1127c7f694), [`5181edc`](https://github.com/k35o/ArteOdyssey/commit/5181edc1225386f7c85f20fb9359d30f34f44154), [`03cbcbc`](https://github.com/k35o/ArteOdyssey/commit/03cbcbc3d963566e828d142860041e029b444ac4), [`35ef6a0`](https://github.com/k35o/ArteOdyssey/commit/35ef6a08d346935f3858f5bef4fa1fb4791dc9fb)]:
+  - @k8o/arte-odyssey@5.0.0
+
 ## 0.1.5
 
 ### Patch Changes
