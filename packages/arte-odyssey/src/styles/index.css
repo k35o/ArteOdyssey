@@ -76,23 +76,24 @@
    *   50: 0.975  |  400: 0.750  |  700: 0.490
    *  100: 0.945  |  500: 0.660  |  800: 0.410
    *  200: 0.900  |  600: 0.575  |  900: 0.370
-   *  300: 0.840  |
+   *  300: 0.840  |                 950: 0.180
    *
    * C (chroma) varies per hue to maximize vividness within gamut.
    * H (hue) is fixed per color family.
    */
 
-  /* Gray — H: 265, minimal chroma for neutral cool */
-  --gray-50: oklch(0.975 0.003 265);
-  --gray-100: oklch(0.945 0.005 265);
-  --gray-200: oklch(0.9 0.008 265);
-  --gray-300: oklch(0.84 0.012 265);
-  --gray-400: oklch(0.75 0.015 265);
-  --gray-500: oklch(0.66 0.018 265);
-  --gray-600: oklch(0.52 0.02 265);
-  --gray-700: oklch(0.42 0.018 265);
-  --gray-800: oklch(0.3 0.015 265);
-  --gray-900: oklch(0.25 0.012 265);
+  /* Gray — H: 205 (cyan blend), minimal chroma for branded neutral */
+  --gray-50: oklch(0.975 0.002 205);
+  --gray-100: oklch(0.945 0.003 205);
+  --gray-200: oklch(0.9 0.005 205);
+  --gray-300: oklch(0.84 0.007 205);
+  --gray-400: oklch(0.75 0.009 205);
+  --gray-500: oklch(0.66 0.012 205);
+  --gray-600: oklch(0.52 0.012 205);
+  --gray-700: oklch(0.42 0.006 205);
+  --gray-800: oklch(0.3 0.004 205);
+  --gray-900: oklch(0.25 0.003 205);
+  --gray-950: oklch(0.18 0.002 205);
 
   /* Red — H: 25 */
   --red-50: oklch(0.975 0.016 25);
@@ -105,6 +106,7 @@
   --red-700: oklch(0.49 0.22 25);
   --red-800: oklch(0.41 0.18 25);
   --red-900: oklch(0.37 0.14 25);
+  --red-950: oklch(0.18 0.1 25);
 
   /* Pink — H: 350 */
   --pink-50: oklch(0.975 0.016 350);
@@ -117,6 +119,7 @@
   --pink-700: oklch(0.49 0.23 350);
   --pink-800: oklch(0.41 0.19 350);
   --pink-900: oklch(0.37 0.15 350);
+  --pink-950: oklch(0.18 0.108 350);
 
   /* Purple — H: 305 */
   --purple-50: oklch(0.975 0.018 305);
@@ -129,6 +132,7 @@
   --purple-700: oklch(0.49 0.265 305);
   --purple-800: oklch(0.41 0.22 305);
   --purple-900: oklch(0.37 0.175 305);
+  --purple-950: oklch(0.18 0.125 305);
 
   /* Cyan — H: 210 (Secondary) */
   --cyan-50: oklch(0.975 0.022 210);
@@ -141,6 +145,7 @@
   --cyan-700: oklch(0.49 0.128 210);
   --cyan-800: oklch(0.41 0.105 210);
   --cyan-900: oklch(0.37 0.082 210);
+  --cyan-950: oklch(0.18 0.058 210);
 
   /* Blue — H: 260 */
   --blue-50: oklch(0.975 0.016 260);
@@ -153,6 +158,7 @@
   --blue-700: oklch(0.49 0.26 260);
   --blue-800: oklch(0.41 0.215 260);
   --blue-900: oklch(0.37 0.165 260);
+  --blue-950: oklch(0.18 0.118 260);
 
   /* Teal — H: 180 (Primary) */
   --teal-50: oklch(0.975 0.02 180);
@@ -165,6 +171,7 @@
   --teal-700: oklch(0.49 0.12 180);
   --teal-800: oklch(0.41 0.098 180);
   --teal-900: oklch(0.37 0.078 180);
+  --teal-950: oklch(0.18 0.055 180);
 
   /* Green — H: 150 */
   --green-50: oklch(0.975 0.02 150);
@@ -177,6 +184,7 @@
   --green-700: oklch(0.49 0.18 150);
   --green-800: oklch(0.41 0.14 150);
   --green-900: oklch(0.37 0.108 150);
+  --green-950: oklch(0.18 0.075 150);
 
   /* Yellow — H: 90 */
   --yellow-50: oklch(0.975 0.03 90);
@@ -189,6 +197,7 @@
   --yellow-700: oklch(0.49 0.135 90);
   --yellow-800: oklch(0.41 0.11 90);
   --yellow-900: oklch(0.37 0.085 90);
+  --yellow-950: oklch(0.18 0.06 90);
 
   /* Orange — H: 55 */
   --orange-50: oklch(0.975 0.02 55);
@@ -201,6 +210,7 @@
   --orange-700: oklch(0.49 0.2 55);
   --orange-800: oklch(0.41 0.165 55);
   --orange-900: oklch(0.37 0.128 55);
+  --orange-950: oklch(0.18 0.09 55);
 
   --fg-base: var(--gray-900);
   --fg-subtle: var(--gray-400);
@@ -212,7 +222,7 @@
   --fg-error: var(--red-800);
 
   --bg-base: var(--white);
-  --bg-surface: oklch(0.99 0.005 195);
+  --bg-surface: var(--gray-50);
   --bg-subtle: var(--gray-100);
   --bg-mute: var(--gray-200);
   --bg-emphasize: var(--gray-300);
@@ -265,7 +275,7 @@
   --fg-error: var(--red-200);
 
   --bg-base: var(--gray-900);
-  --bg-surface: oklch(0.18 0.003 195);
+  --bg-surface: var(--gray-950);
   --bg-subtle: var(--gray-800);
   --bg-mute: var(--gray-700);
   --bg-emphasize: var(--gray-600);
