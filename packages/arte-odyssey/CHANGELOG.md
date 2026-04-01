@@ -1,5 +1,63 @@
 # @k8o/arte-odyssey
 
+## 5.0.0
+
+### Major Changes
+
+- [#372](https://github.com/k35o/ArteOdyssey/pull/372) [`a1dc58b`](https://github.com/k35o/ArteOdyssey/commit/a1dc58bd6737976599586039636228e549549b36) Thanks [@k35o](https://github.com/k35o)! - feat: add `useIntersectionObserver` and `useInView` hooks, refactor ref-based hooks to accept ref
+
+  BREAKING CHANGE: `useClickAway` and `useResize` now accept a `ref` as the first argument instead of returning one.
+
+### Minor Changes
+
+- [#360](https://github.com/k35o/ArteOdyssey/pull/360) [`eb9d8cf`](https://github.com/k35o/ArteOdyssey/commit/eb9d8cfeeeca41ef0926510120efae62e80f201d) Thanks [@k35o](https://github.com/k35o)! - feat: add `useBreakpoint` hook for Tailwind CSS 4 breakpoint detection
+
+- [#365](https://github.com/k35o/ArteOdyssey/pull/365) [`8762e91`](https://github.com/k35o/ArteOdyssey/commit/8762e91fe17b16014b05e830a042755eff458ebb) Thanks [@k35o](https://github.com/k35o)! - feat: add `useDebounce` and `useThrottle` hooks
+
+  Both hooks support overloaded APIs:
+
+  - Pass a value to get a debounced/throttled value
+  - Pass a callback to get a debounced/throttled function
+
+- [#364](https://github.com/k35o/ArteOdyssey/pull/364) [`1e9fb8c`](https://github.com/k35o/ArteOdyssey/commit/1e9fb8c39c372c13440d5fe2bcd246b1ebd3ac90) Thanks [@k35o](https://github.com/k35o)! - feat: add `useDisclosure` hook for open/close/toggle state management
+
+- [#375](https://github.com/k35o/ArteOdyssey/pull/375) [`a7154b7`](https://github.com/k35o/ArteOdyssey/commit/a7154b7d8ff2f9710b7648314c57af1127c7f694) Thanks [@k35o](https://github.com/k35o)! - feat: add `useSessionStorage` hook for sessionStorage state management
+
+- [#379](https://github.com/k35o/ArteOdyssey/pull/379) [`5181edc`](https://github.com/k35o/ArteOdyssey/commit/5181edc1225386f7c85f20fb9359d30f34f44154) Thanks [@k35o](https://github.com/k35o)! - ブランドカラーに寄せた Gray パレットと 950 シェードの追加
+
+  ### カラーパレット
+
+  - Gray の色相を H:265 → H:205（Cyan 寄り）に変更し、ブランドカラーとの統一感を強化
+  - Gray の彩度を抑え、より自然なブランドニュートラルに調整
+  - 全カラーファミリーに `950` シェードを追加（ダークモード背景用）
+  - `bg-surface` トークンを `gray-50` / `gray-950` に統一
+
+- [#377](https://github.com/k35o/ArteOdyssey/pull/377) [`03cbcbc`](https://github.com/k35o/ArteOdyssey/commit/03cbcbc3d963566e828d142860041e029b444ac4) Thanks [@k35o](https://github.com/k35o)! - デザインリフレッシュ: 「触れるものは柔らかく、読むものは端正に」
+
+  ### カラーパレット
+
+  - 全色を OKLCH 色空間に移行（明度統一スケール）
+  - セマンティックトークンを穏やかな階調にシフト（WCAG AAA 準拠）
+  - ダークモードをより深い暗さに調整
+
+  ### コンポーネントの角丸
+
+  - Button, LinkButton → `rounded-full`（ピル型）
+  - TextField, Textarea, Select, NumberField, PasswordInput, Autocomplete, CheckboxCard, RadioCard, FileField → `rounded-xl`
+  - Card, InteractiveCard → `rounded-xl`
+
+  ### デザイントークン
+
+  - `rounded-xl` (1rem), `rounded-2xl` (1.25rem) を追加
+
+  ### バグ修正
+
+  - Tabs: 同一ページ内の複数インスタンスでアンダーラインが干渉する問題を修正
+
+### Patch Changes
+
+- [#378](https://github.com/k35o/ArteOdyssey/pull/378) [`35ef6a0`](https://github.com/k35o/ArteOdyssey/commit/35ef6a08d346935f3858f5bef4fa1fb4791dc9fb) Thanks [@k35o](https://github.com/k35o)! - docs: update design system docs to match current component and hook APIs
+
 ## 4.2.1
 
 ### Patch Changes
