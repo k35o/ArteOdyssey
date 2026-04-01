@@ -76,7 +76,7 @@ export const Autocomplete: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative w-full rounded-lg border border-border-base bg-bg-base',
+        'relative w-full rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
@@ -209,7 +209,7 @@ export const Autocomplete: FC<Props> = ({
       <div className="relative w-full">
         {open && (
           <div
-            className="absolute top-1 z-10 w-full rounded-lg border border-border-mute bg-bg-base shadow-md"
+            className="absolute top-1 z-10 w-full rounded-xl border border-border-mute bg-bg-base shadow-md"
             role="presentation"
           >
             <ul className="max-h-96 py-2" id={`${id}_listbox`}>

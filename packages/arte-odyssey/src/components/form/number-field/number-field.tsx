@@ -73,7 +73,7 @@ export const NumberField: FC<Props> = ({
   return (
     <div
       className={cn(
-        'relative flex h-12 w-full items-center justify-between gap-2 rounded-lg border border-border-base bg-bg-base',
+        'relative flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
         'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
@@ -136,7 +136,7 @@ export const NumberField: FC<Props> = ({
       <div aria-hidden="true" className="absolute right-0 flex h-full flex-col">
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-tr-lg border-border-base border-b border-l bg-bg-mute',
+            'flex w-6 grow items-center justify-center rounded-tr-xl border-border-base border-b border-l bg-bg-mute',
             'disabled:cursor-not-allowed',
           )}
           disabled={isDisabled}
@@ -157,7 +157,7 @@ export const NumberField: FC<Props> = ({
         </button>
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-br-lg border-border-base border-l bg-bg-mute',
+            'flex w-6 grow items-center justify-center rounded-br-xl border-border-base border-l bg-bg-mute',
             'disabled:cursor-not-allowed',
           )}
           disabled={isDisabled}

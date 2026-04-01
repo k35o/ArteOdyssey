@@ -66,116 +66,150 @@
 @custom-variant light (&:where(.light, .light *));
 
 :root {
-  --white: #ffffff;
-  --gray-50: #fafafa;
-  --gray-100: #f4f4f5;
-  --gray-200: #e4e4e7;
-  --gray-300: #d4d4d8;
-  --gray-400: #a1a1aa;
-  --gray-500: #71717a;
-  --gray-600: #52525b;
-  --gray-700: #3f3f46;
-  --gray-800: #27272a;
-  --gray-900: #18181b;
-  --red-50: #fef2f2;
-  --red-100: #fee2e2;
-  --red-200: #fecaca;
-  --red-300: #fca5a5;
-  --red-400: #f87171;
-  --red-500: #ef4444;
-  --red-600: #dc2626;
-  --red-700: #991919;
-  --red-800: #511111;
-  --red-900: #300c0c;
-  --pink-50: #fdf2f8;
-  --pink-100: #fce7f3;
-  --pink-200: #fbcfe8;
-  --pink-300: #f9a8d4;
-  --pink-400: #f472b6;
-  --pink-500: #ec4899;
-  --pink-600: #db2777;
-  --pink-700: #a41752;
-  --pink-800: #6d0e34;
-  --pink-900: #45061f;
-  --purple-50: #faf5ff;
-  --purple-100: #f3e8ff;
-  --purple-200: #e9d5ff;
-  --purple-300: #d8b4fe;
-  --purple-400: #c084fc;
-  --purple-500: #a855f7;
-  --purple-600: #9333ea;
-  --purple-700: #641ba3;
-  --purple-800: #4a1772;
-  --purple-900: #2f0553;
-  --cyan-50: #ecfeff;
-  --cyan-100: #cffafe;
-  --cyan-200: #a5f3fc;
-  --cyan-300: #67e8f9;
-  --cyan-400: #22d3ee;
-  --cyan-500: #06b6d4;
-  --cyan-600: #0891b2;
-  --cyan-700: #0c5c72;
-  --cyan-800: #134152;
-  --cyan-900: #072a38;
-  --blue-50: #eff6ff;
-  --blue-100: #dbeafe;
-  --blue-200: #bfdbfe;
-  --blue-300: #a3cfff;
-  --blue-400: #60a5fa;
-  --blue-500: #3b82f6;
-  --blue-600: #2563eb;
-  --blue-700: #173da6;
-  --blue-800: #1a3478;
-  --blue-900: #14204a;
-  --teal-50: #f0fdfa;
-  --teal-100: #ccfbf1;
-  --teal-200: #99f6e4;
-  --teal-300: #5eead4;
-  --teal-400: #2dd4bf;
-  --teal-500: #14b8a6;
-  --teal-600: #0d9488;
-  --teal-700: #0c5d56;
-  --teal-800: #114240;
-  --teal-900: #032726;
-  --green-50: #f0fdf4;
-  --green-100: #dcfce7;
-  --green-200: #bbf7d0;
-  --green-300: #86efac;
-  --green-400: #4ade80;
-  --green-500: #22c55e;
-  --green-600: #16a34a;
-  --green-700: #116932;
-  --green-800: #124a28;
-  --green-900: #042713;
-  --yellow-50: #fefce8;
-  --yellow-100: #fef9c3;
-  --yellow-200: #fef08a;
-  --yellow-300: #fde047;
-  --yellow-400: #facc15;
-  --yellow-500: #eab308;
-  --yellow-600: #ca8a04;
-  --yellow-700: #845209;
-  --yellow-800: #713f12;
-  --yellow-900: #422006;
-  --orange-50: #fff7ed;
-  --orange-100: #ffedd5;
-  --orange-200: #fed7aa;
-  --orange-300: #fdba74;
-  --orange-400: #fb923c;
-  --orange-500: #f97316;
-  --orange-600: #ea580c;
-  --orange-700: #92310a;
-  --orange-800: #6c2710;
-  --orange-900: #3b1106;
+  --white: oklch(1 0 0);
+  /*
+   * OKLCH Palette — Unified Lightness Scale
+   *
+   * L (lightness) is identical across all hues at each step,
+   * ensuring equal perceived contrast at the same shade number.
+   *
+   *   50: 0.975  |  400: 0.750  |  700: 0.490
+   *  100: 0.945  |  500: 0.660  |  800: 0.410
+   *  200: 0.900  |  600: 0.575  |  900: 0.370
+   *  300: 0.840  |
+   *
+   * C (chroma) varies per hue to maximize vividness within gamut.
+   * H (hue) is fixed per color family.
+   */
+
+  /* Gray — H: 265, minimal chroma for neutral cool */
+  --gray-50: oklch(0.975 0.003 265);
+  --gray-100: oklch(0.945 0.005 265);
+  --gray-200: oklch(0.9 0.008 265);
+  --gray-300: oklch(0.84 0.012 265);
+  --gray-400: oklch(0.75 0.015 265);
+  --gray-500: oklch(0.66 0.018 265);
+  --gray-600: oklch(0.52 0.02 265);
+  --gray-700: oklch(0.42 0.018 265);
+  --gray-800: oklch(0.3 0.015 265);
+  --gray-900: oklch(0.25 0.012 265);
+
+  /* Red — H: 25 */
+  --red-50: oklch(0.975 0.016 25);
+  --red-100: oklch(0.945 0.042 25);
+  --red-200: oklch(0.9 0.084 25);
+  --red-300: oklch(0.84 0.15 25);
+  --red-400: oklch(0.75 0.225 25);
+  --red-500: oklch(0.66 0.27 25);
+  --red-600: oklch(0.575 0.255 25);
+  --red-700: oklch(0.49 0.22 25);
+  --red-800: oklch(0.41 0.18 25);
+  --red-900: oklch(0.37 0.14 25);
+
+  /* Pink — H: 350 */
+  --pink-50: oklch(0.975 0.016 350);
+  --pink-100: oklch(0.945 0.038 350);
+  --pink-200: oklch(0.9 0.078 350);
+  --pink-300: oklch(0.84 0.145 350);
+  --pink-400: oklch(0.75 0.225 350);
+  --pink-500: oklch(0.66 0.27 350);
+  --pink-600: oklch(0.575 0.26 350);
+  --pink-700: oklch(0.49 0.23 350);
+  --pink-800: oklch(0.41 0.19 350);
+  --pink-900: oklch(0.37 0.15 350);
+
+  /* Purple — H: 305 */
+  --purple-50: oklch(0.975 0.018 305);
+  --purple-100: oklch(0.945 0.042 305);
+  --purple-200: oklch(0.9 0.082 305);
+  --purple-300: oklch(0.84 0.155 305);
+  --purple-400: oklch(0.75 0.24 305);
+  --purple-500: oklch(0.66 0.29 305);
+  --purple-600: oklch(0.575 0.295 305);
+  --purple-700: oklch(0.49 0.265 305);
+  --purple-800: oklch(0.41 0.22 305);
+  --purple-900: oklch(0.37 0.175 305);
+
+  /* Cyan — H: 210 (Secondary) */
+  --cyan-50: oklch(0.975 0.022 210);
+  --cyan-100: oklch(0.945 0.055 210);
+  --cyan-200: oklch(0.9 0.098 210);
+  --cyan-300: oklch(0.84 0.155 210);
+  --cyan-400: oklch(0.75 0.18 210);
+  --cyan-500: oklch(0.66 0.17 210);
+  --cyan-600: oklch(0.575 0.15 210);
+  --cyan-700: oklch(0.49 0.128 210);
+  --cyan-800: oklch(0.41 0.105 210);
+  --cyan-900: oklch(0.37 0.082 210);
+
+  /* Blue — H: 260 */
+  --blue-50: oklch(0.975 0.016 260);
+  --blue-100: oklch(0.945 0.04 260);
+  --blue-200: oklch(0.9 0.078 260);
+  --blue-300: oklch(0.84 0.145 260);
+  --blue-400: oklch(0.75 0.21 260);
+  --blue-500: oklch(0.66 0.255 260);
+  --blue-600: oklch(0.575 0.275 260);
+  --blue-700: oklch(0.49 0.26 260);
+  --blue-800: oklch(0.41 0.215 260);
+  --blue-900: oklch(0.37 0.165 260);
+
+  /* Teal — H: 180 (Primary) */
+  --teal-50: oklch(0.975 0.02 180);
+  --teal-100: oklch(0.945 0.058 180);
+  --teal-200: oklch(0.9 0.11 180);
+  --teal-300: oklch(0.84 0.16 180);
+  --teal-400: oklch(0.75 0.175 180);
+  --teal-500: oklch(0.66 0.165 180);
+  --teal-600: oklch(0.575 0.145 180);
+  --teal-700: oklch(0.49 0.12 180);
+  --teal-800: oklch(0.41 0.098 180);
+  --teal-900: oklch(0.37 0.078 180);
+
+  /* Green — H: 150 */
+  --green-50: oklch(0.975 0.02 150);
+  --green-100: oklch(0.945 0.052 150);
+  --green-200: oklch(0.9 0.1 150);
+  --green-300: oklch(0.84 0.175 150);
+  --green-400: oklch(0.75 0.235 150);
+  --green-500: oklch(0.66 0.245 150);
+  --green-600: oklch(0.575 0.22 150);
+  --green-700: oklch(0.49 0.18 150);
+  --green-800: oklch(0.41 0.14 150);
+  --green-900: oklch(0.37 0.108 150);
+
+  /* Yellow — H: 90 */
+  --yellow-50: oklch(0.975 0.03 90);
+  --yellow-100: oklch(0.945 0.08 90);
+  --yellow-200: oklch(0.9 0.148 90);
+  --yellow-300: oklch(0.84 0.2 90);
+  --yellow-400: oklch(0.75 0.2 90);
+  --yellow-500: oklch(0.66 0.18 90);
+  --yellow-600: oklch(0.575 0.158 90);
+  --yellow-700: oklch(0.49 0.135 90);
+  --yellow-800: oklch(0.41 0.11 90);
+  --yellow-900: oklch(0.37 0.085 90);
+
+  /* Orange — H: 55 */
+  --orange-50: oklch(0.975 0.02 55);
+  --orange-100: oklch(0.945 0.05 55);
+  --orange-200: oklch(0.9 0.098 55);
+  --orange-300: oklch(0.84 0.165 55);
+  --orange-400: oklch(0.75 0.22 55);
+  --orange-500: oklch(0.66 0.24 55);
+  --orange-600: oklch(0.575 0.235 55);
+  --orange-700: oklch(0.49 0.2 55);
+  --orange-800: oklch(0.41 0.165 55);
+  --orange-900: oklch(0.37 0.128 55);
 
   --fg-base: var(--gray-900);
   --fg-subtle: var(--gray-400);
   --fg-mute: var(--gray-700);
   --fg-inverse: var(--gray-50);
-  --fg-info: var(--blue-700);
-  --fg-success: var(--green-700);
-  --fg-warning: var(--yellow-700);
-  --fg-error: var(--red-700);
+  --fg-info: var(--blue-800);
+  --fg-success: var(--green-800);
+  --fg-warning: var(--yellow-800);
+  --fg-error: var(--red-800);
 
   --bg-base: var(--white);
   --bg-subtle: var(--gray-100);
@@ -197,37 +231,37 @@
   --border-warning: var(--yellow-500);
   --border-error: var(--red-500);
 
-  --primary-fg: var(--teal-700);
-  --primary-bg: var(--teal-300);
-  --primary-bg-subtle: var(--teal-100);
-  --primary-bg-mute: var(--teal-200);
-  --primary-bg-emphasize: var(--teal-300);
-  --primary-border: var(--teal-600);
+  --primary-fg: var(--teal-800);
+  --primary-bg: var(--teal-200);
+  --primary-bg-subtle: var(--teal-50);
+  --primary-bg-mute: var(--teal-100);
+  --primary-bg-emphasize: var(--teal-200);
+  --primary-border: var(--teal-500);
 
-  --secondary-fg: var(--cyan-700);
-  --secondary-bg: var(--cyan-300);
-  --secondary-bg-subtle: var(--cyan-100);
-  --secondary-bg-mute: var(--cyan-200);
-  --secondary-bg-emphasize: var(--cyan-300);
-  --secondary-border: var(--cyan-600);
+  --secondary-fg: var(--cyan-800);
+  --secondary-bg: var(--cyan-200);
+  --secondary-bg-subtle: var(--cyan-50);
+  --secondary-bg-mute: var(--cyan-100);
+  --secondary-bg-emphasize: var(--cyan-200);
+  --secondary-border: var(--cyan-500);
 
   --back-drop: rgb(0, 0, 0, 0.5);
 
   /* TODO: 上の変数の一環として使えるようにする */
-  --group-primary: var(--teal-700);
-  --group-secondary: var(--cyan-700);
-  --group-tertiary: var(--pink-700);
-  --group-quaternary: var(--purple-700);
+  --group-primary: var(--teal-800);
+  --group-secondary: var(--cyan-800);
+  --group-tertiary: var(--pink-800);
+  --group-quaternary: var(--purple-800);
 }
 .dark {
   --fg-base: var(--gray-50);
   --fg-subtle: var(--gray-500);
   --fg-mute: var(--gray-300);
   --fg-inverse: var(--gray-900);
-  --fg-info: var(--blue-300);
-  --fg-success: var(--green-300);
-  --fg-warning: var(--yellow-300);
-  --fg-error: var(--red-300);
+  --fg-info: var(--blue-200);
+  --fg-success: var(--green-200);
+  --fg-warning: var(--yellow-200);
+  --fg-error: var(--red-200);
 
   --bg-base: var(--gray-900);
   --bg-subtle: var(--gray-800);
@@ -240,8 +274,8 @@
   --bg-error: var(--red-900);
 
   --border-base: var(--gray-600);
-  --border-subtle: var(--gray-900);
-  --border-mute: var(--gray-800);
+  --border-subtle: var(--gray-700);
+  --border-mute: var(--gray-600);
   --border-emphasize: var(--gray-500);
   --border-inverse: var(--gray-300);
   --border-info: var(--blue-400);
@@ -249,25 +283,25 @@
   --border-warning: var(--yellow-400);
   --border-error: var(--red-400);
 
-  --primary-fg: var(--teal-300);
-  --primary-bg: var(--teal-700);
+  --primary-fg: var(--teal-100);
+  --primary-bg: var(--teal-800);
   --primary-bg-subtle: var(--teal-900);
   --primary-bg-mute: var(--teal-800);
   --primary-bg-emphasize: var(--teal-700);
-  --primary-border: var(--teal-600);
+  --primary-border: var(--teal-500);
 
-  --secondary-fg: var(--cyan-300);
-  --secondary-bg: var(--cyan-700);
+  --secondary-fg: var(--cyan-100);
+  --secondary-bg: var(--cyan-800);
   --secondary-bg-subtle: var(--cyan-900);
   --secondary-bg-mute: var(--cyan-800);
   --secondary-bg-emphasize: var(--cyan-700);
-  --secondary-border: var(--cyan-600);
+  --secondary-border: var(--cyan-500);
 
   /* TODO: 上の変数の一環として使えるようにする */
-  --group-primary: var(--teal-300);
-  --group-secondary: var(--cyan-300);
-  --group-tertiary: var(--pink-300);
-  --group-quaternary: var(--purple-300);
+  --group-primary: var(--teal-200);
+  --group-secondary: var(--cyan-200);
+  --group-tertiary: var(--pink-200);
+  --group-quaternary: var(--purple-200);
 }
 
 @theme inline {
@@ -328,6 +362,8 @@
   --radius-sm: 0.375rem;
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
 
   --font-*: initial;
   --font-noto-sans-jp: var(--font-noto-sans-jp);

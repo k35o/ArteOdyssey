@@ -10,7 +10,7 @@ export const Card: FC<CardProps> = ({
 }) => (
   <div
     className={cn(
-      'rounded-lg',
+      'rounded-xl',
       appearance === 'shadow' && 'shadow-sm',
       appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',

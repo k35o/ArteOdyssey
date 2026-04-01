@@ -8,7 +8,7 @@ export const en = {
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'home.title': 'ArteOdyssey',
-  'home.description': 'React UI Component Library',
+  'home.description': 'React UI Component Library for k8o',
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
   'home.featuresTitle': 'Features',
@@ -27,13 +27,13 @@ export const en = {
   'home.featureAccessible': 'Accessibility',
   'home.featureAccessibleDescription':
     'Aiming for components that consider keyboard navigation and screen reader support based on WAI-ARIA patterns.',
-  'home.featureMinimal': 'Minimal Design',
+  'home.featureMinimal': 'Soft & Sharp Design',
   'home.featureMinimalDescription':
-    'A calm, serene aesthetic that embraces whitespace. UI that lets your content shine.',
+    'Soft where you touch, sharp where you read. UI that speaks through whitespace and gentle forms.',
   'common.language': 'Language',
   'nav.openMenu': 'Open menu',
   'getStarted.introduction':
-    'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. It provides a minimal design with a calm, serene aesthetic that makes use of whitespace.',
+    'ArteOdyssey is a UI component library built with React 19 and Tailwind CSS 4. Interactive elements like forms and cards feel approachable with rounded shapes and generous spacing, while informational elements stay crisp and clear. Calm but never boring UI.',
   'getStarted.installationTitle': 'Installation',
   'getStarted.installationDescription': 'Install with your preferred package manager.',
   'getStarted.setupTitle': 'Setup',

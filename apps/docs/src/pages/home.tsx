@@ -62,7 +62,7 @@ const FeatureCard: FC<{ feature: Feature }> = ({ feature }) => {
   const { t } = useTranslation();
 
   return (
-    <Card appearance="bordered">
+    <Card appearance="shadow">
       <div className="flex flex-col gap-3 p-5">
         <div className="text-fg-mute">{feature.icon}</div>
         <p className="font-medium text-fg-base">{t(feature.title)}</p>

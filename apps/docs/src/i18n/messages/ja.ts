@@ -8,7 +8,7 @@ export const ja = {
   'nav.hooks': 'Hooks',
   'nav.helpers': 'Helpers',
   'home.title': 'ArteOdyssey',
-  'home.description': 'React UIコンポーネントライブラリ',
+  'home.description': 'k8oで利用するためのReact UIコンポーネントライブラリ',
   'home.github': 'GitHub',
   'home.storybook': 'Storybook',
   'home.featuresTitle': '特徴',
@@ -27,13 +27,13 @@ export const ja = {
   'home.featureAccessible': 'アクセシビリティ',
   'home.featureAccessibleDescription':
     'WAI-ARIAパターンに基づき、キーボード操作やスクリーンリーダーに配慮したコンポーネントを目指しています。',
-  'home.featureMinimal': 'ミニマルデザイン',
+  'home.featureMinimal': '柔と端のデザイン',
   'home.featureMinimalDescription':
-    '静謐で落ち着いた、余白を活かしたデザイン。コンテンツを際立たせるUIを提供します。',
+    '触れるものは柔らかく、読むものは端正に。余白と形の柔らかさで魅せるUIを提供します。',
   'common.language': '言語',
   'nav.openMenu': 'メニューを開く',
   'getStarted.introduction':
-    'ArteOdysseyは、React 19とTailwind CSS 4で構築されたUIコンポーネントライブラリです。静謐で落ち着いた、余白を活かしたミニマルなデザインを提供します。',
+    'ArteOdysseyは、React 19とTailwind CSS 4で構築されたUIコンポーネントライブラリです。フォームやカードなどユーザーが操作する要素は丸みと余白で親しみやすく、情報を伝える要素はシャープさを保って明確に。穏やかだけど退屈じゃないUIを実現します。',
   'getStarted.installationTitle': 'インストール',
   'getStarted.installationDescription':
     'お好みのパッケージマネージャーでインストールしてください。',
