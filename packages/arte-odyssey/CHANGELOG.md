@@ -1,5 +1,14 @@
 # @k8o/arte-odyssey
 
+## 5.0.1
+
+### Patch Changes
+
+- [#380](https://github.com/k35o/ArteOdyssey/pull/380) [`276d607`](https://github.com/k35o/ArteOdyssey/commit/276d607940e72ab59cb3d0d1b1158908da5c1f7c) Thanks [@k35o](https://github.com/k35o)! - Gray パレットの色相を H:235（sky blue tint）に調整し、彩度を極小に抑制
+
+  - H:205 → H:235 に変更し、緑味（苔っぽさ）を解消
+  - chroma を半減させ、ほぼニュートラルだがわずかにブランドを感じる程度に
+
 ## 5.0.0
 
 ### Major Changes
