@@ -82,18 +82,18 @@
    * H (hue) is fixed per color family.
    */
 
-  /* Gray — H: 205 (cyan blend), minimal chroma for branded neutral */
-  --gray-50: oklch(0.975 0.002 205);
-  --gray-100: oklch(0.945 0.003 205);
-  --gray-200: oklch(0.9 0.005 205);
-  --gray-300: oklch(0.84 0.007 205);
-  --gray-400: oklch(0.75 0.009 205);
-  --gray-500: oklch(0.66 0.012 205);
-  --gray-600: oklch(0.52 0.012 205);
-  --gray-700: oklch(0.42 0.006 205);
-  --gray-800: oklch(0.3 0.004 205);
-  --gray-900: oklch(0.25 0.003 205);
-  --gray-950: oklch(0.18 0.002 205);
+  /* Gray — H: 235 (sky blue tint), minimal chroma for branded neutral */
+  --gray-50: oklch(0.975 0.001 235);
+  --gray-100: oklch(0.945 0.0015 235);
+  --gray-200: oklch(0.9 0.003 235);
+  --gray-300: oklch(0.84 0.004 235);
+  --gray-400: oklch(0.75 0.005 235);
+  --gray-500: oklch(0.66 0.006 235);
+  --gray-600: oklch(0.52 0.006 235);
+  --gray-700: oklch(0.42 0.003 235);
+  --gray-800: oklch(0.3 0.002 235);
+  --gray-900: oklch(0.25 0.0015 235);
+  --gray-950: oklch(0.18 0.001 235);
 
   /* Red — H: 25 */
   --red-50: oklch(0.975 0.016 25);
