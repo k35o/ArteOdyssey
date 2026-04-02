@@ -1,5 +1,15 @@
 # @k8o/arte-odyssey
 
+## 5.0.3
+
+### Patch Changes
+
+- [#384](https://github.com/k35o/ArteOdyssey/pull/384) [`971e776`](https://github.com/k35o/ArteOdyssey/commit/971e776f16522bc4e553efa93d448a6077941a1c) Thanks [@k35o](https://github.com/k35o)! - primary / secondary トークンの被りを解消し階調を整理
+
+  - dark の `primary-fg` / `secondary-fg` を 100 → 300 に変更（明るすぎを抑制）
+  - light の `bg-emphasize` を 200 → 300 に変更（bg との被りを解消）
+  - dark の `bg-subtle` を 900 → 950、`bg-mute` を 800 → 900 に変更（bg との被りを解消）
+
 ## 5.0.2
 
 ### Patch Changes
