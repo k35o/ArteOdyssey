@@ -1,5 +1,13 @@
 # @k8o/arte-odyssey
 
+## 5.0.2
+
+### Patch Changes
+
+- [#382](https://github.com/k35o/ArteOdyssey/pull/382) [`9ad4f24`](https://github.com/k35o/ArteOdyssey/commit/9ad4f2430826d96bfddea8c695e4595c8fb8dd4c) Thanks [@k35o](https://github.com/k35o)! - useScrollDirection・useWindowSize の getServerSnapshot を定数化し無限ループを修正
+
+  `useSyncExternalStore` の `getServerSnapshot` が呼び出しごとに新しいオブジェクトリテラルを返していたため、React が参照の不一致を検出して無限ループが発生する問題を修正。
+
 ## 5.0.1
 
 ### Patch Changes
