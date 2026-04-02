@@ -7,6 +7,9 @@ type ScrollDirection = {
   y: 'up' | 'down';
 };
 
+const SERVER_SNAPSHOT: ScrollDirection = { x: 'right', y: 'up' };
+const getServerSnapshot = (): ScrollDirection => SERVER_SNAPSHOT;
+
 export const useScrollDirection = (threshold = 50): ScrollDirection => {
   const stateRef = useRef<{
     direction: ScrollDirection;
@@ -72,11 +75,6 @@ export const useScrollDirection = (threshold = 50): ScrollDirection => {
   );
 
   const getSnapshot = (): ScrollDirection => stateRef.current.direction;
-
-  const getServerSnapshot = (): ScrollDirection => ({
-    x: 'right',
-    y: 'up',
-  });
 
   return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
 };

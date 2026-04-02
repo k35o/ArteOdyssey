@@ -19,10 +19,8 @@ const getSnapshot = (): Size => {
   return cachedSnapshot;
 };
 
-const getServerSnapshot = (): Size => ({
-  width: 0,
-  height: 0,
-});
+const SERVER_SNAPSHOT: Size = { width: 0, height: 0 };
+const getServerSnapshot = (): Size => SERVER_SNAPSHOT;
 
 const subscribe = (callback: () => void): (() => void) => {
   window.addEventListener('resize', callback);
