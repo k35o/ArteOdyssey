@@ -327,7 +327,7 @@ const PRIMARY_TOKENS: TokenDef[] = [
   {
     name: 'primary-fg',
     light: { source: 'teal-800' },
-    dark: { source: 'teal-100' },
+    dark: { source: 'teal-300' },
   },
   {
     name: 'primary-bg',
@@ -337,16 +337,16 @@ const PRIMARY_TOKENS: TokenDef[] = [
   {
     name: 'primary-bg-subtle',
     light: { source: 'teal-50' },
-    dark: { source: 'teal-900' },
+    dark: { source: 'teal-950' },
   },
   {
     name: 'primary-bg-mute',
     light: { source: 'teal-100' },
-    dark: { source: 'teal-800' },
+    dark: { source: 'teal-900' },
   },
   {
     name: 'primary-bg-emphasize',
-    light: { source: 'teal-200' },
+    light: { source: 'teal-300' },
     dark: { source: 'teal-700' },
   },
   {
@@ -360,7 +360,7 @@ const SECONDARY_TOKENS: TokenDef[] = [
   {
     name: 'secondary-fg',
     light: { source: 'cyan-800' },
-    dark: { source: 'cyan-100' },
+    dark: { source: 'cyan-300' },
   },
   {
     name: 'secondary-bg',
@@ -370,16 +370,16 @@ const SECONDARY_TOKENS: TokenDef[] = [
   {
     name: 'secondary-bg-subtle',
     light: { source: 'cyan-50' },
-    dark: { source: 'cyan-900' },
+    dark: { source: 'cyan-950' },
   },
   {
     name: 'secondary-bg-mute',
     light: { source: 'cyan-100' },
-    dark: { source: 'cyan-800' },
+    dark: { source: 'cyan-900' },
   },
   {
     name: 'secondary-bg-emphasize',
-    light: { source: 'cyan-200' },
+    light: { source: 'cyan-300' },
     dark: { source: 'cyan-700' },
   },
   {

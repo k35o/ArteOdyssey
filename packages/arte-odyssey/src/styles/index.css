@@ -246,14 +246,14 @@
   --primary-bg: var(--teal-200);
   --primary-bg-subtle: var(--teal-50);
   --primary-bg-mute: var(--teal-100);
-  --primary-bg-emphasize: var(--teal-200);
+  --primary-bg-emphasize: var(--teal-300);
   --primary-border: var(--teal-500);
 
   --secondary-fg: var(--cyan-800);
   --secondary-bg: var(--cyan-200);
   --secondary-bg-subtle: var(--cyan-50);
   --secondary-bg-mute: var(--cyan-100);
-  --secondary-bg-emphasize: var(--cyan-200);
+  --secondary-bg-emphasize: var(--cyan-300);
   --secondary-border: var(--cyan-500);
 
   --back-drop: rgb(0, 0, 0, 0.5);
@@ -295,17 +295,17 @@
   --border-warning: var(--yellow-400);
   --border-error: var(--red-400);
 
-  --primary-fg: var(--teal-100);
+  --primary-fg: var(--teal-300);
   --primary-bg: var(--teal-800);
-  --primary-bg-subtle: var(--teal-900);
-  --primary-bg-mute: var(--teal-800);
+  --primary-bg-subtle: var(--teal-950);
+  --primary-bg-mute: var(--teal-900);
   --primary-bg-emphasize: var(--teal-700);
   --primary-border: var(--teal-500);
 
-  --secondary-fg: var(--cyan-100);
+  --secondary-fg: var(--cyan-300);
   --secondary-bg: var(--cyan-800);
-  --secondary-bg-subtle: var(--cyan-900);
-  --secondary-bg-mute: var(--cyan-800);
+  --secondary-bg-subtle: var(--cyan-950);
+  --secondary-bg-mute: var(--cyan-900);
   --secondary-bg-emphasize: var(--cyan-700);
   --secondary-border: var(--cyan-500);
 
