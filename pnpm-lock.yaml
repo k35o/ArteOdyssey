@@ -55,7 +55,7 @@ importers:
         version: 2.30.0(@types/node@24.12.0)
       '@commitlint/cli':
         specifier: 20.5.0
-        version: 20.5.0(@types/node@24.12.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)
+        version: 20.5.0(@types/node@24.12.0)(conventional-commits-parser@6.3.0)(typescript@6.0.2)
       '@commitlint/config-conventional':
         specifier: 20.5.0
         version: 20.5.0
@@ -67,16 +67,16 @@ importers:
         version: 0.23.4
       cosmiconfig:
         specifier: latest
-        version: 9.0.1(typescript@5.9.3)
+        version: 9.0.1(typescript@6.0.2)
       playwright:
         specifier: 1.58.2
         version: 1.58.2
       typescript:
-        specifier: 5.9.3
-        version: 5.9.3
+        specifier: 6.0.2
+        version: 6.0.2
       vite-plus:
         specifier: 'catalog:'
-        version: 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
+        version: 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
 
   apps/docs:
     dependencies:
@@ -184,7 +184,7 @@ importers:
         version: 8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)
       vite-plus:
         specifier: 'catalog:'
-        version: 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
+        version: 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
 
   packages/arte-odyssey:
     dependencies:
@@ -3376,6 +3376,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@6.0.2:
+    resolution: {integrity: sha512-bGdAIrZ0wiGDo5l8c++HWtbaNCWTS4UTv7RaTH/ThVIgjkveJt83m74bBHMJkuCbslY8ixgLBVZJIOiQlQTjfQ==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
@@ -3878,11 +3883,11 @@ snapshots:
       - '@chromatic-com/cypress'
       - '@chromatic-com/playwright'
 
-  '@commitlint/cli@20.5.0(@types/node@24.12.0)(conventional-commits-parser@6.3.0)(typescript@5.9.3)':
+  '@commitlint/cli@20.5.0(@types/node@24.12.0)(conventional-commits-parser@6.3.0)(typescript@6.0.2)':
     dependencies:
       '@commitlint/format': 20.5.0
       '@commitlint/lint': 20.5.0
-      '@commitlint/load': 20.5.0(@types/node@24.12.0)(typescript@5.9.3)
+      '@commitlint/load': 20.5.0(@types/node@24.12.0)(typescript@6.0.2)
       '@commitlint/read': 20.5.0(conventional-commits-parser@6.3.0)
       '@commitlint/types': 20.5.0
       tinyexec: 1.0.2
@@ -3931,14 +3936,14 @@ snapshots:
       '@commitlint/rules': 20.5.0
       '@commitlint/types': 20.5.0
 
-  '@commitlint/load@20.5.0(@types/node@24.12.0)(typescript@5.9.3)':
+  '@commitlint/load@20.5.0(@types/node@24.12.0)(typescript@6.0.2)':
     dependencies:
       '@commitlint/config-validator': 20.5.0
       '@commitlint/execute-rule': 20.0.0
       '@commitlint/resolve-extends': 20.5.0
       '@commitlint/types': 20.5.0
-      cosmiconfig: 9.0.1(typescript@5.9.3)
-      cosmiconfig-typescript-loader: 6.1.0(@types/node@24.12.0)(cosmiconfig@9.0.1(typescript@5.9.3))(typescript@5.9.3)
+      cosmiconfig: 9.0.1(typescript@6.0.2)
+      cosmiconfig-typescript-loader: 6.1.0(@types/node@24.12.0)(cosmiconfig@9.0.1(typescript@6.0.2))(typescript@6.0.2)
       is-plain-obj: 4.1.0
       lodash.mergewith: 4.6.2
       picocolors: 1.1.1
@@ -5089,6 +5094,19 @@ snapshots:
       jiti: 2.6.1
       typescript: 5.9.3
 
+  '@voidzero-dev/vite-plus-core@0.1.15(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)':
+    dependencies:
+      '@oxc-project/runtime': 0.122.0
+      '@oxc-project/types': 0.122.0
+      lightningcss: 1.32.0
+      postcss: 8.5.8
+    optionalDependencies:
+      '@types/node': 24.12.0
+      esbuild: 0.27.3
+      fsevents: 2.3.3
+      jiti: 2.6.1
+      typescript: 6.0.2
+
   '@voidzero-dev/vite-plus-darwin-arm64@0.1.15':
     optional: true
 
@@ -5112,6 +5130,46 @@ snapshots:
       '@standard-schema/spec': 1.1.0
       '@types/chai': 5.2.2
       '@voidzero-dev/vite-plus-core': 0.1.15(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3)
+      es-module-lexer: 1.7.0
+      obug: 2.1.1
+      pixelmatch: 7.1.0
+      pngjs: 7.0.0
+      sirv: 3.0.2
+      std-env: 4.0.0
+      tinybench: 2.9.0
+      tinyexec: 1.0.2
+      tinyglobby: 0.2.15
+      vite: 8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)
+      ws: 8.19.0
+    optionalDependencies:
+      '@types/node': 24.12.0
+      '@vitest/ui': 4.1.2(vitest@4.1.2)
+    transitivePeerDependencies:
+      - '@arethetypeswrong/core'
+      - '@tsdown/css'
+      - '@tsdown/exe'
+      - '@vitejs/devtools'
+      - bufferutil
+      - esbuild
+      - jiti
+      - less
+      - publint
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - typescript
+      - unplugin-unused
+      - utf-8-validate
+      - yaml
+
+  '@voidzero-dev/vite-plus-test@0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))':
+    dependencies:
+      '@standard-schema/spec': 1.1.0
+      '@types/chai': 5.2.2
+      '@voidzero-dev/vite-plus-core': 0.1.15(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)
       es-module-lexer: 1.7.0
       obug: 2.1.1
       pixelmatch: 7.1.0
@@ -5302,21 +5360,21 @@ snapshots:
 
   convert-source-map@2.0.0: {}
 
-  cosmiconfig-typescript-loader@6.1.0(@types/node@24.12.0)(cosmiconfig@9.0.1(typescript@5.9.3))(typescript@5.9.3):
+  cosmiconfig-typescript-loader@6.1.0(@types/node@24.12.0)(cosmiconfig@9.0.1(typescript@6.0.2))(typescript@6.0.2):
     dependencies:
       '@types/node': 24.12.0
-      cosmiconfig: 9.0.1(typescript@5.9.3)
+      cosmiconfig: 9.0.1(typescript@6.0.2)
       jiti: 2.6.1
-      typescript: 5.9.3
+      typescript: 6.0.2
 
-  cosmiconfig@9.0.1(typescript@5.9.3):
+  cosmiconfig@9.0.1(typescript@6.0.2):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.1
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.9.3
+      typescript: 6.0.2
 
   cross-spawn@7.0.6:
     dependencies:
@@ -6421,6 +6479,8 @@ snapshots:
 
   typescript@5.9.3: {}
 
+  typescript@6.0.2: {}
+
   undici-types@7.16.0: {}
 
   unist-util-is@6.0.1:
@@ -6482,6 +6542,55 @@ snapshots:
       '@oxc-project/types': 0.122.0
       '@voidzero-dev/vite-plus-core': 0.1.15(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3)
       '@voidzero-dev/vite-plus-test': 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@5.9.3)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
+      cac: 7.0.0
+      cross-spawn: 7.0.6
+      jsonc-parser: 3.3.1
+      oxfmt: 0.43.0
+      oxlint: 1.58.0(oxlint-tsgolint@0.18.1)
+      oxlint-tsgolint: 0.18.1
+      picocolors: 1.1.1
+    optionalDependencies:
+      '@voidzero-dev/vite-plus-darwin-arm64': 0.1.15
+      '@voidzero-dev/vite-plus-darwin-x64': 0.1.15
+      '@voidzero-dev/vite-plus-linux-arm64-gnu': 0.1.15
+      '@voidzero-dev/vite-plus-linux-arm64-musl': 0.1.15
+      '@voidzero-dev/vite-plus-linux-x64-gnu': 0.1.15
+      '@voidzero-dev/vite-plus-linux-x64-musl': 0.1.15
+      '@voidzero-dev/vite-plus-win32-arm64-msvc': 0.1.15
+      '@voidzero-dev/vite-plus-win32-x64-msvc': 0.1.15
+    transitivePeerDependencies:
+      - '@arethetypeswrong/core'
+      - '@edge-runtime/vm'
+      - '@opentelemetry/api'
+      - '@tsdown/css'
+      - '@tsdown/exe'
+      - '@types/node'
+      - '@vitejs/devtools'
+      - '@vitest/ui'
+      - bufferutil
+      - esbuild
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - publint
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - typescript
+      - unplugin-unused
+      - utf-8-validate
+      - vite
+      - yaml
+
+  vite-plus@0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)):
+    dependencies:
+      '@oxc-project/types': 0.122.0
+      '@voidzero-dev/vite-plus-core': 0.1.15(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)
+      '@voidzero-dev/vite-plus-test': 0.1.15(@types/node@24.12.0)(@vitest/ui@4.1.2)(esbuild@0.27.3)(jiti@2.6.1)(typescript@6.0.2)(vite@8.0.3(@types/node@24.12.0)(esbuild@0.27.3)(jiti@2.6.1))
       cac: 7.0.0
       cross-spawn: 7.0.6
       jsonc-parser: 3.3.1

@@ -28,7 +28,7 @@
     "agent-browser": "0.23.4",
     "cosmiconfig": "latest",
     "playwright": "1.58.2",
-    "typescript": "5.9.3",
+    "typescript": "6.0.2",
     "vite-plus": "catalog:"
   },
   "engines": {
