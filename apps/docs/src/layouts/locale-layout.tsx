@@ -84,7 +84,7 @@ function LayoutContent() {
             <Navigation />
             <Separator color="mute" />
             <div className="lg:hidden">
-              <div className="flex items-center px-4 py-2">
+              <div className="flex items-center bg-bg-surface px-4 py-2">
                 <IconButton
                   label={t('sideNav.openNavigation')}
                   onClick={() => setIsDrawerOpen(true)}
