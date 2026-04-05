@@ -66,10 +66,12 @@ jobs:
                - If concerns: `gh pr review ${{ steps.pr.outputs.number }} --request-changes --body "Your concerns"`
 
             ## Review Criteria for Renovate PRs
-            - Minor/patch version updates: Generally safe to approve if CI passes
-            - Major version updates: Check changelog for breaking changes
-            - Security updates: Prioritize approval
+            - Patch version updates (bug fixes only): Safe to approve if CI passes
+            - Minor version updates: Check the PR body and changelog for new features or breaking changes. If there are ONLY bug fixes, approve. If there are new features or breaking changes, request changes for manual review.
+            - Major version updates: Always request changes for manual review
+            - Security updates: Prioritize approval regardless of version bump
             - Deprecated packages: Flag for manual review
+            - If the PR body or changelog mentions "breaking change", "BREAKING", or backward-incompatible changes, ALWAYS request changes regardless of version bump type
 
             ## Important
             - You MUST use `gh pr review` command to submit your review
