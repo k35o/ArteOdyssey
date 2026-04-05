@@ -10,13 +10,13 @@
   },
   "type": "module",
   "scripts": {
-    "build": "vp run build --filter './packages/*' --filter './apps/*'",
-    "test": "vp run test -r",
-    "test:ui": "vp run test:ui -r",
-    "test:coverage": "vp run test:coverage -r",
-    "typecheck": "vp run typecheck -r",
-    "check": "vp run check -r",
-    "check:write": "vp run check:write -r",
+    "build": "vp run --filter './packages/*' --filter './apps/*' build",
+    "test": "vp run -r test",
+    "test:ui": "vp run -r test:ui",
+    "test:coverage": "vp run -r test:coverage",
+    "typecheck": "vp run -r typecheck",
+    "check": "vp run -r check",
+    "check:write": "vp run -r check:write",
     "release": "pnpm build && changeset publish"
   },
   "devDependencies": {
