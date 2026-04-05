@@ -1,5 +1,11 @@
 # @k8o/arte-odyssey
 
+## 5.0.4
+
+### Patch Changes
+
+- [#393](https://github.com/k35o/ArteOdyssey/pull/393) [`fa0a0d1`](https://github.com/k35o/ArteOdyssey/commit/fa0a0d1d4f658c4e9ebb7deeefaefd9398912ab7) Thanks [@k35o](https://github.com/k35o)! - AccordionButton に水平方向の padding を追加
+
 ## 5.0.3
 
 ### Patch Changes
