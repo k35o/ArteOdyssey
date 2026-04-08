@@ -241,6 +241,9 @@ export const en = {
   'hooks.useSessionStorage.removeTitle': 'Remove Value',
   'hooks.useResize.description': 'A hook that observes element size changes via ResizeObserver.',
   'hooks.useScrollDirection.description': 'A hook that detects the current scroll direction.',
+  'hooks.useScrollDirection.targetTitle': 'Target element',
+  'hooks.useScrollDirection.bodyNotScrollableNote':
+    "This page's body does not scroll, so the behavior can't be tried here. Please verify on an actual scrollable page.",
   'hooks.useStep.description': 'A hook for step-based navigation with keyboard support.',
   'hooks.useTimeout.description': 'A hook that executes a callback after a specified delay.',
   'hooks.useWindowResize.description':
@@ -260,7 +263,11 @@ export const en = {
   'hooks.useThrottledCallback.description':
     'A hook that returns a throttled version of the provided callback.',
   'hooks.useWindowSize.description': 'A hook that returns the current window dimensions.',
-  'hooks.useScrollLock.description': 'A hook that locks and unlocks body scroll.',
+  'hooks.useScrollLock.description':
+    'A hook that locks and unlocks scroll on the body or a specified element.',
+  'hooks.useScrollLock.targetTitle': 'Target element',
+  'hooks.useScrollLock.bodyNotScrollableNote':
+    "This page's body does not scroll, so the behavior can't be tried here. Please verify on an actual scrollable page.",
   'hooks.useHover.description': 'A hook that detects hover state of an element.',
   'hooks.useControllableState.description':
     'A hook that manages controlled/uncontrolled component state.',

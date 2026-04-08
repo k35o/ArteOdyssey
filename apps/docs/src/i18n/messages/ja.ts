@@ -247,6 +247,9 @@ export const ja = {
   'hooks.useSessionStorage.removeTitle': '値の削除',
   'hooks.useResize.description': 'ResizeObserverで要素のサイズ変更を監視するフックです。',
   'hooks.useScrollDirection.description': '現在のスクロール方向を検出するフックです。',
+  'hooks.useScrollDirection.targetTitle': '要素を指定する',
+  'hooks.useScrollDirection.bodyNotScrollableNote':
+    'このページのbodyはスクロールしないため、ここでは動作を試せません。実際のスクロール可能なページでご確認ください。',
   'hooks.useStep.description': 'キーボードサポート付きのステップベースナビゲーションフックです。',
   'hooks.useTimeout.description': '指定した遅延後にコールバックを実行するフックです。',
   'hooks.useWindowResize.description':
@@ -263,7 +266,11 @@ export const ja = {
   'hooks.useThrottle.description': '指定した間隔で値をスロットルするフックです。',
   'hooks.useThrottledCallback.description': 'コールバック関数のスロットル版を返すフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
-  'hooks.useScrollLock.description': 'bodyのスクロールをロック・アンロックするフックです。',
+  'hooks.useScrollLock.description':
+    'bodyまたは指定した要素のスクロールをロック・アンロックするフックです。',
+  'hooks.useScrollLock.targetTitle': '要素を指定する',
+  'hooks.useScrollLock.bodyNotScrollableNote':
+    'このページのbodyはスクロールしないため、ここでは動作を試せません。実際のスクロール可能なページでご確認ください。',
   'hooks.useHover.description': '要素のホバー状態を検出するフックです。',
   'hooks.useControllableState.description':
     'controlled/uncontrolledコンポーネントの状態を管理するフックです。',
