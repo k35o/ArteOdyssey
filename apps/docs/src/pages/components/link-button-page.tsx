@@ -27,7 +27,7 @@ const linkButtonProps: PropItem[] = [
   },
   {
     name: 'color',
-    types: ["'primary'", "'gray'"],
+    types: ["'primary'", "'secondary'", "'gray'"],
     defaultValue: "'primary'",
   },
   { name: 'href', types: ['string'], defaultValue: null },
@@ -104,10 +104,14 @@ export function LinkButtonPage() {
           </Heading>
           <ComponentPreview
             code={`<LinkButton color="primary" href="#">Primary</LinkButton>
+<LinkButton color="secondary" href="#">Secondary</LinkButton>
 <LinkButton color="gray" href="#">Gray</LinkButton>`}
           >
             <LinkButton color="primary" href="#">
               Primary
+            </LinkButton>
+            <LinkButton color="secondary" href="#">
+              Secondary
             </LinkButton>
             <LinkButton color="gray" href="#">
               Gray

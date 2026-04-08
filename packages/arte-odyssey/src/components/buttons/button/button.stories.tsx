@@ -21,8 +21,21 @@ type Story = StoryObj<typeof Button>;
 
 export const Primary: Story = {};
 
+export const Secondary: Story = {
+  args: {
+    color: 'secondary',
+  },
+};
+
 export const Outlined: Story = {
   args: {
+    variant: 'outlined',
+  },
+};
+
+export const OutlinedSecondary: Story = {
+  args: {
+    color: 'secondary',
     variant: 'outlined',
   },
 };
@@ -78,6 +91,13 @@ export const Disabled: Story = {
 export const DisabledOutlined: Story = {
   args: {
     variant: 'outlined',
+    disabled: true,
+  },
+};
+
+export const DisabledSkeleton: Story = {
+  args: {
+    variant: 'skeleton',
     disabled: true,
   },
 };

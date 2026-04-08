@@ -44,3 +44,9 @@ export const BgPrimary: Story = {
     bg: 'primary',
   },
 };
+
+export const BgSecondary: Story = {
+  args: {
+    bg: 'secondary',
+  },
+};
