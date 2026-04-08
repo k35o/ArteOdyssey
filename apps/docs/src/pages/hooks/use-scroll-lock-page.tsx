@@ -4,7 +4,18 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { UseScrollLockPreview } from './_previews/use-scroll-lock-previews';
+import {
+  UseScrollLockPreview,
+  UseScrollLockTargetPreview,
+} from './_previews/use-scroll-lock-previews';
+
+const parameters: PropItem[] = [
+  {
+    name: 'target',
+    types: ['RefObject<HTMLElement | null>'],
+    defaultValue: 'document.body',
+  },
+];
 
 const returnValue: PropItem[] = [
   {
@@ -46,6 +57,9 @@ export function UseScrollLockPage() {
           <Heading type="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
+          <p className="text-fg-mute text-sm">
+            <T k="hooks.useScrollLock.bodyNotScrollableNote" />
+          </p>
           <ComponentPreview
             code={`const { lock, unlock } = useScrollLock();
 
@@ -59,6 +73,36 @@ return (
             <UseScrollLockPreview />
           </ComponentPreview>
         </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="hooks.useScrollLock.targetTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`const scrollRef = useRef<HTMLDivElement>(null);
+const { lock, unlock } = useScrollLock(scrollRef);
+
+return (
+  <div>
+    <button onClick={lock}>Lock area</button>
+    <button onClick={unlock}>Unlock area</button>
+    <div ref={scrollRef} style={{ overflow: 'auto', height: 128 }}>
+      {/* scrollable content */}
+    </div>
+  </div>
+);`}
+          >
+            <UseScrollLockTargetPreview />
+          </ComponentPreview>
+        </div>
+      </section>
+      <Separator color="mute" />
+
+      <section className="flex flex-col gap-4">
+        <Heading type="h2">
+          <T k="hooks.common.parametersTitle" />
+        </Heading>
+        <PropsTable items={parameters} />
       </section>
       <Separator color="mute" />
 

@@ -1,16 +1,23 @@
 'use client';
 
-import { useCallback, useRef, useSyncExternalStore } from 'react';
+import { type RefObject, useCallback, useRef, useSyncExternalStore } from 'react';
 
 type ScrollDirection = {
   x: 'left' | 'right';
   y: 'up' | 'down';
 };
 
+type UseScrollDirectionOptions = {
+  threshold?: number;
+  target?: RefObject<HTMLElement | null>;
+};
+
 const SERVER_SNAPSHOT: ScrollDirection = { x: 'right', y: 'up' };
 const getServerSnapshot = (): ScrollDirection => SERVER_SNAPSHOT;
 
-export const useScrollDirection = (threshold = 50): ScrollDirection => {
+export const useScrollDirection = (options: UseScrollDirectionOptions = {}): ScrollDirection => {
+  const { threshold = 50, target } = options;
+
   const stateRef = useRef<{
     direction: ScrollDirection;
     prevScrollX: number;
@@ -23,9 +30,18 @@ export const useScrollDirection = (threshold = 50): ScrollDirection => {
 
   const subscribe = useCallback(
     (callback: () => void): (() => void) => {
+      const element = target?.current ?? null;
+      const eventTarget: Window | HTMLElement = element ?? window;
+
+      const getScroll = (): { x: number; y: number } => {
+        if (element) {
+          return { x: element.scrollLeft, y: element.scrollTop };
+        }
+        return { x: window.scrollX, y: window.scrollY };
+      };
+
       const handleScroll = (): void => {
-        const currentScrollY = window.scrollY;
-        const currentScrollX = window.scrollX;
+        const { x: currentScrollX, y: currentScrollY } = getScroll();
         const state = stateRef.current;
 
         let changed = false;
@@ -66,12 +82,12 @@ export const useScrollDirection = (threshold = 50): ScrollDirection => {
         }
       };
 
-      window.addEventListener('scroll', handleScroll, { passive: true });
+      eventTarget.addEventListener('scroll', handleScroll, { passive: true });
       return () => {
-        window.removeEventListener('scroll', handleScroll);
+        eventTarget.removeEventListener('scroll', handleScroll);
       };
     },
-    [threshold],
+    [threshold, target],
   );
 
   const getSnapshot = (): ScrollDirection => stateRef.current.direction;

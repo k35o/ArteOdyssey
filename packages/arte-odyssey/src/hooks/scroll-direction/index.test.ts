@@ -143,7 +143,7 @@ describe('useScrollDirection', () => {
 
   describe('Threshold parameter', () => {
     it('thresholdが100の場合、100px以下のスクロールでは方向が変わらない', async () => {
-      const { result, act } = await renderHook(() => useScrollDirection(100));
+      const { result, act } = await renderHook(() => useScrollDirection({ threshold: 100 }));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 100 });
@@ -161,7 +161,7 @@ describe('useScrollDirection', () => {
     });
 
     it('thresholdが100の場合、101px以上のスクロールで方向が変わる', async () => {
-      const { result, act } = await renderHook(() => useScrollDirection(100));
+      const { result, act } = await renderHook(() => useScrollDirection({ threshold: 100 }));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 101 });
@@ -179,7 +179,7 @@ describe('useScrollDirection', () => {
     });
 
     it('thresholdが10の場合、10px以下のスクロールでは方向が変わらない', async () => {
-      const { result, act } = await renderHook(() => useScrollDirection(10));
+      const { result, act } = await renderHook(() => useScrollDirection({ threshold: 10 }));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 10 });
@@ -190,7 +190,7 @@ describe('useScrollDirection', () => {
     });
 
     it('thresholdが10の場合、11px以上のスクロールで方向が変わる', async () => {
-      const { result, act } = await renderHook(() => useScrollDirection(10));
+      const { result, act } = await renderHook(() => useScrollDirection({ threshold: 10 }));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 11 });
@@ -201,7 +201,7 @@ describe('useScrollDirection', () => {
     });
 
     it('thresholdが0の場合、1px以上のスクロールで方向が変わる', async () => {
-      const { result, act } = await renderHook(() => useScrollDirection(0));
+      const { result, act } = await renderHook(() => useScrollDirection({ threshold: 0 }));
 
       act(() => {
         Object.defineProperty(window, 'scrollY', { value: 1 });

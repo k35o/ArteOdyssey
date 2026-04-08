@@ -1,46 +1,72 @@
 'use client';
 
-import { useCallback, useEffect, useRef } from 'react';
+import { type RefObject, useCallback, useEffect, useRef } from 'react';
 
 type UseScrollLockReturn = {
   lock: () => void;
   unlock: () => void;
 };
 
-let lockCount = 0;
-let originalOverflow: string | null = null;
+type LockEntry = {
+  count: number;
+  originalOverflow: string;
+};
 
-export const useScrollLock = (): UseScrollLockReturn => {
+const lockRegistry = new WeakMap<HTMLElement, LockEntry>();
+
+const resolveTarget = (target?: RefObject<HTMLElement | null>): HTMLElement => {
+  return target?.current ?? document.body;
+};
+
+export const useScrollLock = (target?: RefObject<HTMLElement | null>): UseScrollLockReturn => {
   const isLockedRef = useRef(false);
+  const lockedElementRef = useRef<HTMLElement | null>(null);
 
   const lock = useCallback(() => {
     if (isLockedRef.current) return;
+    const element = resolveTarget(target);
     isLockedRef.current = true;
-    if (lockCount === 0) {
-      originalOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+    lockedElementRef.current = element;
+    const entry = lockRegistry.get(element);
+    if (entry) {
+      entry.count++;
+    } else {
+      lockRegistry.set(element, {
+        count: 1,
+        originalOverflow: element.style.overflow,
+      });
+      element.style.overflow = 'hidden';
     }
-    lockCount++;
-  }, []);
+  }, [target]);
 
   const unlock = useCallback(() => {
     if (!isLockedRef.current) return;
+    const element = lockedElementRef.current;
+    if (!element) return;
     isLockedRef.current = false;
-    lockCount--;
-    if (lockCount === 0 && originalOverflow !== null) {
-      document.body.style.overflow = originalOverflow;
-      originalOverflow = null;
+    lockedElementRef.current = null;
+    const entry = lockRegistry.get(element);
+    if (!entry) return;
+    entry.count--;
+    if (entry.count === 0) {
+      element.style.overflow = entry.originalOverflow;
+      lockRegistry.delete(element);
     }
   }, []);
 
   useEffect(() => {
     return () => {
       if (isLockedRef.current) {
+        const element = lockedElementRef.current;
         isLockedRef.current = false;
-        lockCount--;
-        if (lockCount === 0 && originalOverflow !== null) {
-          document.body.style.overflow = originalOverflow;
-          originalOverflow = null;
+        lockedElementRef.current = null;
+        if (!element) return;
+        const entry = lockRegistry.get(element);
+        if (!entry) return;
+        entry.count--;
+        if (entry.count === 0) {
+          element.style.overflow = entry.originalOverflow;
+          lockRegistry.delete(element);
         }
       }
     };

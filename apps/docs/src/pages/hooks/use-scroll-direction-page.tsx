@@ -4,13 +4,21 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { UseScrollDirectionPreview } from './_previews/use-scroll-direction-previews';
+import {
+  UseScrollDirectionPreview,
+  UseScrollDirectionTargetPreview,
+} from './_previews/use-scroll-direction-previews';
 
 const parameters: PropItem[] = [
   {
-    name: 'threshold',
+    name: 'options.threshold',
     types: ['number'],
     defaultValue: '50',
+  },
+  {
+    name: 'options.target',
+    types: ['RefObject<HTMLElement | null>'],
+    defaultValue: 'window',
   },
 ];
 
@@ -57,6 +65,9 @@ export function UseScrollDirectionPage() {
           <Heading type="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
+          <p className="text-fg-mute text-sm">
+            <T k="hooks.useScrollDirection.bodyNotScrollableNote" />
+          </p>
           <ComponentPreview
             code={`const { x, y } = useScrollDirection();
 
@@ -68,6 +79,24 @@ return (
 );`}
           >
             <UseScrollDirectionPreview />
+          </ComponentPreview>
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="hooks.useScrollDirection.targetTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`const scrollRef = useRef<HTMLDivElement>(null);
+const { y } = useScrollDirection({ target: scrollRef, threshold: 20 });
+
+return (
+  <div ref={scrollRef} style={{ overflow: 'auto', height: 128 }}>
+    {/* scrollable content */}
+  </div>
+);`}
+          >
+            <UseScrollDirectionTargetPreview />
           </ComponentPreview>
         </div>
       </section>

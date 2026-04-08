@@ -56,12 +56,12 @@ export const FormControl: FC<FormControlProps> = ({
         isRequired,
       })}
       {isInvalid && errorText ? (
-        <p aria-live="polite" className="text-fg-error text-sm" id={`${id}-feedback`}>
+        <p aria-live="polite" className="mt-1 text-fg-error text-sm" id={`${id}-feedback`}>
           {errorText}
         </p>
       ) : (
         helpText && (
-          <p className="text-fg-mute text-sm" id={`${id}-helptext`}>
+          <p className="mt-1 text-fg-mute text-sm" id={`${id}-helptext`}>
             {helpText}
           </p>
         )
