@@ -14,7 +14,7 @@ const iconLinkProps: PropItem[] = [
   },
   {
     name: 'bg',
-    types: ["'transparent'", "'base'", "'primary'"],
+    types: ["'transparent'", "'base'", "'primary'", "'secondary'"],
     defaultValue: "'transparent'",
   },
   { name: 'label', types: ['string'], defaultValue: null },
@@ -114,6 +114,9 @@ export function IconLinkPage() {
 </IconLink>
 <IconLink bg="primary" href="https://example.com" label="Copy">
   <CopyIcon />
+</IconLink>
+<IconLink bg="secondary" href="https://example.com" label="Copy">
+  <CopyIcon />
 </IconLink>`}
           >
             <IconLink bg="transparent" href="https://example.com" label="Copy">
@@ -123,6 +126,9 @@ export function IconLinkPage() {
               <CopyIcon />
             </IconLink>
             <IconLink bg="primary" href="https://example.com" label="Copy">
+              <CopyIcon />
+            </IconLink>
+            <IconLink bg="secondary" href="https://example.com" label="Copy">
               <CopyIcon />
             </IconLink>
           </ComponentPreview>

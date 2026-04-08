@@ -14,7 +14,7 @@ const iconButtonProps: PropItem[] = [
   },
   {
     name: 'bg',
-    types: ["'transparent'", "'base'", "'primary'"],
+    types: ["'transparent'", "'base'", "'primary'", "'secondary'"],
     defaultValue: "'transparent'",
   },
   { name: 'label', types: ['string'], defaultValue: null },
@@ -112,6 +112,9 @@ export function IconButtonPage() {
 </IconButton>
 <IconButton bg="primary" label="Close">
   <CloseIcon size="sm" />
+</IconButton>
+<IconButton bg="secondary" label="Close">
+  <CloseIcon size="sm" />
 </IconButton>`}
           >
             <IconButton bg="transparent" label="Close">
@@ -121,6 +124,9 @@ export function IconButtonPage() {
               <CloseIcon size="sm" />
             </IconButton>
             <IconButton bg="primary" label="Close">
+              <CloseIcon size="sm" />
+            </IconButton>
+            <IconButton bg="secondary" label="Close">
               <CloseIcon size="sm" />
             </IconButton>
           </ComponentPreview>
