@@ -115,9 +115,6 @@ export const ja = {
   'components.checkboxCard.description':
     '選択肢全体をカードとして提示する複数選択コンポーネントです。',
   'components.checkboxCard.defaultValueTitle': 'デフォルト値',
-  'components.checkboxGroup.description':
-    '複数のチェックボックスをひとつの値として管理するグループコンポーネントです。',
-  'components.checkboxGroup.disabledTitle': '無効',
   'components.switch.description': 'オン・オフの状態を切り替えるスイッチコンポーネントです。',
   'components.switch.defaultCheckedTitle': 'デフォルトチェック',
   'components.switch.disabledTitle': '無効',

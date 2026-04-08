@@ -109,8 +109,6 @@ export const MESSAGE_KEYS = [
   'components.checkbox.controlledTitle',
   'components.checkboxCard.description',
   'components.checkboxCard.defaultValueTitle',
-  'components.checkboxGroup.description',
-  'components.checkboxGroup.disabledTitle',
   'components.switch.description',
   'components.switch.defaultCheckedTitle',
   'components.switch.disabledTitle',
