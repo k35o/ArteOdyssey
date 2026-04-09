@@ -105,7 +105,7 @@ const Content: FC<{
           <div
             {...props}
             {...contentProps}
-            className="flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg border border-border-mute bg-bg-base py-2 shadow-md"
+            className="flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg bg-bg-raised py-2 shadow-md"
           >
             {helpContent}
             {options.map(({ key, label }, idx) => (

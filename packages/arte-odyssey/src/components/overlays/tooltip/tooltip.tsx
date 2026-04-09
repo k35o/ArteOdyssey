@@ -51,10 +51,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
         },
       }}
       renderItem={(props) => (
-        <div
-          {...props}
-          className="rounded-lg border border-border-mute bg-bg-base px-4 py-2 shadow-md"
-        >
+        <div {...props} className="rounded-lg bg-bg-raised px-4 py-2 shadow-md">
           {children}
         </div>
       )}
