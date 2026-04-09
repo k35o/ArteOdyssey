@@ -80,10 +80,10 @@ export const Switch: FC<Props> = ({
         <span
           aria-hidden={true}
           className={cn(
-            'inline-flex h-7 w-12 items-center rounded-full border transition-colors',
-            isInvalid && 'border-border-error',
-            isSelected ? 'border-border-base bg-primary-bg' : 'border-border-mute bg-bg-mute',
-            isDisabled && 'border-border-mute bg-bg-subtle',
+            'inline-flex h-7 w-12 items-center rounded-full transition-colors',
+            isInvalid && 'ring-2 ring-border-error',
+            isSelected ? 'bg-primary-bg' : 'bg-bg-mute',
+            isDisabled && 'bg-bg-subtle',
             'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
           )}
         >
