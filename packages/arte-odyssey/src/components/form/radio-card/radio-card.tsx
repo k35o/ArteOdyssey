@@ -92,8 +92,10 @@ export const RadioCard: FC<Props> = ({
             className={cn(
               'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
               'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-              checked && 'border-border-info bg-bg-subtle',
-              isInvalid ? 'border-border-error' : 'border-border-mute hover:bg-bg-mute',
+              checked && 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
+              isInvalid
+                ? 'border-border-error'
+                : !checked && 'border-border-mute hover:bg-bg-subtle',
               disabled && 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
             disabled={disabled}
