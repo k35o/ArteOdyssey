@@ -79,7 +79,7 @@ No raw color values — always use semantic tokens in Tailwind classes. The toke
 | Category   | Tokens                                                            | Usage              |
 | ---------- | ----------------------------------------------------------------- | ------------------ |
 | Foreground | `fg-base`, `fg-mute`, `fg-subtle`, `fg-inverse`                   | Text colors        |
-| Background | `bg-base`, `bg-subtle`, `bg-mute`, `bg-emphasize`, `bg-inverse`   | Surfaces           |
+| Background | `bg-base`, `bg-raised`, `bg-subtle`, `bg-mute`, `bg-emphasize`, `bg-inverse` | Surfaces   |
 | Border     | `border-base`, `border-subtle`, `border-mute`, `border-emphasize` | Borders            |
 | Status     | `{fg,bg,border}-{info,success,warning,error}`                     | Semantic status    |
 | Primary    | `primary-{fg,bg,bg-subtle,bg-mute,bg-emphasize,border}`           | Teal accent        |

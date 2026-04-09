@@ -229,6 +229,11 @@ const BG_TOKENS: TokenDef[] = [
     dark: { source: 'gray-900' },
   },
   {
+    name: 'bg-raised',
+    light: { source: 'white' },
+    dark: { source: 'gray-800' },
+  },
+  {
     name: 'bg-surface',
     light: { source: 'gray-50' },
     dark: { source: 'gray-950' },
