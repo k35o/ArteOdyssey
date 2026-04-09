@@ -3,7 +3,7 @@
 import { type FC, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';
-import { MinusIcon, PlusIcon } from '../../icons';
+import { ChevronIcon } from '../../icons';
 
 type BaseProps = {
   id?: string;
@@ -133,11 +133,12 @@ export const NumberField: FC<Props> = ({
         type="text"
         value={displayValue}
       />
-      <div aria-hidden="true" className="absolute right-0 flex h-full flex-col">
+      <div aria-hidden="true" className="absolute right-1 flex h-full flex-col py-1">
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-tr-xl border-border-base border-b border-l bg-bg-mute',
-            'disabled:cursor-not-allowed',
+            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
+            'hover:bg-bg-mute hover:text-fg-base',
+            'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
           )}
           disabled={isDisabled}
           onClick={() => {
@@ -153,12 +154,13 @@ export const NumberField: FC<Props> = ({
           type="button"
         >
           <span className="sr-only">増やす</span>
-          <PlusIcon size="sm" />
+          <ChevronIcon direction="up" size="sm" />
         </button>
         <button
           className={cn(
-            'flex w-6 grow items-center justify-center rounded-br-xl border-border-base border-l bg-bg-mute',
-            'disabled:cursor-not-allowed',
+            'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
+            'hover:bg-bg-mute hover:text-fg-base',
+            'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
           )}
           disabled={isDisabled}
           onClick={() => {
@@ -174,7 +176,7 @@ export const NumberField: FC<Props> = ({
           type="button"
         >
           <span className="sr-only">減らす</span>
-          <MinusIcon size="sm" />
+          <ChevronIcon direction="down" size="sm" />
         </button>
       </div>
     </div>
