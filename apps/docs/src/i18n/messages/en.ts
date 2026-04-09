@@ -155,7 +155,6 @@ export const en = {
   'components.badge.variantsTitle': 'Variants',
   'components.badge.interactiveTitle': 'Interactive',
   'components.card.description': 'A card for grouping content.',
-  'components.card.variantsTitle': 'Variants',
   'components.card.widthTitle': 'Width',
   'components.code.description': 'An inline code display component.',
   'components.code.colorDetectionTitle': 'Color Detection',

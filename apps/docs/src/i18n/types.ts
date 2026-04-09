@@ -150,7 +150,6 @@ export const MESSAGE_KEYS = [
   'components.badge.variantsTitle',
   'components.badge.interactiveTitle',
   'components.card.description',
-  'components.card.variantsTitle',
   'components.card.widthTitle',
   'components.code.description',
   'components.code.colorDetectionTitle',
