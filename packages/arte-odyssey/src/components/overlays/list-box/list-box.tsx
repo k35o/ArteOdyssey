@@ -128,8 +128,8 @@ const Item: FC<{
     <button
       className={cn(
         'flex w-full items-center justify-between px-3 py-2 text-left transition-colors',
-        'hover:bg-bg-mute',
-        'focus-visible:border-transparent focus-visible:bg-bg-mute focus-visible:outline-hidden',
+        'hover:bg-bg-subtle',
+        'focus-visible:border-transparent focus-visible:bg-bg-subtle focus-visible:outline-hidden',
       )}
       {...props}
     >

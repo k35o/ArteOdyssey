@@ -37,12 +37,16 @@ export const FormControl: FC<FormControlProps> = ({
   return (
     <fieldset className="flex w-full flex-col">
       {labelAs === 'label' ? (
-        <label className="mb-1 flex gap-2 font-bold text-fg-base text-md" htmlFor={id} id={labelId}>
+        <label
+          className="mb-1 flex gap-2 pl-0.5 font-bold text-fg-base text-md"
+          htmlFor={id}
+          id={labelId}
+        >
           {label}
           {isRequired && <span className="font-medium text-fg-error">必須</span>}
         </label>
       ) : (
-        <legend className="mb-1 flex gap-2 font-bold text-fg-base text-md">
+        <legend className="mb-1 flex gap-2 pl-0.5 font-bold text-fg-base text-md">
           {label}
           {isRequired && <span className="font-medium text-fg-error">必須</span>}
         </legend>
@@ -56,12 +60,12 @@ export const FormControl: FC<FormControlProps> = ({
         isRequired,
       })}
       {isInvalid && errorText ? (
-        <p aria-live="polite" className="mt-1 text-fg-error text-sm" id={`${id}-feedback`}>
+        <p aria-live="polite" className="mt-1 pl-0.5 text-fg-error text-sm" id={`${id}-feedback`}>
           {errorText}
         </p>
       ) : (
         helpText && (
-          <p className="mt-1 text-fg-mute text-sm" id={`${id}-helptext`}>
+          <p className="mt-1 pl-0.5 text-fg-mute text-sm" id={`${id}-helptext`}>
             {helpText}
           </p>
         )

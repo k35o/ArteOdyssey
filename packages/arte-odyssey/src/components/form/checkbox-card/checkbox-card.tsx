@@ -76,11 +76,10 @@ export const CheckboxCard: FC<Props> = ({
             className={cn(
               'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
               'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
+              checked && 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
               isInvalid
                 ? 'border-border-error'
-                : checked
-                  ? 'border-border-base hover:bg-bg-mute'
-                  : 'border-border-mute hover:bg-bg-mute',
+                : !checked && 'border-border-mute hover:bg-bg-subtle',
               disabled && 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
             id={optionId}

@@ -219,10 +219,10 @@ export const Autocomplete: FC<Props> = ({
                 return (
                   <li
                     className={cn(
-                      'cursor-pointer px-3 py-2',
-                      selected && 'bg-bg-mute',
-                      selectIndex === idx && !selected && 'bg-bg-emphasize',
-                      selectIndex === idx && selected && 'bg-bg-mute',
+                      'cursor-pointer px-3 py-2 transition-colors',
+                      selected && 'bg-primary-bg-subtle text-primary-fg',
+                      selectIndex === idx && !selected && 'bg-bg-subtle',
+                      selectIndex === idx && selected && 'bg-primary-bg-mute text-primary-fg',
                     )}
                     id={`${id}_option_${option.value}`}
                     key={option.value}

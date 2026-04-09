@@ -116,6 +116,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
       aria-selected={selectedId === id}
       className={cn(
         'relative cursor-pointer rounded-lg p-2 transition-colors',
+        selectedId !== id && 'hover:bg-primary-bg-subtle hover:text-primary-fg',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
       )}
       id={`${rootId}-tab-${id}`}
