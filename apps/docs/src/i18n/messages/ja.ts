@@ -200,6 +200,9 @@ export const ja = {
   'components.tabs.defaultSelectedTitle': 'デフォルト選択',
   'components.breadcrumb.description': 'ナビゲーションのパンくずリストです。',
   'components.breadcrumb.sizesTitle': 'サイズ',
+  'components.pagination.description':
+    '前後のページ移動と現在位置を示すシンプルなページネーションです。',
+  'components.pagination.disabledTitle': '無効',
   'components.scrollLinked.description': 'スクロール位置に連動するプログレスバーです。',
   'components.icons.description': 'ArteOdysseyが提供するアイコンコンポーネントの一覧です。',
   'components.icons.sizesTitle': 'サイズ',

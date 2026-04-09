@@ -16,6 +16,7 @@ export const componentCategories: NavCategory[] = [
       { name: 'Anchor', path: '/components/anchor' },
       { name: 'Tabs', path: '/components/tabs' },
       { name: 'Breadcrumb', path: '/components/breadcrumb' },
+      { name: 'Pagination', path: '/components/pagination' },
     ],
   },
   {

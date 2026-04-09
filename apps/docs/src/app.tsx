@@ -10,6 +10,7 @@ import { AvatarPage } from './pages/components/avatar-page';
 import { BadgePage } from './pages/components/badge-page';
 import { BaselineStatusPage } from './pages/components/baseline-status-page';
 import { BreadcrumbPage } from './pages/components/breadcrumb-page';
+import { PaginationPage } from './pages/components/pagination-page';
 import { ButtonPage } from './pages/components/button-page';
 import { CardPage } from './pages/components/card-page';
 import { CheckboxCardPage } from './pages/components/checkbox-card-page';
@@ -274,6 +275,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/breadcrumb',
         component: <BreadcrumbPage />,
+      }),
+      route({
+        path: '/components/pagination',
+        component: <PaginationPage />,
       }),
       route({
         path: '/components/scroll-linked',

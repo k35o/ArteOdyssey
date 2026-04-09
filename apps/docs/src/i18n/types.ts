@@ -188,6 +188,8 @@ export const MESSAGE_KEYS = [
   'components.tabs.defaultSelectedTitle',
   'components.breadcrumb.description',
   'components.breadcrumb.sizesTitle',
+  'components.pagination.description',
+  'components.pagination.disabledTitle',
   'components.scrollLinked.description',
   'components.icons.description',
   'components.icons.sizesTitle',

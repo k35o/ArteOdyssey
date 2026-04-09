@@ -35,6 +35,7 @@ export { ScrollLinked } from './layout/scroll-linked';
 export { Separator } from './layout/separator';
 export { Anchor } from './navigation/anchor';
 export { Breadcrumb } from './navigation/breadcrumb';
+export { Pagination } from './navigation/pagination';
 export { Tabs } from './navigation/tabs';
 export { Dialog } from './overlays/dialog';
 export { Drawer } from './overlays/drawer';
