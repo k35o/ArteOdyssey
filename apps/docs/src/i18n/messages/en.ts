@@ -193,6 +193,9 @@ export const en = {
   'components.tabs.defaultSelectedTitle': 'Default Selected',
   'components.breadcrumb.description': 'A breadcrumb navigation component.',
   'components.breadcrumb.sizesTitle': 'Sizes',
+  'components.pagination.description':
+    'A minimal pagination component with prev/next controls and current position indicator.',
+  'components.pagination.disabledTitle': 'Disabled',
   'components.scrollLinked.description': 'A progress bar linked to scroll position.',
   'components.icons.description': 'A catalog of icon components provided by ArteOdyssey.',
   'components.icons.sizesTitle': 'Sizes',
