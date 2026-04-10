@@ -133,11 +133,11 @@ export const Modal: FC<
     <motion.dialog
       animate={realDialogOpen ? 'open' : 'closed'}
       className={cn(
-        'border-border-mute bg-bg-base text-fg-base shadow-md backdrop:bg-back-drop',
-        type === 'center' && 'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg dark:border',
-        type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg dark:border-t',
-        type === 'right' && 'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg dark:border-l',
-        type === 'left' && 'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg dark:border-r',
+        'bg-bg-raised text-fg-base shadow-md backdrop:bg-back-drop',
+        type === 'center' && 'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg',
+        type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
+        type === 'right' && 'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
+        type === 'left' && 'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
       exit="closed"
       initial="closed"

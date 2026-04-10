@@ -160,7 +160,6 @@ export const ja = {
   'components.badge.variantsTitle': 'バリアント',
   'components.badge.interactiveTitle': 'インタラクティブ',
   'components.card.description': 'コンテンツをグループ化するカードです。',
-  'components.card.variantsTitle': 'バリアント',
   'components.card.widthTitle': 'Width',
   'components.code.description': 'インラインコード表示コンポーネントです。',
   'components.code.colorDetectionTitle': 'カラー検出',

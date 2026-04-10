@@ -8,11 +8,6 @@ import { STORYBOOK_URL } from '../../constants';
 
 const cardProps: PropItem[] = [
   {
-    name: 'variant',
-    types: ["'primary'", "'secondary'"],
-    defaultValue: "'primary'",
-  },
-  {
     name: 'width',
     types: ["'full'", "'fit'"],
     defaultValue: "'full'",
@@ -59,28 +54,6 @@ export function CardPage() {
           >
             <Card>
               <div className="p-6">Card content</div>
-            </Card>
-          </ComponentPreview>
-        </div>
-
-        {/* Variants */}
-        <div className="flex flex-col gap-4">
-          <Heading type="h3">
-            <T k="components.card.variantsTitle" />
-          </Heading>
-          <ComponentPreview
-            code={`<Card variant="primary">
-  <div className="p-6">Primary</div>
-</Card>
-<Card variant="secondary">
-  <div className="p-6">Secondary</div>
-</Card>`}
-          >
-            <Card variant="primary">
-              <div className="p-6">Primary</div>
-            </Card>
-            <Card variant="secondary">
-              <div className="p-6">Secondary</div>
             </Card>
           </ComponentPreview>
         </div>

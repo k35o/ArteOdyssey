@@ -25,16 +25,6 @@ export const Primary: Story = {
   ),
 };
 
-export const Secondary: Story = {
-  render: () => (
-    <Card variant="secondary">
-      <div className="p-4">
-        <p className="text-fg-mute">セカンダリバリエーションは背景色が少し暗くなります。</p>
-      </div>
-    </Card>
-  ),
-};
-
 export const Interactive: Story = {
   render: () => (
     <div className="flex flex-col gap-4">
