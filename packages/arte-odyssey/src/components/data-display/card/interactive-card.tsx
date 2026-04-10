@@ -10,11 +10,11 @@ export const InteractiveCard: FC<CardProps> = ({
   <div
     className={cn(
       'rounded-xl transition-transform hover:scale-[1.02] active:scale-[0.98]',
-      appearance === 'shadow' && 'shadow-sm dark:border dark:border-border-mute',
+      appearance === 'shadow' && 'shadow-sm',
       appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
-      'bg-bg-raised',
+      'bg-bg-base',
     )}
   >
     {children}

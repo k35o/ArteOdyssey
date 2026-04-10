@@ -6,11 +6,11 @@ export const Card: FC<CardProps> = ({ children, width = 'full', appearance = 'sh
   <div
     className={cn(
       'rounded-xl',
-      appearance === 'shadow' && 'shadow-sm dark:border dark:border-border-mute',
+      appearance === 'shadow' && 'shadow-sm',
       appearance === 'bordered' && 'border border-border-mute',
       width === 'full' && 'w-full',
       width === 'fit' && 'w-fit',
-      'bg-bg-raised',
+      'bg-bg-base',
     )}
   >
     {children}
