@@ -83,7 +83,7 @@ export function PopoverPage() {
   <Popover.Content
     renderItem={(props) => (
       <div
-        className="rounded-lg bg-bg-mute p-4 shadow-md"
+        className="rounded-lg bg-bg-raised p-4 shadow-md"
         {...props}
       >
         <p>Popover content goes here.</p>
@@ -110,7 +110,7 @@ export function PopoverPage() {
   />
   <Popover.Content
     renderItem={(props) => (
-      <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
+      <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
         <p>Top placement</p>
       </div>
     )}
@@ -125,7 +125,7 @@ export function PopoverPage() {
   />
   <Popover.Content
     renderItem={(props) => (
-      <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
+      <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
         <p>Right placement</p>
       </div>
     )}
@@ -140,7 +140,7 @@ export function PopoverPage() {
   />
   <Popover.Content
     renderItem={(props) => (
-      <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
+      <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
         <p>Bottom placement</p>
       </div>
     )}
@@ -155,7 +155,7 @@ export function PopoverPage() {
   />
   <Popover.Content
     renderItem={(props) => (
-      <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
+      <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
         <p>Left placement</p>
       </div>
     )}

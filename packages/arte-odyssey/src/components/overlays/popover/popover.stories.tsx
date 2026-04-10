@@ -32,7 +32,7 @@ export const Default: Story = {
       />
       <Popover.Content
         renderItem={(props) => (
-          <div className="rounded-lg bg-bg-mute p-4 shadow-md" {...props}>
+          <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
             <div role="menuitem">ポップオーバーのコンテンツ</div>
           </div>
         )}
