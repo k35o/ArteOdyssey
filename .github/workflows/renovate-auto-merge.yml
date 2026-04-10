@@ -6,6 +6,13 @@ on:
     types:
       - completed
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: read
+  id-token: write
+  actions: read
+
 jobs:
   claude-review-and-merge:
     if: |
@@ -13,12 +20,6 @@ jobs:
       github.event.workflow_run.event == 'pull_request' &&
       github.event.workflow_run.actor.login == 'renovate[bot]'
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      issues: read
-      id-token: write
-      actions: read
 
     steps:
       - name: Get PR info
