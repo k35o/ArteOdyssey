@@ -1,5 +1,56 @@
 # @k8o/arte-odyssey
 
+## 6.0.0
+
+### Major Changes
+
+- [#400](https://github.com/k35o/ArteOdyssey/pull/400) [`92b2dbc`](https://github.com/k35o/ArteOdyssey/commit/92b2dbce81af72c37b5092a8e2ddf2b42b89636c) Thanks [@k35o](https://github.com/k35o)! - useScrollLock と useScrollDirection を任意の要素に適用できるように拡張
+
+  - `useScrollLock(target?)`: 引数に `RefObject<HTMLElement | null>` を受け取り、指定要素の `overflow` を制御できるように。未指定時は従来通り `document.body`
+  - `useScrollDirection(options?)`: 引数を `{ threshold?, target? }` の options 形式に変更（破壊的変更）。`target` 指定時はその要素のスクロール方向を検出
+  - `fix(form-control)`: `helpText` / `errorText` と input の間に余白を追加
+  - `fix(checkbox-card)`: 選択時の枠・インジケータの色を通常 Checkbox に揃える
+
+### Minor Changes
+
+- [#407](https://github.com/k35o/ArteOdyssey/pull/407) [`ed07136`](https://github.com/k35o/ArteOdyssey/commit/ed07136fc00f0216772ecd1b56766586851bc53f) Thanks [@k35o](https://github.com/k35o)! - bg-raised トークンを追加し浮く UI に適用
+
+  - `bg-raised` トークン追加（light: white, dark: gray-800）
+  - Card/InteractiveCard: `bg-raised` を適用、secondary variant を削除
+  - Modal, Dialog, Tooltip, DropdownMenu, ListBox, AutoComplete: `bg-raised` を適用し border を削除
+  - Tooltip: 背景を inverse に変更
+
+- [#404](https://github.com/k35o/ArteOdyssey/pull/404) [`73b62a2`](https://github.com/k35o/ArteOdyssey/commit/73b62a282c30ae9683ca35bc27807c88c9034210) Thanks [@k35o](https://github.com/k35o)! - Button / IconButton / LinkButton / IconLink の hover/active 色を整理し、`secondary` カラーを追加
+
+  - hover/active で opacity ハック (`/90`, `/80`) を使っていた箇所をセマンティックトークン (`*-emphasize`) に置き換え
+  - skeleton variant に hover 時の背景色 (`bg-bg-subtle`) を追加して状態を分かりやすく
+  - outlined / gray contained の active を 1 段薄く調整
+  - `Button` / `LinkButton` の `color` に `secondary` を追加 (cyan ベース)
+  - `IconButton` / `IconLink` の `bg` に `secondary` を追加
+
+- [#405](https://github.com/k35o/ArteOdyssey/pull/405) [`aaaf2b4`](https://github.com/k35o/ArteOdyssey/commit/aaaf2b49f8064486a7450eb0e8dd825f37d23fe9) Thanks [@k35o](https://github.com/k35o)! - Pagination コンポーネントを追加
+
+  前後ページ移動と現在位置 (`4 / 10`) を示すミニマルなページネーション。Button (`variant="skeleton" color="gray"`) ベースで実装し、他のナビゲーションコンポーネントと視覚的に統一。
+
+  ```tsx
+  <Pagination totalPages={10} currentPage={page} onPageChange={setPage} />
+  ```
+
+### Patch Changes
+
+- [#403](https://github.com/k35o/ArteOdyssey/pull/403) [`65e0cd4`](https://github.com/k35o/ArteOdyssey/commit/65e0cd4062e1c9246e76a467bcd63bcd1ca7450e) Thanks [@k35o](https://github.com/k35o)! - NumberField のステッパーボタンのデザインを刷新
+
+  縦並びは維持しつつ、区切り線・グレー背景を撤去してアイコンを `+`/`−` から chevron (`▲`/`▼`) に変更。通常時は枠と一体化し、hover 時のみ薄く背景色が出るように。他の Input 要素と並べた際の視覚的な統一感を改善。
+
+- [#406](https://github.com/k35o/ArteOdyssey/pull/406) [`201cbb6`](https://github.com/k35o/ArteOdyssey/commit/201cbb6888135691013d58d4730803eb5daed1be) Thanks [@k35o](https://github.com/k35o)! - 各コンポーネントの hover・選択状態の色を整理
+
+  - Tabs/Accordion: hover 時に primary カラーを適用
+  - CheckboxCard/RadioCard: 選択中カードを primary カラーに統一し、hover 状態を追加
+  - Switch: border を削除
+  - AutoComplete: ドロップダウンの選択・ハイライト状態を primary カラーに
+  - DropdownMenu/ListBox: hover 背景を bg-subtle に統一
+  - FormControl: label と helper テキストに左余白を追加
+
 ## 5.0.4
 
 ### Patch Changes
