@@ -1,5 +1,15 @@
 # @k8o/arte-odyssey
 
+## 6.0.1
+
+### Patch Changes
+
+- [#409](https://github.com/k35o/ArteOdyssey/pull/409) [`82b9121`](https://github.com/k35o/ArteOdyssey/commit/82b9121f05991249c889484c6c9a59a01182f051) Thanks [@k35o](https://github.com/k35o)! - ### Card / InteractiveCard
+
+  - 背景色を `bg-raised` から `bg-base` に変更
+  - ダークモードの `dark:border` を削除
+    - カードが背景に馴染み、コンテンツが主役になるように
+
 ## 6.0.0
 
 ### Major Changes
