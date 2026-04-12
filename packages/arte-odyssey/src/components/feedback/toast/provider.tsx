@@ -38,7 +38,7 @@ export const useToast = () => {
   const onOpen = useCallback(
     (status: Status, message: string) => {
       setToasts((prev) => [
-        ...prev,
+        ...prev.slice(-4),
         {
           id: uuidV4(),
           status,
