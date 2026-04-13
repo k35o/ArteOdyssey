@@ -21,6 +21,8 @@ import { uuidV4 } from './../../../helpers/uuid-v4';
 import type { Status } from './../../../types/variables';
 import { Toast } from './toast';
 
+const MAX_TOAST_COUNT = 5;
+
 type ToastType = {
   id: string;
   status: Status;
@@ -37,14 +39,10 @@ export const useToast = () => {
 
   const onOpen = useCallback(
     (status: Status, message: string) => {
-      setToasts((prev) => [
-        ...prev.slice(-4),
-        {
-          id: uuidV4(),
-          status,
-          message,
-        },
-      ]);
+      setToasts((prev) => {
+        const next = [...prev, { id: uuidV4(), status, message }];
+        return next.slice(-MAX_TOAST_COUNT);
+      });
     },
     [setToasts],
   );
