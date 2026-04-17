@@ -1,17 +1,18 @@
 'use client';
 
 import { Card } from '@k8o/arte-odyssey';
+import type { SemanticToken } from '@k8o/arte-odyssey/tokens';
 import { useTheme } from '../theme/context';
 
-export type TokenDef = {
-  name: string;
-  light: { source: string };
-  dark: { source: string };
-};
-
-export function TokenCard({ token, type = 'fill' }: { token: TokenDef; type?: 'fill' | 'border' }) {
+export function TokenCard({
+  token,
+  type = 'fill',
+}: {
+  token: SemanticToken;
+  type?: 'fill' | 'border';
+}) {
   const { theme } = useTheme();
-  const { source } = token[theme];
+  const source = token[theme];
 
   return (
     <Card appearance="shadow">
