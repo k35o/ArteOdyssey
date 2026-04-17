@@ -52,7 +52,8 @@ export const Textarea: FC<Props> = ({
       ref.current.style.height = 'auto';
       ref.current.style.height = `${ref.current.scrollHeight.toString()}px`;
     }
-  });
+  }, [autoResize, value]);
+
   return (
     <textarea
       aria-describedby={describedbyId}
@@ -70,6 +71,12 @@ export const Textarea: FC<Props> = ({
       id={id}
       name={name}
       onChange={onChange}
+      onInput={(e) => {
+        if (autoResize) {
+          e.currentTarget.style.height = 'auto';
+          e.currentTarget.style.height = `${e.currentTarget.scrollHeight.toString()}px`;
+        }
+      }}
       onKeyDown={(e) => {
         e.stopPropagation();
       }}
