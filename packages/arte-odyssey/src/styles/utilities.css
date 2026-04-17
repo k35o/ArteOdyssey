@@ -1,0 +1,27 @@
+@utility grid-cols-auto-fill-* {
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr)
+  );
+}
+
+@utility grid-cols-auto-fit-* {
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr)
+  );
+}
+
+@utility grid-rows-auto-fill-* {
+  grid-template-rows: repeat(
+    auto-fill,
+    minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr)
+  );
+}
+
+@utility grid-rows-auto-fit-* {
+  grid-template-rows: repeat(
+    auto-fit,
+    minmax(min(calc(var(--spacing) * --value(integer)), 100%), 1fr)
+  );
+}

@@ -34,6 +34,12 @@
         "default": "./dist/index.mjs"
       }
     },
+    "./tokens": {
+      "import": {
+        "types": "./dist/styles/tokens.d.mts",
+        "default": "./dist/styles/tokens.mjs"
+      }
+    },
     "./styles.css": "./dist/styles/index.css"
   },
   "publishConfig": {
@@ -41,8 +47,10 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "build": "vp pack && pnpm build:css",
+    "build": "pnpm generate:css && vp pack && pnpm build:css",
     "build:css": "mkdir -p dist/styles && cp src/styles/index.css dist/styles/index.css",
+    "generate:css": "node scripts/generate-css.ts",
+    "prepare": "node scripts/generate-css.ts",
     "storybook": "storybook dev -p 6006 --no-open",
     "build-storybook": "storybook build",
     "test": "vitest run",
