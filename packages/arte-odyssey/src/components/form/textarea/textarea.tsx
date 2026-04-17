@@ -30,6 +30,11 @@ type UncontrolledProps = {
 
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
+const resizeToContent = (el: HTMLTextAreaElement) => {
+  el.style.height = 'auto';
+  el.style.height = `${el.scrollHeight.toString()}px`;
+};
+
 export const Textarea: FC<Props> = ({
   id,
   name,
@@ -49,8 +54,7 @@ export const Textarea: FC<Props> = ({
 
   useEffect(() => {
     if (ref.current && autoResize) {
-      ref.current.style.height = 'auto';
-      ref.current.style.height = `${ref.current.scrollHeight.toString()}px`;
+      resizeToContent(ref.current);
     }
   }, [autoResize, value]);
 
@@ -73,8 +77,7 @@ export const Textarea: FC<Props> = ({
       onChange={onChange}
       onInput={(e) => {
         if (autoResize) {
-          e.currentTarget.style.height = 'auto';
-          e.currentTarget.style.height = `${e.currentTarget.scrollHeight.toString()}px`;
+          resizeToContent(e.currentTarget);
         }
       }}
       onKeyDown={(e) => {
