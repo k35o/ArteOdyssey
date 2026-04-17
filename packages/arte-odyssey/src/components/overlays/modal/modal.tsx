@@ -91,7 +91,6 @@ const leftVariants: Variants = {
 
 export const Modal: FC<
   PropsWithChildren<{
-    // TODO: 外部のref.current.showModal()にrealDialogOpenが追従するようにする
     ref?: RefObject<HTMLDialogElement | null>;
     type?: 'center' | 'bottom' | 'right' | 'left';
     defaultOpen?: boolean;
@@ -113,21 +112,29 @@ export const Modal: FC<
   const realRef = ref ?? dialogRef;
 
   useEffect(() => {
-    if (realDialogOpen === realRef.current?.open) {
+    const dialog = realRef.current;
+    if (!dialog || realDialogOpen === dialog.open) {
       return;
     }
     if (realDialogOpen) {
-      realRef.current?.showModal();
+      dialog.showModal();
     } else {
-      realRef.current?.close();
+      dialog.close();
     }
-  }, [
-    realDialogOpen,
-    realRef.current?.close,
-    realRef.current?.open,
-    realRef.current?.showModal,
-    realRef.current,
-  ]);
+  }, [realDialogOpen, realRef]);
+
+  useEffect(() => {
+    const dialog = realRef.current;
+    if (!dialog || isOpen !== undefined) return;
+
+    const observer = new MutationObserver(() => {
+      setDialogOpen(dialog.open);
+    });
+    observer.observe(dialog, { attributes: true, attributeFilter: ['open'] });
+    return () => {
+      observer.disconnect();
+    };
+  }, [isOpen, realRef]);
 
   return (
     <motion.dialog
