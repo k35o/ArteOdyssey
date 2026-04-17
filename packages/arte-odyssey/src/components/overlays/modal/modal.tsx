@@ -112,21 +112,16 @@ export const Modal: FC<
   const realRef = ref ?? dialogRef;
 
   useEffect(() => {
-    if (realDialogOpen === realRef.current?.open) {
+    const dialog = realRef.current;
+    if (!dialog || realDialogOpen === dialog.open) {
       return;
     }
     if (realDialogOpen) {
-      realRef.current?.showModal();
+      dialog.showModal();
     } else {
-      realRef.current?.close();
+      dialog.close();
     }
-  }, [
-    realDialogOpen,
-    realRef.current?.close,
-    realRef.current?.open,
-    realRef.current?.showModal,
-    realRef.current,
-  ]);
+  }, [realDialogOpen, realRef]);
 
   useEffect(() => {
     const dialog = realRef.current;
