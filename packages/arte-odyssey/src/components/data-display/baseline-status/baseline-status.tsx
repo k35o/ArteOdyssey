@@ -32,12 +32,8 @@ export const BaselineStatus: FC<{ featureId: string }> = ({ featureId }) => {
   );
 
   if (!isLoad) {
-    // TODO: レスポンシブな見た目に対応する
     return (
-      <div
-        className="max-w-full animate-pulse rounded-lg border border-border-base bg-bg-base p-4"
-        style={{ height: '120px' }}
-      />
+      <div className="h-58 max-w-full animate-pulse rounded-lg border border-border-base bg-bg-base p-4 sm:h-40 md:h-30" />
     );
   }
 
