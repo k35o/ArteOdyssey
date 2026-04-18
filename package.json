@@ -25,7 +25,7 @@
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "@types/node": "24.12.2",
-    "agent-browser": "0.25.3",
+    "agent-browser": "0.25.4",
     "cosmiconfig": "latest",
     "playwright": "1.59.1",
     "typescript": "6.0.2",
