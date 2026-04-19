@@ -1,0 +1,66 @@
+@import 'tailwindcss';
+@source '../components';
+
+@layer base {
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+
+  dialog,
+  [popover] {
+    overscroll-behavior-block: contain;
+    color: var(--color-fg-base);
+  }
+
+  body {
+    text-spacing-trim: trim-start;
+    text-autospace: normal;
+    line-break: strict;
+    overflow-wrap: anywhere;
+    scrollbar-gutter: stable;
+    font-size: var(--text-md);
+    line-height: var(--text-md--line-height);
+  }
+
+  pre {
+    text-spacing-trim: space-all;
+    text-autospace: no-autospace;
+  }
+
+  time {
+    text-autospace: no-autospace;
+  }
+
+  input:not([type='button'], [type='submit'], [type='reset']),
+  textarea,
+  [contenteditable] {
+    text-autospace: no-autospace;
+  }
+
+  b,
+  strong,
+  em {
+    font-weight: unset;
+  }
+
+  i,
+  cite,
+  em,
+  dfn,
+  var,
+  address {
+    font-style: unset;
+  }
+
+  button,
+  [type='button'],
+  [type='submit'],
+  [type='reset'],
+  ::file-selector-button {
+    touch-action: manipulation;
+  }
+}
+
+/* dark・light themeの値を使うための宣言 */
+@custom-variant dark (&:where(.dark, .dark *));
+@custom-variant light (&:where(.light, .light *));
