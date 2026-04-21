@@ -3,7 +3,7 @@
 ArteOdyssey が提供するカスタムフック。
 
 ```tsx
-import { useDisclosure, useDebounce } from '@k8o/arte-odyssey';
+import { useDisclosure, useDeferredDebounce } from '@k8o/arte-odyssey';
 ```
 
 ## 状態管理
@@ -99,41 +99,38 @@ const { isHovered, hoverProps } = useHover();
 
 ## タイミング
 
-### useDebounce
+### useDeferredDebounce
 
-値のデバウンス。
-
-```tsx
-const debouncedValue = useDebounce(inputValue, 300);
-```
-
-### useDebouncedCallback
-
-コールバックのデバウンス。
+`useDeferredValue` をラップし、値と「追いついていない」ペンディング状態を返す。純 UI 用途（フィルタリング等）向け。
 
 ```tsx
-const debouncedFn = useDebouncedCallback((value: string) => {
-  search(value);
-}, 300);
+const [deferredValue, isPending] = useDeferredDebounce(inputValue);
 ```
 
-### useThrottle
+戻り値:
 
-値のスロットル。
+- `[T, boolean]` — `[deferredValue, isPending]`
+
+### useDebouncedTransition
+
+`startTransition(async)` と `AbortController` を組み合わせ、delay 経過後にアクションを実行する。再呼び出し時は前回のアクションに渡した signal を abort する。
 
 ```tsx
-const throttledValue = useThrottle(scrollPosition, 100);
+const [isPending, run] = useDebouncedTransition(300);
+
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const q = e.target.value;
+  setQuery(q);
+  run(async (signal) => {
+    const res = await fetch(`/api/search?q=${q}`, { signal });
+    setResults(await res.json());
+  });
+};
 ```
 
-### useThrottledCallback
+戻り値:
 
-コールバックのスロットル。
-
-```tsx
-const throttledFn = useThrottledCallback((e: Event) => {
-  handleScroll(e);
-}, 100);
-```
+- `[boolean, (action: (signal: AbortSignal) => void | Promise<void>) => void]`
 
 ### useInterval
 

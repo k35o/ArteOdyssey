@@ -40,15 +40,6 @@ export const hookCategories: NavCategory[] = [
     ],
   },
   {
-    titleKey: 'hooks.categoryPerformance',
-    items: [
-      { name: 'useDebounce', path: '/hooks/use-debounce' },
-      { name: 'useDebouncedCallback', path: '/hooks/use-debounced-callback' },
-      { name: 'useThrottle', path: '/hooks/use-throttle' },
-      { name: 'useThrottledCallback', path: '/hooks/use-throttled-callback' },
-    ],
-  },
-  {
     titleKey: 'hooks.categoryObserver',
     items: [
       { name: 'useIntersectionObserver', path: '/hooks/use-intersection-observer' },

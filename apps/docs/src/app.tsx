@@ -63,8 +63,6 @@ import { UseBreakpointPage } from './pages/hooks/use-breakpoint-page';
 import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
 import { UseClientPage } from './pages/hooks/use-client-page';
 import { UseClipboardPage } from './pages/hooks/use-clipboard-page';
-import { UseDebouncePage } from './pages/hooks/use-debounce-page';
-import { UseDebouncedCallbackPage } from './pages/hooks/use-debounced-callback-page';
 import { UseDisclosurePage } from './pages/hooks/use-disclosure-page';
 import { UseHashPage } from './pages/hooks/use-hash-page';
 import { UseInViewPage } from './pages/hooks/use-in-view-page';
@@ -75,8 +73,6 @@ import { UseSessionStoragePage } from './pages/hooks/use-session-storage-page';
 import { UseResizePage } from './pages/hooks/use-resize-page';
 import { UseScrollDirectionPage } from './pages/hooks/use-scroll-direction-page';
 import { UseStepPage } from './pages/hooks/use-step-page';
-import { UseThrottlePage } from './pages/hooks/use-throttle-page';
-import { UseThrottledCallbackPage } from './pages/hooks/use-throttled-callback-page';
 import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
 import { UseControllableStatePage } from './pages/hooks/use-controllable-state-page';
@@ -313,14 +309,6 @@ const routes: RouteDefinition[] = [
         component: <UseClipboardPage />,
       }),
       route({
-        path: '/hooks/use-debounce',
-        component: <UseDebouncePage />,
-      }),
-      route({
-        path: '/hooks/use-debounced-callback',
-        component: <UseDebouncedCallbackPage />,
-      }),
-      route({
         path: '/hooks/use-disclosure',
         component: <UseDisclosurePage />,
       }),
@@ -359,14 +347,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-step',
         component: <UseStepPage />,
-      }),
-      route({
-        path: '/hooks/use-throttle',
-        component: <UseThrottlePage />,
-      }),
-      route({
-        path: '/hooks/use-throttled-callback',
-        component: <UseThrottledCallbackPage />,
       }),
       route({
         path: '/hooks/use-timeout',

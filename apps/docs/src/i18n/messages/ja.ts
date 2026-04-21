@@ -231,7 +231,6 @@ export const ja = {
   'hooks.categoryStateStorage': '状態・ストレージ',
   'hooks.categoryTiming': 'タイミング',
   'hooks.categoryUtility': 'ユーティリティ',
-  'hooks.categoryPerformance': 'パフォーマンス',
   'hooks.categoryObserver': 'オブザーバー',
   'hooks.common.importTitle': 'インポート',
   'hooks.common.usageTitle': '使い方',
@@ -254,19 +253,14 @@ export const ja = {
     'このページのbodyはスクロールしないため、ここでは動作を試せません。実際のスクロール可能なページでご確認ください。',
   'hooks.useStep.description': 'キーボードサポート付きのステップベースナビゲーションフックです。',
   'hooks.useTimeout.description': '指定した遅延後にコールバックを実行するフックです。',
-  'hooks.useWindowResize.description':
-    'デバウンス対応のウィンドウリサイズイベントを監視するフックです。',
+  'hooks.useWindowResize.description': 'ウィンドウリサイズイベントを監視するフックです。',
   'hooks.useBreakpoint.description':
     'ビューポートが指定したブレイクポイントに一致するかを判定するフックです。',
-  'hooks.useDebounce.description': '指定した遅延で値をデバウンスするフックです。',
-  'hooks.useDebouncedCallback.description': 'コールバック関数のデバウンス版を返すフックです。',
   'hooks.useDisclosure.description':
     'open・close・toggleアクションで開閉状態を管理するフックです。',
   'hooks.useIntersectionObserver.description':
     'IntersectionObserverで要素の可視状態を監視するフックです。',
   'hooks.useInView.description': '要素がビューポート内に表示されているかどうかを返すフックです。',
-  'hooks.useThrottle.description': '指定した間隔で値をスロットルするフックです。',
-  'hooks.useThrottledCallback.description': 'コールバック関数のスロットル版を返すフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
   'hooks.useScrollLock.description':
     'bodyまたは指定した要素のスクロールをロック・アンロックするフックです。',
