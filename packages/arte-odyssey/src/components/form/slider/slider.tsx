@@ -1,6 +1,7 @@
 'use client';
 
 import type { CSSProperties, FC } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
 
@@ -49,6 +50,8 @@ export const Slider: FC<Props> = ({
     defaultValue: defaultValue ?? min,
     onChange,
   });
+  const { pending } = useFormStatus();
+  const isDisabledResolved = isDisabled || pending;
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
   const style = {
@@ -63,7 +66,7 @@ export const Slider: FC<Props> = ({
         'after:absolute after:left-0 after:h-2 after:rounded-full after:bg-primary-bg',
         'after:w-(--slider-progress)',
         isInvalid && 'after:bg-bg-error',
-        isDisabled && 'opacity-50',
+        isDisabledResolved && 'opacity-50',
       )}
       style={style}
     >
@@ -87,7 +90,7 @@ export const Slider: FC<Props> = ({
           isInvalid &&
             '[&::-moz-range-thumb]:border-border-error [&::-webkit-slider-thumb]:border-border-error [&:focus-visible::-moz-range-thumb]:ring-border-error [&:focus-visible::-webkit-slider-thumb]:ring-border-error',
         )}
-        disabled={isDisabled}
+        disabled={isDisabledResolved}
         id={id}
         max={max}
         min={min}

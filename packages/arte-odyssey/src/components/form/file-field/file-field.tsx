@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, ChangeEventHandler, FC, PropsWithChildren, ReactElement } from 'react';
 import { createContext, use, useCallback, useId, useMemo, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { uuidV4 } from '../../../helpers/uuid-v4';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -61,6 +62,8 @@ const Root = ({
 }>) => {
   const generatedId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
+  const { pending } = useFormStatus();
+  const isDisabledResolved = isDisabled || pending;
 
   const [acceptedFiles, setAcceptedFiles] = useState<AcceptedFile[]>([]);
 
@@ -109,13 +112,13 @@ const Root = ({
 
   const contextValue = useMemo(
     () => ({
-      isDisabled,
+      isDisabled: isDisabledResolved,
       isInvalid,
       acceptedFiles,
       onFileDelete,
       openFilePicker,
     }),
-    [isDisabled, isInvalid, acceptedFiles, onFileDelete, openFilePicker],
+    [isDisabledResolved, isInvalid, acceptedFiles, onFileDelete, openFilePicker],
   );
 
   return (
@@ -126,7 +129,7 @@ const Root = ({
           aria-describedby={describedbyId}
           aria-invalid={isInvalid}
           className="sr-only"
-          disabled={isDisabled}
+          disabled={isDisabledResolved}
           id={id ?? generatedId}
           multiple={multiple}
           name={name}

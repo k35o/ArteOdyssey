@@ -1,6 +1,7 @@
 'use client';
 
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
 import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
@@ -57,6 +58,8 @@ export const Autocomplete: FC<Props> = ({
 
   const [deferredText, isPending] = useDeferredDebounce(text);
   const filteredOptions = options.filter((option) => option.label.includes(deferredText));
+  const { pending: formPending } = useFormStatus();
+  const isDisabledResolved = isDisabled || formPending;
 
   const reset = useCallback(() => {
     setText('');
@@ -127,7 +130,7 @@ export const Autocomplete: FC<Props> = ({
               'grow bg-transparent focus-visible:outline-hidden',
               'disabled:cursor-not-allowed',
             )}
-            disabled={isDisabled}
+            disabled={isDisabledResolved}
             id={id}
             onBlur={(e) => {
               if (e.relatedTarget?.id.startsWith(`${id}_option_`)) {
