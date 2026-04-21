@@ -1,6 +1,7 @@
 'use client';
 
 import type { ChangeEventHandler, FC } from 'react';
+import { useFormStatus } from 'react-dom';
 import { useDisclosure } from '../../../hooks/disclosure';
 import { cn } from '../../../helpers/cn';
 import { ViewIcon, ViewOffIcon } from '../../icons';
@@ -48,6 +49,7 @@ export const PasswordInput: FC<Props> = ({
   onChange,
 }) => {
   const { isOpen: isVisible, toggle: toggleVisible } = useDisclosure();
+  const { pending } = useFormStatus();
 
   return (
     <div className="relative w-full">
@@ -60,6 +62,7 @@ export const PasswordInput: FC<Props> = ({
           'w-full rounded-xl border border-border-base bg-bg-base px-3 py-2 pr-12',
           'aria-invalid:border-border-error',
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
+          'read-only:cursor-not-allowed read-only:bg-bg-subtle',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
         defaultValue={defaultValue}
@@ -68,6 +71,7 @@ export const PasswordInput: FC<Props> = ({
         name={name}
         onChange={onChange}
         placeholder={placeholder}
+        readOnly={pending || undefined}
         required={isRequired}
         type={isVisible ? 'text' : 'password'}
         value={value}

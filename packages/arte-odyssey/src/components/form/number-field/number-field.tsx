@@ -1,6 +1,7 @@
 'use client';
 
 import { type FC, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';
 import { ChevronIcon } from '../../icons';
@@ -55,6 +56,7 @@ export const NumberField: FC<Props> = ({
   const [internalValue, setInternalValue] = useState(initialValue);
   const [displayValue, setDisplayValue] = useState(initialValue.toFixed(precision));
   const [prevValue, setPrevValue] = useState(initialValue);
+  const { pending } = useFormStatus();
 
   const currentValue = isControlled ? value : internalValue;
 
@@ -91,11 +93,13 @@ export const NumberField: FC<Props> = ({
         className={cn(
           'h-full w-full grow bg-transparent pr-8 pl-3 focus-visible:outline-hidden',
           'disabled:cursor-not-allowed',
+          'read-only:cursor-not-allowed',
         )}
         disabled={isDisabled}
         id={id}
         inputMode="decimal"
         name={name}
+        readOnly={pending || undefined}
         onBlur={() => {
           const newValue = between(cast(displayValue, precision), min, max);
           handleChange(newValue);
@@ -140,7 +144,7 @@ export const NumberField: FC<Props> = ({
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
           )}
-          disabled={isDisabled}
+          disabled={isDisabled || pending}
           onClick={() => {
             const newValue = between(
               toPrecision(cast(displayValue, precision) + step, precision),
@@ -162,7 +166,7 @@ export const NumberField: FC<Props> = ({
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
           )}
-          disabled={isDisabled}
+          disabled={isDisabled || pending}
           onClick={() => {
             const newValue = between(
               toPrecision(cast(displayValue, precision) - step, precision),
