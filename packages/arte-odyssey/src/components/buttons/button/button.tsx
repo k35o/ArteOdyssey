@@ -2,6 +2,7 @@
 
 import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
+import { useFormStatus } from 'react-dom';
 import { Spinner } from '../../feedback/spinner/spinner';
 import { cn } from './../../../helpers/cn';
 
@@ -34,7 +35,9 @@ export const Button: FC<
   endIcon,
   ...rest
 }) => {
-  const [isPending, startTransition] = useTransition();
+  const [transitionPending, startTransition] = useTransition();
+  const { pending: formPending } = useFormStatus();
+  const isPending = transitionPending || (type === 'submit' && formPending);
   const isDisabled = disabled || isPending;
 
   const handleClick = onClick
