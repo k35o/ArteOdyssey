@@ -3,6 +3,7 @@
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
+import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
 import type { Option } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -54,7 +55,8 @@ export const Autocomplete: FC<Props> = ({
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
-  const filteredOptions = options.filter((option) => option.label.includes(text));
+  const [deferredText, isPending] = useDeferredDebounce(text);
+  const filteredOptions = options.filter((option) => option.label.includes(deferredText));
 
   const reset = useCallback(() => {
     setText('');
@@ -212,7 +214,11 @@ export const Autocomplete: FC<Props> = ({
             className="absolute top-1 z-10 w-full rounded-xl bg-bg-raised shadow-md"
             role="presentation"
           >
-            <ul className="max-h-96 py-2" id={`${id}_listbox`}>
+            <ul
+              aria-busy={isPending || undefined}
+              className={cn('max-h-96 py-2 transition-opacity', isPending && 'opacity-60')}
+              id={`${id}_listbox`}
+            >
               {filteredOptions.length === 0 && <li className="px-3 py-2 text-fg-mute">該当なし</li>}
               {filteredOptions.map((option, idx) => {
                 const selected = currentValue.includes(option.value);
