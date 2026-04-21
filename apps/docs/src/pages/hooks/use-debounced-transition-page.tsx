@@ -1,8 +1,10 @@
 import { Heading, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
+import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
+import { UseDebouncedTransitionPreview } from './_previews/use-debounced-transition-previews';
 
 const parameters: PropItem[] = [
   {
@@ -49,30 +51,29 @@ export function UseDebouncedTransitionPage() {
           <Heading type="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
-          <CodeBlock
+          <ComponentPreview
             code={`const [query, setQuery] = useState('');
-const [results, setResults] = useState<Result[]>([]);
-const [isPending, run] = useDebouncedTransition(300);
+const [result, setResult] = useState('');
+const [isPending, run] = useDebouncedTransition(500);
 
 const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
   const next = e.target.value;
   setQuery(next);
   run(async (signal) => {
-    const res = await fetch(\`/api/search?q=\${next}\`, { signal });
-    setResults(await res.json());
+    await sleep(800, signal);
+    setResult(\`\${next} の結果\`);
   });
 };
 
 return (
   <>
-    <input value={query} onChange={handleChange} />
-    <ul aria-busy={isPending}>
-      {results.map((r) => <li key={r.id}>{r.label}</li>)}
-    </ul>
+    <TextField value={query} onChange={handleChange} />
+    <p aria-busy={isPending}>{isPending ? '通信中…' : result}</p>
   </>
 );`}
-            lang="tsx"
-          />
+          >
+            <UseDebouncedTransitionPreview />
+          </ComponentPreview>
         </div>
       </section>
       <Separator color="mute" />

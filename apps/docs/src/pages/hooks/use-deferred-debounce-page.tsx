@@ -1,8 +1,10 @@
 import { Heading, Separator } from '@k8o/arte-odyssey';
 import { CodeBlock } from '../../components/code-block';
+import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
+import { UseDeferredDebouncePreview } from './_previews/use-deferred-debounce-previews';
 
 const parameters: PropItem[] = [
   {
@@ -52,22 +54,23 @@ export function UseDeferredDebouncePage() {
           <Heading type="h3">
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
-          <CodeBlock
+          <ComponentPreview
             code={`const [query, setQuery] = useState('');
 const [deferredQuery, isPending] = useDeferredDebounce(query);
 
-const filtered = options.filter((o) => o.label.includes(deferredQuery));
+const filtered = words.filter((w) => w.includes(deferredQuery));
 
 return (
   <>
-    <input value={query} onChange={(e) => setQuery(e.target.value)} />
+    <TextField value={query} onChange={(e) => setQuery(e.target.value)} />
     <ul aria-busy={isPending} className={isPending ? 'opacity-60' : undefined}>
-      {filtered.map((o) => <li key={o.value}>{o.label}</li>)}
+      {filtered.map((w) => <li key={w}>{w}</li>)}
     </ul>
   </>
 );`}
-            lang="tsx"
-          />
+          >
+            <UseDeferredDebouncePreview />
+          </ComponentPreview>
         </div>
       </section>
       <Separator color="mute" />
