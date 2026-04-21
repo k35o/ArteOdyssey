@@ -140,6 +140,8 @@ export const MESSAGE_KEYS = [
   'components.formControl.errorTextTitle',
   'components.formControl.requiredTitle',
   'components.formControl.disabledTitle',
+  'components.form.description',
+  'components.form.actionStateTitle',
   'components.accordion.description',
   'components.accordion.defaultOpenTitle',
   'components.avatar.description',

@@ -21,6 +21,7 @@ import { DrawerPage } from './pages/components/drawer-page';
 import { DropdownMenuPage } from './pages/components/dropdown-menu-page';
 import { FileFieldPage } from './pages/components/file-field-page';
 import { FormControlPage } from './pages/components/form-control-page';
+import { FormPage } from './pages/components/form-page';
 import { HeadingPage } from './pages/components/heading-page';
 import { IconButtonPage } from './pages/components/icon-button-page';
 import { IconLinkPage } from './pages/components/icon-link-page';
@@ -181,6 +182,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/form-control',
         component: <FormControlPage />,
+      }),
+      route({
+        path: '/components/form',
+        component: <FormPage />,
       }),
       route({
         path: '/components/accordion',

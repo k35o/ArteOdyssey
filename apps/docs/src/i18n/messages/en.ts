@@ -145,6 +145,9 @@ export const en = {
   'components.formControl.errorTextTitle': 'Error Text',
   'components.formControl.requiredTitle': 'Required',
   'components.formControl.disabledTitle': 'Disabled',
+  'components.form.description':
+    'A form wrapper that accepts an action prop and handles submission via the Async React form action pattern.',
+  'components.form.actionStateTitle': 'With useActionState',
   'components.accordion.description': 'A collapsible content panel.',
   'components.accordion.defaultOpenTitle': 'Default Open',
   'components.avatar.description': 'A profile image component with fallback.',

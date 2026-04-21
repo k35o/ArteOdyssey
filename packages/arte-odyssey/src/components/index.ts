@@ -19,6 +19,7 @@ export { Checkbox } from './form/checkbox';
 export { CheckboxCard } from './form/checkbox-card';
 export { CheckboxGroup } from './form/checkbox-group';
 export { FileField } from './form/file-field';
+export { Form } from './form/form';
 export { FormControl } from './form/form-control';
 export { NumberField } from './form/number-field';
 export { PasswordInput } from './form/password-input';

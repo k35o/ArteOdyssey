@@ -150,6 +150,9 @@ export const ja = {
   'components.formControl.errorTextTitle': 'エラーテキスト',
   'components.formControl.requiredTitle': '必須',
   'components.formControl.disabledTitle': '無効',
+  'components.form.description':
+    'action prop を受け付け、Async React の form action パターンで送信を扱うフォームラッパーです。',
+  'components.form.actionStateTitle': 'useActionState と組み合わせる',
   'components.accordion.description': '折りたたみ可能なコンテンツパネルです。',
   'components.accordion.defaultOpenTitle': 'デフォルトで開く',
   'components.avatar.description': 'フォールバック表示付きのプロフィール画像コンポーネントです。',
