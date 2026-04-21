@@ -256,6 +256,10 @@ export const ja = {
   'hooks.useWindowResize.description': 'ウィンドウリサイズイベントを監視するフックです。',
   'hooks.useBreakpoint.description':
     'ビューポートが指定したブレイクポイントに一致するかを判定するフックです。',
+  'hooks.useDebouncedTransition.description':
+    'startTransitionとAbortControllerを組み合わせ、delay経過後にアクションを実行するフックです。',
+  'hooks.useDeferredDebounce.description':
+    'useDeferredValueをラップし、値とペンディング状態を返すフックです。',
   'hooks.useDisclosure.description':
     'open・close・toggleアクションで開閉状態を管理するフックです。',
   'hooks.useIntersectionObserver.description':

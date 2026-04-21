@@ -63,6 +63,8 @@ import { UseBreakpointPage } from './pages/hooks/use-breakpoint-page';
 import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
 import { UseClientPage } from './pages/hooks/use-client-page';
 import { UseClipboardPage } from './pages/hooks/use-clipboard-page';
+import { UseDebouncedTransitionPage } from './pages/hooks/use-debounced-transition-page';
+import { UseDeferredDebouncePage } from './pages/hooks/use-deferred-debounce-page';
 import { UseDisclosurePage } from './pages/hooks/use-disclosure-page';
 import { UseHashPage } from './pages/hooks/use-hash-page';
 import { UseInViewPage } from './pages/hooks/use-in-view-page';
@@ -307,6 +309,14 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-clipboard',
         component: <UseClipboardPage />,
+      }),
+      route({
+        path: '/hooks/use-debounced-transition',
+        component: <UseDebouncedTransitionPage />,
+      }),
+      route({
+        path: '/hooks/use-deferred-debounce',
+        component: <UseDeferredDebouncePage />,
       }),
       route({
         path: '/hooks/use-disclosure',

@@ -250,6 +250,10 @@ export const en = {
   'hooks.useWindowResize.description': 'A hook that listens to window resize events.',
   'hooks.useBreakpoint.description':
     'A hook that checks whether the viewport matches a given breakpoint.',
+  'hooks.useDebouncedTransition.description':
+    'A hook that runs an action after a delay using startTransition and AbortController.',
+  'hooks.useDeferredDebounce.description':
+    'A hook that wraps useDeferredValue and returns the value together with a pending flag.',
   'hooks.useDisclosure.description':
     'A hook for managing open/close state with open, close, and toggle actions.',
   'hooks.useIntersectionObserver.description':

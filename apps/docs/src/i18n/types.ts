@@ -241,6 +241,8 @@ export const MESSAGE_KEYS = [
   'hooks.useTimeout.description',
   'hooks.useWindowResize.description',
   'hooks.useBreakpoint.description',
+  'hooks.useDebouncedTransition.description',
+  'hooks.useDeferredDebounce.description',
   'hooks.useDisclosure.description',
   'hooks.useIntersectionObserver.description',
   'hooks.useInView.description',

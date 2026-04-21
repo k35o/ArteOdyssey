@@ -25,6 +25,8 @@ export const hookCategories: NavCategory[] = [
   {
     titleKey: 'hooks.categoryTiming',
     items: [
+      { name: 'useDebouncedTransition', path: '/hooks/use-debounced-transition' },
+      { name: 'useDeferredDebounce', path: '/hooks/use-deferred-debounce' },
       { name: 'useInterval', path: '/hooks/use-interval' },
       { name: 'useTimeout', path: '/hooks/use-timeout' },
     ],
