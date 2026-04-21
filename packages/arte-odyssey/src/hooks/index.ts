@@ -3,6 +3,7 @@ export { useClient } from './client';
 export { useClipboard } from './clipboard';
 export { useControllableState } from './controllable-state';
 export { useDebounce, useDebouncedCallback } from './debounce';
+export { useDebouncedTransition } from './debounced-transition';
 export { useDisclosure } from './disclosure';
 export { useHash } from './hash';
 export { useHover } from './hover';
