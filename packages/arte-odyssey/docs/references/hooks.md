@@ -174,14 +174,14 @@ useWindowResize(
   (size) => {
     recalculate(size.width, size.height);
   },
-  { enabled: true, debounceMs: 100 },
+  { enabled: true },
 );
 ```
 
 引数:
 
 - `callback`: `(size: { width: number; height: number }) => void`
-- `options`: `{ enabled?: boolean; debounceMs?: number }`
+- `options`: `{ enabled?: boolean }`
 
 ### useResize
 
@@ -195,7 +195,7 @@ useResize(
   (entry) => {
     console.log(entry.contentRect);
   },
-  { enabled: true, debounceMs: 100 },
+  { enabled: true },
 );
 ```
 
@@ -203,7 +203,7 @@ useResize(
 
 - `ref`: `RefObject<T | null>`
 - `callback`: `(entry: ResizeObserverEntry) => void`
-- `options`: `{ enabled?: boolean; debounceMs?: number }`
+- `options`: `{ enabled?: boolean }`
 
 ### useIntersectionObserver
 

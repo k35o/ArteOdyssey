@@ -15,11 +15,6 @@ const parameters: PropItem[] = [
     types: ['boolean'],
     defaultValue: 'true',
   },
-  {
-    name: 'options.debounceMs',
-    types: ['number'],
-    defaultValue: '-',
-  },
 ];
 
 export function UseWindowResizePage() {
@@ -53,12 +48,9 @@ export function UseWindowResizePage() {
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <CodeBlock
-            code={`useWindowResize(
-  (size) => {
-    console.log(\`Window: \${size.width}x\${size.height}\`);
-  },
-  { debounceMs: 200 },
-);`}
+            code={`useWindowResize((size) => {
+  console.log(\`Window: \${size.width}x\${size.height}\`);
+});`}
             lang="tsx"
           />
         </div>
