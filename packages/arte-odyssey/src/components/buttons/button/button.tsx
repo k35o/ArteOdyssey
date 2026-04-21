@@ -1,5 +1,11 @@
-import type { FC, HTMLProps, ReactNode } from 'react';
+'use client';
+
+import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
+import { useTransition } from 'react';
+import { Spinner } from '../../feedback/spinner/spinner';
 import { cn } from './../../../helpers/cn';
+
+type ButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
 
 export const Button: FC<
   {
@@ -10,7 +16,9 @@ export const Button: FC<
     fullWidth?: boolean;
     startIcon?: ReactNode;
     endIcon?: ReactNode;
-  } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>
+    immediate?: boolean;
+    onClick?: ButtonClickHandler;
+  } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'onClick'>
 > = ({
   ref,
   children,
@@ -20,13 +28,33 @@ export const Button: FC<
   variant = 'contained',
   disabled = false,
   fullWidth = false,
+  immediate = false,
   onClick,
   startIcon,
   endIcon,
   ...rest
 }) => {
+  const [isPending, startTransition] = useTransition();
+  const isDisabled = disabled || isPending;
+
+  const handleClick = onClick
+    ? (event: MouseEvent<HTMLButtonElement>) => {
+        if (immediate) {
+          void onClick(event);
+          return;
+        }
+        startTransition(async () => {
+          await onClick(event);
+        });
+      }
+    : undefined;
+
+  const spinnerSize = size === 'lg' ? 'md' : 'sm';
+  const resolvedStartIcon = isPending ? <Spinner label="Loading" size={spinnerSize} /> : startIcon;
+
   return (
     <button
+      aria-busy={isPending || undefined}
       className={cn(
         'cursor-pointer rounded-full border-2 text-center font-bold transition-colors',
         {
@@ -37,11 +65,11 @@ export const Button: FC<
           'border-transparent bg-bg-subtle text-fg-base hover:bg-bg-mute/80 active:bg-bg-mute':
             variant === 'contained' && color === 'gray',
           'cursor-not-allowed opacity-35 hover:bg-primary-bg active:bg-primary-bg':
-            disabled && variant === 'contained' && color === 'primary',
+            isDisabled && variant === 'contained' && color === 'primary',
           'cursor-not-allowed opacity-35 hover:bg-secondary-bg active:bg-secondary-bg':
-            disabled && variant === 'contained' && color === 'secondary',
+            isDisabled && variant === 'contained' && color === 'secondary',
           'cursor-not-allowed opacity-35 hover:bg-bg-subtle active:bg-bg-subtle':
-            disabled && variant === 'contained' && color === 'gray',
+            isDisabled && variant === 'contained' && color === 'gray',
           'border-primary-border bg-bg-base text-primary-fg hover:bg-bg-subtle active:bg-bg-mute':
             variant === 'outlined' && color === 'primary',
           'border-secondary-border bg-bg-base text-secondary-fg hover:bg-bg-subtle active:bg-bg-mute':
@@ -49,31 +77,31 @@ export const Button: FC<
           'border-border-base bg-bg-base text-fg-base hover:bg-bg-subtle active:bg-bg-mute':
             variant === 'outlined' && color === 'gray',
           'cursor-not-allowed bg-bg-base opacity-35 hover:bg-bg-base active:bg-bg-base':
-            disabled && variant === 'outlined',
+            isDisabled && variant === 'outlined',
           'border-transparent bg-transparent text-fg-mute hover:bg-bg-subtle hover:text-fg-base active:bg-bg-mute active:text-fg-base':
             variant === 'skeleton',
           'cursor-not-allowed bg-transparent text-fg-mute opacity-35 hover:bg-transparent hover:text-fg-mute active:bg-transparent active:text-fg-mute':
-            disabled && variant === 'skeleton',
+            isDisabled && variant === 'skeleton',
         },
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         size === 'sm' && 'px-3 py-1 text-sm',
         size === 'md' && 'px-4 py-2 text-md',
         size === 'lg' && 'px-6 py-3 text-lg',
         fullWidth && 'w-full',
-        Boolean(startIcon ?? endIcon) && 'flex items-center gap-2',
-        startIcon && endIcon
+        Boolean(resolvedStartIcon ?? endIcon) && 'flex items-center gap-2',
+        resolvedStartIcon && endIcon
           ? 'justify-between'
-          : startIcon && variant !== 'skeleton'
+          : resolvedStartIcon && variant !== 'skeleton'
             ? 'justify-center'
             : endIcon && 'justify-between',
       )}
-      disabled={disabled}
-      onClick={onClick}
+      disabled={isDisabled}
+      onClick={handleClick}
       ref={ref}
       type={type}
       {...rest}
     >
-      {startIcon}
+      {resolvedStartIcon}
       {children}
       {endIcon}
     </button>
