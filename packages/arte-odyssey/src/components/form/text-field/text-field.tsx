@@ -1,4 +1,7 @@
+'use client';
+
 import type { ChangeEventHandler, FC } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
@@ -37,6 +40,7 @@ export const TextField: FC<Props> = ({
   value,
   onChange,
 }) => {
+  const { pending } = useFormStatus();
   return (
     <input
       aria-describedby={describedbyId}
@@ -46,6 +50,7 @@ export const TextField: FC<Props> = ({
         'w-full rounded-xl border border-border-base bg-bg-base px-3 py-2',
         'aria-invalid:border-border-error',
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
+        'read-only:cursor-not-allowed read-only:bg-bg-subtle',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
       )}
       defaultValue={defaultValue}
@@ -54,6 +59,7 @@ export const TextField: FC<Props> = ({
       name={name}
       onChange={onChange}
       placeholder={placeholder}
+      readOnly={pending || undefined}
       type="text"
       value={value}
     />

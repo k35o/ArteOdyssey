@@ -1,6 +1,15 @@
 'use client';
 
-import { createContext, use, useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocalStorage } from '@k8o/arte-odyssey';
+import {
+  createContext,
+  type ReactNode,
+  use,
+  useCallback,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -13,46 +22,44 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const STORAGE_KEY = 'arte-odyssey-theme';
 
-function getInitialTheme(): Theme {
-  if (typeof window === 'undefined') return 'light';
+const subscribeMediaQuery = (cb: () => void) => {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  mq.addEventListener('change', cb);
+  return () => {
+    mq.removeEventListener('change', cb);
+  };
+};
 
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === 'light' || stored === 'dark') return stored;
+const getSystemTheme = (): Theme =>
+  window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
+const getServerSystemTheme = (): Theme => 'light';
 
-function applyTheme(theme: Theme) {
+const applyTheme = (theme: Theme) => {
   const root = document.documentElement;
   if (theme === 'dark') {
     root.classList.add('dark');
   } else {
     root.classList.remove('dark');
   }
-}
+};
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(getInitialTheme);
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [storedTheme, setStoredTheme] = useLocalStorage<Theme | null>(STORAGE_KEY, null);
+  const systemTheme = useSyncExternalStore(
+    subscribeMediaQuery,
+    getSystemTheme,
+    getServerSystemTheme,
+  );
+  const theme: Theme = storedTheme ?? systemTheme;
 
   useEffect(() => {
     applyTheme(theme);
-    localStorage.setItem(STORAGE_KEY, theme);
   }, [theme]);
 
-  useEffect(() => {
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const handler = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    };
-    mq.addEventListener('change', handler);
-    return () => mq.removeEventListener('change', handler);
-  }, []);
-
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  }, []);
+    setStoredTheme(theme === 'light' ? 'dark' : 'light');
+  }, [setStoredTheme, theme]);
 
   const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
 

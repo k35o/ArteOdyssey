@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
@@ -37,6 +38,7 @@ export const Checkbox: FC<Props> = ({
   onChange,
 }) => {
   const groupContext = useCheckboxGroupContext();
+  const { pending } = useFormStatus();
   const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
   const groupItemValue = itemValue ?? '';
 
@@ -45,7 +47,7 @@ export const Checkbox: FC<Props> = ({
   }
 
   const isControlled = value !== undefined;
-  const isDisabledResolved = isDisabled || groupContext?.isDisabled;
+  const isDisabledResolved = isDisabled || groupContext?.isDisabled || pending;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled

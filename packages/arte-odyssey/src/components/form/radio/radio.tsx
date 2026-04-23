@@ -2,6 +2,7 @@
 
 import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 
@@ -36,8 +37,10 @@ export const Radio: FC<Props> = ({
   options,
 }) => {
   const [internalValue, setInternalValue] = useState(defaultValue);
+  const { pending } = useFormStatus();
   const isControlled = value !== undefined;
   const selectedValue = isControlled ? value : internalValue;
+  const isDisabledResolved = isDisabled || pending;
 
   const selectValue = (nextValue: string) => {
     if (!isControlled) {
@@ -51,14 +54,17 @@ export const Radio: FC<Props> = ({
   return (
     <div
       aria-labelledby={labelId}
-      className={cn('flex cursor-pointer flex-col gap-2', isDisabled && 'cursor-not-allowed')}
+      className={cn(
+        'flex cursor-pointer flex-col gap-2',
+        isDisabledResolved && 'cursor-not-allowed',
+      )}
       role="radiogroup"
     >
       {options.map((option) => (
         <label
           className={cn(
             'flex items-center gap-2 text-left',
-            isDisabled ? 'cursor-not-allowed' : 'cursor-pointer',
+            isDisabledResolved ? 'cursor-not-allowed' : 'cursor-pointer',
           )}
           key={option.value}
         >
@@ -66,7 +72,7 @@ export const Radio: FC<Props> = ({
             checked={isControlled ? value === option.value : undefined}
             className="peer sr-only"
             defaultChecked={isControlled ? undefined : defaultValue === option.value}
-            disabled={isDisabled}
+            disabled={isDisabledResolved}
             name={name ?? labelId}
             onChange={() => {
               selectValue(option.value);
@@ -82,7 +88,7 @@ export const Radio: FC<Props> = ({
               selectedValue === option.value
                 ? 'border-border-base bg-primary-bg'
                 : 'border-border-mute bg-bg-base',
-              isDisabled && 'border-border-mute bg-bg-mute',
+              isDisabledResolved && 'border-border-mute bg-bg-mute',
             )}
           >
             <span

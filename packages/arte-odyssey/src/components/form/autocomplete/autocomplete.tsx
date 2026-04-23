@@ -1,8 +1,10 @@
 'use client';
 
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
+import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
 import type { Option } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -54,7 +56,10 @@ export const Autocomplete: FC<Props> = ({
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
-  const filteredOptions = options.filter((option) => option.label.includes(text));
+  const [deferredText, isPending] = useDeferredDebounce(text);
+  const filteredOptions = options.filter((option) => option.label.includes(deferredText));
+  const { pending: formPending } = useFormStatus();
+  const isDisabledResolved = isDisabled || formPending;
 
   const reset = useCallback(() => {
     setText('');
@@ -125,7 +130,7 @@ export const Autocomplete: FC<Props> = ({
               'grow bg-transparent focus-visible:outline-hidden',
               'disabled:cursor-not-allowed',
             )}
-            disabled={isDisabled}
+            disabled={isDisabledResolved}
             id={id}
             onBlur={(e) => {
               if (e.relatedTarget?.id.startsWith(`${id}_option_`)) {
@@ -173,6 +178,10 @@ export const Autocomplete: FC<Props> = ({
                 return;
               }
               if (e.key === 'Enter' && selectIndex !== undefined && selectIndex >= 0) {
+                if (isPending) {
+                  e.preventDefault();
+                  return;
+                }
                 const selected = filteredOptions[selectIndex];
                 if (!selected) {
                   return;
@@ -212,7 +221,11 @@ export const Autocomplete: FC<Props> = ({
             className="absolute top-1 z-10 w-full rounded-xl bg-bg-raised shadow-md"
             role="presentation"
           >
-            <ul className="max-h-96 py-2" id={`${id}_listbox`}>
+            <ul
+              aria-busy={isPending || undefined}
+              className={cn('max-h-96 py-2 transition-opacity', isPending && 'opacity-60')}
+              id={`${id}_listbox`}
+            >
               {filteredOptions.length === 0 && <li className="px-3 py-2 text-fg-mute">該当なし</li>}
               {filteredOptions.map((option, idx) => {
                 const selected = currentValue.includes(option.value);

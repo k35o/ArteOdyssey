@@ -145,6 +145,9 @@ export const en = {
   'components.formControl.errorTextTitle': 'Error Text',
   'components.formControl.requiredTitle': 'Required',
   'components.formControl.disabledTitle': 'Disabled',
+  'components.form.description':
+    'A form wrapper that accepts an action prop and handles submission via the Async React form action pattern.',
+  'components.form.actionStateTitle': 'With useActionState',
   'components.accordion.description': 'A collapsible content panel.',
   'components.accordion.defaultOpenTitle': 'Default Open',
   'components.avatar.description': 'A profile image component with fallback.',
@@ -224,7 +227,6 @@ export const en = {
   'hooks.categoryStateStorage': 'State & Storage',
   'hooks.categoryTiming': 'Timing',
   'hooks.categoryUtility': 'Utility',
-  'hooks.categoryPerformance': 'Performance',
   'hooks.categoryObserver': 'Observer',
   'hooks.common.importTitle': 'Import',
   'hooks.common.usageTitle': 'Usage',
@@ -248,22 +250,19 @@ export const en = {
     "This page's body does not scroll, so the behavior can't be tried here. Please verify on an actual scrollable page.",
   'hooks.useStep.description': 'A hook for step-based navigation with keyboard support.',
   'hooks.useTimeout.description': 'A hook that executes a callback after a specified delay.',
-  'hooks.useWindowResize.description':
-    'A hook that listens to window resize events with optional debounce.',
+  'hooks.useWindowResize.description': 'A hook that listens to window resize events.',
   'hooks.useBreakpoint.description':
     'A hook that checks whether the viewport matches a given breakpoint.',
-  'hooks.useDebounce.description': 'A hook that debounces a value with a specified delay.',
-  'hooks.useDebouncedCallback.description':
-    'A hook that returns a debounced version of the provided callback.',
+  'hooks.useDebouncedTransition.description':
+    'A hook that runs an action after a delay using startTransition and AbortController.',
+  'hooks.useDeferredDebounce.description':
+    'A hook that wraps useDeferredValue and returns the value together with a pending flag.',
   'hooks.useDisclosure.description':
     'A hook for managing open/close state with open, close, and toggle actions.',
   'hooks.useIntersectionObserver.description':
     'A hook that observes element visibility via IntersectionObserver.',
   'hooks.useInView.description':
     'A hook that returns whether an element is currently visible in the viewport.',
-  'hooks.useThrottle.description': 'A hook that throttles a value with a specified interval.',
-  'hooks.useThrottledCallback.description':
-    'A hook that returns a throttled version of the provided callback.',
   'hooks.useWindowSize.description': 'A hook that returns the current window dimensions.',
   'hooks.useScrollLock.description':
     'A hook that locks and unlocks scroll on the body or a specified element.',

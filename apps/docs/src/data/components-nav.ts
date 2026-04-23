@@ -36,6 +36,7 @@ export const componentCategories: NavCategory[] = [
       { name: 'Slider', path: '/components/slider' },
       { name: 'FileField', path: '/components/file-field' },
       { name: 'FormControl', path: '/components/form-control' },
+      { name: 'Form', path: '/components/form' },
     ],
   },
   {

@@ -4,16 +4,11 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { UseThrottlePreview } from './_previews/use-throttle-previews';
+import { UseDebouncedTransitionPreview } from './_previews/use-debounced-transition-previews';
 
 const parameters: PropItem[] = [
   {
-    name: 'value',
-    types: ['T'],
-    defaultValue: null,
-  },
-  {
-    name: 'interval',
+    name: 'delay',
     types: ['number'],
     defaultValue: null,
   },
@@ -21,19 +16,21 @@ const parameters: PropItem[] = [
 
 const returnValue: PropItem[] = [
   {
-    name: 'throttledValue',
-    types: ['T'],
+    name: '[boolean, (action) => void]',
+    types: [
+      'readonly [isPending: boolean, run: (action: (signal: AbortSignal) => void | Promise<void>) => void]',
+    ],
     defaultValue: null,
   },
 ];
 
-export function UseThrottlePage() {
+export function UseDebouncedTransitionPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">useThrottle</Heading>
+        <Heading type="h1">useDebouncedTransition</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="hooks.useThrottle.description" />
+          <T k="hooks.useDebouncedTransition.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -42,7 +39,7 @@ export function UseThrottlePage() {
         <Heading type="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { useThrottle } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock code="import { useDebouncedTransition } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -55,21 +52,27 @@ export function UseThrottlePage() {
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`const [text, setText] = useState('');
-const throttledText = useThrottle(text, 1000);
+            code={`const [query, setQuery] = useState('');
+const [result, setResult] = useState('');
+const [isPending, run] = useDebouncedTransition(500);
+
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const next = e.target.value;
+  setQuery(next);
+  run(async (signal) => {
+    await sleep(800, signal);
+    setResult(\`\${next} の結果\`);
+  });
+};
 
 return (
-  <div>
-    <input
-      onChange={(e) => setText(e.target.value)}
-      placeholder="Type something..."
-      value={text}
-    />
-    <p>Throttled: {throttledText}</p>
-  </div>
+  <>
+    <TextField value={query} onChange={handleChange} />
+    <p aria-busy={isPending}>{isPending ? '通信中…' : result}</p>
+  </>
 );`}
           >
-            <UseThrottlePreview />
+            <UseDebouncedTransitionPreview />
           </ComponentPreview>
         </div>
       </section>
@@ -82,7 +85,6 @@ return (
         <PropsTable items={parameters} />
       </section>
       <Separator color="mute" />
-
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="hooks.common.returnValueTitle" />

@@ -4,36 +4,36 @@ import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
-import { UseDebouncedCallbackPreview } from './_previews/use-debounced-callback-previews';
+import { UseDeferredDebouncePreview } from './_previews/use-deferred-debounce-previews';
 
 const parameters: PropItem[] = [
   {
-    name: 'callback',
-    types: ['T extends (...args: any[]) => any'],
+    name: 'value',
+    types: ['T'],
     defaultValue: null,
   },
   {
-    name: 'delay',
-    types: ['number'],
-    defaultValue: null,
+    name: 'initialValue',
+    types: ['T'],
+    defaultValue: '-',
   },
 ];
 
 const returnValue: PropItem[] = [
   {
-    name: 'debouncedCallback',
-    types: ['(...args: Parameters<T>) => void'],
+    name: '[T, boolean]',
+    types: ['readonly [deferredValue: T, isPending: boolean]'],
     defaultValue: null,
   },
 ];
 
-export function UseDebouncedCallbackPage() {
+export function UseDeferredDebouncePage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
       <div className="flex flex-col gap-4">
-        <Heading type="h1">useDebouncedCallback</Heading>
+        <Heading type="h1">useDeferredDebounce</Heading>
         <p className="text-fg-mute text-lg">
-          <T k="hooks.useDebouncedCallback.description" />
+          <T k="hooks.useDeferredDebounce.description" />
         </p>
       </div>
       <Separator color="mute" />
@@ -42,7 +42,7 @@ export function UseDebouncedCallbackPage() {
         <Heading type="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { useDebouncedCallback } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock code="import { useDeferredDebounce } from '@k8o/arte-odyssey';" lang="ts" />
       </section>
       <Separator color="mute" />
 
@@ -55,19 +55,21 @@ export function UseDebouncedCallbackPage() {
             <T k="hooks.common.basicUsageTitle" />
           </Heading>
           <ComponentPreview
-            code={`const [count, setCount] = useState(0);
-const debouncedIncrement = useDebouncedCallback(() => {
-  setCount((prev) => prev + 1);
-}, 300);
+            code={`const [query, setQuery] = useState('');
+const [deferredQuery, isPending] = useDeferredDebounce(query);
+
+const filtered = words.filter((w) => w.includes(deferredQuery));
 
 return (
-  <div>
-    <button onClick={debouncedIncrement}>Increment</button>
-    <p>Count: {count}</p>
-  </div>
+  <>
+    <TextField value={query} onChange={(e) => setQuery(e.target.value)} />
+    <ul aria-busy={isPending} className={isPending ? 'opacity-60' : undefined}>
+      {filtered.map((w) => <li key={w}>{w}</li>)}
+    </ul>
+  </>
 );`}
           >
-            <UseDebouncedCallbackPreview />
+            <UseDeferredDebouncePreview />
           </ComponentPreview>
         </div>
       </section>
@@ -80,7 +82,6 @@ return (
         <PropsTable items={parameters} />
       </section>
       <Separator color="mute" />
-
       <section className="flex flex-col gap-4">
         <Heading type="h2">
           <T k="hooks.common.returnValueTitle" />

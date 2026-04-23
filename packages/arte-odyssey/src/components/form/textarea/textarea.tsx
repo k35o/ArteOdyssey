@@ -1,6 +1,7 @@
 'use client';
 
 import { type ChangeEventHandler, type FC, useEffect, useRef } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
@@ -51,6 +52,7 @@ export const Textarea: FC<Props> = ({
   onChange,
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
+  const { pending } = useFormStatus();
 
   useEffect(() => {
     if (ref.current && autoResize) {
@@ -67,6 +69,7 @@ export const Textarea: FC<Props> = ({
         'w-full resize-none rounded-xl border border-border-base bg-bg-base px-3 py-2',
         'aria-invalid:border-border-error',
         'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute disabled:hover:bg-bg-mute',
+        'read-only:cursor-not-allowed read-only:bg-bg-subtle',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         fullHeight && 'h-full',
       )}
@@ -84,6 +87,7 @@ export const Textarea: FC<Props> = ({
         e.stopPropagation();
       }}
       placeholder={placeholder}
+      readOnly={pending || undefined}
       ref={ref}
       rows={rows}
       value={value}

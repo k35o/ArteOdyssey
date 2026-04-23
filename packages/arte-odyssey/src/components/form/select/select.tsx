@@ -1,4 +1,7 @@
+'use client';
+
 import type { ChangeEventHandler, FC } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from './../../../helpers/cn';
 import type { Option } from '../../../types/variables';
 import { ChevronIcon } from '../../icons';
@@ -39,6 +42,7 @@ export const Select: FC<Props> = ({
   defaultValue,
   onChange,
 }) => {
+  const { pending } = useFormStatus();
   return (
     <div className="relative h-fit w-full">
       <select
@@ -52,7 +56,7 @@ export const Select: FC<Props> = ({
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
         defaultValue={defaultValue}
-        disabled={isDisabled}
+        disabled={isDisabled || pending}
         id={id}
         name={name}
         onChange={onChange}

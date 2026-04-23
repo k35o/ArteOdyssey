@@ -25,6 +25,8 @@ export const hookCategories: NavCategory[] = [
   {
     titleKey: 'hooks.categoryTiming',
     items: [
+      { name: 'useDebouncedTransition', path: '/hooks/use-debounced-transition' },
+      { name: 'useDeferredDebounce', path: '/hooks/use-deferred-debounce' },
       { name: 'useInterval', path: '/hooks/use-interval' },
       { name: 'useTimeout', path: '/hooks/use-timeout' },
     ],
@@ -37,15 +39,6 @@ export const hookCategories: NavCategory[] = [
       { name: 'useDisclosure', path: '/hooks/use-disclosure' },
       { name: 'useStep', path: '/hooks/use-step' },
       { name: 'useWindowSize', path: '/hooks/use-window-size' },
-    ],
-  },
-  {
-    titleKey: 'hooks.categoryPerformance',
-    items: [
-      { name: 'useDebounce', path: '/hooks/use-debounce' },
-      { name: 'useDebouncedCallback', path: '/hooks/use-debounced-callback' },
-      { name: 'useThrottle', path: '/hooks/use-throttle' },
-      { name: 'useThrottledCallback', path: '/hooks/use-throttled-callback' },
     ],
   },
   {

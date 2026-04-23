@@ -21,6 +21,7 @@ import { DrawerPage } from './pages/components/drawer-page';
 import { DropdownMenuPage } from './pages/components/dropdown-menu-page';
 import { FileFieldPage } from './pages/components/file-field-page';
 import { FormControlPage } from './pages/components/form-control-page';
+import { FormPage } from './pages/components/form-page';
 import { HeadingPage } from './pages/components/heading-page';
 import { IconButtonPage } from './pages/components/icon-button-page';
 import { IconLinkPage } from './pages/components/icon-link-page';
@@ -63,8 +64,8 @@ import { UseBreakpointPage } from './pages/hooks/use-breakpoint-page';
 import { UseClickAwayPage } from './pages/hooks/use-click-away-page';
 import { UseClientPage } from './pages/hooks/use-client-page';
 import { UseClipboardPage } from './pages/hooks/use-clipboard-page';
-import { UseDebouncePage } from './pages/hooks/use-debounce-page';
-import { UseDebouncedCallbackPage } from './pages/hooks/use-debounced-callback-page';
+import { UseDebouncedTransitionPage } from './pages/hooks/use-debounced-transition-page';
+import { UseDeferredDebouncePage } from './pages/hooks/use-deferred-debounce-page';
 import { UseDisclosurePage } from './pages/hooks/use-disclosure-page';
 import { UseHashPage } from './pages/hooks/use-hash-page';
 import { UseInViewPage } from './pages/hooks/use-in-view-page';
@@ -75,8 +76,6 @@ import { UseSessionStoragePage } from './pages/hooks/use-session-storage-page';
 import { UseResizePage } from './pages/hooks/use-resize-page';
 import { UseScrollDirectionPage } from './pages/hooks/use-scroll-direction-page';
 import { UseStepPage } from './pages/hooks/use-step-page';
-import { UseThrottlePage } from './pages/hooks/use-throttle-page';
-import { UseThrottledCallbackPage } from './pages/hooks/use-throttled-callback-page';
 import { UseTimeoutPage } from './pages/hooks/use-timeout-page';
 import { UseWindowResizePage } from './pages/hooks/use-window-resize-page';
 import { UseControllableStatePage } from './pages/hooks/use-controllable-state-page';
@@ -183,6 +182,10 @@ const routes: RouteDefinition[] = [
       route({
         path: '/components/form-control',
         component: <FormControlPage />,
+      }),
+      route({
+        path: '/components/form',
+        component: <FormPage />,
       }),
       route({
         path: '/components/accordion',
@@ -313,12 +316,12 @@ const routes: RouteDefinition[] = [
         component: <UseClipboardPage />,
       }),
       route({
-        path: '/hooks/use-debounce',
-        component: <UseDebouncePage />,
+        path: '/hooks/use-debounced-transition',
+        component: <UseDebouncedTransitionPage />,
       }),
       route({
-        path: '/hooks/use-debounced-callback',
-        component: <UseDebouncedCallbackPage />,
+        path: '/hooks/use-deferred-debounce',
+        component: <UseDeferredDebouncePage />,
       }),
       route({
         path: '/hooks/use-disclosure',
@@ -359,14 +362,6 @@ const routes: RouteDefinition[] = [
       route({
         path: '/hooks/use-step',
         component: <UseStepPage />,
-      }),
-      route({
-        path: '/hooks/use-throttle',
-        component: <UseThrottlePage />,
-      }),
-      route({
-        path: '/hooks/use-throttled-callback',
-        component: <UseThrottledCallbackPage />,
       }),
       route({
         path: '/hooks/use-timeout',

@@ -2,6 +2,7 @@
 
 import type { ChangeEventHandler, FC } from 'react';
 import { useId, useState } from 'react';
+import { useFormStatus } from 'react-dom';
 import { cn } from '../../../helpers/cn';
 
 type BaseProps = {
@@ -43,15 +44,17 @@ export const Switch: FC<Props> = ({
   const generatedId = useId();
   const inputId = id ?? generatedId;
   const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+  const { pending } = useFormStatus();
 
   const isControlled = value !== undefined;
   const isSelected = isControlled ? value : internalChecked;
+  const isDisabledResolved = isDisabled || pending;
 
   return (
     <label
       className={cn(
         'inline-flex w-fit items-center gap-3',
-        isDisabled ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
+        isDisabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
       )}
       htmlFor={inputId}
     >
@@ -64,7 +67,7 @@ export const Switch: FC<Props> = ({
           checked={isControlled ? value : undefined}
           className="peer sr-only"
           defaultChecked={isControlled ? undefined : defaultChecked}
-          disabled={isDisabled}
+          disabled={isDisabledResolved}
           id={inputId}
           name={name}
           onChange={(event) => {
@@ -83,7 +86,7 @@ export const Switch: FC<Props> = ({
             'inline-flex h-7 w-12 items-center rounded-full transition-colors',
             isInvalid && 'ring-2 ring-border-error',
             isSelected ? 'bg-primary-bg' : 'bg-bg-mute',
-            isDisabled && 'bg-bg-subtle',
+            isDisabledResolved && 'bg-bg-subtle',
             'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
           )}
         >
@@ -91,7 +94,7 @@ export const Switch: FC<Props> = ({
             className={cn(
               'ml-0.5 size-5 rounded-full bg-bg-base shadow-xs transition-transform',
               isSelected && 'translate-x-5',
-              isDisabled && 'bg-bg-emphasize',
+              isDisabledResolved && 'bg-bg-emphasize',
             )}
           />
         </span>

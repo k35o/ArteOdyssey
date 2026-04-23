@@ -20,11 +20,6 @@ const parameters: PropItem[] = [
     types: ['boolean'],
     defaultValue: 'true',
   },
-  {
-    name: 'options.debounceMs',
-    types: ['number'],
-    defaultValue: '-',
-  },
 ];
 
 const returnValue: PropItem[] = [
@@ -72,7 +67,7 @@ const ref = useRef<HTMLDivElement>(null);
 useResize(ref, (entry) => {
   const { width, height } = entry.contentRect;
   setSize({ width, height });
-}, { debounceMs: 100 });
+});
 
 return (
   <div ref={ref}>

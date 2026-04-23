@@ -113,3 +113,12 @@ export const EndIcon: Story = {
     endIcon: <CopyIcon />,
   },
 };
+
+export const AsyncAction: Story = {
+  args: {
+    onAction: async () => {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      console.log('async action completed');
+    },
+  },
+};

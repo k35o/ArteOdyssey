@@ -3,7 +3,7 @@
 ArteOdyssey が提供するカスタムフック。
 
 ```tsx
-import { useDisclosure, useDebounce } from '@k8o/arte-odyssey';
+import { useDisclosure, useDeferredDebounce } from '@k8o/arte-odyssey';
 ```
 
 ## 状態管理
@@ -99,41 +99,43 @@ const { isHovered, hoverProps } = useHover();
 
 ## タイミング
 
-### useDebounce
+> `useDeferredDebounce` と `useDebouncedTransition` は役割が異なります。
+>
+> - **`useDeferredDebounce`**: **描画の遅延**（render defer）。React スケジューラが重い再レンダーを後回しにするだけで、遅延時間の保証はない。副作用（fetch / 外部 API）を間引く用途には使えない。
+> - **`useDebouncedTransition`**: **副作用の間引き**（rate limiting）。指定した `delay` を待ってからアクションを実行し、再呼び出し時には前回の `AbortSignal` を abort する。fetch など「軽々しく連射したくない処理」に使う。
 
-値のデバウンス。
+### useDeferredDebounce
 
-```tsx
-const debouncedValue = useDebounce(inputValue, 300);
-```
-
-### useDebouncedCallback
-
-コールバックのデバウンス。
+`useDeferredValue` をラップし、値と「追いついていない」ペンディング状態を返す。入力に応じてリストを絞り込むような **純 UI 用途のみ** 向け。
 
 ```tsx
-const debouncedFn = useDebouncedCallback((value: string) => {
-  search(value);
-}, 300);
+const [deferredValue, isPending] = useDeferredDebounce(inputValue);
 ```
 
-### useThrottle
+戻り値:
 
-値のスロットル。
+- `[T, boolean]` — `[deferredValue, isPending]`
+
+### useDebouncedTransition
+
+`startTransition(async)` と `AbortController` を組み合わせ、delay 経過後にアクションを実行する。再呼び出し時は前回のアクションに渡した signal を abort し、action 内が `fetch({ signal })` 等で AbortError を投げても未処理 rejection にはならない。
 
 ```tsx
-const throttledValue = useThrottle(scrollPosition, 100);
+const [isPending, run] = useDebouncedTransition(300);
+
+const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const q = e.target.value;
+  setQuery(q);
+  run(async (signal) => {
+    const res = await fetch(`/api/search?q=${q}`, { signal });
+    setResults(await res.json());
+  });
+};
 ```
 
-### useThrottledCallback
+戻り値:
 
-コールバックのスロットル。
-
-```tsx
-const throttledFn = useThrottledCallback((e: Event) => {
-  handleScroll(e);
-}, 100);
-```
+- `[boolean, (action: (signal: AbortSignal) => void | Promise<void>) => void]`
 
 ### useInterval
 
@@ -174,14 +176,14 @@ useWindowResize(
   (size) => {
     recalculate(size.width, size.height);
   },
-  { enabled: true, debounceMs: 100 },
+  { enabled: true },
 );
 ```
 
 引数:
 
 - `callback`: `(size: { width: number; height: number }) => void`
-- `options`: `{ enabled?: boolean; debounceMs?: number }`
+- `options`: `{ enabled?: boolean }`
 
 ### useResize
 
@@ -195,7 +197,7 @@ useResize(
   (entry) => {
     console.log(entry.contentRect);
   },
-  { enabled: true, debounceMs: 100 },
+  { enabled: true },
 );
 ```
 
@@ -203,7 +205,7 @@ useResize(
 
 - `ref`: `RefObject<T | null>`
 - `callback`: `(entry: ResizeObserverEntry) => void`
-- `options`: `{ enabled?: boolean; debounceMs?: number }`
+- `options`: `{ enabled?: boolean }`
 
 ### useIntersectionObserver
 
