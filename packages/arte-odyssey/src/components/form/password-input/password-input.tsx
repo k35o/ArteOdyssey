@@ -81,10 +81,10 @@ export const PasswordInput: FC<Props> = ({
         className={cn(
           'absolute top-1/2 right-2 inline-flex -translate-y-1/2 items-center justify-center rounded-md p-1 text-fg-mute transition-colors',
           'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-          !isDisabled && 'hover:bg-bg-mute hover:text-fg-base',
-          isDisabled && 'cursor-not-allowed text-fg-mute/70',
+          !isDisabled && !pending && 'hover:bg-bg-mute hover:text-fg-base',
+          (isDisabled || pending) && 'cursor-not-allowed text-fg-mute/70',
         )}
-        disabled={isDisabled}
+        disabled={isDisabled || pending}
         onClick={toggleVisible}
         type="button"
       >
