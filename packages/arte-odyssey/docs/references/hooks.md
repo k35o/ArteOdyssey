@@ -99,9 +99,14 @@ const { isHovered, hoverProps } = useHover();
 
 ## タイミング
 
+> `useDeferredDebounce` と `useDebouncedTransition` は役割が異なります。
+>
+> - **`useDeferredDebounce`**: **描画の遅延**（render defer）。React スケジューラが重い再レンダーを後回しにするだけで、遅延時間の保証はない。副作用（fetch / 外部 API）を間引く用途には使えない。
+> - **`useDebouncedTransition`**: **副作用の間引き**（rate limiting）。指定した `delay` を待ってからアクションを実行し、再呼び出し時には前回の `AbortSignal` を abort する。fetch など「軽々しく連射したくない処理」に使う。
+
 ### useDeferredDebounce
 
-`useDeferredValue` をラップし、値と「追いついていない」ペンディング状態を返す。純 UI 用途（フィルタリング等）向け。
+`useDeferredValue` をラップし、値と「追いついていない」ペンディング状態を返す。入力に応じてリストを絞り込むような **純 UI 用途のみ** 向け。
 
 ```tsx
 const [deferredValue, isPending] = useDeferredDebounce(inputValue);
@@ -113,7 +118,7 @@ const [deferredValue, isPending] = useDeferredDebounce(inputValue);
 
 ### useDebouncedTransition
 
-`startTransition(async)` と `AbortController` を組み合わせ、delay 経過後にアクションを実行する。再呼び出し時は前回のアクションに渡した signal を abort する。
+`startTransition(async)` と `AbortController` を組み合わせ、delay 経過後にアクションを実行する。再呼び出し時は前回のアクションに渡した signal を abort し、action 内が `fetch({ signal })` 等で AbortError を投げても未処理 rejection にはならない。
 
 ```tsx
 const [isPending, run] = useDebouncedTransition(300);
