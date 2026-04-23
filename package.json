@@ -21,14 +21,14 @@
   },
   "devDependencies": {
     "@changesets/changelog-github": "0.6.0",
-    "@changesets/cli": "2.30.0",
+    "@changesets/cli": "2.31.0",
     "@commitlint/cli": "20.5.0",
     "@commitlint/config-conventional": "20.5.0",
     "@types/node": "24.12.2",
-    "agent-browser": "0.25.4",
+    "agent-browser": "0.26.0",
     "cosmiconfig": "latest",
     "playwright": "1.59.1",
-    "typescript": "6.0.2",
+    "typescript": "6.0.3",
     "vite-plus": "catalog:"
   },
   "engines": {
