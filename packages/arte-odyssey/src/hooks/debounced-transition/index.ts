@@ -30,7 +30,12 @@ export const useDebouncedTransition = (
           return;
         }
         if (signal.aborted) return;
-        await action(signal);
+        try {
+          await action(signal);
+        } catch (error) {
+          if (isAbortError(error)) return;
+          throw error;
+        }
       });
     },
     [delay],
@@ -55,3 +60,9 @@ const delayWithSignal = (ms: number, signal: AbortSignal): Promise<void> =>
       { once: true },
     );
   });
+
+const isAbortError = (error: unknown): boolean => {
+  if (error instanceof DOMException && error.name === 'AbortError') return true;
+  if (error instanceof Error && error.name === 'AbortError') return true;
+  return false;
+};

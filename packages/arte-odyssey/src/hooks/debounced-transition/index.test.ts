@@ -50,4 +50,35 @@ describe('useDebouncedTransition', () => {
       expect(capturedSignal?.aborted).toBe(true);
     });
   });
+
+  it('action が AbortError で reject しても未処理 rejection にならない', async () => {
+    const onUnhandled = vi.fn();
+    window.addEventListener('unhandledrejection', onUnhandled);
+
+    const aborting = async (signal: AbortSignal) =>
+      new Promise<void>((_resolve, reject) => {
+        signal.addEventListener(
+          'abort',
+          () => {
+            reject(new DOMException('aborted', 'AbortError'));
+          },
+          { once: true },
+        );
+      });
+
+    const { result } = await renderHook(() => useDebouncedTransition(20));
+
+    result.current[1](aborting);
+    await vi.waitFor(() => {
+      // action が start するまで待つ
+    });
+    result.current[1](() => {
+      // 置き換えで前回を abort する
+    });
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+
+    expect(onUnhandled).not.toHaveBeenCalled();
+    window.removeEventListener('unhandledrejection', onUnhandled);
+  });
 });
