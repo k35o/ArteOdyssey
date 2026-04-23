@@ -116,18 +116,9 @@ export const EndIcon: Story = {
 
 export const AsyncAction: Story = {
   args: {
-    onClick: async () => {
+    onAction: async () => {
       await new Promise((resolve) => setTimeout(resolve, 1500));
       console.log('async action completed');
-    },
-  },
-};
-
-export const ImmediateSyncClick: Story = {
-  args: {
-    immediate: true,
-    onClick: () => {
-      console.log('immediate click');
     },
   },
 };

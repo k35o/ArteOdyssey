@@ -6,8 +6,6 @@ import { useFormStatus } from 'react-dom';
 import { Spinner } from '../../feedback/spinner/spinner';
 import { cn } from './../../../helpers/cn';
 
-type ButtonClickHandler = (event: MouseEvent<HTMLButtonElement>) => void | Promise<void>;
-
 export const Button: FC<
   {
     type?: 'button' | 'submit';
@@ -17,9 +15,8 @@ export const Button: FC<
     fullWidth?: boolean;
     startIcon?: ReactNode;
     endIcon?: ReactNode;
-    immediate?: boolean;
-    onClick?: ButtonClickHandler;
-  } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type' | 'onClick'>
+    onAction?: () => void | Promise<void>;
+  } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>
 > = ({
   ref,
   children,
@@ -29,7 +26,7 @@ export const Button: FC<
   variant = 'contained',
   disabled = false,
   fullWidth = false,
-  immediate = false,
+  onAction,
   onClick,
   startIcon,
   endIcon,
@@ -40,17 +37,18 @@ export const Button: FC<
   const isPending = transitionPending || (type === 'submit' && formPending);
   const isDisabled = disabled || isPending;
 
-  const handleClick = onClick
-    ? (event: MouseEvent<HTMLButtonElement>) => {
-        if (immediate) {
-          void onClick(event);
-          return;
+  const handleClick =
+    onClick || onAction
+      ? (event: MouseEvent<HTMLButtonElement>) => {
+          onClick?.(event);
+          if (event.defaultPrevented) return;
+          if (onAction) {
+            startTransition(async () => {
+              await onAction();
+            });
+          }
         }
-        startTransition(async () => {
-          await onClick(event);
-        });
-      }
-    : undefined;
+      : undefined;
 
   const spinnerSize = size === 'lg' ? 'md' : 'sm';
   const resolvedStartIcon = isPending ? <Spinner label="Loading" size={spinnerSize} /> : startIcon;
