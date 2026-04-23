@@ -178,6 +178,10 @@ export const Autocomplete: FC<Props> = ({
                 return;
               }
               if (e.key === 'Enter' && selectIndex !== undefined && selectIndex >= 0) {
+                if (isPending) {
+                  e.preventDefault();
+                  return;
+                }
                 const selected = filteredOptions[selectIndex];
                 if (!selected) {
                   return;
