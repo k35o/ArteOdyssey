@@ -16,7 +16,7 @@ catalog:
   react-dom: 19.2.5
   tailwindcss: 4.2.2
   vite: 8.0.9
-  vite-plus: 0.1.16
+  vite-plus: 0.1.17
   vitest: 4.1.4
 
 ignoredBuiltDependencies:
@@ -32,3 +32,6 @@ onlyBuiltDependencies:
   - agent-browser
 
 verifyDepsBeforeRun: install
+minimumReleaseAgeExclude:
+  # Renovate security update: vite-plus@0.1.17
+  - vite-plus@0.1.17
