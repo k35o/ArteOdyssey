@@ -6,12 +6,11 @@ feat: step toward Async React across Button, Form, hooks, and components
 
 ライブラリ全体を「Async React」の流儀に揃えるための変更。
 
-**Button**
+**Button / IconButton**
 
-- `onClick` が sync/async どちらでも、常に `startTransition` 経由で呼ばれる。
-- ペンディング中は `disabled` + `aria-busy` + startIcon 位置に Spinner を表示。
-- 緊急で transition 化を無効化したい場合は `immediate` prop でオプトアウト可能。
-- `type='submit'` の場合は親 `<form>` の action 実行中にも `useFormStatus` 経由で pending を拾う。
+- 新設の `onAction?: () => void | Promise<void>` prop を渡すと、内部で `startTransition` に包んで実行する。ペンディング中は `disabled` + `aria-busy` + Spinner（Button のみ）を表示。
+- `onClick` は従来どおり同期的な urgent ハンドラで、transition 化されない。非同期処理を扱うときは `onAction` を使う。
+- `Button` は `type='submit'` の場合、親 `<form>` の action 実行中にも `useFormStatus` 経由で pending を拾う。`IconButton` は form 内で常に pending を反映。
 
 **Form（新規）**
 
