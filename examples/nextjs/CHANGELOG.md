@@ -1,5 +1,12 @@
 # example-nextjs
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies [[`5ee321f`](https://github.com/k35o/ArteOdyssey/commit/5ee321f72ba4504362fdcdd2395cc027abe683d9), [`e86fad2`](https://github.com/k35o/ArteOdyssey/commit/e86fad2c813ede8c5057de33fbb1e2ef53fa8373), [`94f1ec8`](https://github.com/k35o/ArteOdyssey/commit/94f1ec8e7d005e54e37fc3a07556b31e2ffee352), [`77891a2`](https://github.com/k35o/ArteOdyssey/commit/77891a2fc4f0f3cb710e301794b2d3a31b9d8205)]:
+  - @k8o/arte-odyssey@7.0.0
+
 ## 0.1.7
 
 ### Patch Changes
