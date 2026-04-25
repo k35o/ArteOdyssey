@@ -6,17 +6,17 @@ packages:
 blockExoticSubdeps: true
 
 catalog:
-  '@tailwindcss/postcss': 4.2.2
-  '@tailwindcss/vite': 4.2.2
+  '@tailwindcss/postcss': 4.2.4
+  '@tailwindcss/vite': 4.2.4
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
   '@vitejs/plugin-react': 6.0.1
   postcss: 8.5.10
   react: 19.2.5
   react-dom: 19.2.5
-  tailwindcss: 4.2.2
+  tailwindcss: 4.2.4
   vite: 8.0.9
-  vite-plus: 0.1.17
+  vite-plus: 0.1.19
   vitest: 4.1.4
 
 ignoredBuiltDependencies:
