@@ -22,7 +22,7 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({
     <div
       className={`flex flex-col items-center justify-center gap-6 p-8 ${fullScreen ? 'h-dvh' : 'h-full'}`}
     >
-      <div className="text-fg-danger">
+      <div className="text-fg-error">
         <AlertIcon size="lg" status="error" />
       </div>
       <div className="flex flex-col items-center gap-2">
