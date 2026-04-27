@@ -9,12 +9,6 @@ runs:
       with:
         cache: true
 
-    - name: Setup Git User
-      shell: bash
-      run: |
-        git config --global user.email "kosakanoki@gmail.com"
-        git config --global user.name "k8o"
-
     - name: Install dependencies
       shell: bash
       run: pnpm install --frozen-lockfile
