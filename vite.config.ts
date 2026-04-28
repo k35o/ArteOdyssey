@@ -4,7 +4,12 @@ import { defineConfig } from 'vite-plus';
 export default defineConfig({
   fmt: {
     ...fmt,
-    ignorePatterns: ['CHANGELOG.md', '.claude/**'],
+    // packages/arte-odyssey/src/styles/index.css は generate:css で都度生成されるため対象外
+    ignorePatterns: [
+      'CHANGELOG.md',
+      '.claude/**',
+      'packages/arte-odyssey/src/styles/index.css',
+    ],
   },
   lint: {
     extends: [react, tailwind],
