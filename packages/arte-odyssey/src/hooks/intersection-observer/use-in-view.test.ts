@@ -2,6 +2,12 @@ import { renderHook } from 'vitest-browser-react';
 
 import { useInView } from './use-in-view';
 
+function assertDefined<T>(value: T): asserts value is NonNullable<T> {
+  if (value === undefined || value === null) {
+    throw new Error('Expected value to be defined');
+  }
+}
+
 describe('useInView', () => {
   afterEach(() => {
     vi.restoreAllMocks();
@@ -72,11 +78,13 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    storedCallback!(
+    assertDefined(storedCallback);
+    assertDefined(storedElement);
+    storedCallback(
       [
         {
           isIntersecting: false,
-          target: storedElement!,
+          target: storedElement,
         } as IntersectionObserverEntry,
       ],
       {} as IntersectionObserver,
@@ -118,11 +126,13 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    storedCallback!(
+    assertDefined(storedCallback);
+    assertDefined(storedElement);
+    storedCallback(
       [
         {
           isIntersecting: false,
-          target: storedElement!,
+          target: storedElement,
         } as IntersectionObserverEntry,
       ],
       {} as IntersectionObserver,
