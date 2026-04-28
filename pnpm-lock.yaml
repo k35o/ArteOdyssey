@@ -60,8 +60,8 @@ importers:
         specifier: 20.5.0
         version: 20.5.0
       '@k8o/oxc-config':
-        specifier: 0.1.1
-        version: 0.1.1(oxfmt@0.45.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.61.0))(oxlint@1.60.0(oxlint-tsgolint@0.21.1))
+        specifier: 0.1.2
+        version: 0.1.2(oxfmt@0.45.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.61.0))(oxlint@1.60.0(oxlint-tsgolint@0.21.1))
       '@oxlint/plugins':
         specifier: 1.61.0
         version: 1.61.0
@@ -926,8 +926,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@k8o/oxc-config@0.1.1':
-    resolution: {integrity: sha512-Q4iMqsr5B25+UaW9mW4IPifADCQMgjQOz7JNUNRXGMMqixXBtl1T32idrEReBCcVan3eN4Ajei3ui/UHXlh33w==}
+  '@k8o/oxc-config@0.1.2':
+    resolution: {integrity: sha512-AsrHdwWPLI9UUCF4j+8UANLLDWHHRtLaIrGkC+KbW4cAIzb+ag30nAVzWKViVB7+tgKp7Du96iWfmApTSDC5fQ==}
     engines: {node: '>=24.13.0'}
     peerDependencies:
       oxfmt: '>=0.43.0'
@@ -4513,7 +4513,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@k8o/oxc-config@0.1.1(oxfmt@0.45.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.61.0))(oxlint@1.60.0(oxlint-tsgolint@0.21.1))':
+  '@k8o/oxc-config@0.1.2(oxfmt@0.45.0)(oxlint-tailwindcss@0.6.3(@oxlint/plugins@1.61.0))(oxlint@1.60.0(oxlint-tsgolint@0.21.1))':
     optionalDependencies:
       oxfmt: 0.45.0
       oxlint: 1.60.0(oxlint-tsgolint@0.21.1)

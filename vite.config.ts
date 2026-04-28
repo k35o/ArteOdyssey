@@ -11,20 +11,9 @@ export default defineConfig({
     ignorePatterns: ['CHANGELOG.md', '.claude/**'],
     options: {
       reportUnusedDisableDirectives: 'error',
-      typeAware: true,
     },
     settings: {
       react: { version: '19.2.5' },
-    },
-    rules: {
-      // 意図的にコンパウンドコンポーネントパターンを採用しているため off
-      // (export const Foo = { Bar, Baz } as const)
-      'react/only-export-components': 'off',
-      // CSS 変数 (`as CSSProperties`) / JSON.parse / synth event 等、
-      // 型表現の限界で避けられないケースが多いため off
-      'typescript/no-unsafe-type-assertion': 'off',
-      // CSS は side-effect import が前提なので allow に追加
-      'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
     },
     overrides: [
       {
