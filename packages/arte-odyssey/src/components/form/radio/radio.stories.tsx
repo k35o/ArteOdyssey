@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { Radio } from './radio';
 
 const options = [
@@ -21,26 +22,28 @@ const meta: Meta<typeof Radio> = {
 export default meta;
 type Story = StoryObj<typeof Radio>;
 
-export const Default: Story = {
-  render: (props) => {
-    const [value, setValue] = useState('react');
-    const { defaultValue: _defaultValue, ...radioProps } = props;
+const DefaultRender = (props: ComponentProps<typeof Radio>) => {
+  const [value, setValue] = useState('react');
+  const { defaultValue: _defaultValue, ...radioProps } = props;
 
-    return (
-      <div className="w-full max-w-md">
-        <p className="mb-3 font-medium text-fg-base" id={props.labelId}>
-          Framework
-        </p>
-        <Radio
-          {...radioProps}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          value={value}
-        />
-      </div>
-    );
-  },
+  return (
+    <div className="w-full max-w-md">
+      <p className="text-fg-base mb-3 font-medium" id={props.labelId}>
+        Framework
+      </p>
+      <Radio
+        {...radioProps}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        value={value}
+      />
+    </div>
+  );
+};
+
+export const Default: Story = {
+  render: (props) => <DefaultRender {...props} />,
 };
 
 export const Disabled: Story = {

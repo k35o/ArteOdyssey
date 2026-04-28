@@ -1,7 +1,14 @@
 'use client';
 
-import type { ChangeEvent, ChangeEventHandler, FC, KeyboardEvent, ReactNode } from 'react';
+import type {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  KeyboardEvent,
+  ReactNode,
+} from 'react';
 import { useId, useRef, useState } from 'react';
+
 import { cn } from '../../../helpers/cn';
 
 export type RadioCardOption = Readonly<{
@@ -46,7 +53,9 @@ export const RadioCard: FC<Props> = ({
 }) => {
   const groupId = useId();
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
-  const [internalValue, setInternalValue] = useState(defaultValue ?? options[0]?.value);
+  const [internalValue, setInternalValue] = useState(
+    defaultValue ?? options[0]?.value,
+  );
   const isControlled = value !== undefined;
   const currentValue = isControlled ? value : internalValue;
 
@@ -77,26 +86,39 @@ export const RadioCard: FC<Props> = ({
   return (
     <fieldset
       aria-labelledby={labelId}
-      className={cn('m-0 w-full min-w-0 border-0 p-0', 'grid gap-3', isDisabled && 'opacity-70')}
+      className={cn(
+        'm-0 w-full min-w-0 border-0 p-0',
+        'grid gap-3',
+        isDisabled && 'opacity-70',
+      )}
     >
-      {name ? <input name={name} type="hidden" value={currentValue ?? ''} /> : null}
+      {name !== undefined && name !== '' ? (
+        <input name={name} type="hidden" value={currentValue ?? ''} />
+      ) : null}
       {options.map((option, index) => {
         const checked = currentValue === option.value;
-        const disabled = isDisabled || option.disabled;
+        const disabled = isDisabled || option.disabled === true;
+        const hasDescription =
+          option.description !== undefined && option.description !== '';
+        const hasVisual = option.visual !== undefined && option.visual !== null;
         const optionId = `${groupId}-${option.value}`;
 
         return (
           <button
-            aria-describedby={option.description ? `${optionId}-description` : undefined}
+            aria-describedby={
+              hasDescription ? `${optionId}-description` : undefined
+            }
             aria-pressed={checked}
             className={cn(
               'flex w-full min-w-0 rounded-xl border bg-bg-base p-4 text-left transition-colors',
               'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-              checked && 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
+              checked &&
+                'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
               isInvalid
                 ? 'border-border-error'
                 : !checked && 'border-border-mute hover:bg-bg-subtle',
-              disabled && 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
+              disabled &&
+                'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
             disabled={disabled}
             id={optionId}
@@ -115,7 +137,10 @@ export const RadioCard: FC<Props> = ({
               }
 
               event.preventDefault();
-              const direction = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : -1;
+              const direction =
+                event.key === 'ArrowDown' || event.key === 'ArrowRight'
+                  ? 1
+                  : -1;
               const nextIndex = getNextIndex(index, direction);
               const nextOption = options[nextIndex];
               if (!nextOption) {
@@ -133,24 +158,29 @@ export const RadioCard: FC<Props> = ({
             tabIndex={checked ? 0 : -1}
             type="button"
           >
-            {option.visual ? (
-              <span aria-hidden={true} className="mr-4 shrink-0">
+            {hasVisual ? (
+              <span aria-hidden className="mr-4 shrink-0">
                 {option.visual}
               </span>
             ) : null}
             <span className="flex min-w-0 flex-1 flex-col gap-1">
-              <span className="font-medium text-fg-base">{option.label}</span>
-              {option.description ? (
-                <span className="text-fg-mute text-sm" id={`${optionId}-description`}>
+              <span className="text-fg-base font-medium">{option.label}</span>
+              {hasDescription ? (
+                <span
+                  className="text-fg-mute text-sm"
+                  id={`${optionId}-description`}
+                >
                   {option.description}
                 </span>
               ) : null}
             </span>
             <span
-              aria-hidden={true}
+              aria-hidden
               className={cn(
                 'mt-0.5 ml-4 inline-flex size-5 shrink-0 items-center justify-center rounded-full border',
-                checked ? 'border-border-base bg-primary-bg' : 'border-border-mute bg-bg-base',
+                checked
+                  ? 'border-border-base bg-primary-bg'
+                  : 'border-border-mute bg-bg-base',
               )}
             >
               <span

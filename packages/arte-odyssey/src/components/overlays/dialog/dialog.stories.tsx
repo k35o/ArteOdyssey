@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { type FC, type HTMLProps, useState } from 'react';
 import { fn } from 'storybook/test';
+
 import { Button } from '../../buttons/button';
 import { Modal } from '../modal';
 import { Popover, useOpenContext } from '../popover';
@@ -65,35 +66,37 @@ export const PopoverDialog: Story = {
   },
 };
 
+const ModalDialogRender = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          setOpen(true);
+        }}
+        size="md"
+        type="button"
+      >
+        モーダル
+      </Button>
+      <Modal
+        isOpen={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+        type="center"
+      >
+        <Dialog.Root>
+          <Dialog.Header onClose={fn} title="モーダル" />
+          <Dialog.Content>こんにちは</Dialog.Content>
+        </Dialog.Root>
+      </Modal>
+    </>
+  );
+};
+
 export const ModalDialog: Story = {
-  render: () => {
-    const [open, setOpen] = useState(false);
-    return (
-      <>
-        <Button
-          onClick={() => {
-            setOpen(true);
-          }}
-          size="md"
-          type="button"
-        >
-          モーダル
-        </Button>
-        <Modal
-          isOpen={open}
-          onClose={() => {
-            setOpen(false);
-          }}
-          type="center"
-        >
-          <Dialog.Root>
-            <Dialog.Header onClose={fn} title="モーダル" />
-            <Dialog.Content>こんにちは</Dialog.Content>
-          </Dialog.Root>
-        </Modal>
-      </>
-    );
-  },
+  render: () => <ModalDialogRender />,
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', {
       name: 'モーダル',

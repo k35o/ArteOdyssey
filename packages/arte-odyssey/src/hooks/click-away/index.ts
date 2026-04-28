@@ -8,11 +8,11 @@ export const useClickAway = <T extends Element = HTMLElement>(
   enabled = true,
 ): void => {
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) return undefined;
 
     const handler: EventListener = (e) => {
       const element = ref.current;
-      if (element && !element.contains(e.target as HTMLElement)) {
+      if (element && e.target instanceof Node && !element.contains(e.target)) {
         callback(e);
       }
     };

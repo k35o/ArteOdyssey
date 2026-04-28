@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+
 import type { Option } from './hooks';
 import { ListBox } from './list-box';
 
@@ -34,24 +35,26 @@ const OPTIONS: Option[] = [
   { key: '10', label: 'レモン' },
 ];
 
+const DefaultRender = () => {
+  const [selected, setSelected] = useState<string>();
+  return (
+    <div className="w-56">
+      <ListBox.Root
+        onSelect={(key: string) => {
+          setSelected(key);
+        }}
+        options={OPTIONS}
+        value={selected}
+      >
+        <ListBox.Trigger />
+        <ListBox.Content />
+      </ListBox.Root>
+    </div>
+  );
+};
+
 export const Default: Story = {
-  render: () => {
-    const [selected, setSelected] = useState<string>();
-    return (
-      <div className="w-56">
-        <ListBox.Root
-          onSelect={(key: string) => {
-            setSelected(key);
-          }}
-          options={OPTIONS}
-          value={selected}
-        >
-          <ListBox.Trigger />
-          <ListBox.Content />
-        </ListBox.Root>
-      </div>
-    );
-  },
+  render: () => <DefaultRender />,
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('combobox', {
       name: '選択してください',

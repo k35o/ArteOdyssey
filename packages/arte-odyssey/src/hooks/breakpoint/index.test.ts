@@ -1,5 +1,6 @@
-import { page } from 'vitest/browser';
 import { renderHook } from 'vitest-browser-react';
+import { page } from 'vitest/browser';
+
 import { useBreakpoint } from './index';
 
 describe('useBreakpoint', () => {

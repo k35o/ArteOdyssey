@@ -1,4 +1,5 @@
 import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -29,7 +30,10 @@ export function SeparatorPage() {
           <T k="components.separator.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-separator--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-separator--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -41,7 +45,10 @@ export function SeparatorPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Separator } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Separator } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

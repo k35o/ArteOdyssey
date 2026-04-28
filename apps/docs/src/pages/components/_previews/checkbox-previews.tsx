@@ -8,7 +8,9 @@ export function CheckboxControlledPreview() {
   return (
     <Checkbox
       label="Controlled checkbox"
-      onChange={(e) => setChecked(e.target.checked)}
+      onChange={(e) => {
+        setChecked(e.target.checked);
+      }}
       value={checked}
     />
   );

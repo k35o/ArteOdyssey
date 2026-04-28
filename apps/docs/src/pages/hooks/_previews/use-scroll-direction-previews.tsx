@@ -28,10 +28,10 @@ export function UseScrollDirectionTargetPreview() {
         Vertical: <strong>{y}</strong>
       </div>
       <div
-        className="h-32 w-full overflow-auto rounded-md border border-border-mute bg-bg-base p-3"
+        className="border-border-mute bg-bg-base h-32 w-full overflow-auto rounded-md border p-3"
         ref={scrollRef}
       >
-        <div className="h-96 bg-gradient-to-b from-primary-bg-subtle to-bg-base p-3 text-fg-mute text-sm">
+        <div className="from-primary-bg-subtle to-bg-base text-fg-mute h-96 bg-linear-to-b p-3 text-sm">
           この領域をスクロールすると、この領域のスクロール方向が検知されます。
         </div>
       </div>

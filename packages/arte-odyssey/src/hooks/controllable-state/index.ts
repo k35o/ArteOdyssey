@@ -28,7 +28,9 @@ export const useControllableState = <T>({
 
   const setValue = useCallback((next: T | ((prev: T) => T)) => {
     const nextValue =
-      typeof next === 'function' ? (next as (prev: T) => T)(currentValueRef.current) : next;
+      typeof next === 'function'
+        ? (next as (prev: T) => T)(currentValueRef.current)
+        : next;
 
     if (!isControlledRef.current) {
       setInternalValue(nextValue);

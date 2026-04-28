@@ -8,10 +8,21 @@ export function UseControllableStatePreview() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex gap-2">
-        <Button onClick={() => setCount((prev) => prev + 1)} size="sm">
+        <Button
+          onClick={() => {
+            setCount((prev) => prev + 1);
+          }}
+          size="sm"
+        >
           Increment
         </Button>
-        <Button color="gray" onClick={() => setCount(0)} size="sm">
+        <Button
+          color="gray"
+          onClick={() => {
+            setCount(0);
+          }}
+          size="sm"
+        >
           Reset
         </Button>
       </div>

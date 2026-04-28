@@ -1,3 +1,46 @@
+type ColorMatch = { color: string; start: number; end: number };
+
+const extractFunctionContent = (
+  source: string,
+  funcName: string,
+): ColorMatch[] => {
+  const funcPattern = new RegExp(`${funcName}\\s*\\(`, 'gi');
+  const matches: ColorMatch[] = [];
+  let match = funcPattern.exec(source);
+
+  while (match !== null) {
+    // 開き括弧の位置
+    const startIndex = match.index + match[0].length - 1;
+    let depth = 0;
+    let endIndex = -1;
+
+    for (let i = startIndex; i < source.length; i++) {
+      if (source[i] === '(') {
+        depth++;
+      } else if (source[i] === ')') {
+        depth--;
+        if (depth === 0) {
+          endIndex = i;
+          break;
+        }
+      }
+    }
+
+    if (endIndex !== -1) {
+      const content = source.slice(startIndex + 1, endIndex);
+      const fullColor = `${funcName.toLowerCase()}(${content})`;
+      matches.push({
+        color: fullColor,
+        start: match.index,
+        end: endIndex + 1,
+      });
+    }
+    match = funcPattern.exec(source);
+  }
+
+  return matches;
+};
+
 /**
  * テキスト文字列内のすべての色の値とその位置を見つけます。
  * HSL、RGB、RGBA、HSLA、HEX、名前付き色をサポートします。
@@ -5,51 +48,9 @@
  * @param text - 色の値を検索するテキスト
  * @returns 色の値、開始位置、終了位置を含む色オブジェクトの配列
  */
-export function findAllColors(text: string): { color: string; start: number; end: number }[] {
-  const results: { color: string; start: number; end: number }[] = [];
+export function findAllColors(text: string): ColorMatch[] {
+  const results: ColorMatch[] = [];
 
-  // 対応する括弧の内容を見つけるヘルパー関数
-  function extractFunctionContent(
-    text: string,
-    funcName: string,
-  ): { color: string; start: number; end: number }[] {
-    const funcPattern = new RegExp(`${funcName}\\s*\\(`, 'gi');
-    const matches: { color: string; start: number; end: number }[] = [];
-    let match = funcPattern.exec(text);
-
-    while (match !== null) {
-      const startIndex = match.index + match[0].length - 1; // 開き括弧の位置
-      let depth = 0;
-      let endIndex = -1;
-
-      for (let i = startIndex; i < text.length; i++) {
-        if (text[i] === '(') {
-          depth++;
-        } else if (text[i] === ')') {
-          depth--;
-          if (depth === 0) {
-            endIndex = i;
-            break;
-          }
-        }
-      }
-
-      if (endIndex !== -1) {
-        const content = text.substring(startIndex + 1, endIndex);
-        const fullColor = `${funcName.toLowerCase()}(${content})`;
-        matches.push({
-          color: fullColor,
-          start: match.index,
-          end: endIndex + 1,
-        });
-      }
-      match = funcPattern.exec(text);
-    }
-
-    return matches;
-  }
-
-  // すべての色関数呼び出しを見つける
   const colorFunctions = ['hsl', 'rgb', 'rgba', 'hsla'];
   for (const func of colorFunctions) {
     const matches = extractFunctionContent(text, func);
@@ -104,10 +105,14 @@ export function findAllColors(text: string): { color: string; start: number; end
       // 完全な単語かどうかをチェック
       const beforeChar = index > 0 ? (lowerText[index - 1] ?? ' ') : ' ';
       const afterChar =
-        index + color.length < lowerText.length ? (lowerText[index + color.length] ?? ' ') : ' ';
+        index + color.length < lowerText.length
+          ? (lowerText[index + color.length] ?? ' ')
+          : ' ';
 
       // 前後が英数字でないことを確認（完全一致のみ）
-      const isWordBoundary = !(/[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar));
+      const isWordBoundary = !(
+        /[a-zA-Z0-9]/.test(beforeChar) || /[a-zA-Z0-9]/.test(afterChar)
+      );
 
       if (isWordBoundary) {
         results.push({
@@ -124,11 +129,11 @@ export function findAllColors(text: string): { color: string; start: number; end
 
   // 位置でソートし、重複を除去
   results.sort((a, b) => a.start - b.start);
-  const filteredResults: {
+  const filteredResults: Array<{
     color: string;
     start: number;
     end: number;
-  }[] = [];
+  }> = [];
 
   for (const result of results) {
     const hasOverlap = filteredResults.some(
@@ -153,7 +158,9 @@ if (import.meta.vitest) {
     describe('単一の色の場合', () => {
       it('HSL色を見つける', () => {
         const result = findAllColors('hsl(280, 70%, 50%)');
-        expect(result).toEqual([{ color: 'hsl(280, 70%, 50%)', start: 0, end: 18 }]);
+        expect(result).toEqual([
+          { color: 'hsl(280, 70%, 50%)', start: 0, end: 18 },
+        ]);
       });
 
       it('HEX色を見つける', () => {
@@ -219,7 +226,9 @@ if (import.meta.vitest) {
       });
 
       it('ネストした括弧を含む色を見つける', () => {
-        const result = findAllColors('hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)');
+        const result = findAllColors(
+          'hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',
+        );
         expect(result).toEqual([
           {
             color: 'hsl(calc(sign(var(--x)) * 80 + 200), 70%, 50%)',

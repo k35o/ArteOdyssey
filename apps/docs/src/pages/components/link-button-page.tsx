@@ -7,6 +7,7 @@ import {
   MailIcon,
   Separator,
 } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -48,7 +49,10 @@ export function LinkButtonPage() {
           <T k="components.linkButton.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-link-button--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-link-button--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -60,7 +64,10 @@ export function LinkButtonPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { LinkButton } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { LinkButton } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -70,7 +77,7 @@ export function LinkButtonPage() {
           <Heading type="h2">
             <T k="components.common.usageTitle" />
           </Heading>
-          <ComponentPreview code={`<LinkButton href="#">Get Started</LinkButton>`}>
+          <ComponentPreview code='<LinkButton href="#">Get Started</LinkButton>'>
             <LinkButton href="#">Get Started</LinkButton>
           </ComponentPreview>
         </div>
@@ -162,7 +169,10 @@ export function LinkButtonPage() {
             <LinkButton href="#" startIcon={<MailIcon size="sm" />}>
               Send Email
             </LinkButton>
-            <LinkButton endIcon={<ChevronIcon direction="right" size="sm" />} href="#">
+            <LinkButton
+              endIcon={<ChevronIcon direction="right" size="sm" />}
+              href="#"
+            >
               Next
             </LinkButton>
           </ComponentPreview>

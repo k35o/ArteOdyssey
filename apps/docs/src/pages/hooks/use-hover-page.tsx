@@ -1,4 +1,5 @@
 import { Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -34,7 +35,10 @@ export function UseHoverPage() {
         <Heading type="h2">
           <T k="hooks.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { useHover } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { useHover } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

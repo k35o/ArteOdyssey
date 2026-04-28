@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Button } from '../../buttons/button';
 import { FileField } from './file-field';
 
@@ -8,20 +9,18 @@ const meta: Meta<typeof FileField.Root> = {
   args: {
     id: 'filefield',
   },
-  render: (args) => {
-    return (
-      <FileField.Root {...args}>
-        <FileField.Trigger
-          renderItem={({ disabled, onClick }) => (
-            <Button disabled={disabled} onClick={onClick}>
-              ファイルを選択
-            </Button>
-          )}
-        />
-        <FileField.ItemList />
-      </FileField.Root>
-    );
-  },
+  render: (args) => (
+    <FileField.Root {...args}>
+      <FileField.Trigger
+        renderItem={({ disabled, onClick }) => (
+          <Button disabled={disabled} onClick={onClick}>
+            ファイルを選択
+          </Button>
+        )}
+      />
+      <FileField.ItemList />
+    </FileField.Root>
+  ),
   parameters: {
     a11y: {
       options: {
@@ -90,20 +89,18 @@ export const HasClearButton: Story = {
     isRequired: false,
     multiple: true,
   },
-  render: (args) => {
-    return (
-      <FileField.Root {...args}>
-        <FileField.Trigger
-          renderItem={({ disabled, onClick }) => (
-            <Button disabled={disabled} onClick={onClick}>
-              ファイルを追加
-            </Button>
-          )}
-        />
-        <FileField.ItemList clearable />
-      </FileField.Root>
-    );
-  },
+  render: (args) => (
+    <FileField.Root {...args}>
+      <FileField.Trigger
+        renderItem={({ disabled, onClick }) => (
+          <Button disabled={disabled} onClick={onClick}>
+            ファイルを追加
+          </Button>
+        )}
+      />
+      <FileField.ItemList clearable />
+    </FileField.Root>
+  ),
 };
 
 export const ShowWebkitRelativePath: Story = {
@@ -113,20 +110,18 @@ export const ShowWebkitRelativePath: Story = {
     isRequired: false,
     webkitDirectory: true,
   },
-  render: (args) => {
-    return (
-      <FileField.Root {...args}>
-        <FileField.Trigger
-          renderItem={({ disabled, onClick }) => (
-            <Button disabled={disabled} onClick={onClick} variant="outlined">
-              ファイルを選択
-            </Button>
-          )}
-        />
-        <FileField.ItemList showWebkitRelativePath />
-      </FileField.Root>
-    );
-  },
+  render: (args) => (
+    <FileField.Root {...args}>
+      <FileField.Trigger
+        renderItem={({ disabled, onClick }) => (
+          <Button disabled={disabled} onClick={onClick} variant="outlined">
+            ファイルを選択
+          </Button>
+        )}
+      />
+      <FileField.ItemList showWebkitRelativePath />
+    </FileField.Root>
+  ),
 };
 
 export const OnlyTrigger: Story = {
@@ -135,17 +130,15 @@ export const OnlyTrigger: Story = {
     isInvalid: false,
     isRequired: false,
   },
-  render: (args) => {
-    return (
-      <FileField.Root {...args}>
-        <FileField.Trigger
-          renderItem={({ disabled, onClick }) => (
-            <Button disabled={disabled} onClick={onClick} variant="outlined">
-              ファイルを選択
-            </Button>
-          )}
-        />
-      </FileField.Root>
-    );
-  },
+  render: (args) => (
+    <FileField.Root {...args}>
+      <FileField.Trigger
+        renderItem={({ disabled, onClick }) => (
+          <Button disabled={disabled} onClick={onClick} variant="outlined">
+            ファイルを選択
+          </Button>
+        )}
+      />
+    </FileField.Root>
+  ),
 };

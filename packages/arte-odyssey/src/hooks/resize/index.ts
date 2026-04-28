@@ -14,10 +14,10 @@ export const useResize = <T extends Element = HTMLElement>(
   const { enabled = true } = options;
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) return undefined;
 
     const element = ref.current;
-    if (!element) return;
+    if (!element) return undefined;
 
     const observer = new ResizeObserver((entries) => {
       for (const entry of entries) {

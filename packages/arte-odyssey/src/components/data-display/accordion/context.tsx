@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, type FC, type PropsWithChildren, use } from 'react';
+
 import { useDisclosure } from '../../../hooks/disclosure';
 
 const OpenContext = createContext(false);
@@ -21,7 +22,7 @@ export const useToggleOpen = (): ToggleOpen => {
 
 export const useItemId = (): string => {
   const id = use(ItemIdContext);
-  if (!id) {
+  if (id === undefined || id === '') {
     throw new Error('useItemId must be used within AccordionProvider');
   }
   return id;

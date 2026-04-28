@@ -15,8 +15,12 @@ type UseHoverReturn = {
 export const useHover = (): UseHoverReturn => {
   const [isHovered, setIsHovered] = useState(false);
 
-  const onPointerEnter = useCallback(() => setIsHovered(true), []);
-  const onPointerLeave = useCallback(() => setIsHovered(false), []);
+  const onPointerEnter = useCallback(() => {
+    setIsHovered(true);
+  }, []);
+  const onPointerLeave = useCallback(() => {
+    setIsHovered(false);
+  }, []);
 
   return {
     isHovered,

@@ -1,6 +1,7 @@
 'use client';
 
 import { DarkModeIcon, IconButton, LightModeIcon } from '@k8o/arte-odyssey';
+
 import { useTranslation } from '../i18n';
 import { useTheme } from '../theme/context';
 
@@ -10,7 +11,11 @@ export function ThemeSwitcher() {
 
   return (
     <IconButton
-      label={theme === 'light' ? t('common.switchToDarkMode') : t('common.switchToLightMode')}
+      label={
+        theme === 'light'
+          ? t('common.switchToDarkMode')
+          : t('common.switchToLightMode')
+      }
       onClick={toggleTheme}
     >
       {theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}

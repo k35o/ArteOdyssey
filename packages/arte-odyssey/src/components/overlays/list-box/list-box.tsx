@@ -14,12 +14,13 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from './../../../helpers/cn';
+
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { CheckIcon, ChevronIcon } from '../../icons';
 import { Popover } from '../popover';
 import { useFloatingUIContext } from '../popover/hooks';
+import { cn } from './../../../helpers/cn';
 import {
   MenuContextProvider,
   type Option,
@@ -35,15 +36,13 @@ const Root: FC<
     value: Option['key'] | undefined;
     onSelect: (key: Option['key']) => void;
   }>
-> = ({ children, placement = 'bottom', options, value, onSelect }) => {
-  return (
-    <Popover.Root flipDisabled placement={placement} type="listbox">
-      <MenuProvider onSelect={onSelect} options={options} value={value}>
-        {children}
-      </MenuProvider>
-    </Popover.Root>
-  );
-};
+> = ({ children, placement = 'bottom', options, value, onSelect }) => (
+  <Popover.Root flipDisabled placement={placement} type="listbox">
+    <MenuProvider onSelect={onSelect} options={options} value={value}>
+      {children}
+    </MenuProvider>
+  </Popover.Root>
+);
 
 const MenuProvider: FC<
   PropsWithChildren<{
@@ -54,7 +53,7 @@ const MenuProvider: FC<
 > = ({ children, options, onSelect, value }) => {
   const selectedIndex = options.findIndex((option) => option.key === value);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const itemElementsRef = useRef<(HTMLElement | null)[]>([]);
+  const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
 
   const context = useFloatingUIContext();
 
@@ -65,14 +64,15 @@ const MenuProvider: FC<
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [listNavigation],
+  );
 
   const handleSelect = (index: number) => {
     const key = options[index]?.key;
-    if (key) {
+    if (key !== undefined && key !== '') {
       onSelect(key);
     }
-    return;
   };
 
   return (
@@ -105,7 +105,7 @@ const Content: FC<{
           <div
             {...props}
             {...contentProps}
-            className="flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg bg-bg-raised py-2 shadow-md"
+            className="bg-bg-raised flex max-h-48 min-w-40 flex-col overflow-y-auto rounded-lg py-2 shadow-md"
           >
             {helpContent}
             {options.map(({ key, label }, idx) => (
@@ -131,6 +131,7 @@ const Item: FC<{
         'hover:bg-bg-subtle',
         'focus-visible:border-transparent focus-visible:bg-bg-subtle focus-visible:outline-hidden',
       )}
+      type="button"
       {...props}
     >
       {label}

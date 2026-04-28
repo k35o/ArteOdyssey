@@ -14,10 +14,8 @@ export function CastPreview() {
     <div className="flex flex-col gap-2">
       {examples.map(({ value, step }) => (
         <div className="text-sm" key={`${value}-${step}`}>
-          <code>
-            cast('{value}', {step})
-          </code>{' '}
-          → <code className="font-bold">{cast(value, step)}</code>
+          <code>{`cast('${value}', ${step})`}</code> →{' '}
+          <code className="font-bold">{cast(value, step)}</code>
         </div>
       ))}
     </div>

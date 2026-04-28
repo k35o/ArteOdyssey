@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Button } from '../../buttons/button';
 import { LinkButton } from '../../buttons/link-button';
 import { Card } from './card';
@@ -16,8 +17,8 @@ export const Primary: Story = {
   render: () => (
     <Card>
       <div className="p-4">
-        <h3 className="font-bold text-lg">記事タイトル</h3>
-        <p className="mt-2 text-fg-mute">
+        <h3 className="text-lg font-bold">記事タイトル</h3>
+        <p className="text-fg-mute mt-2">
           これはカードコンポーネントの説明文です。コンテンツを囲んで視覚的にグループ化します。
         </p>
       </div>
@@ -31,13 +32,17 @@ export const Interactive: Story = {
       <InteractiveCard>
         <a className="block p-4" href="https://example.com">
           <h3 className="font-bold">カード全体がリンク</h3>
-          <p className="mt-2 text-fg-mute text-sm">カード全体をクリックして遷移します。</p>
+          <p className="text-fg-mute mt-2 text-sm">
+            カード全体をクリックして遷移します。
+          </p>
         </a>
       </InteractiveCard>
       <InteractiveCard>
         <div className="flex flex-col gap-3 p-4">
           <h3 className="font-bold">カード内にボタンとリンク</h3>
-          <p className="text-fg-mute text-sm">カード内にインタラクティブ要素を配置できます。</p>
+          <p className="text-fg-mute text-sm">
+            カード内にインタラクティブ要素を配置できます。
+          </p>
           <nav className="flex gap-2">
             <LinkButton href="https://example.com" size="sm">
               詳細を見る
@@ -56,8 +61,10 @@ export const Bordered: Story = {
   render: () => (
     <Card appearance="bordered">
       <div className="p-4">
-        <h3 className="font-bold text-lg">ボーダースタイル</h3>
-        <p className="mt-2 text-fg-mute">シャドウの代わりにボーダーで区切るスタイルです。</p>
+        <h3 className="text-lg font-bold">ボーダースタイル</h3>
+        <p className="text-fg-mute mt-2">
+          シャドウの代わりにボーダーで区切るスタイルです。
+        </p>
       </div>
     </Card>
   ),

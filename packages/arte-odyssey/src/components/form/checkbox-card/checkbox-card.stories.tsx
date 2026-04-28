@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { CheckboxCard } from './checkbox-card';
 
 const OPTIONS = [
@@ -28,7 +29,7 @@ const meta: Meta<typeof CheckboxCard> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[32rem] max-w-full">
+      <div className="w-lg max-w-full">
         <Story />
       </div>
     ),
@@ -43,49 +44,50 @@ const meta: Meta<typeof CheckboxCard> = {
 
 export default meta;
 type Story = StoryObj<typeof CheckboxCard>;
+type StoryArgs = ComponentProps<typeof CheckboxCard>;
+
+const DefaultRender = (props: StoryArgs) => {
+  const [value, setValue] = useState<string[]>(['comments']);
+
+  return (
+    <div>
+      <p className="text-fg-base mb-3 font-medium" id="checkbox-card-label">
+        Enable collaboration features
+      </p>
+      <CheckboxCard
+        isDisabled={props.isDisabled}
+        isInvalid={props.isInvalid}
+        labelId={props.labelId}
+        onChange={setValue}
+        options={props.options}
+        value={value}
+      />
+    </div>
+  );
+};
 
 export const Default: Story = {
-  render: (props) => {
-    const [value, setValue] = useState<string[]>(['comments']);
-
-    return (
-      <div>
-        <p className="mb-3 font-medium text-fg-base" id="checkbox-card-label">
-          Enable collaboration features
-        </p>
-        <CheckboxCard
-          isDisabled={props.isDisabled}
-          isInvalid={props.isInvalid}
-          labelId={props.labelId}
-          onChange={setValue}
-          options={props.options}
-          value={value}
-        />
-      </div>
-    );
-  },
+  render: (props) => <DefaultRender {...props} />,
 };
 
 export const DefaultValue: Story = {
   args: {
     defaultValue: ['history', 'share'],
   },
-  render: (props) => {
-    return (
-      <div>
-        <p className="mb-3 font-medium text-fg-base" id="checkbox-card-label">
-          Enable collaboration features
-        </p>
-        <CheckboxCard
-          defaultValue={props.defaultValue}
-          isDisabled={props.isDisabled}
-          isInvalid={props.isInvalid}
-          labelId={props.labelId}
-          options={props.options}
-        />
-      </div>
-    );
-  },
+  render: (props) => (
+    <div>
+      <p className="text-fg-base mb-3 font-medium" id="checkbox-card-label">
+        Enable collaboration features
+      </p>
+      <CheckboxCard
+        defaultValue={props.defaultValue}
+        isDisabled={props.isDisabled}
+        isInvalid={props.isInvalid}
+        labelId={props.labelId}
+        options={props.options}
+      />
+    </div>
+  ),
 };
 
 export const Disabled: Story = {

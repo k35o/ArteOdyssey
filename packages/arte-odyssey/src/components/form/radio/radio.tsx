@@ -3,8 +3,9 @@
 import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { cn } from './../../../helpers/cn';
+
 import type { Option } from '../../../types/variables';
+import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
   labelId: string;
@@ -69,9 +70,10 @@ export const Radio: FC<Props> = ({
           key={option.value}
         >
           <input
-            checked={isControlled ? value === option.value : undefined}
+            {...(isControlled
+              ? { checked: value === option.value }
+              : { defaultChecked: defaultValue === option.value })}
             className="peer sr-only"
-            defaultChecked={isControlled ? undefined : defaultValue === option.value}
             disabled={isDisabledResolved}
             name={name ?? labelId}
             onChange={() => {
@@ -81,7 +83,7 @@ export const Radio: FC<Props> = ({
             value={option.value}
           />
           <span
-            aria-hidden={true}
+            aria-hidden
             className={cn(
               'inline-flex size-5 items-center justify-center rounded-full border-2 transition-colors',
               'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',

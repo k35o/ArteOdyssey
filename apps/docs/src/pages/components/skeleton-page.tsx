@@ -1,4 +1,5 @@
 import { Anchor, Heading, Separator, Skeleton } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -21,7 +22,10 @@ export function SkeletonPage() {
           <T k="components.skeleton.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-skeleton--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-skeleton--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -32,7 +36,10 @@ export function SkeletonPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Skeleton } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Skeleton } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

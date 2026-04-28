@@ -2,12 +2,13 @@
 
 import { type FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { cn } from './../../../helpers/cn';
+
 import { useControllableState } from '../../../hooks/controllable-state';
 import { useDeferredDebounce } from '../../../hooks/deferred-debounce';
 import type { Option } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
+import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
   id: string;
@@ -47,7 +48,7 @@ export const Autocomplete: FC<Props> = ({
 }) => {
   const [currentValue, handleChange] = useControllableState({
     value,
-    defaultValue: defaultValue || [],
+    defaultValue: defaultValue ?? [],
     onChange,
   });
 
@@ -57,7 +58,9 @@ export const Autocomplete: FC<Props> = ({
   const [selectIndex, setSelectIndex] = useState<number>();
 
   const [deferredText, isPending] = useDeferredDebounce(text);
-  const filteredOptions = options.filter((option) => option.label.includes(deferredText));
+  const filteredOptions = options.filter((option) =>
+    option.label.includes(deferredText),
+  );
   const { pending: formPending } = useFormStatus();
   const isDisabledResolved = isDisabled || formPending;
 
@@ -69,7 +72,8 @@ export const Autocomplete: FC<Props> = ({
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (ref.current?.contains(e.target as Node)) return;
+      if (e.target instanceof Node && ref.current?.contains(e.target) === true)
+        return;
       reset();
     };
     document.addEventListener('click', handleClick);
@@ -84,23 +88,30 @@ export const Autocomplete: FC<Props> = ({
         'relative w-full rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
-        'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
+        'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}
       ref={ref}
     >
-      {name
+      {name !== undefined && name !== ''
         ? currentValue.map((selectedValue) => (
-            <input key={selectedValue} name={name} type="hidden" value={selectedValue} />
+            <input
+              key={selectedValue}
+              name={name}
+              type="hidden"
+              value={selectedValue}
+            />
           ))
         : null}
       <div className="flex min-h-12 items-center justify-between gap-2 px-3 py-2">
         <div className="flex w-full flex-wrap gap-1">
-          {currentValue.map((text) => {
-            const label = options.find((option) => option.value === text)?.label;
+          {currentValue.map((selectedValue) => {
+            const label = options.find(
+              (option) => option.value === selectedValue,
+            )?.label;
             return (
               <div
-                className="inline-flex items-center gap-2 rounded-full bg-bg-mute px-3 py-1 font-medium text-sm"
-                key={text}
+                className="bg-bg-mute inline-flex items-center gap-2 rounded-full px-3 py-1 text-sm font-medium"
+                key={selectedValue}
                 tabIndex={-1}
               >
                 {label}
@@ -109,7 +120,9 @@ export const Autocomplete: FC<Props> = ({
                   onClick={(e) => {
                     e.stopPropagation();
                     reset();
-                    handleChange(currentValue.filter((v) => v !== text));
+                    handleChange(
+                      currentValue.filter((v) => v !== selectedValue),
+                    );
                   }}
                   size="sm"
                 >
@@ -133,7 +146,7 @@ export const Autocomplete: FC<Props> = ({
             disabled={isDisabledResolved}
             id={id}
             onBlur={(e) => {
-              if (e.relatedTarget?.id.startsWith(`${id}_option_`)) {
+              if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {
                 return;
               }
               setOpen(false);
@@ -177,7 +190,11 @@ export const Autocomplete: FC<Props> = ({
                 });
                 return;
               }
-              if (e.key === 'Enter' && selectIndex !== undefined && selectIndex >= 0) {
+              if (
+                e.key === 'Enter' &&
+                selectIndex !== undefined &&
+                selectIndex >= 0
+              ) {
                 if (isPending) {
                   e.preventDefault();
                   return;
@@ -187,13 +204,14 @@ export const Autocomplete: FC<Props> = ({
                   return;
                 }
                 if (currentValue.includes(selected.value)) {
-                  handleChange(currentValue.filter((v) => v !== selected.value));
+                  handleChange(
+                    currentValue.filter((v) => v !== selected.value),
+                  );
                   reset();
                   return;
                 }
                 handleChange([...currentValue, selected.value]);
                 reset();
-                return;
               }
             }}
             placeholder="入力して絞り込めます"
@@ -218,15 +236,20 @@ export const Autocomplete: FC<Props> = ({
       <div className="relative w-full">
         {open && (
           <div
-            className="absolute top-1 z-10 w-full rounded-xl bg-bg-raised shadow-md"
+            className="bg-bg-raised absolute top-1 z-10 w-full rounded-xl shadow-md"
             role="presentation"
           >
             <ul
               aria-busy={isPending || undefined}
-              className={cn('max-h-96 py-2 transition-opacity', isPending && 'opacity-60')}
+              className={cn(
+                'max-h-96 py-2 transition-opacity',
+                isPending && 'opacity-60',
+              )}
               id={`${id}_listbox`}
             >
-              {filteredOptions.length === 0 && <li className="px-3 py-2 text-fg-mute">該当なし</li>}
+              {filteredOptions.length === 0 && (
+                <li className="text-fg-mute px-3 py-2">該当なし</li>
+              )}
               {filteredOptions.map((option, idx) => {
                 const selected = currentValue.includes(option.value);
                 return (
@@ -235,7 +258,9 @@ export const Autocomplete: FC<Props> = ({
                       'cursor-pointer px-3 py-2 transition-colors',
                       selected && 'bg-primary-bg-subtle text-primary-fg',
                       selectIndex === idx && !selected && 'bg-bg-subtle',
-                      selectIndex === idx && selected && 'bg-primary-bg-mute text-primary-fg',
+                      selectIndex === idx &&
+                        selected &&
+                        'bg-primary-bg-mute text-primary-fg',
                     )}
                     id={`${id}_option_${option.value}`}
                     key={option.value}
@@ -243,7 +268,9 @@ export const Autocomplete: FC<Props> = ({
                       e.stopPropagation();
                       reset();
                       if (selected) {
-                        handleChange(currentValue.filter((v) => v !== option.value));
+                        handleChange(
+                          currentValue.filter((v) => v !== option.value),
+                        );
                         return;
                       }
                       handleChange([...currentValue, option.value]);

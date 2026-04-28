@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useActionState } from 'react';
+
 import { Button } from '../../buttons/button';
 import { FormControl } from '../form-control';
 import { TextField } from '../text-field';
@@ -13,7 +14,10 @@ const meta: Meta<typeof Form> = {
 export default meta;
 type Story = StoryObj<typeof Form>;
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 export const WithAction: Story = {
   render: () => (
@@ -21,10 +25,13 @@ export const WithAction: Story = {
       action={async (formData) => {
         const name = formData.get('name');
         await sleep(1500);
-        console.log('submitted', { name });
+        console.warn('submitted', { name });
       }}
     >
-      <FormControl label="お名前" renderInput={(props) => <TextField {...props} name="name" />} />
+      <FormControl
+        label="お名前"
+        renderInput={(props) => <TextField {...props} name="name" />}
+      />
       <Button type="submit">送信</Button>
     </Form>
   ),
@@ -33,13 +40,16 @@ export const WithAction: Story = {
 export const WithActionState: Story = {
   render: () => {
     function Inner() {
-      const [message, formAction] = useActionState(async (_prev: string, formData: FormData) => {
-        const name = formData.get('name');
-        await sleep(1000);
-        return typeof name === 'string' && name.length > 0
-          ? `こんにちは、${name}さん`
-          : '名前を入力してください';
-      }, '');
+      const [message, formAction] = useActionState(
+        async (_prev: string, formData: FormData) => {
+          const name = formData.get('name');
+          await sleep(1000);
+          return typeof name === 'string' && name.length > 0
+            ? `こんにちは、${name}さん`
+            : '名前を入力してください';
+        },
+        '',
+      );
       return (
         <Form action={formAction}>
           <FormControl

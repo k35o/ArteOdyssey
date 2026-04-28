@@ -10,14 +10,18 @@ export function UseClipboardPreview() {
   const handleCopy = async () => {
     await writeClipboard('Hello from ArteOdyssey!');
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
   };
 
   return (
     <div className="flex items-center gap-4">
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
-        onClick={handleCopy}
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
+        onClick={() => {
+          void handleCopy();
+        }}
         type="button"
       >
         {copied ? 'Copied!' : 'Copy Text'}

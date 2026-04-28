@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, use, useCallback, useMemo } from 'react';
+
 import { messages } from './messages';
 import type { Locale, MessageKey } from './types';
 
@@ -13,7 +14,9 @@ export function LocaleProvider({
   locale: Locale;
   children: React.ReactNode;
 }) {
-  return <LocaleContext.Provider value={locale}>{children}</LocaleContext.Provider>;
+  return (
+    <LocaleContext.Provider value={locale}>{children}</LocaleContext.Provider>
+  );
 }
 
 export function useLocale(): Locale {
@@ -28,9 +31,7 @@ export function useTranslation() {
   const locale = useLocale();
 
   const t = useCallback(
-    (key: MessageKey): string => {
-      return messages[locale][key];
-    },
+    (key: MessageKey): string => messages[locale][key],
     [locale],
   );
 

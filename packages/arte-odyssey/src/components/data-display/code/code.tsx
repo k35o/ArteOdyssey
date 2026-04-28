@@ -1,4 +1,5 @@
 import { type FC, Fragment } from 'react';
+
 import { findAllColors } from './../../../helpers/color/find-all-colors';
 
 export const Code: FC<{
@@ -7,14 +8,18 @@ export const Code: FC<{
   const colors = findAllColors(children);
 
   if (colors.length === 0) {
-    return <code className="m-0.5 rounded-md bg-bg-mute px-1.5 sm:py-0.5">{children}</code>;
+    return (
+      <code className="bg-bg-mute m-0.5 rounded-md px-1.5 sm:py-0.5">
+        {children}
+      </code>
+    );
   }
 
   // 各色の前にカラースウォッチを挿入してコンテンツを構築
   const parts: React.ReactNode[] = [];
   let lastIndex = 0;
 
-  colors.forEach((colorInfo, index) => {
+  for (const [index, colorInfo] of colors.entries()) {
     // 色の前のテキストを追加
     if (colorInfo.start > lastIndex) {
       parts.push(children.slice(lastIndex, colorInfo.start));
@@ -25,7 +30,7 @@ export const Code: FC<{
       <Fragment key={`color-${String(index)}`}>
         <span
           aria-label={`Color: ${colorInfo.color}`}
-          className="inline-block h-3 w-3 shrink-0 rounded-sm border border-border-base"
+          className="border-border-base inline-block size-3 shrink-0 rounded-sm border"
           role="img"
           style={{ backgroundColor: colorInfo.color }}
         />
@@ -34,7 +39,7 @@ export const Code: FC<{
     );
 
     lastIndex = colorInfo.end;
-  });
+  }
 
   // 残りのテキストを追加
   if (lastIndex < children.length) {
@@ -42,7 +47,7 @@ export const Code: FC<{
   }
 
   return (
-    <code className="m-0.5 inline-flex items-center gap-1 rounded-md bg-bg-mute px-1.5 sm:py-0.5">
+    <code className="bg-bg-mute m-0.5 inline-flex items-center gap-1 rounded-md px-1.5 sm:py-0.5">
       {parts}
     </code>
   );

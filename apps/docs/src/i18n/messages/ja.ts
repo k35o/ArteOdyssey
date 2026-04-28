@@ -38,7 +38,8 @@ export const ja = {
   'getStarted.installationDescription':
     'お好みのパッケージマネージャーでインストールしてください。',
   'getStarted.setupTitle': 'セットアップ',
-  'getStarted.setupDescription': 'インストール後、以下の2つの設定を行ってください。',
+  'getStarted.setupDescription':
+    'インストール後、以下の2つの設定を行ってください。',
   'getStarted.setupCssDescription':
     'CSSファイルをアプリケーションのエントリーポイントでインポートしてください。',
   'getStarted.setupProviderDescription':
@@ -47,11 +48,14 @@ export const ja = {
   'getStarted.usageDescription':
     'セットアップが完了したら、コンポーネントをインポートして使用できます。',
   'getStarted.requirementsTitle': '動作要件',
-  'getStarted.requirementsDescription': 'ArteOdysseyを使用するには、以下のピア依存関係が必要です。',
+  'getStarted.requirementsDescription':
+    'ArteOdysseyを使用するには、以下のピア依存関係が必要です。',
   'getStarted.nextStepsTitle': '次のステップ',
-  'getStarted.nextStepsComponents': 'コンポーネント一覧を確認して、使用できるUIパーツを探す',
+  'getStarted.nextStepsComponents':
+    'コンポーネント一覧を確認して、使用できるUIパーツを探す',
   'getStarted.nextStepsTheming': 'テーマのカスタマイズ方法を学ぶ',
-  'getStarted.nextStepsStorybook': 'Storybookで各コンポーネントの詳細なドキュメントを確認する',
+  'getStarted.nextStepsStorybook':
+    'Storybookで各コンポーネントの詳細なドキュメントを確認する',
   'getStarted.packageManagerLabel': 'パッケージマネージャー',
   'components.description': 'ArteOdysseyが提供するUIコンポーネントの一覧です。',
   'components.categoryButtons': 'Buttons',
@@ -66,21 +70,24 @@ export const ja = {
   'components.common.importTitle': 'インポート',
   'components.common.usageTitle': '使い方',
   'components.common.propsTitle': 'Props',
-  'components.button.description': 'ユーザーのアクションを受け付けるボタンコンポーネントです。',
+  'components.button.description':
+    'ユーザーのアクションを受け付けるボタンコンポーネントです。',
   'components.button.variantsTitle': 'バリアント',
   'components.button.colorsTitle': 'カラー',
   'components.button.sizesTitle': 'サイズ',
   'components.button.iconsTitle': 'アイコン付き',
   'components.button.fullWidthTitle': 'Full Width',
   'components.button.disabledTitle': '無効',
-  'components.iconButton.description': 'アイコンのみのボタンコンポーネントです。',
+  'components.iconButton.description':
+    'アイコンのみのボタンコンポーネントです。',
   'components.iconButton.sizesTitle': 'サイズ',
   'components.iconButton.backgroundsTitle': '背景',
   'components.iconButton.disabledTitle': '無効',
   'components.iconLink.description': 'アイコンのみのリンクコンポーネントです。',
   'components.iconLink.sizesTitle': 'サイズ',
   'components.iconLink.backgroundsTitle': '背景',
-  'components.linkButton.description': 'リンクとして機能するボタンコンポーネントです。',
+  'components.linkButton.description':
+    'リンクとして機能するボタンコンポーネントです。',
   'components.linkButton.variantsTitle': 'バリアント',
   'components.linkButton.colorsTitle': 'カラー',
   'components.linkButton.sizesTitle': 'サイズ',
@@ -115,11 +122,13 @@ export const ja = {
   'components.checkboxCard.description':
     '選択肢全体をカードとして提示する複数選択コンポーネントです。',
   'components.checkboxCard.defaultValueTitle': 'デフォルト値',
-  'components.switch.description': 'オン・オフの状態を切り替えるスイッチコンポーネントです。',
+  'components.switch.description':
+    'オン・オフの状態を切り替えるスイッチコンポーネントです。',
   'components.switch.defaultCheckedTitle': 'デフォルトチェック',
   'components.switch.disabledTitle': '無効',
   'components.switch.controlledTitle': '制御モード',
-  'components.passwordInput.description': '表示切り替えボタン付きのパスワード入力フィールドです。',
+  'components.passwordInput.description':
+    '表示切り替えボタン付きのパスワード入力フィールドです。',
   'components.passwordInput.controlledTitle': '制御モード',
   'components.passwordInput.disabledTitle': '無効',
   'components.radio.description': 'ラジオボタングループです。',
@@ -130,7 +139,8 @@ export const ja = {
   'components.radioCard.description':
     '選択肢全体をカードとして提示する単一選択コンポーネントです。',
   'components.radioCard.defaultValueTitle': 'デフォルト値',
-  'components.autocomplete.description': '入力補完付きの選択コンポーネントです。',
+  'components.autocomplete.description':
+    '入力補完付きの選択コンポーネントです。',
   'components.autocomplete.disabledTitle': '無効',
   'components.autocomplete.invalidTitle': 'エラー',
   'components.autocomplete.requiredTitle': '必須',
@@ -155,10 +165,12 @@ export const ja = {
   'components.form.actionStateTitle': 'useActionState と組み合わせる',
   'components.accordion.description': '折りたたみ可能なコンテンツパネルです。',
   'components.accordion.defaultOpenTitle': 'デフォルトで開く',
-  'components.avatar.description': 'フォールバック表示付きのプロフィール画像コンポーネントです。',
+  'components.avatar.description':
+    'フォールバック表示付きのプロフィール画像コンポーネントです。',
   'components.avatar.withImageTitle': '画像付き',
   'components.avatar.sizesTitle': 'サイズ',
-  'components.badge.description': 'ステータスやカテゴリを表すコンパクトなラベルです。',
+  'components.badge.description':
+    'ステータスやカテゴリを表すコンパクトなラベルです。',
   'components.badge.tonesTitle': 'トーン',
   'components.badge.variantsTitle': 'バリアント',
   'components.badge.interactiveTitle': 'インタラクティブ',
@@ -169,7 +181,8 @@ export const ja = {
   'components.table.description':
     '意味論を保ったまま横スクロールにも対応するテーブルコンポーネントです。',
   'components.table.emptyStateTitle': '空状態',
-  'components.listBox.description': 'ドロップダウン形式のリスト選択コンポーネントです。',
+  'components.listBox.description':
+    'ドロップダウン形式のリスト選択コンポーネントです。',
   'components.baselineStatus.description':
     'Web機能のブラウザサポート状況を表示するコンポーネントです。',
   'components.baselineStatus.differentFeaturesTitle': '様々な機能',
@@ -179,21 +192,27 @@ export const ja = {
   'components.heading.description': '見出しコンポーネントです。',
   'components.heading.typesTitle': 'タイプ',
   'components.heading.lineClampTitle': '行数制限',
-  'components.alert.description': 'ステータスに応じたメッセージを表示するアラートです。',
+  'components.alert.description':
+    'ステータスに応じたメッセージを表示するアラートです。',
   'components.alert.statusesTitle': 'ステータス',
-  'components.skeleton.description': '読み込み前のコンテンツを表すプレースホルダーです。',
+  'components.skeleton.description':
+    '読み込み前のコンテンツを表すプレースホルダーです。',
   'components.skeleton.shapesTitle': '形状',
   'components.skeleton.sizesTitle': 'サイズ',
   'components.skeleton.animationTitle': 'アニメーション',
   'components.spinner.description': 'ローディングスピナーです。',
   'components.spinner.sizesTitle': 'サイズ',
-  'components.toast.description': '一時的な通知メッセージを表示するトーストです。',
-  'components.tooltip.description': 'ホバー時に補足情報を表示するツールチップです。',
+  'components.toast.description':
+    '一時的な通知メッセージを表示するトーストです。',
+  'components.tooltip.description':
+    'ホバー時に補足情報を表示するツールチップです。',
   'components.dialog.description': 'ダイアログコンポーネントです。',
   'components.drawer.description': '画面端からスライドインするドロワーです。',
   'components.modal.description': 'モーダルダイアログコンポーネントです。',
-  'components.popover.description': '要素に紐づくフローティングコンテンツです。',
-  'components.dropdownMenu.description': 'ドロップダウンメニューコンポーネントです。',
+  'components.popover.description':
+    '要素に紐づくフローティングコンテンツです。',
+  'components.dropdownMenu.description':
+    'ドロップダウンメニューコンポーネントです。',
   'components.dropdownMenu.iconTriggerTitle': 'アイコントリガー',
   'components.separator.description': '区切り線コンポーネントです。',
   'components.separator.orientationsTitle': '方向',
@@ -205,10 +224,13 @@ export const ja = {
   'components.pagination.description':
     '前後のページ移動と現在位置を示すシンプルなページネーションです。',
   'components.pagination.disabledTitle': '無効',
-  'components.scrollLinked.description': 'スクロール位置に連動するプログレスバーです。',
-  'components.icons.description': 'ArteOdysseyが提供するアイコンコンポーネントの一覧です。',
+  'components.scrollLinked.description':
+    'スクロール位置に連動するプログレスバーです。',
+  'components.icons.description':
+    'ArteOdysseyが提供するアイコンコンポーネントの一覧です。',
   'components.icons.sizesTitle': 'サイズ',
-  'components.errorBoundary.description': 'エラーバウンダリコンポーネントです。',
+  'components.errorBoundary.description':
+    'エラーバウンダリコンポーネントです。',
   'components.common.basicUsageTitle': '基本的な使い方',
   'components.modal.typesTitle': 'タイプ',
   'components.toast.useToastTitle': 'useToastフック',
@@ -240,23 +262,34 @@ export const ja = {
   'hooks.common.basicUsageTitle': '基本的な使い方',
   'hooks.common.parametersTitle': 'パラメーター',
   'hooks.common.returnValueTitle': '戻り値',
-  'hooks.useClickAway.description': '指定した要素の外側でのクリックを検出するフックです。',
-  'hooks.useClient.description': 'クライアント側で実行されているかどうかを返すフックです。',
-  'hooks.useClipboard.description': 'クリップボードの読み書き操作を提供するフックです。',
+  'hooks.useClickAway.description':
+    '指定した要素の外側でのクリックを検出するフックです。',
+  'hooks.useClient.description':
+    'クライアント側で実行されているかどうかを返すフックです。',
+  'hooks.useClipboard.description':
+    'クリップボードの読み書き操作を提供するフックです。',
   'hooks.useHash.description': 'URLハッシュを追跡し変更に反応するフックです。',
-  'hooks.useInterval.description': '一定間隔でコールバックを実行するフックです。',
-  'hooks.useLocalStorage.description': 'localStorageに状態を永続化し、タブ間で同期するフックです。',
+  'hooks.useInterval.description':
+    '一定間隔でコールバックを実行するフックです。',
+  'hooks.useLocalStorage.description':
+    'localStorageに状態を永続化し、タブ間で同期するフックです。',
   'hooks.useLocalStorage.removeTitle': '値の削除',
-  'hooks.useSessionStorage.description': 'sessionStorageに状態を永続化するフックです。',
+  'hooks.useSessionStorage.description':
+    'sessionStorageに状態を永続化するフックです。',
   'hooks.useSessionStorage.removeTitle': '値の削除',
-  'hooks.useResize.description': 'ResizeObserverで要素のサイズ変更を監視するフックです。',
-  'hooks.useScrollDirection.description': '現在のスクロール方向を検出するフックです。',
+  'hooks.useResize.description':
+    'ResizeObserverで要素のサイズ変更を監視するフックです。',
+  'hooks.useScrollDirection.description':
+    '現在のスクロール方向を検出するフックです。',
   'hooks.useScrollDirection.targetTitle': '要素を指定する',
   'hooks.useScrollDirection.bodyNotScrollableNote':
     'このページのbodyはスクロールしないため、ここでは動作を試せません。実際のスクロール可能なページでご確認ください。',
-  'hooks.useStep.description': 'キーボードサポート付きのステップベースナビゲーションフックです。',
-  'hooks.useTimeout.description': '指定した遅延後にコールバックを実行するフックです。',
-  'hooks.useWindowResize.description': 'ウィンドウリサイズイベントを監視するフックです。',
+  'hooks.useStep.description':
+    'キーボードサポート付きのステップベースナビゲーションフックです。',
+  'hooks.useTimeout.description':
+    '指定した遅延後にコールバックを実行するフックです。',
+  'hooks.useWindowResize.description':
+    'ウィンドウリサイズイベントを監視するフックです。',
   'hooks.useBreakpoint.description':
     'ビューポートが指定したブレイクポイントに一致するかを判定するフックです。',
   'hooks.useDebouncedTransition.description':
@@ -267,7 +300,8 @@ export const ja = {
     'open・close・toggleアクションで開閉状態を管理するフックです。',
   'hooks.useIntersectionObserver.description':
     'IntersectionObserverで要素の可視状態を監視するフックです。',
-  'hooks.useInView.description': '要素がビューポート内に表示されているかどうかを返すフックです。',
+  'hooks.useInView.description':
+    '要素がビューポート内に表示されているかどうかを返すフックです。',
   'hooks.useWindowSize.description': '現在のウィンドウサイズを返すフックです。',
   'hooks.useScrollLock.description':
     'bodyまたは指定した要素のスクロールをロック・アンロックするフックです。',
@@ -287,15 +321,21 @@ export const ja = {
   'helpers.common.basicUsageTitle': '基本的な使い方',
   'helpers.common.parametersTitle': 'パラメーター',
   'helpers.common.returnValueTitle': '戻り値',
-  'helpers.cn.description': 'clsxとtailwind-mergeを組み合わせたクラス名ユーティリティです。',
+  'helpers.cn.description':
+    'clsxとtailwind-mergeを組み合わせたクラス名ユーティリティです。',
   'helpers.findAllColors.description':
     'テキスト内のすべてのCSS色の値とその位置を検出する関数です。',
-  'helpers.between.description': '数値を最小値と最大値の間にクランプする関数です。',
-  'helpers.cast.description': '文字列を数値に変換し、精度を指定できる関数です。',
-  'helpers.commalize.description': '数値を3桁ごとのカンマ区切りにフォーマットする関数です。',
-  'helpers.toPrecision.description': '数値を指定した小数点以下の桁数に丸める関数です。',
+  'helpers.between.description':
+    '数値を最小値と最大値の間にクランプする関数です。',
+  'helpers.cast.description':
+    '文字列を数値に変換し、精度を指定できる関数です。',
+  'helpers.commalize.description':
+    '数値を3桁ごとのカンマ区切りにフォーマットする関数です。',
+  'helpers.toPrecision.description':
+    '数値を指定した小数点以下の桁数に丸める関数です。',
   'helpers.uuidV4.description': 'UUID v4文字列を生成する関数です。',
-  'helpers.isInternalRoute.description': 'URLが内部ルートかどうかを判定する関数です。',
+  'helpers.isInternalRoute.description':
+    'URLが内部ルートかどうかを判定する関数です。',
   'theming.introduction':
     'ArteOdysseyは、CSS変数ベースのデザイントークンシステムを使用しています。ライトモードとダークモードの両方に対応し、カスタマイズが容易です。',
   'theming.colorPaletteTitle': 'カラーパレット',

@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { cn } from './../../../helpers/cn';
 
 export const Separator: FC<{

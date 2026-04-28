@@ -54,7 +54,8 @@ className = 'animate-bounce';
 - `outline-hidden` でデフォルトのアウトラインを消してから ring を適用
 
 ```tsx
-className = 'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info';
+className =
+  'focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info';
 ```
 
 ## フォームデザイン
@@ -72,7 +73,9 @@ import { FormControl, TextField } from '@k8o/arte-odyssey';
   label="メールアドレス"
   errorText="入力してください"
   isRequired
-  renderInput={(props) => <TextField {...props} placeholder="example@mail.com" />}
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
 />;
 ```
 

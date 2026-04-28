@@ -2,9 +2,10 @@
 
 import { type FC, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+
+import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';
-import { ChevronIcon } from '../../icons';
 
 type BaseProps = {
   id?: string;
@@ -46,15 +47,17 @@ export const NumberField: FC<Props> = ({
   onChange,
   step = 1,
   precision = 0,
-  max = 9007199254740991,
-  min = -9007199254740991,
+  max = 9_007_199_254_740_991,
+  min = -9_007_199_254_740_991,
   placeholder,
 }) => {
   const isControlled = value !== undefined;
   const initialValue = defaultValue ?? value ?? 0;
 
   const [internalValue, setInternalValue] = useState(initialValue);
-  const [displayValue, setDisplayValue] = useState(initialValue.toFixed(precision));
+  const [displayValue, setDisplayValue] = useState(
+    initialValue.toFixed(precision),
+  );
   const [prevValue, setPrevValue] = useState(initialValue);
   const { pending } = useFormStatus();
 
@@ -78,7 +81,7 @@ export const NumberField: FC<Props> = ({
         'relative flex h-12 w-full items-center justify-between gap-2 rounded-xl border border-border-base bg-bg-base',
         'focus-within:border-transparent focus-within:outline-hidden focus-within:ring-2 focus-within:ring-border-info',
         'has-aria-invalid:border-border-error',
-        'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute has-disabled:has-hover:hover:bg-bg-mute',
+        'has-disabled:cursor-not-allowed has-disabled:border-border-mute has-disabled:bg-bg-mute hover:has-disabled:has-hover:bg-bg-mute',
       )}
     >
       <input
@@ -91,7 +94,7 @@ export const NumberField: FC<Props> = ({
         autoComplete="off"
         autoCorrect="off"
         className={cn(
-          'h-full w-full grow bg-transparent pr-8 pl-3 focus-visible:outline-hidden',
+          'grow bg-transparent pr-8 pl-3 focus-visible:outline-hidden size-full',
           'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed',
         )}
@@ -106,7 +109,10 @@ export const NumberField: FC<Props> = ({
           setDisplayValue(newValue.toFixed(precision));
         }}
         onChange={(e) => {
-          if ((e.nativeEvent as InputEvent).isComposing) {
+          if (
+            e.nativeEvent instanceof InputEvent &&
+            e.nativeEvent.isComposing
+          ) {
             return;
           }
           setDisplayValue(e.target.value);
@@ -137,12 +143,15 @@ export const NumberField: FC<Props> = ({
         type="text"
         value={displayValue}
       />
-      <div aria-hidden="true" className="absolute right-1 flex h-full flex-col py-1">
+      <div
+        aria-hidden="true"
+        className="absolute right-1 flex h-full flex-col py-1"
+      >
         <button
           className={cn(
             'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
             'hover:bg-bg-mute hover:text-fg-base',
-            'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
+            'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}
           disabled={isDisabled || pending}
           onClick={() => {
@@ -164,7 +173,7 @@ export const NumberField: FC<Props> = ({
           className={cn(
             'flex w-6 grow items-center justify-center rounded-md text-fg-mute transition-colors',
             'hover:bg-bg-mute hover:text-fg-base',
-            'disabled:cursor-not-allowed disabled:text-fg-mute disabled:hover:bg-transparent',
+            'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}
           disabled={isDisabled || pending}
           onClick={() => {

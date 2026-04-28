@@ -33,5 +33,4 @@ onlyBuiltDependencies:
 
 verifyDepsBeforeRun: install
 minimumReleaseAgeExclude:
-  # Renovate security update: vite-plus@0.1.17
-  - vite-plus@0.1.17
+  - '@k8o/*'

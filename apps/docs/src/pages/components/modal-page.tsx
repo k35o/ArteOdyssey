@@ -1,4 +1,5 @@
 import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -33,7 +34,10 @@ export function ModalPage() {
           <T k="components.modal.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-modal--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-modal--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -45,7 +49,10 @@ export function ModalPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Modal } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Modal } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

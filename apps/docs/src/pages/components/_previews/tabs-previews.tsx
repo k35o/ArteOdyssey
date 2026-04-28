@@ -28,7 +28,10 @@ export function TabsBasicPreview() {
 export function TabsDefaultSelectedPreview() {
   return (
     <div className="w-full">
-      <Tabs.Root defaultSelectedId="settings" ids={['overview', 'settings', 'history']}>
+      <Tabs.Root
+        defaultSelectedId="settings"
+        ids={['overview', 'settings', 'history']}
+      >
         <Tabs.List label="Navigation">
           <Tabs.Tab id="overview">Overview</Tabs.Tab>
           <Tabs.Tab id="settings">Settings</Tabs.Tab>

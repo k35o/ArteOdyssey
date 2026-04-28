@@ -3,7 +3,10 @@
 import { Button, Form, FormControl, TextField } from '@k8o/arte-odyssey';
 import { useActionState, useState } from 'react';
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = (ms: number) =>
+  new Promise<void>((resolve) => {
+    setTimeout(resolve, ms);
+  });
 
 export function FormBasicPreview() {
   const [submitted, setSubmitted] = useState<string | null>(null);
@@ -16,26 +19,37 @@ export function FormBasicPreview() {
           setSubmitted(typeof name === 'string' ? name : null);
         }}
       >
-        <FormControl label="お名前" renderInput={(props) => <TextField {...props} name="name" />} />
+        <FormControl
+          label="お名前"
+          renderInput={(props) => <TextField {...props} name="name" />}
+        />
         <Button type="submit">送信</Button>
       </Form>
-      {submitted != null && <p className="text-fg-base text-sm">送信された名前: {submitted}</p>}
+      {submitted !== null && (
+        <p className="text-fg-base text-sm">送信された名前: {submitted}</p>
+      )}
     </div>
   );
 }
 
 export function FormActionStatePreview() {
-  const [message, formAction] = useActionState(async (_prev: string, formData: FormData) => {
-    await sleep(1000);
-    const name = formData.get('name');
-    return typeof name === 'string' && name.length > 0
-      ? `こんにちは、${name}さん`
-      : '名前を入力してください';
-  }, '');
+  const [message, formAction] = useActionState(
+    async (_prev: string, formData: FormData) => {
+      await sleep(1000);
+      const name = formData.get('name');
+      return typeof name === 'string' && name.length > 0
+        ? `こんにちは、${name}さん`
+        : '名前を入力してください';
+    },
+    '',
+  );
 
   return (
     <Form action={formAction}>
-      <FormControl label="お名前" renderInput={(props) => <TextField {...props} name="name" />} />
+      <FormControl
+        label="お名前"
+        renderInput={(props) => <TextField {...props} name="name" />}
+      />
       <Button type="submit">送信</Button>
       {message && <p className="text-fg-base text-sm">{message}</p>}
     </Form>

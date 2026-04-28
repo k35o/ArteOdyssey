@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { DarkModeIcon } from '../../icons';
 import { DropdownMenu } from './dropdown-menu';
 
@@ -28,19 +29,19 @@ export const Default: Story = {
         <DropdownMenu.Item
           label="編集"
           onClick={() => {
-            console.log('編集');
+            console.warn('編集');
           }}
         />
         <DropdownMenu.Item
           label="複製"
           onClick={() => {
-            console.log('複製');
+            console.warn('複製');
           }}
         />
         <DropdownMenu.Item
           label="削除"
           onClick={() => {
-            console.log('削除');
+            console.warn('削除');
           }}
         />
       </DropdownMenu.Content>
@@ -58,24 +59,27 @@ export const Default: Story = {
 export const TriggerByIcon: Story = {
   render: () => (
     <DropdownMenu.Root>
-      <DropdownMenu.IconTrigger icon={<DarkModeIcon size="lg" />} label="テーマ切替" />
+      <DropdownMenu.IconTrigger
+        icon={<DarkModeIcon size="lg" />}
+        label="テーマ切替"
+      />
       <DropdownMenu.Content>
         <DropdownMenu.Item
           label="ライト"
           onClick={() => {
-            console.log('ライト');
+            console.warn('ライト');
           }}
         />
         <DropdownMenu.Item
           label="ダーク"
           onClick={() => {
-            console.log('ダーク');
+            console.warn('ダーク');
           }}
         />
         <DropdownMenu.Item
           label="システム"
           onClick={() => {
-            console.log('システム');
+            console.warn('システム');
           }}
         />
       </DropdownMenu.Content>

@@ -56,12 +56,19 @@ import {
   ViewOffIcon,
 } from '@k8o/arte-odyssey';
 import type { ReactNode } from 'react';
+
 import { CodeBlock } from '../../components/code-block';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
-const IconCard = ({ name, children }: { name: string; children: ReactNode }) => (
-  <div className="flex flex-col items-center justify-center gap-2 rounded-lg border border-border-base p-4">
+const IconCard = ({
+  name,
+  children,
+}: {
+  name: string;
+  children: ReactNode;
+}) => (
+  <div className="border-border-base flex flex-col items-center justify-center gap-2 rounded-lg border p-4">
     {children}
     <p className="text-fg-mute text-xs">{name}</p>
   </div>
@@ -77,7 +84,10 @@ export function IconsPage() {
           <T k="components.icons.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-icons--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-icons--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -89,7 +99,10 @@ export function IconsPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { CloseIcon, CheckIcon } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { CloseIcon, CheckIcon } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -99,12 +112,14 @@ export function IconsPage() {
           <T k="components.icons.sizesTitle" />
         </Heading>
         <div className="flex items-end gap-6">
-          {(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const).map((size) => (
-            <div key={size} className="flex flex-col items-center gap-2">
-              <CheckIcon size={size} />
-              <p className="text-fg-mute text-sm">{size}</p>
-            </div>
-          ))}
+          {(['xs', 'sm', 'md', 'lg', 'xl', '2xl', '3xl'] as const).map(
+            (size) => (
+              <div key={size} className="flex flex-col items-center gap-2">
+                <CheckIcon size={size} />
+                <p className="text-fg-mute text-sm">{size}</p>
+              </div>
+            ),
+          )}
         </div>
         <CodeBlock
           code={`<CheckIcon size="xs" />  {/* 12px */}
@@ -124,7 +139,7 @@ export function IconsPage() {
         <Heading type="h2">
           <T k="components.common.usageTitle" />
         </Heading>
-        <div className="grid grid-cols-auto-fit-28 gap-4">
+        <div className="grid-cols-auto-fit-28 grid gap-4">
           <IconCard name="LogoIcon">
             <LogoIcon />
           </IconCard>

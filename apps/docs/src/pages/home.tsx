@@ -15,6 +15,7 @@ import {
   SparklesIcon,
 } from '@k8o/arte-odyssey';
 import type { FC, ReactNode } from 'react';
+
 import { STORYBOOK_URL } from '../constants';
 import { useTranslation } from '../i18n';
 import type { MessageKey } from '../i18n/types';
@@ -65,8 +66,10 @@ const FeatureCard: FC<{ feature: Feature }> = ({ feature }) => {
     <Card appearance="shadow">
       <div className="flex flex-col gap-3 p-5">
         <div className="text-fg-mute">{feature.icon}</div>
-        <p className="font-medium text-fg-base">{t(feature.title)}</p>
-        <p className="text-fg-mute text-sm leading-relaxed">{t(feature.description)}</p>
+        <p className="text-fg-base font-medium">{t(feature.title)}</p>
+        <p className="text-fg-mute text-sm leading-relaxed">
+          {t(feature.description)}
+        </p>
       </div>
     </Card>
   );

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
@@ -16,25 +17,27 @@ const meta: Meta<typeof Switch> = {
 export default meta;
 type Story = StoryObj<typeof Switch>;
 
-export const Default: Story = {
-  render: (props) => {
-    const [value, setValue] = useState(false);
+const DefaultRender = (props: ComponentProps<typeof Switch>) => {
+  const [value, setValue] = useState(false);
 
-    return (
-      <Switch
-        id={props.id}
-        isDisabled={props.isDisabled}
-        isInvalid={props.isInvalid}
-        isRequired={props.isRequired}
-        label={props.label}
-        name={props.name}
-        onChange={(event) => {
-          setValue(event.target.checked);
-        }}
-        value={value}
-      />
-    );
-  },
+  return (
+    <Switch
+      id={props.id}
+      isDisabled={props.isDisabled}
+      isInvalid={props.isInvalid}
+      isRequired={props.isRequired}
+      label={props.label}
+      name={props.name}
+      onChange={(event) => {
+        setValue(event.target.checked);
+      }}
+      value={value}
+    />
+  );
+};
+
+export const Default: Story = {
+  render: (props) => <DefaultRender {...props} />,
 };
 
 export const DefaultChecked: Story = {

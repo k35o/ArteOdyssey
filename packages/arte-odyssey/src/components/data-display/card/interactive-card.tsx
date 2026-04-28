@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { cn } from './../../../helpers/cn';
 import type { CardProps } from './type';
 

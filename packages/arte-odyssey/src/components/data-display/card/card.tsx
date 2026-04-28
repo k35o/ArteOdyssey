@@ -1,8 +1,13 @@
 import type { FC } from 'react';
+
 import { cn } from './../../../helpers/cn';
 import type { CardProps } from './type';
 
-export const Card: FC<CardProps> = ({ children, width = 'full', appearance = 'shadow' }) => (
+export const Card: FC<CardProps> = ({
+  children,
+  width = 'full',
+  appearance = 'shadow',
+}) => (
   <div
     className={cn(
       'rounded-xl',

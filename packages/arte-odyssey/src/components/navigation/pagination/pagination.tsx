@@ -1,6 +1,7 @@
 'use client';
 
 import type { FC } from 'react';
+
 import { Button } from '../../buttons/button';
 import { ChevronIcon } from '../../icons';
 
@@ -46,7 +47,7 @@ export const Pagination: FC<Props> = ({
         <p
           aria-current="page"
           aria-live="polite"
-          className="px-3 text-fg-mute text-sm tabular-nums"
+          className="text-fg-mute px-3 text-sm tabular-nums"
         >
           <span className="text-fg-base">{safeCurrent}</span>
           <span className="mx-1">/</span>

@@ -1,13 +1,18 @@
 'use client';
 
 import { useLocation } from '@funstack/router';
-import { DropdownMenu, LinkButton, NavigationMenuIcon } from '@k8o/arte-odyssey';
+import {
+  DropdownMenu,
+  LinkButton,
+  NavigationMenuIcon,
+} from '@k8o/arte-odyssey';
+
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
 import { LanguageSwitcher } from './language-switcher';
 import { ThemeSwitcher } from './theme-switcher';
 
-const NAV_ITEMS: { path: string; labelKey: MessageKey }[] = [
+const NAV_ITEMS: Array<{ path: string; labelKey: MessageKey }> = [
   { path: '/', labelKey: 'nav.home' },
   { path: '/get-started', labelKey: 'nav.getStarted' },
   { path: '/components', labelKey: 'nav.components' },
@@ -25,7 +30,10 @@ export function Navigation() {
       <div className="flex items-center justify-between px-6 py-4 md:px-8">
         <div className="md:hidden">
           <DropdownMenu.Root>
-            <DropdownMenu.IconTrigger icon={<NavigationMenuIcon />} label={t('nav.openMenu')} />
+            <DropdownMenu.IconTrigger
+              icon={<NavigationMenuIcon />}
+              label={t('nav.openMenu')}
+            />
             <DropdownMenu.Content>
               {NAV_ITEMS.map((item) => (
                 <DropdownMenu.Item
@@ -45,7 +53,12 @@ export function Navigation() {
             const isActive = location.pathname === href;
             return (
               <li key={item.path}>
-                <LinkButton active={isActive} href={href} size="sm" variant="skeleton">
+                <LinkButton
+                  active={isActive}
+                  href={href}
+                  size="sm"
+                  variant="skeleton"
+                >
                   {t(item.labelKey)}
                 </LinkButton>
               </li>

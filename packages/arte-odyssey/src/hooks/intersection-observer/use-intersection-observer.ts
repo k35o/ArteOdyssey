@@ -14,11 +14,16 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
   callback: (entry: IntersectionObserverEntry) => void,
   options: UseIntersectionObserverOptions = {},
 ): void => {
-  const { threshold = 0, root = null, rootMargin = '0px', once = false } = options;
+  const {
+    threshold = 0,
+    root = null,
+    rootMargin = '0px',
+    once = false,
+  } = options;
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
+    if (!element) return undefined;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
