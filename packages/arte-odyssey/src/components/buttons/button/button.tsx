@@ -59,9 +59,9 @@ export const Button: FC<
       className={cn(
         'cursor-pointer rounded-full border-2 text-center font-bold transition-colors',
         {
-          'border-transparent bg-primary-bg text-fg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize':
+          'border-transparent bg-primary-bg text-primary-fg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize':
             variant === 'contained' && color === 'primary',
-          'border-transparent bg-secondary-bg text-fg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize':
+          'border-transparent bg-secondary-bg text-secondary-fg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize':
             variant === 'contained' && color === 'secondary',
           'border-transparent bg-bg-subtle text-fg-base hover:bg-bg-mute/80 active:bg-bg-mute':
             variant === 'contained' && color === 'gray',
