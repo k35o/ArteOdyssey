@@ -20,8 +20,6 @@ export default defineConfig({
       // 意図的にコンパウンドコンポーネントパターンを採用しているため off
       // (export const Foo = { Bar, Baz } as const)
       'react/only-export-components': 'off',
-      // 段階的に解消する
-      'import/max-dependencies': 'off',
       // CSS 変数 (`as CSSProperties`) / JSON.parse / synth event 等、
       // 型表現の限界で避けられないケースが多いため off
       'typescript/no-unsafe-type-assertion': 'off',

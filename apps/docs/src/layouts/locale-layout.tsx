@@ -1,5 +1,6 @@
 'use client';
 
+/* oxlint-disable import/max-dependencies -- メインレイアウトとして必要な依存 */
 import { Outlet, useLocation } from '@funstack/router';
 import {
   Drawer,

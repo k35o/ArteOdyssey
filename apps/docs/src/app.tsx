@@ -1,3 +1,4 @@
+/* oxlint-disable import/max-dependencies -- このファイルはルーティング集約のため import 多 */
 import type { RouteDefinition } from '@funstack/router/server';
 import { route } from '@funstack/router/server';
 
