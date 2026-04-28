@@ -5,7 +5,7 @@ import { type FC, useCallback } from 'react';
 import { Alert } from '../alert';
 import { useTimeout } from './../../../hooks/timeout';
 import type { Status } from './../../../types/variables';
-import { useToast } from './provider';
+import { useToast } from './context';
 
 type ToastProps = {
   id: string;

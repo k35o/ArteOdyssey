@@ -20,18 +20,17 @@ export default defineConfig({
       // 意図的にコンパウンドコンポーネントパターンを採用しているため off
       // (export const Foo = { Bar, Baz } as const)
       'react/only-export-components': 'off',
-      // アーキテクチャ的に段階的に解消する
-      'import/no-cycle': 'warn',
+      // 段階的に解消する
       'import/max-dependencies': 'off',
-      // 既存コードに対する type-aware strict ルールは段階的に有効化する
-      'typescript/strict-boolean-expressions': 'warn',
-      'typescript/no-unsafe-type-assertion': 'warn',
+      // CSS 変数 (`as CSSProperties`) / JSON.parse / synth event 等、
+      // 型表現の限界で避けられないケースが多いため off
+      'typescript/no-unsafe-type-assertion': 'off',
     },
     overrides: [
       {
         files: ['**/*.test.ts', '**/*.test.tsx'],
         plugins: [...(test.plugins ?? [])],
-        rules: test.rules ?? {},
+        rules: test.rules,
       },
       {
         // Storybook stories と config は test 同等の relax + Storybook パターン特有の緩和

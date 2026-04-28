@@ -73,7 +73,10 @@ export const CheckboxCard: FC<Props> = ({
     >
       {options.map((option) => {
         const checked = selectedValues.includes(option.value);
-        const disabled = isDisabled || option.disabled;
+        const disabled = isDisabled || option.disabled === true;
+        const hasDescription =
+          option.description !== undefined && option.description !== '';
+        const hasVisual = option.visual !== undefined && option.visual !== null;
         const optionId = `${groupId}-${option.value}`;
 
         return (
@@ -94,7 +97,7 @@ export const CheckboxCard: FC<Props> = ({
           >
             <input
               aria-describedby={
-                option.description ? `${optionId}-description` : undefined
+                hasDescription ? `${optionId}-description` : undefined
               }
               checked={checked}
               className="sr-only"
@@ -106,14 +109,14 @@ export const CheckboxCard: FC<Props> = ({
               type="checkbox"
               value={option.value}
             />
-            {option.visual ? (
+            {hasVisual ? (
               <span aria-hidden className="mr-4 shrink-0">
                 {option.visual}
               </span>
             ) : null}
             <span className="flex min-w-0 flex-1 flex-col gap-1">
               <span className="text-fg-base font-medium">{option.label}</span>
-              {option.description ? (
+              {hasDescription ? (
                 <span
                   className="text-fg-mute text-sm"
                   id={`${optionId}-description`}

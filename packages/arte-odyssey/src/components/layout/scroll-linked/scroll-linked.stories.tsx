@@ -33,6 +33,8 @@ export const WithContainer: Story = {
             aria-label="スクロールコンテナの例"
             className="border-border-mute relative h-96 overflow-y-scroll rounded-lg border"
             ref={containerRef}
+            // キーボードでもスクロールできるよう section にフォーカスを許可
+            // eslint-disable-next-line eslint-plugin-jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
           >
             <Story args={{ container: containerRef }} />

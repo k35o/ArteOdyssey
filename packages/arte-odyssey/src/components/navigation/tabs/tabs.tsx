@@ -40,7 +40,10 @@ const Root: FC<
     ids: [string, ...string[]];
   }>
 > = ({ defaultSelectedId = null, ids, children }) => {
-  const defaultIndex = defaultSelectedId ? ids.indexOf(defaultSelectedId) : 0;
+  const defaultIndex =
+    defaultSelectedId !== null && defaultSelectedId !== ''
+      ? ids.indexOf(defaultSelectedId)
+      : 0;
   const [selectedId, setSelectedId] = useState<string>(
     defaultSelectedId ?? ids[defaultIndex] ?? ids[0],
   );

@@ -45,7 +45,9 @@ export const IconButton: FC<Props> = ({
   return (
     <button
       aria-busy={isPending || undefined}
-      aria-label={props.role ? label : undefined}
+      aria-label={
+        props.role !== undefined && props.role !== '' ? label : undefined
+      }
       className={cn(
         'inline-flex cursor-pointer rounded-full transition-colors',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
@@ -69,7 +71,9 @@ export const IconButton: FC<Props> = ({
       type="button"
       {...props}
     >
-      {!props.role && <span className="sr-only">{label}</span>}
+      {(props.role === undefined || props.role === '') && (
+        <span className="sr-only">{label}</span>
+      )}
       {children}
     </button>
   );

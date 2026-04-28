@@ -3,14 +3,9 @@
 import { AnimatePresence, type Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
-  createContext,
-  type Dispatch,
   type FC,
   type PropsWithChildren,
   type RefObject,
-  type SetStateAction,
-  use,
-  useCallback,
   useEffect,
   useRef,
   useState,
@@ -18,55 +13,8 @@ import {
 import { createPortal } from 'react-dom';
 
 import { cn } from './../../../helpers/cn';
-import { uuidV4 } from './../../../helpers/uuid-v4';
-import type { Status } from './../../../types/variables';
+import { SetToastContext, type ToastType } from './context';
 import { Toast } from './toast';
-
-const MAX_TOAST_COUNT = 5;
-
-type ToastType = {
-  id: string;
-  status: Status;
-  message: string;
-};
-
-const SetToastContext = createContext<
-  Dispatch<SetStateAction<ToastType[]>> | undefined
->(undefined);
-
-export const useToast = () => {
-  const setToasts = use(SetToastContext);
-  if (!setToasts) {
-    throw new Error('useToast must be used within a ToastProvider');
-  }
-
-  const onOpen = useCallback(
-    (status: Status, message: string) => {
-      setToasts((prev) => {
-        const next = [...prev, { id: uuidV4(), status, message }];
-        return next.slice(-MAX_TOAST_COUNT);
-      });
-    },
-    [setToasts],
-  );
-
-  const onClose = useCallback(
-    (id: string) => {
-      setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    },
-    [setToasts],
-  );
-
-  const onCloseAll = useCallback(() => {
-    setToasts([]);
-  }, [setToasts]);
-
-  return {
-    onOpen,
-    onClose,
-    onCloseAll,
-  };
-};
 
 const toastMotionVariants: Variants = {
   initial: {

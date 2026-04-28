@@ -57,6 +57,8 @@ export const Button: FC<
   ) : (
     startIcon
   );
+  const hasStartIcon = resolvedStartIcon !== undefined;
+  const hasEndIcon = endIcon !== undefined;
 
   return (
     <button
@@ -94,18 +96,17 @@ export const Button: FC<
         size === 'md' && 'px-4 py-2 text-md',
         size === 'lg' && 'px-6 py-3 text-lg',
         fullWidth && 'w-full',
-        Boolean(resolvedStartIcon ?? endIcon) && 'flex items-center gap-2',
-        resolvedStartIcon && endIcon
+        (hasStartIcon || hasEndIcon) && 'flex items-center gap-2',
+        hasStartIcon && hasEndIcon
           ? 'justify-between'
-          : resolvedStartIcon && variant !== 'skeleton'
+          : hasStartIcon && variant !== 'skeleton'
             ? 'justify-center'
-            : endIcon && 'justify-between',
+            : hasEndIcon && 'justify-between',
       )}
       disabled={isDisabled}
       onClick={handleClick}
       ref={ref}
-      // eslint-disable-next-line eslint-plugin-react/button-has-type
-      type={type}
+      type={type === 'submit' ? 'submit' : 'button'}
       {...rest}
     >
       {resolvedStartIcon}

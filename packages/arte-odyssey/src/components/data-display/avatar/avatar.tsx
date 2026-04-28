@@ -14,7 +14,7 @@ type Props = {
 };
 
 const getInitials = (name?: string) => {
-  if (!name) {
+  if (name === undefined || name === '') {
     return '?';
   }
 
@@ -25,7 +25,7 @@ const getInitials = (name?: string) => {
     .map((part) => part.charAt(0).toUpperCase())
     .join('');
 
-  return initials || '?';
+  return initials === '' ? '?' : initials;
 };
 
 export const Avatar: FC<Props> = ({

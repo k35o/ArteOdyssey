@@ -70,7 +70,7 @@ const MenuProvider: FC<
 
   const handleSelect = (index: number) => {
     const key = options[index]?.key;
-    if (key) {
+    if (key !== undefined && key !== '') {
       onSelect(key);
     }
   };

@@ -12,7 +12,7 @@ export const useClickAway = <T extends Element = HTMLElement>(
 
     const handler: EventListener = (e) => {
       const element = ref.current;
-      if (element && !element.contains(e.target as HTMLElement)) {
+      if (element && e.target instanceof Node && !element.contains(e.target)) {
         callback(e);
       }
     };

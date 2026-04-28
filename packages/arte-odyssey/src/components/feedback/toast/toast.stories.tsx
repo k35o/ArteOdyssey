@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../../buttons/button';
-import { ToastProvider, useToast } from './provider';
+import { useToast } from './context';
+import { ToastProvider } from './provider';
 import { Toast } from './toast';
 
 const ToastTrigger = () => {

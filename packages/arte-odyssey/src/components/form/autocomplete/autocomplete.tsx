@@ -72,7 +72,8 @@ export const Autocomplete: FC<Props> = ({
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (ref.current?.contains(e.target as Node)) return;
+      if (e.target instanceof Node && ref.current?.contains(e.target) === true)
+        return;
       reset();
     };
     document.addEventListener('click', handleClick);
@@ -91,7 +92,7 @@ export const Autocomplete: FC<Props> = ({
       )}
       ref={ref}
     >
-      {name
+      {name !== undefined && name !== ''
         ? currentValue.map((selectedValue) => (
             <input
               key={selectedValue}
@@ -145,7 +146,7 @@ export const Autocomplete: FC<Props> = ({
             disabled={isDisabledResolved}
             id={id}
             onBlur={(e) => {
-              if (e.relatedTarget?.id.startsWith(`${id}_option_`)) {
+              if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {
                 return;
               }
               setOpen(false);

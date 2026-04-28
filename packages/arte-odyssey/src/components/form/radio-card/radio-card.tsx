@@ -92,18 +92,21 @@ export const RadioCard: FC<Props> = ({
         isDisabled && 'opacity-70',
       )}
     >
-      {name ? (
+      {name !== undefined && name !== '' ? (
         <input name={name} type="hidden" value={currentValue ?? ''} />
       ) : null}
       {options.map((option, index) => {
         const checked = currentValue === option.value;
-        const disabled = isDisabled || option.disabled;
+        const disabled = isDisabled || option.disabled === true;
+        const hasDescription =
+          option.description !== undefined && option.description !== '';
+        const hasVisual = option.visual !== undefined && option.visual !== null;
         const optionId = `${groupId}-${option.value}`;
 
         return (
           <button
             aria-describedby={
-              option.description ? `${optionId}-description` : undefined
+              hasDescription ? `${optionId}-description` : undefined
             }
             aria-pressed={checked}
             className={cn(
@@ -155,14 +158,14 @@ export const RadioCard: FC<Props> = ({
             tabIndex={checked ? 0 : -1}
             type="button"
           >
-            {option.visual ? (
+            {hasVisual ? (
               <span aria-hidden className="mr-4 shrink-0">
                 {option.visual}
               </span>
             ) : null}
             <span className="flex min-w-0 flex-1 flex-col gap-1">
               <span className="text-fg-base font-medium">{option.label}</span>
-              {option.description ? (
+              {hasDescription ? (
                 <span
                   className="text-fg-mute text-sm"
                   id={`${optionId}-description`}

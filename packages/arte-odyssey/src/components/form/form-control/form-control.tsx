@@ -31,10 +31,12 @@ export const FormControl: FC<FormControlProps> = ({
   renderInput,
 }) => {
   const id = useId();
+  const hasErrorText = errorText !== undefined && errorText !== '';
+  const hasHelpText = helpText !== undefined && helpText !== '';
   const describedbyId =
-    isInvalid && errorText
+    isInvalid && hasErrorText
       ? `${id}-feedback`
-      : helpText
+      : hasHelpText
         ? `${id}-helptext`
         : undefined;
   const labelId = `${id}-label`;
@@ -67,7 +69,7 @@ export const FormControl: FC<FormControlProps> = ({
         isInvalid,
         isRequired,
       })}
-      {isInvalid && errorText ? (
+      {isInvalid && hasErrorText ? (
         <p
           aria-live="polite"
           className="text-fg-error mt-1 pl-0.5 text-sm"
@@ -75,13 +77,11 @@ export const FormControl: FC<FormControlProps> = ({
         >
           {errorText}
         </p>
-      ) : (
-        helpText && (
-          <p className="text-fg-mute mt-1 pl-0.5 text-sm" id={`${id}-helptext`}>
-            {helpText}
-          </p>
-        )
-      )}
+      ) : hasHelpText ? (
+        <p className="text-fg-mute mt-1 pl-0.5 text-sm" id={`${id}-helptext`}>
+          {helpText}
+        </p>
+      ) : null}
     </fieldset>
   );
 };

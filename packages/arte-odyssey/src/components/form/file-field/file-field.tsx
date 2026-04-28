@@ -213,11 +213,13 @@ const ItemList: FC<{
           >
             <div className="flex flex-col gap-1">
               <span className="text-fg-base text-sm font-medium">
-                {showWebkitRelativePath ? file.webkitRelativePath : file.name}
+                {showWebkitRelativePath === true
+                  ? file.webkitRelativePath
+                  : file.name}
               </span>
               <span className="text-fg-mute text-xs">{sizeInKB} KB</span>
             </div>
-            {clearable && (
+            {clearable === true && (
               <IconButton label="ファイルを削除" onClick={onDelete}>
                 <CloseIcon size="sm" />
               </IconButton>

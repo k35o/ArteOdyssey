@@ -109,7 +109,10 @@ export const NumberField: FC<Props> = ({
           setDisplayValue(newValue.toFixed(precision));
         }}
         onChange={(e) => {
-          if ((e.nativeEvent as InputEvent).isComposing) {
+          if (
+            e.nativeEvent instanceof InputEvent &&
+            e.nativeEvent.isComposing
+          ) {
             return;
           }
           setDisplayValue(e.target.value);

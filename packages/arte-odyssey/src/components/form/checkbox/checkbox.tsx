@@ -45,15 +45,13 @@ export const Checkbox: FC<Props> = ({
   );
   const groupItemValue = itemValue ?? '';
 
-  if (groupContext && !itemValue) {
+  if (groupContext && (itemValue === undefined || itemValue === '')) {
     throw new Error('Checkbox inside CheckboxGroup requires itemValue');
   }
 
   const isControlled = value !== undefined;
-  // `??` だと groupContext?.isDisabled === false のときに pending を見ない挙動になるため `||` を維持する
   const isDisabledResolved =
-    // eslint-disable-next-line typescript-eslint/prefer-nullish-coalescing
-    isDisabled || groupContext?.isDisabled || pending;
+    isDisabled || groupContext?.isDisabled === true || pending;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled

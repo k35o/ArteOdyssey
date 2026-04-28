@@ -82,6 +82,9 @@ const Header: FC<{
 const Content: FC<PropsWithChildren> = ({ children }) => {
   const { rootId } = useDialogContext();
   return (
+    // バックドロップクリックでの閉じる挙動を内側で止めるためだけの onClick
+    // (キーボード操作は Modal の Escape ハンドラが担う)
+    /* eslint-disable eslint-plugin-jsx-a11y/click-events-have-key-events, eslint-plugin-jsx-a11y/no-static-element-interactions */
     <div
       className="p-4"
       id={`${rootId}-content`}
@@ -91,6 +94,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     >
       {children}
     </div>
+    /* eslint-enable eslint-plugin-jsx-a11y/click-events-have-key-events, eslint-plugin-jsx-a11y/no-static-element-interactions */
   );
 };
 

@@ -19,7 +19,7 @@ const TypeCodes: FC<{ types: readonly string[] }> = ({ types }) => (
 );
 
 const DefaultValue: FC<{ value: string | null }> = ({ value }) =>
-  value ? <Code>{value}</Code> : <>-</>;
+  value !== null && value !== '' ? <Code>{value}</Code> : <>-</>;
 
 export const PropsTable: FC<{ items: readonly PropItem[] }> = ({ items }) => (
   <>

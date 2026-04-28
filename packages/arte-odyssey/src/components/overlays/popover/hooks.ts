@@ -80,7 +80,10 @@ export const usePopoverContent = () => {
       if (!popover.isOpen) {
         return;
       }
-      if (popover.triggerRef.current?.contains(event.target as HTMLElement)) {
+      if (
+        event.target instanceof Node &&
+        popover.triggerRef.current?.contains(event.target) === true
+      ) {
         return;
       }
       popover.onClose();
