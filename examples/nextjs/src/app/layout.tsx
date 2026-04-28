@@ -1,7 +1,6 @@
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 import { Noto_Sans_JP } from 'next/font/google';
 
-// eslint-disable-next-line eslint-plugin-import/no-unassigned-import
 import './globals.css';
 
 const notoSansJP = Noto_Sans_JP({

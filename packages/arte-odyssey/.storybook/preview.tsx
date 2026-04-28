@@ -3,7 +3,6 @@ import { type FC, memo, useEffect, useState } from 'react';
 
 import { ArteOdysseyProvider } from '../src/components/providers';
 
-// eslint-disable-next-line eslint-plugin-import/no-unassigned-import
 import '../src/styles/index.css';
 
 const ApplayThemeByStorybook: FC<{ theme: 'light' | 'dark' }> = memo(

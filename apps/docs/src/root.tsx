@@ -1,6 +1,5 @@
 import type { ReactNode } from 'react';
 
-// eslint-disable-next-line eslint-plugin-import/no-unassigned-import
 import './styles/globals.css';
 
 export default function Root({ children }: { children: ReactNode }) {

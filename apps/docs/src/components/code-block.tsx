@@ -26,7 +26,7 @@ export const CodeBlock: FC<Props> = async ({ code, lang, rounded = 'all' }) => {
         rounded === 'bottom' && '[&_pre]:rounded-b-xl',
       )}
       // Shiki が生成した signed HTML をそのまま埋め込むため必要
-      // eslint-disable-next-line eslint-plugin-react/no-danger
+      // oxlint-disable-next-line eslint-plugin-react/no-danger
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );

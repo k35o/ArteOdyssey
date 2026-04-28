@@ -4,7 +4,6 @@ import { createRoot } from 'react-dom/client';
 
 import App from './app';
 
-// eslint-disable-next-line eslint-plugin-import/no-unassigned-import
 import '@k8o/arte-odyssey/styles.css';
 
 const rootElement = document.querySelector('#root');

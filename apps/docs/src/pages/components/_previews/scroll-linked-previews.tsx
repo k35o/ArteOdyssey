@@ -12,7 +12,7 @@ export function ScrollLinkedBasicPreview() {
         className="border-border-mute relative h-64 overflow-y-scroll rounded-lg border"
         ref={containerRef}
         // キーボードでもスクロールできるよう section にフォーカスを許可
-        // eslint-disable-next-line eslint-plugin-jsx-a11y/no-noninteractive-tabindex
+        // oxlint-disable-next-line eslint-plugin-jsx-a11y/no-noninteractive-tabindex
         tabIndex={0}
       >
         <ScrollLinked container={containerRef} />

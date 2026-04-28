@@ -6,7 +6,7 @@ declare global {
   namespace React {
     namespace JSX {
       // declaration merging requires interface for IntrinsicElements
-      // eslint-disable-next-line typescript-eslint/consistent-type-definitions
+      // oxlint-disable-next-line typescript-eslint/consistent-type-definitions
       interface IntrinsicElements {
         'baseline-status': { featureId: string; className: string };
       }

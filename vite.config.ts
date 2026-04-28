@@ -25,6 +25,8 @@ export default defineConfig({
       // CSS 変数 (`as CSSProperties`) / JSON.parse / synth event 等、
       // 型表現の限界で避けられないケースが多いため off
       'typescript/no-unsafe-type-assertion': 'off',
+      // CSS は side-effect import が前提なので allow に追加
+      'import/no-unassigned-import': ['error', { allow: ['**/*.css'] }],
     },
     overrides: [
       {
