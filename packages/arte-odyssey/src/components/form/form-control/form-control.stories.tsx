@@ -1,24 +1,36 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
+
 import { TextField } from '../text-field';
 import { FormControl } from './form-control';
+
+type RenderInputProps = {
+  id: string;
+  describedbyId: string | undefined;
+  labelId: string;
+  isDisabled: boolean;
+  isInvalid: boolean;
+  isRequired: boolean;
+};
+
+const RenderInput = (props: RenderInputProps) => {
+  const [state, setState] = useState('');
+  return (
+    <TextField
+      {...props}
+      onChange={(e) => {
+        setState(e.target.value);
+      }}
+      value={state}
+    />
+  );
+};
 
 const meta: Meta<typeof FormControl> = {
   title: 'components/form/form-control',
   component: FormControl,
   args: {
-    renderInput: (props) => {
-      const [state, setState] = useState('');
-      return (
-        <TextField
-          {...props}
-          onChange={(e) => {
-            setState(e.target.value);
-          }}
-          value={state}
-        />
-      );
-    },
+    renderInput: (props) => <RenderInput {...props} />,
   },
 };
 

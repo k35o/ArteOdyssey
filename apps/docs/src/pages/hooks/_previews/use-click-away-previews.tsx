@@ -17,15 +17,17 @@ export function UseClickAwayPreview() {
   return (
     <div className="flex flex-col items-start gap-4">
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
-        onClick={() => setIsOpen(true)}
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
+        onClick={() => {
+          setIsOpen(true);
+        }}
         type="button"
       >
         Open Popup
       </button>
       {isOpen && (
         <div
-          className="rounded-lg border border-border-base bg-bg-base p-4 text-sm shadow-md"
+          className="border-border-base bg-bg-base rounded-lg border p-4 text-sm shadow-md"
           ref={ref}
         >
           Click outside to close

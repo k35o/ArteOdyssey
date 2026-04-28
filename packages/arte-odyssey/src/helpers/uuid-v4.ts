@@ -4,7 +4,7 @@ export const uuidV4 = (): string => {
   if (typeof window !== 'undefined' && isSecureContext) {
     return crypto.randomUUID();
   }
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replaceAll(/[xy]/g, (c) => {
     const randHex = Math.floor(Math.random() * HEX_BASE);
     if (c === 'y') {
       return ((randHex & 0x3) | 0x8).toString(HEX_BASE);
@@ -14,7 +14,8 @@ export const uuidV4 = (): string => {
 };
 
 if (import.meta.vitest) {
-  const testRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+  const testRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
   beforeEach(() => {
     vi.unstubAllGlobals();
   });

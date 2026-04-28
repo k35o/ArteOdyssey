@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useScrollLock } from '.';
 
 describe('useScrollLock', () => {
@@ -91,7 +92,9 @@ describe('useScrollLock', () => {
   it('複数インスタンスの一方がアンマウントしても他方のロックが維持される', async () => {
     document.body.style.overflow = 'auto';
 
-    const { result: resultA, unmount: unmountA } = await renderHook(() => useScrollLock());
+    const { result: resultA, unmount: unmountA } = await renderHook(() =>
+      useScrollLock(),
+    );
     const { result: resultB } = await renderHook(() => useScrollLock());
 
     resultA.current.lock();

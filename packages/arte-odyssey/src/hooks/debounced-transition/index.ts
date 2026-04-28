@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useTransition } from 'react';
 
-type DebouncedAction = (signal: AbortSignal) => void | Promise<void>;
+export type DebouncedAction = (signal: AbortSignal) => void | Promise<void>;
 
 export const useDebouncedTransition = (
   delay: number,
@@ -10,11 +10,12 @@ export const useDebouncedTransition = (
   const [isPending, startTransition] = useTransition();
   const abortRef = useRef<AbortController | null>(null);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       abortRef.current?.abort();
-    };
-  }, []);
+    },
+    [],
+  );
 
   const run = useCallback(
     (action: DebouncedAction) => {
@@ -44,10 +45,13 @@ export const useDebouncedTransition = (
   return [isPending, run] as const;
 };
 
+const toAbortError = (reason: unknown): Error =>
+  reason instanceof Error ? reason : new DOMException('aborted', 'AbortError');
+
 const delayWithSignal = (ms: number, signal: AbortSignal): Promise<void> =>
   new Promise((resolve, reject) => {
     if (signal.aborted) {
-      reject(signal.reason);
+      reject(toAbortError(signal.reason));
       return;
     }
     const timer = setTimeout(resolve, ms);
@@ -55,7 +59,7 @@ const delayWithSignal = (ms: number, signal: AbortSignal): Promise<void> =>
       'abort',
       () => {
         clearTimeout(timer);
-        reject(signal.reason);
+        reject(toAbortError(signal.reason));
       },
       { once: true },
     );

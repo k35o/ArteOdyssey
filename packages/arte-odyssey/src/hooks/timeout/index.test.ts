@@ -1,9 +1,10 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useTimeout } from '.';
 
 describe('useTimeout', () => {
   it('指定時間後に実行される', async () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     vi.useFakeTimers();
 
     await renderHook(() => {
@@ -15,7 +16,7 @@ describe('useTimeout', () => {
   });
 
   it('指定時間前に実行されない', async () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     vi.useFakeTimers();
 
     await renderHook(() => {
@@ -27,7 +28,7 @@ describe('useTimeout', () => {
   });
 
   it('指定時間前にアンマウントされない場合は実行されない', async () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
     vi.useFakeTimers();
 
     const { unmount } = await renderHook(() => {

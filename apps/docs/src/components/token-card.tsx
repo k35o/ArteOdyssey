@@ -2,6 +2,7 @@
 
 import { Card } from '@k8o/arte-odyssey';
 import type { SemanticToken } from '@k8o/arte-odyssey/tokens';
+
 import { useTheme } from '../theme/context';
 
 export function TokenCard({
@@ -18,7 +19,7 @@ export function TokenCard({
     <Card appearance="shadow">
       <div className="flex items-center gap-3 px-3 py-2">
         <div
-          className="h-6 w-6 shrink-0 rounded-md"
+          className="size-6 shrink-0 rounded-md"
           style={
             type === 'border'
               ? { border: `2px solid var(--${token.name})` }
@@ -26,7 +27,7 @@ export function TokenCard({
           }
         />
         <div className="min-w-0">
-          <p className="font-medium text-sm">{token.name}</p>
+          <p className="text-sm font-medium">{token.name}</p>
           <p className="text-fg-subtle text-xs">{source}</p>
         </div>
       </div>

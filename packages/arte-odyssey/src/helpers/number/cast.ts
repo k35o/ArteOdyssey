@@ -3,17 +3,19 @@ import { toPrecision } from './to-precision';
 const FLOATING_POINT_REGEX = /^[Ee0-9+\-.]$/;
 
 // 文字が数値になり得ないことを確認する
-const isInvalidCharacter = (value: string): boolean => {
-  return FLOATING_POINT_REGEX.test(value);
-};
+const isInvalidCharacter = (value: string): boolean =>
+  FLOATING_POINT_REGEX.test(value);
 
 // 数値になり得ない文字を削除する
-const sanitize = (value: string): string => value.split('').filter(isInvalidCharacter).join('');
+const sanitize = (value: string): string =>
+  value
+    .split('')
+    .filter((char) => isInvalidCharacter(char))
+    .join('');
 
 // 数値を綺麗に変換する
-const parse = (value: string | number): number => {
-  return Number.parseFloat(value.toString().replace(/[^\w.-]+/g, ''));
-};
+const parse = (value: string | number): number =>
+  Number.parseFloat(value.toString().replaceAll(/[^\w.-]+/g, ''));
 
 // 小数点以下の桁数を取得する
 const countDecimalPlaces = (value: number): number => {
@@ -28,10 +30,17 @@ const countDecimalPlaces = (value: number): number => {
   return p;
 };
 
-export const cast = (value: string, step: number, precision?: number): number => {
+export const cast = (
+  value: string,
+  step: number,
+  precision?: number,
+): number => {
   const parsedValue = parse(sanitize(value));
   if (Number.isNaN(parsedValue)) return 0;
-  const decimalPlaces = Math.max(countDecimalPlaces(step), countDecimalPlaces(parsedValue));
+  const decimalPlaces = Math.max(
+    countDecimalPlaces(step),
+    countDecimalPlaces(parsedValue),
+  );
   return toPrecision(parsedValue, precision ?? decimalPlaces);
 };
 
@@ -41,7 +50,7 @@ if (import.meta.vitest) {
     expect(cast('1.1', 1)).toBe(1.1);
     expect(cast('1.1.1', 1)).toBe(1.1);
     expect(cast('1.1.1', 2)).toBe(1.1);
-    expect(cast('1e4', 3)).toBe(10000);
+    expect(cast('1e4', 3)).toBe(10_000);
     expect(cast('-19', 3)).toBe(-19);
   });
 }

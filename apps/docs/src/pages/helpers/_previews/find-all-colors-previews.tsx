@@ -16,7 +16,7 @@ export function FindAllColorsPreview() {
         {colors.map((item) => (
           <div className="flex items-center gap-2" key={item.start}>
             <span
-              className="inline-block size-4 rounded border border-border-mute"
+              className="border-border-mute inline-block size-4 rounded border"
               style={{ backgroundColor: item.color }}
             />
             <code className="text-sm">{item.color}</code>

@@ -1,7 +1,21 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Button } from '../../buttons/button';
 import { ToastProvider, useToast } from './provider';
 import { Toast } from './toast';
+
+const ToastTrigger = () => {
+  const { onOpen } = useToast();
+  return (
+    <Button
+      onClick={() => {
+        onOpen('success', 'トーストを呼びました');
+      }}
+    >
+      トーストを呼ぶ
+    </Button>
+  );
+};
 
 const meta: Meta<typeof ToastProvider> = {
   title: 'components/feedback/toast',
@@ -13,18 +27,7 @@ const meta: Meta<typeof ToastProvider> = {
       </ToastProvider>
     ),
   ],
-  render: () => {
-    const { onOpen } = useToast();
-    return (
-      <Button
-        onClick={() => {
-          onOpen('success', 'トーストを呼びました');
-        }}
-      >
-        トーストを呼ぶ
-      </Button>
-    );
-  },
+  render: () => <ToastTrigger />,
 };
 
 export default meta;

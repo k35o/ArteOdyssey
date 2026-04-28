@@ -1,4 +1,5 @@
 import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../components/code-block';
 import { InstallTabs } from '../components/install-tabs';
 import { LocaleAnchor } from '../components/locale-anchor';
@@ -107,7 +108,7 @@ function MyComponent() {
         <p className="text-fg-mute">
           <T k="getStarted.requirementsDescription" />
         </p>
-        <ul className="flex flex-col gap-2 pl-6 text-fg-mute">
+        <ul className="text-fg-mute flex flex-col gap-2 pl-6">
           <li className="list-disc">React &gt;= 19.0.0</li>
           <li className="list-disc">React DOM &gt;= 19.0.0</li>
           <li className="list-disc">Tailwind CSS &gt;= 4.0.0</li>

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { CopyIcon } from '../../icons';
 import { Button } from './button';
 
@@ -8,12 +9,10 @@ const meta: Meta<typeof Button> = {
   args: {
     type: 'button',
     onClick: () => {
-      console.log('clicked');
+      console.warn('clicked');
     },
   },
-  render: (props) => {
-    return <Button {...props}>ボタン</Button>;
-  },
+  render: (props) => <Button {...props}>ボタン</Button>,
 };
 
 export default meta;
@@ -117,8 +116,10 @@ export const EndIcon: Story = {
 export const AsyncAction: Story = {
   args: {
     onAction: async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      console.log('async action completed');
+      await new Promise<void>((resolve) => {
+        setTimeout(resolve, 1500);
+      });
+      console.warn('async action completed');
     },
   },
 };

@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
+
 import { NumberField } from './number-field';
 
 const meta: Meta<typeof NumberField> = {

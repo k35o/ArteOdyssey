@@ -10,8 +10,7 @@
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 
 import {
   BACK_DROP,
@@ -47,16 +46,24 @@ const BANNER = `/**
 
 const shadeRefToVar = (ref: ShadeRef): string => `var(--${ref})`;
 
-const renderSemanticBlock = (tokens: readonly SemanticToken[], mode: 'light' | 'dark'): string =>
+const renderSemanticBlock = (
+  tokens: readonly SemanticToken[],
+  mode: 'light' | 'dark',
+): string =>
   tokens.map((t) => `  --${t.name}: ${shadeRefToVar(t[mode])};`).join('\n');
 
 const renderPalette = (): string =>
   PALETTE.map(
     (family) =>
-      `  /* ${family.name} — ${family.description} */\n` +
-      (Object.keys(family.shades) as unknown as (keyof typeof family.shades)[])
-        .map((shade) => `  --${family.prefix}-${shade}: ${family.shades[shade]};`)
-        .join('\n'),
+      `  /* ${family.name} — ${family.description} */\n${(
+        Object.keys(family.shades) as unknown as Array<
+          keyof typeof family.shades
+        >
+      )
+        .map(
+          (shade) => `  --${family.prefix}-${shade}: ${family.shades[shade]};`,
+        )
+        .join('\n')}`,
   ).join('\n\n');
 
 const renderRoot = (): string => {
@@ -115,12 +122,22 @@ ${group}
 };
 
 const renderColorTheme = (): string => {
-  const sections = [FG_TOKENS, BG_TOKENS, BORDER_TOKENS, PRIMARY_TOKENS, SECONDARY_TOKENS];
+  const sections = [
+    FG_TOKENS,
+    BG_TOKENS,
+    BORDER_TOKENS,
+    PRIMARY_TOKENS,
+    SECONDARY_TOKENS,
+  ];
   const lines = sections
-    .map((section) => section.map((t) => `  --color-${t.name}: var(--${t.name});`).join('\n'))
+    .map((section) =>
+      section.map((t) => `  --color-${t.name}: var(--${t.name});`).join('\n'),
+    )
     .join('\n\n');
 
-  const groupLines = GROUP_TOKENS.map((t) => `  --color-${t.name}: var(--${t.name});`).join('\n');
+  const groupLines = GROUP_TOKENS.map(
+    (t) => `  --color-${t.name}: var(--${t.name});`,
+  ).join('\n');
 
   return `  --color-*: initial;
 ${lines}
@@ -133,13 +150,17 @@ ${groupLines}`;
 };
 
 const renderRadii = (): string =>
-  `  --radius-*: initial;\n` + RADII.map((r) => `  --radius-${r.name}: ${r.value};`).join('\n');
+  `  --radius-*: initial;\n${RADII.map((r) => `  --radius-${r.name}: ${r.value};`).join('\n')}`;
 
 const renderFonts = (): string =>
-  `  --font-*: initial;\n` + FONT_FAMILIES.map((f) => `  --font-${f.name}: ${f.value};`).join('\n');
+  `  --font-*: initial;\n${FONT_FAMILIES.map((f) => `  --font-${f.name}: ${f.value};`).join('\n')}`;
 
-const renderLineHeight = (lh: (typeof TEXT_SIZES)[number]['lineHeight']): string =>
-  typeof lh === 'number' ? `${lh}` : `calc(${lh.numerator} / ${lh.denominator})`;
+const renderLineHeight = (
+  lh: (typeof TEXT_SIZES)[number]['lineHeight'],
+): string =>
+  typeof lh === 'number'
+    ? `${lh}`
+    : `calc(${lh.numerator} / ${lh.denominator})`;
 
 const renderText = (): string => {
   const header = `  --text-*: initial;`;
@@ -151,27 +172,22 @@ const renderText = (): string => {
 };
 
 const renderFontWeights = (): string =>
-  `  --font-weight-*: initial;\n` +
-  FONT_WEIGHTS.map((w) => `  --font-weight-${w.name}: ${w.value};`).join('\n');
+  `  --font-weight-*: initial;\n${FONT_WEIGHTS.map((w) => `  --font-weight-${w.name}: ${w.value};`).join('\n')}`;
 
 const renderTracking = (): string =>
-  `  --tracking-*: initial;\n` +
-  LETTER_SPACINGS.map((t) => `  --tracking-${t.name}: ${t.value};`).join('\n');
+  `  --tracking-*: initial;\n${LETTER_SPACINGS.map((t) => `  --tracking-${t.name}: ${t.value};`).join('\n')}`;
 
 const renderLeading = (): string =>
-  `  --leading-*: initial;\n` +
-  LINE_HEIGHTS.map((l) => `  --leading-${l.name}: ${l.value};`).join('\n');
+  `  --leading-*: initial;\n${LINE_HEIGHTS.map((l) => `  --leading-${l.name}: ${l.value};`).join('\n')}`;
 
 const renderShadows = (): string =>
-  `  --shadow-*: initial;\n` + SHADOWS.map((s) => `  --shadow-${s.name}: ${s.value};`).join('\n');
+  `  --shadow-*: initial;\n${SHADOWS.map((s) => `  --shadow-${s.name}: ${s.value};`).join('\n')}`;
 
 const renderInsetShadows = (): string =>
-  `  --inset-shadow-*: initial;\n` +
-  INSET_SHADOWS.map((s) => `  --inset-shadow-${s.name}: ${s.value};`).join('\n');
+  `  --inset-shadow-*: initial;\n${INSET_SHADOWS.map((s) => `  --inset-shadow-${s.name}: ${s.value};`).join('\n')}`;
 
 const renderBreakpoints = (): string =>
-  `  --breakpoint-*: initial;\n` +
-  BREAKPOINTS.map((b) => `  --breakpoint-${b.name}: ${b.rem};`).join('\n');
+  `  --breakpoint-*: initial;\n${BREAKPOINTS.map((b) => `  --breakpoint-${b.name}: ${b.rem};`).join('\n')}`;
 
 const renderTheme = (): string =>
   `@theme inline {
@@ -204,11 +220,14 @@ ${renderDark()}
 
 ${renderTheme()}`;
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const __dirname = import.meta.dirname;
 const stylesDir = resolve(__dirname, '../src/styles');
 
 const base = readFileSync(resolve(stylesDir, 'base.css'), 'utf8').trimEnd();
-const utilities = readFileSync(resolve(stylesDir, 'utilities.css'), 'utf8').trimEnd();
+const utilities = readFileSync(
+  resolve(stylesDir, 'utilities.css'),
+  'utf8',
+).trimEnd();
 
 const output = `${BANNER}
 

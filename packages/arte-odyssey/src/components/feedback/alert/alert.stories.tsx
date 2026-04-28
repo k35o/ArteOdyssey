@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Alert } from './alert';
 
 const meta: Meta<typeof Alert> = {

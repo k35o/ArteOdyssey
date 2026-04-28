@@ -14,7 +14,7 @@ export function RadioControlledPreview() {
 
   return (
     <div className="w-full max-w-md">
-      <p className="mb-3 font-medium text-fg-base" id="radio-controlled-label">
+      <p className="text-fg-base mb-3 font-medium" id="radio-controlled-label">
         Framework
       </p>
       <Radio

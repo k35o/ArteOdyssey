@@ -21,7 +21,7 @@ export const CodeBlock: FC<Props> = async ({ code, lang, rounded = 'all' }) => {
   return (
     <div
       className={cn(
-        '[&_.shiki]:bg-(--shiki-light-bg)! dark:[&_.shiki]:bg-(--shiki-dark-bg)! [&_.shiki_span]:text-(--shiki-light)! dark:[&_.shiki_span]:text-(--shiki-dark)! [&_code]:text-sm [&_pre]:overflow-x-auto [&_pre]:p-4 [&_pre]:focus-visible:outline-hidden [&_pre]:focus-visible:ring-2 [&_pre]:focus-visible:ring-border-info [&_pre]:focus-visible:ring-inset',
+        '[&_.shiki]:bg-(--shiki-light-bg)! dark:[&_.shiki]:bg-(--shiki-dark-bg)! [&_.shiki_span]:text-(--shiki-light)! dark:[&_.shiki_span]:text-(--shiki-dark)! [&_code]:text-sm [&_pre]:overflow-x-auto [&_pre]:p-4 focus-visible:[&_pre]:outline-hidden focus-visible:[&_pre]:ring-2 focus-visible:[&_pre]:ring-border-info focus-visible:[&_pre]:ring-inset',
         rounded === 'all' && '[&_pre]:rounded-xl [&_pre]:shadow-sm',
         rounded === 'bottom' && '[&_pre]:rounded-b-xl',
       )}

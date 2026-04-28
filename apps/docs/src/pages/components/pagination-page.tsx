@@ -1,16 +1,24 @@
 import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { PaginationDisabledPreview, PaginationPreview } from './_previews/pagination-previews';
+import {
+  PaginationDisabledPreview,
+  PaginationPreview,
+} from './_previews/pagination-previews';
 
 const paginationProps: PropItem[] = [
   { name: 'totalPages', types: ['number'], defaultValue: null },
   { name: 'currentPage', types: ['number'], defaultValue: null },
-  { name: 'onPageChange', types: ['(page: number) => void'], defaultValue: null },
+  {
+    name: 'onPageChange',
+    types: ['(page: number) => void'],
+    defaultValue: null,
+  },
   { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'prevLabel', types: ['string'], defaultValue: "'前へ'" },
   { name: 'nextLabel', types: ['string'], defaultValue: "'次へ'" },
@@ -40,7 +48,10 @@ export function PaginationPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Pagination } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Pagination } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

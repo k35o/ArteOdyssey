@@ -1,4 +1,5 @@
 import type { FC, ReactNode } from 'react';
+
 import { cn } from './../../helpers/cn';
 
 export type BaseIconProps = {
@@ -19,8 +20,7 @@ export const BaseIcon: FC<
   BaseIconProps & {
     renderItem: (arg: { className: string }) => ReactNode;
   }
-> = ({ size, renderItem }) => {
-  return renderItem({
+> = ({ size, renderItem }) =>
+  renderItem({
     className: cn(sizeClass[size]),
   });
-};

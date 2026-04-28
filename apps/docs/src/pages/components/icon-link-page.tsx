@@ -1,4 +1,11 @@
-import { Anchor, CopyIcon, Heading, IconLink, Separator } from '@k8o/arte-odyssey';
+import {
+  Anchor,
+  CopyIcon,
+  Heading,
+  IconLink,
+  Separator,
+} from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -49,7 +56,10 @@ export function IconLinkPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { IconLink } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { IconLink } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

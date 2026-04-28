@@ -3,6 +3,7 @@
 import type { FC, HTMLProps, MouseEvent } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
+
 import { cn } from './../../../helpers/cn';
 
 type Props = {
@@ -48,7 +49,8 @@ export const IconButton: FC<Props> = ({
       className={cn(
         'inline-flex cursor-pointer rounded-full transition-colors',
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-        (bg === 'transparent' || bg === 'base') && 'hover:bg-bg-subtle active:bg-bg-mute',
+        (bg === 'transparent' || bg === 'base') &&
+          'hover:bg-bg-subtle active:bg-bg-mute',
         bg === 'base' && 'bg-bg-base',
         bg === 'transparent' && 'bg-transparent',
         bg === 'primary' &&
@@ -58,11 +60,13 @@ export const IconButton: FC<Props> = ({
         size === 'sm' && 'p-1',
         size === 'md' && 'p-2',
         size === 'lg' && 'p-3',
-        isDisabled && 'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
+        isDisabled &&
+          'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
       )}
       disabled={isDisabled}
       onClick={handleClick}
       ref={ref}
+      type="button"
       {...props}
     >
       {!props.role && <span className="sr-only">{label}</span>}

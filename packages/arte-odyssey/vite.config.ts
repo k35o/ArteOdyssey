@@ -1,8 +1,9 @@
 import { fileURLToPath } from 'node:url';
+
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import react from '@vitejs/plugin-react';
-import { defineConfig } from 'vite-plus';
 import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vite-plus';
 
 export default defineConfig({
   staged: {
@@ -10,7 +11,11 @@ export default defineConfig({
   },
   plugins: [react()],
   pack: {
-    entry: ['src/**/*.{ts,tsx}', '!src/**/*.stories.tsx', '!src/**/*.test.{ts,tsx}'],
+    entry: [
+      'src/**/*.{ts,tsx}',
+      '!src/**/*.stories.tsx',
+      '!src/**/*.test.{ts,tsx}',
+    ],
     format: 'esm',
     dts: true,
     outDir: 'dist',
@@ -31,7 +36,9 @@ export default defineConfig({
             configDir: fileURLToPath(new URL('./.storybook', import.meta.url)),
           }),
         ],
-        publicDir: fileURLToPath(new URL('./.storybook/public', import.meta.url)),
+        publicDir: fileURLToPath(
+          new URL('./.storybook/public', import.meta.url),
+        ),
         test: {
           name: { label: 'components', color: 'magenta' },
           browser: {

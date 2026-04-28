@@ -1,8 +1,23 @@
 'use client';
 
-import type { ChangeEvent, ChangeEventHandler, FC, PropsWithChildren, ReactElement } from 'react';
-import { createContext, use, useCallback, useId, useMemo, useRef, useState } from 'react';
+import type {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  PropsWithChildren,
+  ReactElement,
+} from 'react';
+import {
+  createContext,
+  use,
+  useCallback,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useFormStatus } from 'react-dom';
+
 import { uuidV4 } from '../../../helpers/uuid-v4';
 import { IconButton } from '../../buttons/icon-button';
 import { CloseIcon } from '../../icons';
@@ -75,7 +90,10 @@ const Root = ({
       const newFiles = files.map((file) => ({ file, id: uuidV4() }));
       const updatedFiles =
         multiple || webkitDirectory
-          ? [...acceptedFiles, ...newFiles].slice(0, maxFiles ?? Number.POSITIVE_INFINITY)
+          ? [...acceptedFiles, ...newFiles].slice(
+              0,
+              maxFiles ?? Number.POSITIVE_INFINITY,
+            )
           : newFiles.slice(0, 1);
 
       setAcceptedFiles(updatedFiles);
@@ -118,7 +136,13 @@ const Root = ({
       onFileDelete,
       openFilePicker,
     }),
-    [isDisabledResolved, isInvalid, acceptedFiles, onFileDelete, openFilePicker],
+    [
+      isDisabledResolved,
+      isInvalid,
+      acceptedFiles,
+      onFileDelete,
+      openFilePicker,
+    ],
   );
 
   return (
@@ -148,7 +172,11 @@ const Root = ({
 };
 
 const Trigger: FC<{
-  renderItem: (props: { onClick: () => void; disabled: boolean; invalid: boolean }) => ReactElement;
+  renderItem: (props: {
+    onClick: () => void;
+    disabled: boolean;
+    invalid: boolean;
+  }) => ReactElement;
 }> = ({ renderItem }) => {
   const context = useFileFieldContext();
   return renderItem({
@@ -172,17 +200,19 @@ const ItemList: FC<{
     <ul className="mt-2 space-y-2">
       {acceptedFiles.map((acceptedFile) => {
         const { file, id } = acceptedFile;
-        const onDelete = () => onFileDelete(id);
+        const onDelete = () => {
+          onFileDelete(id);
+        };
 
         const sizeInKB = (file.size / 1024).toFixed(2);
 
         return (
           <li
-            className="flex items-center justify-between rounded-xl border border-border-base bg-bg-base px-3 py-2"
+            className="border-border-base bg-bg-base flex items-center justify-between rounded-xl border px-3 py-2"
             key={id}
           >
             <div className="flex flex-col gap-1">
-              <span className="font-medium text-fg-base text-sm">
+              <span className="text-fg-base text-sm font-medium">
                 {showWebkitRelativePath ? file.webkitRelativePath : file.name}
               </span>
               <span className="text-fg-mute text-xs">{sizeInKB} KB</span>

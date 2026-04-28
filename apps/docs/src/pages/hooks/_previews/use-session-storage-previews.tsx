@@ -11,8 +11,10 @@ export function UseSessionStorageBasicPreview() {
         Count: <strong>{value}</strong>
       </span>
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
-        onClick={() => setValue(value + 1)}
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
+        onClick={() => {
+          setValue(value + 1);
+        }}
         type="button"
       >
         Increment
@@ -22,7 +24,10 @@ export function UseSessionStorageBasicPreview() {
 }
 
 export function UseSessionStorageRemovePreview() {
-  const [value, setValue, handleRemove] = useSessionStorage('demo-session-name', 'ArteOdyssey');
+  const [value, setValue, handleRemove] = useSessionStorage(
+    'demo-session-name',
+    'ArteOdyssey',
+  );
 
   return (
     <div className="flex items-center gap-4">
@@ -30,14 +35,16 @@ export function UseSessionStorageRemovePreview() {
         Value: <strong>{value}</strong>
       </span>
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
-        onClick={() => setValue('Updated!')}
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
+        onClick={() => {
+          setValue('Updated!');
+        }}
         type="button"
       >
         Update
       </button>
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
         onClick={handleRemove}
         type="button"
       >

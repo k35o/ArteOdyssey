@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useInView } from './use-in-view';
 
 describe('useInView', () => {
@@ -71,12 +72,15 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    if (storedCallback && storedElement) {
-      storedCallback(
-        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
-        {} as IntersectionObserver,
-      );
-    }
+    storedCallback!(
+      [
+        {
+          isIntersecting: false,
+          target: storedElement!,
+        } as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     await vi.waitFor(() => {
       expect(result.current).toBe(false);
@@ -114,12 +118,15 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    if (storedCallback && storedElement) {
-      storedCallback(
-        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
-        {} as IntersectionObserver,
-      );
-    }
+    storedCallback!(
+      [
+        {
+          isIntersecting: false,
+          target: storedElement!,
+        } as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     await vi.waitFor(() => {
       expect(result.current).toBe(true);

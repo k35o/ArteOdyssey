@@ -15,28 +15,32 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from './../../../helpers/cn';
+
 import { Button } from '../../buttons/button';
 import { IconButton } from '../../buttons/icon-button';
 import { ChevronIcon } from '../../icons';
 import { Popover } from '../popover';
 import { useFloatingUIContext } from '../popover/hooks';
-import { MenuContextProvider, useMenuContent, useMenuItem, useMenuTrigger } from './hooks';
+import { cn } from './../../../helpers/cn';
+import {
+  MenuContextProvider,
+  useMenuContent,
+  useMenuItem,
+  useMenuTrigger,
+} from './hooks';
 
 const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
   children,
   placement = 'bottom-start',
-}) => {
-  return (
-    <Popover.Root placement={placement} type="menu">
-      <MenuProvider>{children}</MenuProvider>
-    </Popover.Root>
-  );
-};
+}) => (
+  <Popover.Root placement={placement} type="menu">
+    <MenuProvider>{children}</MenuProvider>
+  </Popover.Root>
+);
 
 const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
-  const itemElementsRef = useRef<(HTMLElement | null)[]>([]);
+  const itemElementsRef = useRef<Array<HTMLElement | null>>([]);
 
   const context = useFloatingUIContext();
 
@@ -46,7 +50,9 @@ const MenuProvider: FC<PropsWithChildren> = ({ children }) => {
     onNavigate: setActiveIndex,
     loop: true,
   });
-  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions([listNavigation]);
+  const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions(
+    [listNavigation],
+  );
 
   return (
     <MenuContextProvider
@@ -73,7 +79,7 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
           <div
             {...props}
             {...contentProps}
-            className="flex min-w-40 flex-col rounded-lg bg-bg-raised py-2 shadow-md"
+            className="bg-bg-raised flex min-w-40 flex-col rounded-lg py-2 shadow-md"
           >
             {children}
           </div>
@@ -83,7 +89,10 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({ label, onClick }) => {
+const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({
+  label,
+  onClick,
+}) => {
   const props = useMenuItem({ onClick });
 
   return (
@@ -93,6 +102,7 @@ const Item: FC<{ onClick: MouseEventHandler; label: string }> = ({ label, onClic
         'hover:bg-bg-subtle',
         'focus-visible:bg-bg-subtle focus-visible:outline-none',
       )}
+      type="button"
       {...props}
     >
       {label}

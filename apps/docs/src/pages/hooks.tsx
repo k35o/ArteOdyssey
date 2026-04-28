@@ -2,23 +2,22 @@
 
 import { Heading, InteractiveCard, Separator } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
+
 import { LocaleAnchor } from '../components/locale-anchor';
 import { T } from '../components/t';
 import { hookCategories } from '../data/hooks-nav';
 import type { NavItem } from '../data/nav-types';
 import { useTranslation } from '../i18n';
 
-const HookCard: FC<{ item: NavItem }> = ({ item }) => {
-  return (
-    <LocaleAnchor path={item.path} unstyled>
-      <InteractiveCard appearance="shadow">
-        <div className="px-4 py-3">
-          <span className="font-medium text-fg-base text-sm">{item.name}</span>
-        </div>
-      </InteractiveCard>
-    </LocaleAnchor>
-  );
-};
+const HookCard: FC<{ item: NavItem }> = ({ item }) => (
+  <LocaleAnchor path={item.path} unstyled>
+    <InteractiveCard appearance="shadow">
+      <div className="px-4 py-3">
+        <span className="text-fg-base text-sm font-medium">{item.name}</span>
+      </div>
+    </InteractiveCard>
+  </LocaleAnchor>
+);
 
 export function HooksPage() {
   const { t } = useTranslation();

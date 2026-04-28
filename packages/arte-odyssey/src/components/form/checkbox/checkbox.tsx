@@ -3,9 +3,10 @@
 import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
-import { cn } from './../../../helpers/cn';
+
 import { CheckIcon } from '../../icons';
 import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
+import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
   name?: string;
@@ -39,7 +40,9 @@ export const Checkbox: FC<Props> = ({
 }) => {
   const groupContext = useCheckboxGroupContext();
   const { pending } = useFormStatus();
-  const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+  const [internalChecked, setInternalChecked] = useState(
+    defaultChecked ?? false,
+  );
   const groupItemValue = itemValue ?? '';
 
   if (groupContext && !itemValue) {
@@ -47,7 +50,8 @@ export const Checkbox: FC<Props> = ({
   }
 
   const isControlled = value !== undefined;
-  const isDisabledResolved = isDisabled || groupContext?.isDisabled || pending;
+  const isDisabledResolved =
+    isDisabled || (groupContext?.isDisabled ?? pending);
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled
@@ -67,13 +71,16 @@ export const Checkbox: FC<Props> = ({
     <label
       className={cn(
         'inline-flex items-center gap-2 text-left',
-        isDisabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
+        isDisabledResolved
+          ? 'cursor-not-allowed text-fg-mute'
+          : 'cursor-pointer',
       )}
     >
       <input
-        checked={groupContext ? checked : isControlled ? value : undefined}
+        {...(groupContext || isControlled
+          ? { checked: groupContext ? checked : value }
+          : { defaultChecked })}
         className="peer sr-only"
-        defaultChecked={groupContext || isControlled ? undefined : defaultChecked}
         disabled={isDisabledResolved}
         name={groupContext?.name ?? name}
         onChange={(event) => {
@@ -88,7 +95,7 @@ export const Checkbox: FC<Props> = ({
         value={groupContext ? groupItemValue : undefined}
       />
       <span
-        aria-hidden={true}
+        aria-hidden
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
           'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',

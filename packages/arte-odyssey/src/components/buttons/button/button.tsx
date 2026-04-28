@@ -3,6 +3,7 @@
 import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
+
 import { Spinner } from '../../feedback/spinner/spinner';
 import { cn } from './../../../helpers/cn';
 
@@ -51,7 +52,11 @@ export const Button: FC<
       : undefined;
 
   const spinnerSize = size === 'lg' ? 'md' : 'sm';
-  const resolvedStartIcon = isPending ? <Spinner label="Loading" size={spinnerSize} /> : startIcon;
+  const resolvedStartIcon = isPending ? (
+    <Spinner label="Loading" size={spinnerSize} />
+  ) : (
+    startIcon
+  );
 
   return (
     <button
@@ -77,11 +82,11 @@ export const Button: FC<
             variant === 'outlined' && color === 'secondary',
           'border-border-base bg-bg-base text-fg-base hover:bg-bg-subtle active:bg-bg-mute':
             variant === 'outlined' && color === 'gray',
-          'cursor-not-allowed bg-bg-base opacity-35 hover:bg-bg-base active:bg-bg-base':
+          'cursor-not-allowed bg-bg-base opacity-35':
             isDisabled && variant === 'outlined',
           'border-transparent bg-transparent text-fg-mute hover:bg-bg-subtle hover:text-fg-base active:bg-bg-mute active:text-fg-base':
             variant === 'skeleton',
-          'cursor-not-allowed bg-transparent text-fg-mute opacity-35 hover:bg-transparent hover:text-fg-mute active:bg-transparent active:text-fg-mute':
+          'cursor-not-allowed bg-transparent text-fg-mute opacity-35':
             isDisabled && variant === 'skeleton',
         },
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
@@ -99,6 +104,7 @@ export const Button: FC<
       disabled={isDisabled}
       onClick={handleClick}
       ref={ref}
+      // eslint-disable-next-line eslint-plugin-react/button-has-type
       type={type}
       {...rest}
     >

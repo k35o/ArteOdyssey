@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { Checkbox } from './checkbox';
 
 const meta: Meta<typeof Checkbox> = {
@@ -14,21 +15,23 @@ const meta: Meta<typeof Checkbox> = {
 export default meta;
 type Story = StoryObj<typeof Checkbox>;
 
-export const Default: Story = {
-  render: (props) => {
-    const [value, setValue] = useState(false);
+const DefaultRender = (props: ComponentProps<typeof Checkbox>) => {
+  const [value, setValue] = useState(false);
 
-    return (
-      <Checkbox
-        isDisabled={props.isDisabled}
-        label={props.label}
-        onChange={(e) => {
-          setValue(e.target.checked);
-        }}
-        value={value}
-      />
-    );
-  },
+  return (
+    <Checkbox
+      isDisabled={props.isDisabled}
+      label={props.label}
+      onChange={(e) => {
+        setValue(e.target.checked);
+      }}
+      value={value}
+    />
+  );
+};
+
+export const Default: Story = {
+  render: (props) => <DefaultRender {...props} />,
 };
 
 export const Disabled: Story = {

@@ -2,6 +2,7 @@
 
 import type { FC } from 'react';
 import { useState } from 'react';
+
 import { cn } from '../../../helpers/cn';
 
 type Props = {
@@ -27,7 +28,13 @@ const getInitials = (name?: string) => {
   return initials || '?';
 };
 
-export const Avatar: FC<Props> = ({ alt, fallback, name, size = 'md', src }) => {
+export const Avatar: FC<Props> = ({
+  alt,
+  fallback,
+  name,
+  size = 'md',
+  src,
+}) => {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const showImage = Boolean(src) && failedSrc !== src;
   const label = alt ?? name ?? 'Avatar';
@@ -56,7 +63,7 @@ export const Avatar: FC<Props> = ({ alt, fallback, name, size = 'md', src }) => 
           width={imageSize}
         />
       ) : (
-        <span aria-hidden={true}>{fallback ?? getInitials(name)}</span>
+        <span aria-hidden>{fallback ?? getInitials(name)}</span>
       )}
     </span>
   );

@@ -32,23 +32,31 @@ export const FormControl: FC<FormControlProps> = ({
 }) => {
   const id = useId();
   const describedbyId =
-    isInvalid && errorText ? `${id}-feedback` : helpText ? `${id}-helptext` : undefined;
+    isInvalid && errorText
+      ? `${id}-feedback`
+      : helpText
+        ? `${id}-helptext`
+        : undefined;
   const labelId = `${id}-label`;
   return (
     <fieldset className="flex w-full flex-col">
       {labelAs === 'label' ? (
         <label
-          className="mb-1 flex gap-2 pl-0.5 font-bold text-fg-base text-md"
+          className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold"
           htmlFor={id}
           id={labelId}
         >
           {label}
-          {isRequired && <span className="font-medium text-fg-error">必須</span>}
+          {isRequired && (
+            <span className="text-fg-error font-medium">必須</span>
+          )}
         </label>
       ) : (
-        <legend className="mb-1 flex gap-2 pl-0.5 font-bold text-fg-base text-md">
+        <legend className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold">
           {label}
-          {isRequired && <span className="font-medium text-fg-error">必須</span>}
+          {isRequired && (
+            <span className="text-fg-error font-medium">必須</span>
+          )}
         </legend>
       )}
       {renderInput({
@@ -60,12 +68,16 @@ export const FormControl: FC<FormControlProps> = ({
         isRequired,
       })}
       {isInvalid && errorText ? (
-        <p aria-live="polite" className="mt-1 pl-0.5 text-fg-error text-sm" id={`${id}-feedback`}>
+        <p
+          aria-live="polite"
+          className="text-fg-error mt-1 pl-0.5 text-sm"
+          id={`${id}-feedback`}
+        >
           {errorText}
         </p>
       ) : (
         helpText && (
-          <p className="mt-1 pl-0.5 text-fg-mute text-sm" id={`${id}-helptext`}>
+          <p className="text-fg-mute mt-1 pl-0.5 text-sm" id={`${id}-helptext`}>
             {helpText}
           </p>
         )

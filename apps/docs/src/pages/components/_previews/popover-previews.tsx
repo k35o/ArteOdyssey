@@ -14,7 +14,7 @@ export function PopoverBasicPreview() {
       />
       <Popover.Content
         renderItem={(props) => (
-          <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+          <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
             <div role="menuitem">Popover content goes here.</div>
           </div>
         )}
@@ -36,7 +36,7 @@ export function PopoverPlacementPreview() {
         />
         <Popover.Content
           renderItem={(props) => (
-            <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
               <div role="menuitem">Top placement</div>
             </div>
           )}
@@ -52,7 +52,7 @@ export function PopoverPlacementPreview() {
         />
         <Popover.Content
           renderItem={(props) => (
-            <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
               <div role="menuitem">Right placement</div>
             </div>
           )}
@@ -68,7 +68,7 @@ export function PopoverPlacementPreview() {
         />
         <Popover.Content
           renderItem={(props) => (
-            <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
               <div role="menuitem">Bottom placement</div>
             </div>
           )}
@@ -84,7 +84,7 @@ export function PopoverPlacementPreview() {
         />
         <Popover.Content
           renderItem={(props) => (
-            <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+            <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
               <div role="menuitem">Left placement</div>
             </div>
           )}

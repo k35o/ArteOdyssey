@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useClipboard } from '.';
 
 describe('useClipboard', () => {
@@ -8,7 +9,7 @@ describe('useClipboard', () => {
 
   it('クリップボードを書き込める', async () => {
     const writeText = 'test';
-    const writeTextMockFn = vi.fn();
+    const writeTextMockFn = vi.fn<(text: string) => Promise<void>>();
     vi.stubGlobal('navigator', {
       clipboard: {
         writeText: writeTextMockFn,
@@ -19,11 +20,11 @@ describe('useClipboard', () => {
     await result.current.writeClipboard(writeText);
 
     expect(writeTextMockFn).toBeCalledWith(writeText);
-    expect(navigator.clipboard.writeText).toHaveBeenCalledOnce();
+    expect(writeTextMockFn).toHaveBeenCalledOnce();
   });
 
   it('クリップボードを読み込める', async () => {
-    const readTextMockFn = vi.fn();
+    const readTextMockFn = vi.fn<() => Promise<string>>();
     vi.stubGlobal('navigator', {
       clipboard: {
         readText: readTextMockFn,

@@ -1,32 +1,41 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { Autocomplete } from './autocomplete';
+
+const AutocompleteRender = ({
+  id,
+  describedbyId,
+  isInvalid,
+  isDisabled,
+  isRequired,
+}: ComponentProps<typeof Autocomplete>) => {
+  const options = [
+    { value: '2', label: '2進数' },
+    { value: '8', label: '8進数' },
+    { value: '10', label: '10進数' },
+    { value: '16', label: '16進数' },
+  ];
+  const [value, setValue] = useState<string[]>([]);
+
+  return (
+    <Autocomplete
+      describedbyId={describedbyId}
+      id={id}
+      isDisabled={isDisabled}
+      isInvalid={isInvalid}
+      isRequired={isRequired}
+      onChange={setValue}
+      options={options}
+      value={value}
+    />
+  );
+};
 
 const meta: Meta<typeof Autocomplete> = {
   title: 'components/form/autocomplete',
   component: Autocomplete,
-  render: ({ id, describedbyId, isInvalid, isDisabled, isRequired }) => {
-    const options = [
-      { value: '2', label: '2進数' },
-      { value: '8', label: '8進数' },
-      { value: '10', label: '10進数' },
-      { value: '16', label: '16進数' },
-    ];
-    const [value, setValue] = useState<string[]>([]);
-
-    return (
-      <Autocomplete
-        describedbyId={describedbyId}
-        id={id}
-        isDisabled={isDisabled}
-        isInvalid={isInvalid}
-        isRequired={isRequired}
-        onChange={setValue}
-        options={options}
-        value={value}
-      />
-    );
-  },
+  render: (props) => <AutocompleteRender {...props} />,
 };
 
 export default meta;

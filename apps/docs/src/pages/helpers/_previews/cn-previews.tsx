@@ -17,12 +17,19 @@ export function CnPreview() {
         Merged classes
       </div>
       <div className="flex items-center gap-4">
-        <div className={cn('rounded-lg px-4 py-2 text-sm', isActive && 'bg-bg-mute')}>
+        <div
+          className={cn(
+            'rounded-lg px-4 py-2 text-sm',
+            isActive && 'bg-bg-mute',
+          )}
+        >
           Conditional classes
         </div>
         <button
-          className="rounded-lg border border-border-mute px-3 py-1 text-sm transition-colors hover:bg-bg-mute"
-          onClick={() => setIsActive((prev) => !prev)}
+          className="border-border-mute hover:bg-bg-mute rounded-lg border px-3 py-1 text-sm transition-colors"
+          onClick={() => {
+            setIsActive((prev) => !prev);
+          }}
           type="button"
         >
           Toggle

@@ -10,9 +10,11 @@ import {
   use,
   useEffect,
   useId,
+  useMemo,
   useRef,
   useState,
 } from 'react';
+
 import { cn } from './../../../helpers/cn';
 
 type TabsContext = {
@@ -43,18 +45,22 @@ const Root: FC<
     defaultSelectedId ?? ids[defaultIndex] ?? ids[0],
   );
   const rootId = useId();
+  const contextValue = useMemo<TabsContext>(
+    () => ({
+      rootId,
+      ids,
+      selectedId,
+      setSelectedId,
+    }),
+    [rootId, ids, selectedId],
+  );
 
   return (
-    <TabsProvider
-      value={{
-        rootId,
-        ids,
-        selectedId,
-        setSelectedId,
-      }}
-    >
+    <TabsProvider value={contextValue}>
       {/* TODO: スクロール以外の見せ方を考えても良さそう */}
-      <div className="flex flex-col gap-1 overflow-x-auto p-0.5">{children}</div>
+      <div className="flex flex-col gap-1 overflow-x-auto p-0.5">
+        {children}
+      </div>
     </TabsProvider>
   );
 };
@@ -83,15 +89,16 @@ const List: FC<
 > = ({ label, children }) => {
   const { rootId } = useTabsState();
   const setFocusRef = useRef<boolean>(false);
+  const listContextValue = useMemo(() => ({ setFocusRef }), []);
   return (
     <div
       aria-label={label}
       aria-orientation="horizontal"
-      className="wrap-normal flex overflow-x-auto overflow-y-hidden border-border-base border-b p-0.5"
+      className="border-border-base flex overflow-x-auto overflow-y-hidden border-b p-0.5 wrap-normal"
       id={`${rootId}-tablist`}
       role="tablist"
     >
-      <TabsListProvider value={{ setFocusRef }}>{children}</TabsListProvider>
+      <TabsListProvider value={listContextValue}>{children}</TabsListProvider>
     </div>
   );
 };
@@ -134,7 +141,6 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
           const nextActiveIndex = index === ids.length - 1 ? 0 : index + 1;
           setSelectedId(ids[nextActiveIndex] ?? ids[0]);
           setFocusRef.current = true;
-          return;
         }
       }}
       ref={ref}
@@ -143,7 +149,7 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     >
       {selectedId === id && (
         <motion.div
-          className="absolute right-0 -bottom-0.5 left-0 h-1 bg-primary-border"
+          className="bg-primary-border absolute right-0 -bottom-0.5 left-0 h-1"
           layoutId={`${rootId}-underline`}
         />
       )}

@@ -3,17 +3,20 @@
 import { useSyncExternalStore } from 'react';
 
 const getHash = () =>
-  typeof window !== 'undefined' ? decodeURIComponent(window.location.hash.replace('#', '')) : null;
+  typeof window === 'undefined'
+    ? null
+    : decodeURIComponent(window.location.hash.replace('#', ''));
 
 const subscribe = (callback: () => void) => {
-  const { pushState, replaceState } = window.history;
+  const originalPushState = window.history.pushState.bind(window.history);
+  const originalReplaceState = window.history.replaceState.bind(window.history);
 
   window.history.pushState = (...args) => {
-    pushState.apply(window.history, args);
+    originalPushState(...args);
     setTimeout(callback);
   };
   window.history.replaceState = (...args) => {
-    replaceState.apply(window.history, args);
+    originalReplaceState(...args);
     setTimeout(callback);
   };
 

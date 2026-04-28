@@ -1,9 +1,16 @@
 'use client';
 
 import { Outlet, useLocation } from '@funstack/router';
-import { Drawer, Heading, IconButton, ListIcon, Separator } from '@k8o/arte-odyssey';
-import { ErrorBoundary } from 'react-error-boundary';
+import {
+  Drawer,
+  Heading,
+  IconButton,
+  ListIcon,
+  Separator,
+} from '@k8o/arte-odyssey';
 import { useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
+
 import { ErrorFallback } from '../components/error-fallback';
 import { LocaleAnchor } from '../components/locale-anchor';
 import { Navigation } from '../components/navigation';
@@ -12,7 +19,13 @@ import { componentCategories } from '../data/components-nav';
 import { helperCategories } from '../data/helpers-nav';
 import { hookCategories } from '../data/hooks-nav';
 import type { NavCategory } from '../data/nav-types';
-import { detectLocale, isLocale, LocaleProvider, useLocale, useTranslation } from '../i18n';
+import {
+  detectLocale,
+  isLocale,
+  LocaleProvider,
+  useLocale,
+  useTranslation,
+} from '../i18n';
 import { ThemeProvider } from '../theme/context';
 
 type SideNavConfig = {
@@ -23,7 +36,7 @@ type SideNavConfig = {
 
 function useSideNavConfig(): SideNavConfig | null {
   const location = useLocation();
-  const pathname = location.pathname;
+  const { pathname } = location;
 
   // /ja/components/button → match, /ja/components → no match
   if (/^\/[^/]+\/components\/.+/.test(pathname)) {
@@ -62,7 +75,10 @@ function OutletWithErrorBoundary() {
   return (
     <ErrorBoundary
       fallbackRender={({ resetErrorBoundary }) => (
-        <ErrorFallback locale={locale} resetErrorBoundary={resetErrorBoundary} />
+        <ErrorFallback
+          locale={locale}
+          resetErrorBoundary={resetErrorBoundary}
+        />
       )}
       resetKeys={[location.entryId]}
     >
@@ -76,62 +92,64 @@ function LayoutContent() {
   const { t } = useTranslation();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  return (
+  return sideNavConfig ? (
     <>
-      {sideNavConfig ? (
-        <>
-          <div className="shrink-0 bg-bg-base">
-            <Navigation />
-            <Separator color="mute" />
-            <div className="lg:hidden">
-              <div className="flex items-center bg-bg-surface px-4 py-2">
-                <IconButton
-                  label={t('sideNav.openNavigation')}
-                  onClick={() => setIsDrawerOpen(true)}
-                >
-                  <ListIcon />
-                </IconButton>
-              </div>
-              <Separator color="mute" />
-            </div>
+      <div className="bg-bg-base shrink-0">
+        <Navigation />
+        <Separator color="mute" />
+        <div className="lg:hidden">
+          <div className="bg-bg-surface flex items-center px-4 py-2">
+            <IconButton
+              label={t('sideNav.openNavigation')}
+              onClick={() => {
+                setIsDrawerOpen(true);
+              }}
+            >
+              <ListIcon />
+            </IconButton>
           </div>
-          <div className="flex min-h-0 flex-1">
-            <aside className="hidden w-56 shrink-0 overflow-y-auto border-border-mute border-r p-2 lg:block">
-              <SideNavigation categories={sideNavConfig.categories} />
-            </aside>
-            <main className="min-w-0 flex-1 overflow-y-auto">
-              <OutletWithErrorBoundary />
-            </main>
-          </div>
-          <Drawer
-            isOpen={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-            side="left"
-            title={
-              <Heading type="h3">
-                <LocaleAnchor path={sideNavConfig.catalogPath}>
-                  {t(sideNavConfig.titleKey)}
-                </LocaleAnchor>
-              </Heading>
-            }
-          >
-            <SideNavigation
-              categories={sideNavConfig.categories}
-              onNavigate={() => setIsDrawerOpen(false)}
-            />
-          </Drawer>
-        </>
-      ) : (
-        <>
-          <div className="shrink-0 bg-bg-base">
-            <Navigation />
-            <Separator color="mute" />
-          </div>
-          <main className="min-w-0 flex-1 overflow-y-auto">
-            <OutletWithErrorBoundary />
-          </main>
-        </>
-      )}
+          <Separator color="mute" />
+        </div>
+      </div>
+      <div className="flex min-h-0 flex-1">
+        <aside className="border-border-mute hidden w-56 shrink-0 overflow-y-auto border-r p-2 lg:block">
+          <SideNavigation categories={sideNavConfig.categories} />
+        </aside>
+        <main className="min-w-0 flex-1 overflow-y-auto">
+          <OutletWithErrorBoundary />
+        </main>
+      </div>
+      <Drawer
+        isOpen={isDrawerOpen}
+        onClose={() => {
+          setIsDrawerOpen(false);
+        }}
+        side="left"
+        title={
+          <Heading type="h3">
+            <LocaleAnchor path={sideNavConfig.catalogPath}>
+              {t(sideNavConfig.titleKey)}
+            </LocaleAnchor>
+          </Heading>
+        }
+      >
+        <SideNavigation
+          categories={sideNavConfig.categories}
+          onNavigate={() => {
+            setIsDrawerOpen(false);
+          }}
+        />
+      </Drawer>
+    </>
+  ) : (
+    <>
+      <div className="bg-bg-base shrink-0">
+        <Navigation />
+        <Separator color="mute" />
+      </div>
+      <main className="min-w-0 flex-1 overflow-y-auto">
+        <OutletWithErrorBoundary />
+      </main>
     </>
   );
 }
@@ -154,7 +172,11 @@ export function LocaleLayout({ params }: { params: { locale: string } }) {
   return (
     <ErrorBoundary
       fallbackRender={({ resetErrorBoundary }) => (
-        <ErrorFallback fullScreen locale={localeParam} resetErrorBoundary={resetErrorBoundary} />
+        <ErrorFallback
+          fullScreen
+          locale={localeParam}
+          resetErrorBoundary={resetErrorBoundary}
+        />
       )}
       resetKeys={[location.entryId]}
     >

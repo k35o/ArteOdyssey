@@ -2,6 +2,7 @@
 
 import { AlertIcon, Button, Heading } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
+
 import type { Locale } from '../i18n';
 import { messages } from '../i18n';
 
@@ -16,7 +17,8 @@ export const ErrorFallback: FC<ErrorFallbackProps> = ({
   fullScreen = false,
   locale = 'ja',
 }) => {
-  const t = (key: 'error.title' | 'error.description' | 'error.retry') => messages[locale][key];
+  const t = (key: 'error.title' | 'error.description' | 'error.retry') =>
+    messages[locale][key];
 
   return (
     <div

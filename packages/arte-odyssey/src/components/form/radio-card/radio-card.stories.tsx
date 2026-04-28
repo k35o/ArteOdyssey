@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { useState } from 'react';
+import { type ComponentProps, useState } from 'react';
+
 import { RadioCard } from './radio-card';
 
 const OPTIONS = [
@@ -28,7 +29,7 @@ const meta: Meta<typeof RadioCard> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[32rem] max-w-full">
+      <div className="w-lg max-w-full">
         <Story />
       </div>
     ),
@@ -44,50 +45,50 @@ const meta: Meta<typeof RadioCard> = {
 export default meta;
 type Story = StoryObj<typeof RadioCard>;
 
-export const Default: Story = {
-  render: (props) => {
-    const [value, setValue] = useState('pro');
+const DefaultRender = (props: ComponentProps<typeof RadioCard>) => {
+  const [value, setValue] = useState('pro');
 
-    return (
-      <div>
-        <p className="mb-3 font-medium text-fg-base" id="radio-card-label">
-          Choose a plan
-        </p>
-        <RadioCard
-          isDisabled={props.isDisabled}
-          isInvalid={props.isInvalid}
-          labelId={props.labelId}
-          onChange={(event) => {
-            setValue(event.target.value);
-          }}
-          options={props.options}
-          value={value}
-        />
-      </div>
-    );
-  },
+  return (
+    <div>
+      <p className="text-fg-base mb-3 font-medium" id="radio-card-label">
+        Choose a plan
+      </p>
+      <RadioCard
+        isDisabled={props.isDisabled}
+        isInvalid={props.isInvalid}
+        labelId={props.labelId}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }}
+        options={props.options}
+        value={value}
+      />
+    </div>
+  );
+};
+
+export const Default: Story = {
+  render: (props) => <DefaultRender {...props} />,
 };
 
 export const DefaultValue: Story = {
   args: {
     defaultValue: 'starter',
   },
-  render: (props) => {
-    return (
-      <div>
-        <p className="mb-3 font-medium text-fg-base" id="radio-card-label">
-          Choose a plan
-        </p>
-        <RadioCard
-          defaultValue={props.defaultValue}
-          isDisabled={props.isDisabled}
-          isInvalid={props.isInvalid}
-          labelId={props.labelId}
-          options={props.options}
-        />
-      </div>
-    );
-  },
+  render: (props) => (
+    <div>
+      <p className="text-fg-base mb-3 font-medium" id="radio-card-label">
+        Choose a plan
+      </p>
+      <RadioCard
+        defaultValue={props.defaultValue}
+        isDisabled={props.isDisabled}
+        isInvalid={props.isInvalid}
+        labelId={props.labelId}
+        options={props.options}
+      />
+    </div>
+  ),
 };
 
 export const Disabled: Story = {

@@ -11,11 +11,14 @@ type Options = {
   enabled?: boolean;
 };
 
-export const useWindowResize = (callback: (size: Size) => void, options: Options = {}): void => {
+export const useWindowResize = (
+  callback: (size: Size) => void,
+  options: Options = {},
+): void => {
   const { enabled = true } = options;
 
   useEffect(() => {
-    if (!enabled) return;
+    if (!enabled) return undefined;
 
     const handleResize = () => {
       callback({

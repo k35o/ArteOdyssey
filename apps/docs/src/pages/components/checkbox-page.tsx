@@ -1,4 +1,5 @@
 import { Anchor, Checkbox, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -50,7 +51,10 @@ export function CheckboxPage() {
           <T k="components.checkbox.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-checkbox--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-form-checkbox--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -62,7 +66,10 @@ export function CheckboxPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Checkbox } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Checkbox } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 

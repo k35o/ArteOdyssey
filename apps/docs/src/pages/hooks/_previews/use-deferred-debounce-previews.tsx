@@ -27,7 +27,10 @@ const WORDS = [
   'watermelon',
 ];
 
-const expanded = Array.from({ length: 400 }, (_, i) => WORDS[i % WORDS.length] ?? '');
+const expanded = Array.from(
+  { length: 400 },
+  (_, i) => WORDS[i % WORDS.length] ?? '',
+);
 
 export function UseDeferredDebouncePreview() {
   const [query, setQuery] = useState('');
@@ -57,7 +60,7 @@ export function UseDeferredDebouncePreview() {
       </p>
       <ul
         aria-busy={isPending || undefined}
-        className={`max-h-48 overflow-auto rounded-lg border border-border-base p-2 text-sm transition-opacity ${
+        className={`border-border-base max-h-48 overflow-auto rounded-lg border p-2 text-sm transition-opacity ${
           isPending ? 'opacity-60' : ''
         }`}
       >

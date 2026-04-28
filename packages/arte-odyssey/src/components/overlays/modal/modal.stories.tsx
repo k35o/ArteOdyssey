@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
 import { expect, fn, waitFor } from 'storybook/test';
+
 import { Button } from '../../buttons/button';
 import { Dialog } from '../dialog';
 import { Modal } from './modal';
@@ -36,36 +37,38 @@ export const Default: Story = {
   },
 };
 
+const ExternalRefControlRender = () => {
+  const ref = useRef<HTMLDialogElement>(null);
+  return (
+    <>
+      <Button
+        onClick={() => {
+          ref.current?.showModal();
+        }}
+        size="md"
+        type="button"
+      >
+        開く
+      </Button>
+      <Modal ref={ref} type="center">
+        <Dialog.Root>
+          <Dialog.Header
+            onClose={() => {
+              ref.current?.close();
+            }}
+            title="外部ref制御"
+          />
+          <Dialog.Content>
+            <p>ref.current.showModal() から開かれました</p>
+          </Dialog.Content>
+        </Dialog.Root>
+      </Modal>
+    </>
+  );
+};
+
 export const ExternalRefControl: Story = {
-  render: () => {
-    const ref = useRef<HTMLDialogElement>(null);
-    return (
-      <>
-        <Button
-          onClick={() => {
-            ref.current?.showModal();
-          }}
-          size="md"
-          type="button"
-        >
-          開く
-        </Button>
-        <Modal ref={ref} type="center">
-          <Dialog.Root>
-            <Dialog.Header
-              onClose={() => {
-                ref.current?.close();
-              }}
-              title="外部ref制御"
-            />
-            <Dialog.Content>
-              <p>ref.current.showModal() から開かれました</p>
-            </Dialog.Content>
-          </Dialog.Root>
-        </Modal>
-      </>
-    );
-  },
+  render: () => <ExternalRefControlRender />,
   play: async ({ canvas, userEvent }) => {
     const trigger = canvas.getByRole('button', { name: '開く' });
     await userEvent.click(trigger);

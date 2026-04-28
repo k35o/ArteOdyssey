@@ -1,8 +1,17 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, type Ref, use, useId } from 'react';
-import { Heading } from '../../data-display/heading';
+import {
+  createContext,
+  type FC,
+  type PropsWithChildren,
+  type Ref,
+  use,
+  useId,
+  useMemo,
+} from 'react';
+
 import { IconButton } from '../../buttons/icon-button';
+import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
 
 const DialogContext = createContext<{
@@ -27,18 +36,19 @@ const Root: FC<
 > = ({ ref, id, children, tabIndex, role = 'dialog' }) => {
   const fallbackId = useId();
   const rootId = id ?? fallbackId;
+  const contextValue = useMemo(() => ({ rootId }), [rootId]);
 
   return (
     <section
       aria-describedby={`${rootId}-content`}
       aria-labelledby={`${rootId}-header`}
-      className="relative w-full rounded-lg bg-bg-raised shadow-md"
+      className="bg-bg-raised relative w-full rounded-lg shadow-md"
       id={id}
       ref={ref}
       role={role}
       tabIndex={tabIndex}
     >
-      <DialogContext value={{ rootId }}>{children}</DialogContext>
+      <DialogContext value={contextValue}>{children}</DialogContext>
     </section>
   );
 };
@@ -49,7 +59,10 @@ const Header: FC<{
 }> = ({ title, onClose }) => {
   const { rootId } = useDialogContext();
   return (
-    <div className="flex items-center justify-center p-4 pb-2" id={`${rootId}-header`}>
+    <div
+      className="flex items-center justify-center p-4 pb-2"
+      id={`${rootId}-header`}
+    >
       <Heading type="h3">{title}</Heading>
       <div className="absolute top-2 right-2">
         <IconButton

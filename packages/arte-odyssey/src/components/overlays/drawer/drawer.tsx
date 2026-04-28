@@ -1,9 +1,10 @@
 'use client';
 
 import { type FC, type PropsWithChildren, type ReactNode, useId } from 'react';
+
 import { cn } from '../../../helpers/cn';
-import { Heading } from '../../data-display/heading';
 import { IconButton } from '../../buttons/icon-button';
+import { Heading } from '../../data-display/heading';
 import { CloseIcon } from '../../icons';
 import { Modal } from '../modal';
 
@@ -25,9 +26,21 @@ export const Drawer: FC<
         className="flex h-full flex-col"
         id={rootId}
       >
-        <div className="flex shrink-0 items-center justify-center p-4 pb-2" id={`${rootId}-header`}>
-          {typeof title === 'string' ? <Heading type="h3">{title}</Heading> : title}
-          <div className={cn('absolute top-2', side === 'left' ? 'left-2' : 'right-2')}>
+        <div
+          className="flex shrink-0 items-center justify-center p-4 pb-2"
+          id={`${rootId}-header`}
+        >
+          {typeof title === 'string' ? (
+            <Heading type="h3">{title}</Heading>
+          ) : (
+            title
+          )}
+          <div
+            className={cn(
+              'absolute top-2',
+              side === 'left' ? 'left-2' : 'right-2',
+            )}
+          >
             <IconButton
               label="閉じる"
               onClick={(e) => {

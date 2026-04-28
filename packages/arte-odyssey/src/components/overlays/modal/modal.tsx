@@ -11,8 +11,9 @@ import {
   useRef,
   useState,
 } from 'react';
-import { cn } from './../../../helpers/cn';
+
 import { ToastProvider } from '../../feedback/toast';
+import { cn } from './../../../helpers/cn';
 
 const centerVariants: Variants = {
   open: {
@@ -101,7 +102,8 @@ export const Modal: FC<
   const dialogRef = useRef<HTMLDialogElement>(null);
   const [dialogOpen, setDialogOpen] = useState(defaultOpen ?? false);
 
-  const realDialogOpen = isOpen === true || isOpen === false ? isOpen : dialogOpen;
+  const realDialogOpen =
+    isOpen === true || isOpen === false ? isOpen : dialogOpen;
   const realOnClose = useCallback(() => {
     onClose?.();
     if (isOpen === undefined) {
@@ -125,7 +127,7 @@ export const Modal: FC<
 
   useEffect(() => {
     const dialog = realRef.current;
-    if (!dialog || isOpen !== undefined) return;
+    if (!dialog || isOpen !== undefined) return undefined;
 
     const observer = new MutationObserver(() => {
       setDialogOpen(dialog.open);
@@ -143,8 +145,10 @@ export const Modal: FC<
         'bg-bg-raised text-fg-base shadow-md backdrop:bg-back-drop',
         type === 'center' && 'm-auto max-h-lg w-5/6 max-w-2xl rounded-lg',
         type === 'bottom' && 'mt-auto w-screen max-w-screen rounded-t-lg',
-        type === 'right' && 'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
-        type === 'left' && 'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
+        type === 'right' &&
+          'ml-auto h-svh max-h-none w-screen max-w-sm rounded-l-lg',
+        type === 'left' &&
+          'mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
       exit="closed"
       initial="closed"

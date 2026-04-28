@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Anchor } from './anchor';
 
 const meta: Meta<typeof Anchor> = {

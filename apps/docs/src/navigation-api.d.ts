@@ -1,28 +1,28 @@
-interface NavigationNavigateOptions {
+type NavigationNavigateOptions = {
   state?: unknown;
   history?: 'auto' | 'push' | 'replace';
   info?: unknown;
-}
+};
 
-interface NavigationResult {
+type NavigationResult = {
   committed: Promise<NavigationHistoryEntry>;
   finished: Promise<NavigationHistoryEntry>;
-}
+};
 
-interface NavigationHistoryEntry extends EventTarget {
+type NavigationHistoryEntry = {
   readonly url: string | null;
   readonly key: string;
   readonly id: string;
   readonly index: number;
   readonly sameDocument: boolean;
   getState(): unknown;
-}
+} & EventTarget;
 
-interface Navigation extends EventTarget {
+type Navigation = {
   readonly currentEntry: NavigationHistoryEntry | null;
   navigate(url: string, options?: NavigationNavigateOptions): NavigationResult;
   back(): NavigationResult;
   forward(): NavigationResult;
-}
+} & EventTarget;
 
 declare const navigation: Navigation;

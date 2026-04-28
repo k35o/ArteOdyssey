@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { fn, waitFor } from 'storybook/test';
+
 import { Drawer } from './drawer';
 
 const meta: Meta<typeof Drawer> = {
@@ -25,16 +26,16 @@ export const Default: Story = {
     title: 'メニュー',
     children: (
       <nav className="flex flex-col gap-2">
-        <a className="rounded-md px-3 py-2 hover:bg-bg-mute" href="/">
+        <a className="hover:bg-bg-mute rounded-md px-3 py-2" href="/">
           ホーム
         </a>
-        <a className="rounded-md px-3 py-2 hover:bg-bg-mute" href="/about">
+        <a className="hover:bg-bg-mute rounded-md px-3 py-2" href="/about">
           このサイトについて
         </a>
-        <a className="rounded-md px-3 py-2 hover:bg-bg-mute" href="/blog">
+        <a className="hover:bg-bg-mute rounded-md px-3 py-2" href="/blog">
           ブログ
         </a>
-        <a className="rounded-md px-3 py-2 hover:bg-bg-mute" href="/contact">
+        <a className="hover:bg-bg-mute rounded-md px-3 py-2" href="/contact">
           お問い合わせ
         </a>
       </nav>

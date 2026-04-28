@@ -1,4 +1,5 @@
 import { Anchor, Heading, Separator, Switch } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -33,7 +34,10 @@ export function SwitchPage() {
           <T k="components.switch.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-switch--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-form-switch--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -44,7 +48,10 @@ export function SwitchPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Switch } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Switch } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -121,7 +128,12 @@ export function SwitchPage() {
             code={`<Switch isDisabled isInvalid={false} isRequired={false} label="Airplane mode" />
 <Switch defaultChecked isDisabled isInvalid={false} isRequired={false} label="Offline sync" />`}
           >
-            <Switch isDisabled isInvalid={false} isRequired={false} label="Airplane mode" />
+            <Switch
+              isDisabled
+              isInvalid={false}
+              isRequired={false}
+              label="Airplane mode"
+            />
             <Switch
               defaultChecked
               isDisabled

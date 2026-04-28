@@ -25,7 +25,10 @@ export const hookCategories: NavCategory[] = [
   {
     titleKey: 'hooks.categoryTiming',
     items: [
-      { name: 'useDebouncedTransition', path: '/hooks/use-debounced-transition' },
+      {
+        name: 'useDebouncedTransition',
+        path: '/hooks/use-debounced-transition',
+      },
       { name: 'useDeferredDebounce', path: '/hooks/use-deferred-debounce' },
       { name: 'useInterval', path: '/hooks/use-interval' },
       { name: 'useTimeout', path: '/hooks/use-timeout' },
@@ -44,7 +47,10 @@ export const hookCategories: NavCategory[] = [
   {
     titleKey: 'hooks.categoryObserver',
     items: [
-      { name: 'useIntersectionObserver', path: '/hooks/use-intersection-observer' },
+      {
+        name: 'useIntersectionObserver',
+        path: '/hooks/use-intersection-observer',
+      },
       { name: 'useInView', path: '/hooks/use-in-view' },
     ],
   },

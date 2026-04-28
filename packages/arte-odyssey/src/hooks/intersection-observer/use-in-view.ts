@@ -1,6 +1,7 @@
 'use client';
 
 import { type RefObject, useCallback, useState } from 'react';
+
 import { useIntersectionObserver } from './use-intersection-observer';
 
 type UseInViewOptions = {

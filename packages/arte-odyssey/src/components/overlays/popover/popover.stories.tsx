@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Button } from '../../buttons/button';
 import { Popover } from './popover';
 
@@ -32,7 +33,7 @@ export const Default: Story = {
       />
       <Popover.Content
         renderItem={(props) => (
-          <div className="rounded-lg bg-bg-raised p-4 shadow-md" {...props}>
+          <div className="bg-bg-raised rounded-lg p-4 shadow-md" {...props}>
             <div role="menuitem">ポップオーバーのコンテンツ</div>
           </div>
         )}

@@ -29,6 +29,5 @@ const subscribe = (callback: () => void): (() => void) => {
   };
 };
 
-export const useWindowSize = (): Size => {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-};
+export const useWindowSize = (): Size =>
+  useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);

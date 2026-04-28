@@ -1,10 +1,18 @@
+import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
-import '@k8o/arte-odyssey/styles.css';
-import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
 
-createRoot(document.getElementById('root')!).render(
+import App from './app';
+
+// eslint-disable-next-line eslint-plugin-import/no-unassigned-import
+import '@k8o/arte-odyssey/styles.css';
+
+const rootElement = document.querySelector('#root');
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+createRoot(rootElement).render(
   <StrictMode>
     <ArteOdysseyProvider>
       <App />

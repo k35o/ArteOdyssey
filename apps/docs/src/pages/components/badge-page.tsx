@@ -1,4 +1,5 @@
 import { Anchor, Badge, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -31,7 +32,10 @@ export function BadgePage() {
           <T k="components.badge.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-badge--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-badge--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -42,7 +46,10 @@ export function BadgePage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Badge } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Badge } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -107,13 +114,33 @@ export function BadgePage() {
             <Badge interactive text="Neutral Solid" />
             <Badge interactive text="Neutral Outline" variant="outline" />
             <Badge interactive text="Info Solid" tone="info" />
-            <Badge interactive text="Info Outline" tone="info" variant="outline" />
+            <Badge
+              interactive
+              text="Info Outline"
+              tone="info"
+              variant="outline"
+            />
             <Badge interactive text="Success Solid" tone="success" />
-            <Badge interactive text="Success Outline" tone="success" variant="outline" />
+            <Badge
+              interactive
+              text="Success Outline"
+              tone="success"
+              variant="outline"
+            />
             <Badge interactive text="Warning Solid" tone="warning" />
-            <Badge interactive text="Warning Outline" tone="warning" variant="outline" />
+            <Badge
+              interactive
+              text="Warning Outline"
+              tone="warning"
+              variant="outline"
+            />
             <Badge interactive text="Error Solid" tone="error" />
-            <Badge interactive text="Error Outline" tone="error" variant="outline" />
+            <Badge
+              interactive
+              text="Error Outline"
+              tone="error"
+              variant="outline"
+            />
           </ComponentPreview>
         </div>
       </section>

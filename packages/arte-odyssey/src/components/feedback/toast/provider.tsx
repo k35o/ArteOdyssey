@@ -16,6 +16,7 @@ import {
   useState,
 } from 'react';
 import { createPortal } from 'react-dom';
+
 import { cn } from './../../../helpers/cn';
 import { uuidV4 } from './../../../helpers/uuid-v4';
 import type { Status } from './../../../types/variables';
@@ -29,7 +30,9 @@ type ToastType = {
   message: string;
 };
 
-const SetToastContext = createContext<Dispatch<SetStateAction<ToastType[]>> | undefined>(undefined);
+const SetToastContext = createContext<
+  Dispatch<SetStateAction<ToastType[]>> | undefined
+>(undefined);
 
 export const useToast = () => {
   const setToasts = use(SetToastContext);
@@ -131,10 +134,12 @@ export const ToastProvider: FC<
                     variants={toastMotionVariants}
                   >
                     <div
-                      aria-atomic={true}
+                      aria-atomic
                       className="shadow-lg"
                       role={
-                        toast.status === 'error' || toast.status === 'warning' ? 'alert' : 'status'
+                        toast.status === 'error' || toast.status === 'warning'
+                          ? 'alert'
+                          : 'status'
                       }
                     >
                       <Toast {...toast} />
