@@ -230,7 +230,9 @@ import { FormControl, TextField } from '@k8o/arte-odyssey';
   errorText="入力してください"
   helpText="会社のメールアドレスを入力してください"
   isRequired
-  renderInput={(props) => <TextField {...props} placeholder="example@mail.com" />}
+  renderInput={(props) => (
+    <TextField {...props} placeholder="example@mail.com" />
+  )}
 />;
 ```
 
@@ -383,7 +385,12 @@ import { CheckboxCard } from '@k8o/arte-odyssey';
   isDisabled={false}
   options={[
     { value: 'basic', label: 'ベーシック', description: '月額980円' },
-    { value: 'pro', label: 'プロ', description: '月額1,980円', visual: <Icon /> },
+    {
+      value: 'pro',
+      label: 'プロ',
+      description: '月額1,980円',
+      visual: <Icon />,
+    },
   ]}
   value={selected}
   onChange={onChange}
@@ -420,7 +427,12 @@ import { RadioCard } from '@k8o/arte-odyssey';
   isDisabled={false}
   options={[
     { value: 'basic', label: 'ベーシック', description: '月額980円' },
-    { value: 'pro', label: 'プロ', description: '月額1,980円', visual: <Icon /> },
+    {
+      value: 'pro',
+      label: 'プロ',
+      description: '月額1,980円',
+      visual: <Icon />,
+    },
   ]}
   value={value}
   onChange={onChange}
@@ -734,7 +746,9 @@ import { Popover } from '@k8o/arte-odyssey';
 
 <Popover.Root placement="bottom">
   <Popover.Trigger renderItem={(props) => <Button {...props}>開く</Button>} />
-  <Popover.Content renderItem={(props) => <div {...props}>ポップオーバーコンテンツ</div>} />
+  <Popover.Content
+    renderItem={(props) => <div {...props}>ポップオーバーコンテンツ</div>}
+  />
 </Popover.Root>;
 ```
 

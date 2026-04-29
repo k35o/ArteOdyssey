@@ -1,4 +1,5 @@
 import { Anchor, Heading, RadioCard, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -62,7 +63,10 @@ export function RadioCardPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { RadioCard } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { RadioCard } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -118,7 +122,10 @@ const [value, setValue] = useState('pro');
 />`}
           >
             <div className="w-full max-w-2xl">
-              <p className="mb-3 font-medium text-fg-base" id="plan-default-label">
+              <p
+                className="text-fg-base mb-3 font-medium"
+                id="plan-default-label"
+              >
                 プランを選択
               </p>
               <RadioCard

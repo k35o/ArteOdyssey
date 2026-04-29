@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useIntersectionObserver } from './use-intersection-observer';
 
 describe('useIntersectionObserver', () => {
@@ -7,7 +8,7 @@ describe('useIntersectionObserver', () => {
   });
 
   it('要素が交差したときcallbackが呼ばれる', async () => {
-    const callback = vi.fn();
+    const callback = vi.fn<(entry: IntersectionObserverEntry) => void>();
     vi.stubGlobal(
       'IntersectionObserver',
       class {
@@ -27,17 +28,21 @@ describe('useIntersectionObserver', () => {
 
     const div = document.createElement('div');
     const ref = { current: div };
-    await renderHook(() => useIntersectionObserver(ref, callback));
+    await renderHook(() => {
+      useIntersectionObserver(ref, callback);
+    });
 
     await vi.waitFor(() => {
       expect(callback).toHaveBeenCalledOnce();
     });
-    expect(callback).toHaveBeenCalledWith(expect.objectContaining({ isIntersecting: true }));
+    expect(callback).toHaveBeenCalledWith(
+      expect.objectContaining({ isIntersecting: true }),
+    );
   });
 
   it('onceオプションで交差後にdisconnectされる', async () => {
-    const callback = vi.fn();
-    const disconnectSpy = vi.fn();
+    const callback = vi.fn<(entry: IntersectionObserverEntry) => void>();
+    const disconnectSpy = vi.fn<() => void>();
     vi.stubGlobal(
       'IntersectionObserver',
       class {
@@ -59,7 +64,9 @@ describe('useIntersectionObserver', () => {
 
     const div = document.createElement('div');
     const ref = { current: div };
-    await renderHook(() => useIntersectionObserver(ref, callback, { once: true }));
+    await renderHook(() => {
+      useIntersectionObserver(ref, callback, { once: true });
+    });
 
     await vi.waitFor(() => {
       expect(callback).toHaveBeenCalledOnce();
@@ -68,20 +75,25 @@ describe('useIntersectionObserver', () => {
   });
 
   it('refがnullの場合は何もしない', async () => {
-    const callback = vi.fn();
+    const callback = vi.fn<(entry: IntersectionObserverEntry) => void>();
     const ref = { current: null };
-    await renderHook(() => useIntersectionObserver(ref, callback));
+    await renderHook(() => {
+      useIntersectionObserver(ref, callback);
+    });
 
     expect(callback).not.toHaveBeenCalled();
   });
 
   it('オプションがIntersectionObserverに渡される', async () => {
-    const callback = vi.fn();
-    const optionsSpy = vi.fn();
+    const callback = vi.fn<(entry: IntersectionObserverEntry) => void>();
+    const optionsSpy = vi.fn<(options?: IntersectionObserverInit) => void>();
     vi.stubGlobal(
       'IntersectionObserver',
       class {
-        constructor(_: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+        constructor(
+          _: IntersectionObserverCallback,
+          options?: IntersectionObserverInit,
+        ) {
           optionsSpy(options);
         }
         observe() {}
@@ -91,9 +103,12 @@ describe('useIntersectionObserver', () => {
 
     const div = document.createElement('div');
     const ref = { current: div };
-    await renderHook(() =>
-      useIntersectionObserver(ref, callback, { threshold: 0.5, rootMargin: '10px' }),
-    );
+    await renderHook(() => {
+      useIntersectionObserver(ref, callback, {
+        threshold: 0.5,
+        rootMargin: '10px',
+      });
+    });
 
     expect(optionsSpy).toHaveBeenCalledWith({
       threshold: 0.5,

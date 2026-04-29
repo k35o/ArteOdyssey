@@ -1,7 +1,10 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useLocalStorage } from './index';
 
-const consoleErrorMock = vi.spyOn(console, 'error').mockImplementation(() => undefined);
+const consoleErrorMock = vi
+  .spyOn(console, 'error')
+  .mockImplementation(() => undefined);
 
 describe('useLocalStorage', () => {
   const key = 'testKey';
@@ -15,20 +18,26 @@ describe('useLocalStorage', () => {
   });
 
   it('localStorageに値がなければ初期値を返す', async () => {
-    const { result } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     expect(result.current[0]).toBe('defaultValue');
   });
 
   it('localStorageに値が存在あればその値を返す', async () => {
     localStorage.setItem(key, JSON.stringify('storedValue'));
-    const { result } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     expect(result.current[0]).toBe('storedValue');
   });
 
   it('更新処理ではlocalStorageとstateの両方を更新する', async () => {
-    const { result, act } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       result.current[1]('newValue');
@@ -40,7 +49,9 @@ describe('useLocalStorage', () => {
 
   it('削除処理ではlocalStorageは値を削除され、stateは初期値になる', async () => {
     localStorage.setItem(key, JSON.stringify('storedValue'));
-    const { result, act } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       result.current[2]();
@@ -66,7 +77,9 @@ describe('useLocalStorage', () => {
   });
 
   it('storageイベントの発火に応じて状stateが更新される', async () => {
-    const { result, act } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       localStorage.setItem(key, JSON.stringify('updatedValue'));
@@ -82,7 +95,9 @@ describe('useLocalStorage', () => {
   });
 
   it('異なるキーのstorageイベントはstateを更新しない', async () => {
-    const { result, act } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result, act } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     act(() => {
       localStorage.setItem('otherKey', JSON.stringify('otherValue'));
@@ -99,7 +114,9 @@ describe('useLocalStorage', () => {
 
   it('JSONをパースできない時はエラーを吐いて初期値を返す', async () => {
     localStorage.setItem(key, '{invalidJSON');
-    const { result } = await renderHook(() => useLocalStorage(key, 'defaultValue'));
+    const { result } = await renderHook(() =>
+      useLocalStorage(key, 'defaultValue'),
+    );
 
     expect(result.current[0]).toBe('defaultValue');
     expect(consoleErrorMock).toHaveBeenCalledOnce();

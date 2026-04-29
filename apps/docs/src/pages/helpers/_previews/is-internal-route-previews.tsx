@@ -9,8 +9,10 @@ export function IsInternalRoutePreview() {
     <div className="flex flex-col gap-2">
       {examples.map((href) => (
         <div className="text-sm" key={href}>
-          <code>isInternalRoute('{href}')</code> →{' '}
-          <code className="font-bold">{isInternalRoute(href) ? 'true' : 'false'}</code>
+          <code>{`isInternalRoute('${href}')`}</code> →{' '}
+          <code className="font-bold">
+            {isInternalRoute(href) ? 'true' : 'false'}
+          </code>
         </div>
       ))}
     </div>

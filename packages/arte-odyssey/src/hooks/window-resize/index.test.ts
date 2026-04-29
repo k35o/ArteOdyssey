@@ -1,12 +1,15 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useWindowResize } from '.';
 
 describe('useWindowResize', () => {
   it('windowリサイズ時にコールバックが呼ばれる', async () => {
     const resizedWindowSize = { width: 1000, height: 1000 };
 
-    const callback = vi.fn();
-    const { act } = await renderHook(() => useWindowResize(callback));
+    const callback = vi.fn<(size: { width: number; height: number }) => void>();
+    const { act } = await renderHook(() => {
+      useWindowResize(callback);
+    });
 
     // 初回のレンダリング時には呼ばれない
     expect(callback).not.toHaveBeenCalled();
@@ -23,8 +26,10 @@ describe('useWindowResize', () => {
   });
 
   it('enabled=falseの場合はコールバックが呼ばれない', async () => {
-    const callback = vi.fn();
-    await renderHook(() => useWindowResize(callback, { enabled: false }));
+    const callback = vi.fn<(size: { width: number; height: number }) => void>();
+    await renderHook(() => {
+      useWindowResize(callback, { enabled: false });
+    });
 
     expect(callback).not.toHaveBeenCalled();
   });

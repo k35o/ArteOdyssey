@@ -10,8 +10,10 @@ export function UuidV4Preview() {
     <div className="flex flex-col items-start gap-4">
       <code className="text-sm">{uuid}</code>
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute"
-        onClick={() => setUuid(uuidV4())}
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors"
+        onClick={() => {
+          setUuid(uuidV4());
+        }}
         type="button"
       >
         Generate

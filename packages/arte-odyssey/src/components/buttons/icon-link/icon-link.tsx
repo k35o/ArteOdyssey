@@ -1,4 +1,5 @@
 import type { PropsWithChildren, ReactNode } from 'react';
+
 import { cn } from './../../../helpers/cn';
 import { isInternalRoute } from './../../../helpers/is-internal-route';
 
@@ -9,7 +10,9 @@ export const IconLink = <T extends string>({
   href,
   children,
   openInNewTab = false,
-  renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
+  renderAnchor = ({ children: anchorChildren, ...rest }) => (
+    <a {...rest}>{anchorChildren}</a>
+  ),
 }: PropsWithChildren<{
   size?: 'sm' | 'md' | 'lg';
   bg?: 'transparent' | 'base' | 'primary' | 'secondary';
@@ -36,7 +39,8 @@ export const IconLink = <T extends string>({
     href,
     className: cn(
       'inline-flex rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-border-info',
-      (bg === 'transparent' || bg === 'base') && 'hover:bg-bg-subtle active:bg-bg-mute',
+      (bg === 'transparent' || bg === 'base') &&
+        'hover:bg-bg-subtle active:bg-bg-mute',
       bg === 'base' && 'bg-bg-base',
       bg === 'transparent' && 'bg-transparent',
       bg === 'primary' &&

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import { cn } from './../../../helpers/cn';
 import { isInternalRoute } from './../../../helpers/is-internal-route';
 
@@ -12,7 +13,9 @@ export const LinkButton = <T extends string>({
   endIcon,
   active = false,
   openInNewTab = false,
-  renderAnchor = ({ children, ...props }) => <a {...props}>{children}</a>,
+  renderAnchor = ({ children: anchorChildren, ...rest }) => (
+    <a {...rest}>{anchorChildren}</a>
+  ),
 }: {
   variant?: 'contained' | 'outlined' | 'skeleton';
   size?: 'sm' | 'md' | 'lg';
@@ -33,7 +36,8 @@ export const LinkButton = <T extends string>({
   }) => ReactNode;
 }) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
-  const props = type === 'internal' ? {} : { target: '_blank', rel: 'noopener noreferrer' };
+  const props =
+    type === 'internal' ? {} : { target: '_blank', rel: 'noopener noreferrer' };
   const className = cn(
     'rounded-full border-2 text-center font-bold transition-colors',
     {
@@ -58,7 +62,7 @@ export const LinkButton = <T extends string>({
     size === 'lg' && 'px-6 py-3 text-lg',
     Boolean(startIcon ?? endIcon) && 'flex items-center gap-2',
     Boolean(endIcon) && 'justify-between',
-    active && 'text-fg-info hover:text-fg-info active:text-fg-info',
+    active && 'text-fg-info',
   );
   return renderAnchor({
     href,

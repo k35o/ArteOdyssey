@@ -2,6 +2,7 @@
 
 import { Tabs } from '@k8o/arte-odyssey';
 import type { FC, ReactNode } from 'react';
+
 import { useTranslation } from '../i18n';
 
 export const InstallTabs: FC<{

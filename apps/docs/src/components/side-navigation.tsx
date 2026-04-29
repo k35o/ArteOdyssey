@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocation } from '@funstack/router';
+
 import type { NavCategory } from '../data/nav-types';
 import { localizeHref, useTranslation } from '../i18n';
 import { LocaleAnchor } from './locale-anchor';
@@ -18,7 +19,7 @@ export function SideNavigation({ categories, onNavigate }: Props) {
     <nav className="flex flex-col gap-4 overflow-y-auto py-4">
       {categories.map((category) => (
         <div className="flex flex-col gap-1" key={category.titleKey}>
-          <span className="px-3 font-bold text-fg-mute text-xs uppercase">
+          <span className="text-fg-mute px-3 text-xs font-bold uppercase">
             {t(category.titleKey)}
           </span>
           <ul className="flex flex-col gap-0.5">
@@ -30,7 +31,7 @@ export function SideNavigation({ categories, onNavigate }: Props) {
                   <LocaleAnchor
                     className={`block rounded-md px-3 py-1.5 text-sm transition-colors ${
                       isActive
-                        ? 'bg-bg-mute font-medium text-fg-base'
+                        ? 'bg-bg-mute text-fg-base font-medium'
                         : 'text-fg-mute hover:bg-bg-mute hover:text-fg-base'
                     }`}
                     onClick={onNavigate}

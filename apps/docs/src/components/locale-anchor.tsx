@@ -2,6 +2,7 @@
 
 import { Anchor } from '@k8o/arte-odyssey';
 import type { FC, MouseEventHandler, PropsWithChildren } from 'react';
+
 import { localizeHref, useLocale } from '../i18n';
 
 type LocaleAnchorProps = PropsWithChildren<{
@@ -35,7 +36,11 @@ export const LocaleAnchor: FC<LocaleAnchorProps> = ({
       renderAnchor={
         onClick !== undefined || className !== undefined
           ? (props) => (
-              <a className={className ?? props.className} href={props.href} onClick={onClick}>
+              <a
+                className={className ?? props.className}
+                href={props.href}
+                onClick={onClick}
+              >
                 {props.children}
               </a>
             )

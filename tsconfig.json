@@ -24,6 +24,6 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedIndexedAccess": true,
-    "types": ["node", "vitest/globals", "vitest/importMeta"]
+    "types": ["node", "vite-plus/test/globals", "vite-plus/test/importMeta"]
   }
 }

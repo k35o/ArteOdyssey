@@ -10,10 +10,12 @@ export function UseInViewPreview() {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="rounded-lg border border-border-mute bg-bg-subtle p-6 text-center transition-colors"
+        className="border-border-mute bg-bg-subtle rounded-lg border p-6 text-center transition-colors"
         ref={ref}
       >
-        <p className="text-fg-base font-medium">{isInView ? 'Visible' : 'Not visible'}</p>
+        <p className="text-fg-base font-medium">
+          {isInView ? 'Visible' : 'Not visible'}
+        </p>
       </div>
     </div>
   );

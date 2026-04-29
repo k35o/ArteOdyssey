@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useRef } from 'react';
+
 import { ScrollLinked } from './scroll-linked';
 
 const meta: Meta<typeof ScrollLinked> = {
@@ -30,13 +31,17 @@ export const WithContainer: Story = {
         <div>
           <section
             aria-label="スクロールコンテナの例"
-            className="relative h-96 overflow-y-scroll rounded-lg border border-border-mute"
+            className="border-border-mute relative h-96 overflow-y-scroll rounded-lg border"
             ref={containerRef}
+            // キーボードでもスクロールできるよう section にフォーカスを許可
+            // oxlint-disable-next-line eslint-plugin-jsx-a11y/no-noninteractive-tabindex
             tabIndex={0}
           >
             <Story args={{ container: containerRef }} />
             <div className="h-[200vh] p-4">
-              <h2 className="mb-4 font-bold text-xl">コンテナ内スクロールの例</h2>
+              <h2 className="mb-4 text-xl font-bold">
+                コンテナ内スクロールの例
+              </h2>
               <p className="mb-4">
                 このコンテナ内をスクロールすると、上部にプログレスバーが表示されます。
               </p>
@@ -45,7 +50,7 @@ export const WithContainer: Story = {
               </p>
               <div className="mt-8 space-y-4">
                 {Array.from({ length: 20 }, (_, i) => (
-                  <p className="rounded-lg bg-bg-mute p-4" key={`content-${i}`}>
+                  <p className="bg-bg-mute rounded-lg p-4" key={`content-${i}`}>
                     コンテンツブロック {i + 1}
                   </p>
                 ))}

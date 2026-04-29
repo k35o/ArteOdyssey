@@ -8,13 +8,16 @@ export function UseHoverPreview() {
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="rounded-lg border border-border-mute bg-bg-subtle p-6 text-center"
+        className="border-border-mute bg-bg-subtle rounded-lg border p-6 text-center"
         {...hoverProps}
       >
         Hover me
       </div>
       <p className="text-fg-base">
-        State: <span className="font-medium">{isHovered ? 'Hovered' : 'Not hovered'}</span>
+        State:{' '}
+        <span className="font-medium">
+          {isHovered ? 'Hovered' : 'Not hovered'}
+        </span>
       </p>
     </div>
   );

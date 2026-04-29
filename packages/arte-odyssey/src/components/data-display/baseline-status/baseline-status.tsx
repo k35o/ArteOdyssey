@@ -5,6 +5,8 @@ import { type FC, Suspense, use } from 'react';
 declare global {
   namespace React {
     namespace JSX {
+      // declaration merging requires interface for IntrinsicElements
+      // oxlint-disable-next-line typescript-eslint/consistent-type-definitions
       interface IntrinsicElements {
         'baseline-status': { featureId: string; className: string };
       }
@@ -23,14 +25,14 @@ const BaselineStatusResolved: FC<{ featureId: string }> = ({ featureId }) => {
   use(loadBaselineStatus());
   return (
     <baseline-status
-      className="wrap-normal max-w-full rounded-lg border border-border-base bg-bg-base p-4"
+      className="border-border-base bg-bg-base max-w-full rounded-lg border p-4 wrap-normal"
       featureId={featureId}
     />
   );
 };
 
 const BaselineStatusSkeleton: FC = () => (
-  <div className="h-58 max-w-full animate-pulse rounded-lg border border-border-base bg-bg-base p-4 sm:h-40 md:h-30" />
+  <div className="border-border-base bg-bg-base h-58 max-w-full animate-pulse rounded-lg border p-4 sm:h-40 md:h-30" />
 );
 
 export const BaselineStatus: FC<{ featureId: string }> = ({ featureId }) => (

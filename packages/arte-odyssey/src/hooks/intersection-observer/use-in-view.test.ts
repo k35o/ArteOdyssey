@@ -1,5 +1,12 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useInView } from './use-in-view';
+
+function assertDefined<T>(value: T): asserts value is NonNullable<T> {
+  if (value === undefined || value === null) {
+    throw new Error('Expected value to be defined');
+  }
+}
 
 describe('useInView', () => {
   afterEach(() => {
@@ -71,12 +78,17 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    if (storedCallback && storedElement) {
-      storedCallback(
-        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
-        {} as IntersectionObserver,
-      );
-    }
+    assertDefined(storedCallback);
+    assertDefined(storedElement);
+    storedCallback(
+      [
+        {
+          isIntersecting: false,
+          target: storedElement,
+        } as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     await vi.waitFor(() => {
       expect(result.current).toBe(false);
@@ -114,12 +126,17 @@ describe('useInView', () => {
       expect(result.current).toBe(true);
     });
 
-    if (storedCallback && storedElement) {
-      storedCallback(
-        [{ isIntersecting: false, target: storedElement } as IntersectionObserverEntry],
-        {} as IntersectionObserver,
-      );
-    }
+    assertDefined(storedCallback);
+    assertDefined(storedElement);
+    storedCallback(
+      [
+        {
+          isIntersecting: false,
+          target: storedElement,
+        } as IntersectionObserverEntry,
+      ],
+      {} as IntersectionObserver,
+    );
 
     await vi.waitFor(() => {
       expect(result.current).toBe(true);

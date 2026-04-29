@@ -1,20 +1,27 @@
 import type { Preview } from '@storybook/react-vite';
+import { type FC, memo, useEffect, useState } from 'react';
+
 import { ArteOdysseyProvider } from '../src/components/providers';
 
 import '../src/styles/index.css';
-import { type FC, memo, useEffect, useState } from 'react';
 
-const ApplayThemeByStorybook: FC<{ theme: 'light' | 'dark' }> = memo(({ theme }) => {
-  const [prevTheme, setPrevTheme] = useState<'light' | 'dark' | null>(null);
+const ApplayThemeByStorybook: FC<{ theme: 'light' | 'dark' }> = memo(
+  function ApplayThemeByStorybook({ theme }) {
+    const [prevTheme, setPrevTheme] = useState<'light' | 'dark' | null>(null);
 
-  if (prevTheme !== theme) {
-    document.documentElement.classList.remove(prevTheme === 'dark' ? 'dark' : 'light');
-    document.documentElement.classList.add(theme === 'dark' ? 'dark' : 'light');
-    setPrevTheme(theme);
-  }
+    if (prevTheme !== theme) {
+      document.documentElement.classList.remove(
+        prevTheme === 'dark' ? 'dark' : 'light',
+      );
+      document.documentElement.classList.add(
+        theme === 'dark' ? 'dark' : 'light',
+      );
+      setPrevTheme(theme);
+    }
 
-  return null;
-});
+    return null;
+  },
+);
 
 const preview: Preview = {
   globalTypes: {
@@ -41,11 +48,8 @@ const preview: Preview = {
   },
   decorators: [
     (Story, { globals, parameters }) => {
-      const theme = parameters.theme
-        ? parameters.theme
-        : globals.theme
-          ? globals.theme
-          : ('light' as 'light' | 'dark');
+      const theme =
+        parameters.theme ?? globals.theme ?? ('light' as 'light' | 'dark');
       useEffect(() => {
         document.body.classList.add(
           'text-fg-base',

@@ -1,17 +1,17 @@
 import type { FC } from 'react';
+
 import { BaseIcon, type BaseIconProps } from './base';
 
-const Qiita: FC<{ className: string }> = ({ className }) => {
-  return (
-    <svg
-      className={className}
-      enableBackground="new 0 0 300 300"
-      version="1.1"
-      viewBox="0 0 300 300"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="
+const Qiita: FC<{ className: string }> = ({ className }) => (
+  <svg
+    className={className}
+    enableBackground="new 0 0 300 300"
+    version="1.1"
+    viewBox="0 0 300 300"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="
 M170.000000,301.000000 
 	C155.979111,301.000000 141.958206,301.000000 127.345764,300.629639 
 	C126.239006,299.869110 125.762238,299.207245 125.203033,299.128113 
@@ -68,12 +68,12 @@ M170.000000,301.000000
 	C228.576508,281.865814 211.133575,290.646606 191.990906,295.945251 
 	C184.749069,297.949768 177.335373,299.333374 170.000000,301.000000 
 z"
-        fill="#55C500"
-        opacity="1.000000"
-        stroke="none"
-      />
-      <path
-        d="
+      fill="#55C500"
+      opacity="1.000000"
+      stroke="none"
+    />
+    <path
+      d="
 M201.225189,166.276794 
 	C189.031174,176.100708 175.086823,180.471069 160.137070,181.956238 
 	C150.819595,182.881897 141.426971,184.137253 132.118484,183.810059 
@@ -106,21 +106,13 @@ M201.225189,166.276794
 	C224.529892,129.574585 224.529892,129.574585 212.763885,127.405243 
 	C214.084839,141.788361 212.905441,155.465408 201.225189,166.276794 
 z"
-        fill="#55C500"
-        opacity="1.000000"
-        stroke="none"
-      />
-    </svg>
-  );
-};
-
-export const QiitaIcon: FC<Partial<BaseIconProps>> = ({ size = 'md' }) => {
-  return (
-    <BaseIcon
-      renderItem={(props) => {
-        return <Qiita {...props} />;
-      }}
-      size={size}
+      fill="#55C500"
+      opacity="1.000000"
+      stroke="none"
     />
-  );
-};
+  </svg>
+);
+
+export const QiitaIcon: FC<Partial<BaseIconProps>> = ({ size = 'md' }) => (
+  <BaseIcon renderItem={(props) => <Qiita {...props} />} size={size} />
+);

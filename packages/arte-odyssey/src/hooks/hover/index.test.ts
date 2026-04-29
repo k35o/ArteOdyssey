@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useHover } from '.';
 
 describe('useHover', () => {

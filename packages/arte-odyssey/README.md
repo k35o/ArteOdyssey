@@ -58,7 +58,11 @@ import { Card } from '@k8o/arte-odyssey';
 function MyPage() {
   return (
     <Card title="Welcome to ArteOdyssey">
-      <Button color="primary" variant="contained" onClick={() => alert('Hello!')}>
+      <Button
+        color="primary"
+        variant="contained"
+        onClick={() => alert('Hello!')}
+      >
         Click me
       </Button>
     </Card>
@@ -164,7 +168,9 @@ import { Button } from '@k8o/arte-odyssey';
     label="Email"
     isRequired
     errorText={error}
-    renderInput={(props) => <TextField {...props} id="email" placeholder="Enter your email" />}
+    renderInput={(props) => (
+      <TextField {...props} id="email" placeholder="Enter your email" />
+    )}
   />
   <Button type="submit">Submit</Button>
 </form>;
@@ -185,7 +191,10 @@ function MyComponent() {
       <Button onClick={() => setIsOpen(true)}>Open Dialog</Button>
       {isOpen && (
         <Dialog.Root>
-          <Dialog.Header title="Confirm Action" onClose={() => setIsOpen(false)} />
+          <Dialog.Header
+            title="Confirm Action"
+            onClose={() => setIsOpen(false)}
+          />
           <Dialog.Content>
             <p>Are you sure you want to continue?</p>
             <Button onClick={() => setIsOpen(false)}>Confirm</Button>

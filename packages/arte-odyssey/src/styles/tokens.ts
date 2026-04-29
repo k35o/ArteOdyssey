@@ -10,7 +10,9 @@
 // Palette
 // ---------------------------------------------------------------------------
 
-export const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
+export const SHADES = [
+  50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,
+] as const;
 export type Shade = (typeof SHADES)[number];
 
 export const PALETTE_PREFIXES = [
@@ -329,13 +331,41 @@ export type TextSize = {
 };
 
 export const TEXT_SIZES: readonly TextSize[] = [
-  { name: 'xs', fontSize: '0.75rem', lineHeight: { numerator: 1, denominator: 0.75 } },
-  { name: 'sm', fontSize: '0.875rem', lineHeight: { numerator: 1.25, denominator: 0.875 } },
-  { name: 'md', fontSize: '1rem', lineHeight: { numerator: 1.5, denominator: 1 } },
-  { name: 'lg', fontSize: '1.125rem', lineHeight: { numerator: 1.75, denominator: 1.125 } },
-  { name: 'xl', fontSize: '1.25rem', lineHeight: { numerator: 1.75, denominator: 1.25 } },
-  { name: '2xl', fontSize: '1.5rem', lineHeight: { numerator: 2, denominator: 1.5 } },
-  { name: '3xl', fontSize: '1.875rem', lineHeight: { numerator: 2.25, denominator: 1.875 } },
+  {
+    name: 'xs',
+    fontSize: '0.75rem',
+    lineHeight: { numerator: 1, denominator: 0.75 },
+  },
+  {
+    name: 'sm',
+    fontSize: '0.875rem',
+    lineHeight: { numerator: 1.25, denominator: 0.875 },
+  },
+  {
+    name: 'md',
+    fontSize: '1rem',
+    lineHeight: { numerator: 1.5, denominator: 1 },
+  },
+  {
+    name: 'lg',
+    fontSize: '1.125rem',
+    lineHeight: { numerator: 1.75, denominator: 1.125 },
+  },
+  {
+    name: 'xl',
+    fontSize: '1.25rem',
+    lineHeight: { numerator: 1.75, denominator: 1.25 },
+  },
+  {
+    name: '2xl',
+    fontSize: '1.5rem',
+    lineHeight: { numerator: 2, denominator: 1.5 },
+  },
+  {
+    name: '3xl',
+    fontSize: '1.875rem',
+    lineHeight: { numerator: 2.25, denominator: 1.875 },
+  },
   { name: 'emphasize', fontSize: '3rem', lineHeight: 1 },
   { name: 'highlight', fontSize: '6rem', lineHeight: 1 },
 ];
@@ -385,10 +415,23 @@ export const RADII: readonly NamedScale[] = [
 export const SHADOWS: readonly NamedScale[] = [
   { name: '2xs', value: '0 1px rgb(0 0 0 / 0.05)' },
   { name: 'xs', value: '0 1px 2px 0 rgb(0 0 0 / 0.05)' },
-  { name: 'sm', value: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)' },
-  { name: 'md', value: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)' },
-  { name: 'lg', value: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)' },
-  { name: 'xl', value: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)' },
+  {
+    name: 'sm',
+    value: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
+  },
+  {
+    name: 'md',
+    value: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
+  },
+  {
+    name: 'lg',
+    value: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+  },
+  {
+    name: 'xl',
+    value:
+      '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
+  },
   { name: '2xl', value: '0 25px 50px -12px rgb(0 0 0 / 0.25)' },
 ];
 

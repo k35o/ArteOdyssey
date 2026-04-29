@@ -22,7 +22,7 @@ export function UseDisclosurePreview() {
         State: <span className="font-medium">{isOpen ? 'Open' : 'Closed'}</span>
       </p>
       {isOpen ? (
-        <div className="rounded-lg border border-border-mute bg-bg-subtle p-4">
+        <div className="border-border-mute bg-bg-subtle rounded-lg border p-4">
           <p className="text-fg-base">Content is visible</p>
         </div>
       ) : null}

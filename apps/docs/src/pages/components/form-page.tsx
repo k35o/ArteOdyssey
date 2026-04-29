@@ -1,11 +1,15 @@
 import { Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
-import { FormActionStatePreview, FormBasicPreview } from './_previews/form-previews';
+import {
+  FormActionStatePreview,
+  FormBasicPreview,
+} from './_previews/form-previews';
 
 const formProps: PropItem[] = [
   {
@@ -29,7 +33,10 @@ export function FormPage() {
           <T k="components.form.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-form--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-form-form--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>

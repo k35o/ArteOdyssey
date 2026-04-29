@@ -5,7 +5,8 @@ import { useCallback, useMemo, useRef, useSyncExternalStore } from 'react';
 const dispatchStorageEvent = (key: string, newValue: string | null) =>
   window.dispatchEvent(new StorageEvent('storage', { key, newValue }));
 
-const getSessionStorageItem = (key: string) => window.sessionStorage.getItem(key);
+const getSessionStorageItem = (key: string) =>
+  window.sessionStorage.getItem(key);
 
 const sessionStorageSubscribe = (cb: () => void) => {
   window.addEventListener('storage', cb);
@@ -17,7 +18,11 @@ const sessionStorageSubscribe = (cb: () => void) => {
 export const useSessionStorage = <T>(key: string, initialValue: T) => {
   const initialValueRef = useRef(initialValue);
   const getSnapshot = () => getSessionStorageItem(key);
-  const store = useSyncExternalStore(sessionStorageSubscribe, getSnapshot, () => null);
+  const store = useSyncExternalStore(
+    sessionStorageSubscribe,
+    getSnapshot,
+    () => null,
+  );
 
   const current = useMemo(() => {
     try {

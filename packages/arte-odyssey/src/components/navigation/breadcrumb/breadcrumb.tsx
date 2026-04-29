@@ -1,39 +1,36 @@
 import type { FC, PropsWithChildren } from 'react';
-import { cn } from './../../../helpers/cn';
+
 import { ChevronIcon } from '../../icons';
+import { cn } from './../../../helpers/cn';
 
 const List: FC<
   PropsWithChildren<{
     size?: 'sm' | 'md' | 'lg';
   }>
-> = ({ children, size = 'md' }) => {
-  return (
-    <nav aria-label="パンクズリスト">
-      <ol
-        className={cn(
-          'flex list-none items-center gap-1 text-fg-mute',
-          size === 'sm' && 'text-xs',
-          size === 'md' && 'text-xs md:text-md',
-          size === 'lg' && 'text-xl md:text-2xl',
-        )}
-      >
-        {children}
-      </ol>
-    </nav>
-  );
-};
+> = ({ children, size = 'md' }) => (
+  <nav aria-label="パンクズリスト">
+    <ol
+      className={cn(
+        'flex list-none items-center gap-1 text-fg-mute',
+        size === 'sm' && 'text-xs',
+        size === 'md' && 'text-xs md:text-md',
+        size === 'lg' && 'text-xl md:text-2xl',
+      )}
+    >
+      {children}
+    </ol>
+  </nav>
+);
 
-const Item: FC<PropsWithChildren> = ({ children }) => {
-  return <li className="inline-flex items-center">{children}</li>;
-};
+const Item: FC<PropsWithChildren> = ({ children }) => (
+  <li className="inline-flex items-center">{children}</li>
+);
 
-const Separator: FC = () => {
-  return (
-    <li className="text-fg-mute">
-      <ChevronIcon direction="right" size="sm" />
-    </li>
-  );
-};
+const Separator: FC = () => (
+  <li className="text-fg-mute">
+    <ChevronIcon direction="right" size="sm" />
+  </li>
+);
 
 const _Link = <T extends string>({
   href,
@@ -50,7 +47,7 @@ const _Link = <T extends string>({
     <span className="text-fg-base">{children}</span>
   ) : (
     <Link
-      className="underline transition-colors hover:text-fg-base focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-border-info"
+      className="hover:text-fg-base focus-visible:ring-border-info underline transition-colors focus-visible:rounded-sm focus-visible:ring-2 focus-visible:outline-none"
       href={href}
     >
       {children}

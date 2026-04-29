@@ -26,7 +26,10 @@ export function CheckboxCardControlledPreview() {
 
   return (
     <div className="w-full max-w-2xl">
-      <p className="mb-3 font-medium text-fg-base" id="checkbox-card-preview-label">
+      <p
+        className="text-fg-base mb-3 font-medium"
+        id="checkbox-card-preview-label"
+      >
         有効にする機能を選択
       </p>
       <CheckboxCard

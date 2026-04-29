@@ -3,6 +3,7 @@
 import type { ChangeEventHandler, FC } from 'react';
 import { useId, useState } from 'react';
 import { useFormStatus } from 'react-dom';
+
 import { cn } from '../../../helpers/cn';
 
 type BaseProps = {
@@ -43,7 +44,9 @@ export const Switch: FC<Props> = ({
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
-  const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
+  const [internalChecked, setInternalChecked] = useState(
+    defaultChecked ?? false,
+  );
   const { pending } = useFormStatus();
 
   const isControlled = value !== undefined;
@@ -54,7 +57,9 @@ export const Switch: FC<Props> = ({
     <label
       className={cn(
         'inline-flex w-fit items-center gap-3',
-        isDisabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
+        isDisabledResolved
+          ? 'cursor-not-allowed text-fg-mute'
+          : 'cursor-pointer',
       )}
       htmlFor={inputId}
     >
@@ -64,9 +69,8 @@ export const Switch: FC<Props> = ({
           aria-describedby={describedbyId}
           aria-invalid={isInvalid}
           aria-required={isRequired}
-          checked={isControlled ? value : undefined}
+          {...(isControlled ? { checked: value } : { defaultChecked })}
           className="peer sr-only"
-          defaultChecked={isControlled ? undefined : defaultChecked}
           disabled={isDisabledResolved}
           id={inputId}
           name={name}
@@ -81,7 +85,7 @@ export const Switch: FC<Props> = ({
           type="checkbox"
         />
         <span
-          aria-hidden={true}
+          aria-hidden
           className={cn(
             'inline-flex h-7 w-12 items-center rounded-full transition-colors',
             isInvalid && 'ring-2 ring-border-error',

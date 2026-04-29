@@ -1,6 +1,14 @@
 'use client';
 
-import { createContext, type FC, type PropsWithChildren, use } from 'react';
+import {
+  createContext,
+  type FC,
+  type PropsWithChildren,
+  use,
+  useCallback,
+  useMemo,
+} from 'react';
+
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
 
@@ -11,7 +19,9 @@ type CheckboxGroupContextValue = {
   toggleValue: (value: string) => void;
 };
 
-const CheckboxGroupContext = createContext<CheckboxGroupContextValue | undefined>(undefined);
+const CheckboxGroupContext = createContext<
+  CheckboxGroupContextValue | undefined
+>(undefined);
 
 export const useCheckboxGroupContext = () => use(CheckboxGroupContext);
 
@@ -57,13 +67,26 @@ const Root: FC<RootProps> = ({
   });
   void isRequired;
 
-  const toggleValue = (targetValue: string) => {
-    const nextValue = currentValue.includes(targetValue)
-      ? currentValue.filter((item) => item !== targetValue)
-      : [...currentValue, targetValue];
+  const toggleValue = useCallback(
+    (targetValue: string) => {
+      const nextValue = currentValue.includes(targetValue)
+        ? currentValue.filter((item) => item !== targetValue)
+        : [...currentValue, targetValue];
 
-    setCurrentValue(nextValue);
-  };
+      setCurrentValue(nextValue);
+    },
+    [currentValue, setCurrentValue],
+  );
+
+  const contextValue = useMemo<CheckboxGroupContextValue>(
+    () => ({
+      currentValue,
+      isDisabled,
+      name,
+      toggleValue,
+    }),
+    [currentValue, isDisabled, name, toggleValue],
+  );
 
   return (
     <fieldset
@@ -72,14 +95,7 @@ const Root: FC<RootProps> = ({
       aria-labelledby={labelId}
       className={cn('flex flex-col gap-2', isDisabled && 'cursor-not-allowed')}
     >
-      <CheckboxGroupContext
-        value={{
-          currentValue,
-          isDisabled,
-          name,
-          toggleValue,
-        }}
-      >
+      <CheckboxGroupContext value={contextValue}>
         {children}
       </CheckboxGroupContext>
     </fieldset>

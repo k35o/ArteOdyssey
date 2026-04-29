@@ -1,16 +1,21 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useControllableState } from '.';
 
 describe('useControllableState', () => {
   describe('uncontrolled', () => {
     it('defaultValueが初期値として使われる', async () => {
-      const { result } = await renderHook(() => useControllableState({ defaultValue: 'hello' }));
+      const { result } = await renderHook(() =>
+        useControllableState({ defaultValue: 'hello' }),
+      );
 
       expect(result.current[0]).toBe('hello');
     });
 
     it('setValueで内部状態が更新される', async () => {
-      const { result, act } = await renderHook(() => useControllableState({ defaultValue: 0 }));
+      const { result, act } = await renderHook(() =>
+        useControllableState({ defaultValue: 0 }),
+      );
 
       act(() => {
         result.current[1](42);
@@ -20,7 +25,9 @@ describe('useControllableState', () => {
     });
 
     it('関数型のsetValueが使える', async () => {
-      const { result, act } = await renderHook(() => useControllableState({ defaultValue: 10 }));
+      const { result, act } = await renderHook(() =>
+        useControllableState({ defaultValue: 10 }),
+      );
 
       act(() => {
         result.current[1]((prev) => prev + 5);
@@ -30,7 +37,7 @@ describe('useControllableState', () => {
     });
 
     it('onChangeが呼ばれる', async () => {
-      const onChange = vi.fn();
+      const onChange = vi.fn<(value: number) => void>();
       const { result, act } = await renderHook(() =>
         useControllableState({ defaultValue: 0, onChange }),
       );
@@ -65,7 +72,7 @@ describe('useControllableState', () => {
     });
 
     it('onChangeが呼ばれる', async () => {
-      const onChange = vi.fn();
+      const onChange = vi.fn<(value: string) => void>();
       const { result, act } = await renderHook(() =>
         useControllableState({
           value: 'controlled',

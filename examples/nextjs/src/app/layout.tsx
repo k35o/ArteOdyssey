@@ -1,6 +1,7 @@
-import { Noto_Sans_JP } from 'next/font/google';
-import './globals.css';
 import { ArteOdysseyProvider } from '@k8o/arte-odyssey';
+import { Noto_Sans_JP } from 'next/font/google';
+
+import './globals.css';
 
 const notoSansJP = Noto_Sans_JP({
   subsets: ['latin'],

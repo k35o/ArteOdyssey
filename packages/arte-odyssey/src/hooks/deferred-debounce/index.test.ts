@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useDeferredDebounce } from './index';
 
 describe('useDeferredDebounce', () => {
@@ -11,11 +12,11 @@ describe('useDeferredDebounce', () => {
 
   it('値が変わるとしばらく前の値を返しつつ isPending が true になる', async () => {
     const { result, rerender } = await renderHook(
-      (props?: { value: string }) => useDeferredDebounce(props?.value ?? 'initial'),
-      { initialProps: { value: 'initial' } },
+      (value = 'initial') => useDeferredDebounce(value),
+      { initialProps: 'initial' },
     );
 
-    rerender({ value: 'updated' });
+    rerender('updated');
 
     await vi.waitFor(() => {
       expect(result.current[0]).toBe('updated');
@@ -24,7 +25,9 @@ describe('useDeferredDebounce', () => {
   });
 
   it('initialValue 指定時も最終的に value に追いつく', async () => {
-    const { result } = await renderHook(() => useDeferredDebounce('target', 'fallback'));
+    const { result } = await renderHook(() =>
+      useDeferredDebounce('target', 'fallback'),
+    );
 
     await vi.waitFor(() => {
       expect(result.current[0]).toBe('target');

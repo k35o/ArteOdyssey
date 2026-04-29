@@ -1,6 +1,11 @@
 'use client';
 
-import { type RefObject, useCallback, useRef, useSyncExternalStore } from 'react';
+import {
+  type RefObject,
+  useCallback,
+  useRef,
+  useSyncExternalStore,
+} from 'react';
 
 type ScrollDirection = {
   x: 'left' | 'right';
@@ -15,7 +20,9 @@ type UseScrollDirectionOptions = {
 const SERVER_SNAPSHOT: ScrollDirection = { x: 'right', y: 'up' };
 const getServerSnapshot = (): ScrollDirection => SERVER_SNAPSHOT;
 
-export const useScrollDirection = (options: UseScrollDirectionOptions = {}): ScrollDirection => {
+export const useScrollDirection = (
+  options: UseScrollDirectionOptions = {},
+): ScrollDirection => {
   const { threshold = 50, target } = options;
 
   const stateRef = useRef<{
@@ -47,28 +54,34 @@ export const useScrollDirection = (options: UseScrollDirectionOptions = {}): Scr
         let changed = false;
         const newDirection: ScrollDirection = { ...state.direction };
 
-        if (currentScrollY > state.prevScrollY && currentScrollY > threshold) {
-          if (newDirection.y !== 'down') {
-            newDirection.y = 'down';
-            changed = true;
-          }
-        } else if (currentScrollY < state.prevScrollY) {
-          if (newDirection.y !== 'up') {
-            newDirection.y = 'up';
-            changed = true;
-          }
+        if (
+          currentScrollY > state.prevScrollY &&
+          currentScrollY > threshold &&
+          newDirection.y !== 'down'
+        ) {
+          newDirection.y = 'down';
+          changed = true;
+        } else if (
+          currentScrollY < state.prevScrollY &&
+          newDirection.y !== 'up'
+        ) {
+          newDirection.y = 'up';
+          changed = true;
         }
 
-        if (currentScrollX > state.prevScrollX && currentScrollX > threshold) {
-          if (newDirection.x !== 'right') {
-            newDirection.x = 'right';
-            changed = true;
-          }
-        } else if (currentScrollX < state.prevScrollX) {
-          if (newDirection.x !== 'left') {
-            newDirection.x = 'left';
-            changed = true;
-          }
+        if (
+          currentScrollX > state.prevScrollX &&
+          currentScrollX > threshold &&
+          newDirection.x !== 'right'
+        ) {
+          newDirection.x = 'right';
+          changed = true;
+        } else if (
+          currentScrollX < state.prevScrollX &&
+          newDirection.x !== 'left'
+        ) {
+          newDirection.x = 'left';
+          changed = true;
         }
 
         stateRef.current = {

@@ -1,4 +1,5 @@
 import { renderHook } from 'vitest-browser-react';
+
 import { useHash } from '.';
 
 vi.mock('../client', () => ({

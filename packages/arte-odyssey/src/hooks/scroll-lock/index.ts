@@ -14,11 +14,12 @@ type LockEntry = {
 
 const lockRegistry = new WeakMap<HTMLElement, LockEntry>();
 
-const resolveTarget = (target?: RefObject<HTMLElement | null>): HTMLElement => {
-  return target?.current ?? document.body;
-};
+const resolveTarget = (target?: RefObject<HTMLElement | null>): HTMLElement =>
+  target?.current ?? document.body;
 
-export const useScrollLock = (target?: RefObject<HTMLElement | null>): UseScrollLockReturn => {
+export const useScrollLock = (
+  target?: RefObject<HTMLElement | null>,
+): UseScrollLockReturn => {
   const isLockedRef = useRef(false);
   const lockedElementRef = useRef<HTMLElement | null>(null);
 
@@ -54,8 +55,8 @@ export const useScrollLock = (target?: RefObject<HTMLElement | null>): UseScroll
     }
   }, []);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       if (isLockedRef.current) {
         const element = lockedElementRef.current;
         isLockedRef.current = false;
@@ -69,8 +70,9 @@ export const useScrollLock = (target?: RefObject<HTMLElement | null>): UseScroll
           lockRegistry.delete(element);
         }
       }
-    };
-  }, []);
+    },
+    [],
+  );
 
   return { lock, unlock };
 };

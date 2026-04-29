@@ -1,17 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { Separator } from './separator';
 
 const meta: Meta<typeof Separator> = {
   title: 'components/layout/separator',
   component: Separator,
   decorators: [
-    (Story) => {
-      return (
-        <div className="size-40">
-          <Story />
-        </div>
-      );
-    },
+    (Story) => (
+      <div className="size-40">
+        <Story />
+      </div>
+    ),
   ],
 };
 

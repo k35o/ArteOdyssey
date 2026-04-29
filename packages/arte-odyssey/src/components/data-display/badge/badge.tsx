@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+
 import { cn } from '../../../helpers/cn';
 
 type Props = {
@@ -65,10 +66,18 @@ export const Badge: FC<Props> = ({
     'inline-flex items-center rounded-full border font-medium transition-colors',
     size === 'sm' && 'px-2 py-0.5 text-xs',
     size === 'md' && 'px-2.5 py-1 text-xs',
-    tone === 'neutral' && variant === 'solid' && 'border-border-mute bg-bg-mute text-fg-base',
-    tone === 'neutral' && variant === 'outline' && 'border-border-base bg-bg-base text-fg-base',
-    tone === 'info' && variant === 'solid' && 'border-border-info bg-bg-info text-fg-info',
-    tone === 'info' && variant === 'outline' && 'border-border-info bg-bg-base text-fg-info',
+    tone === 'neutral' &&
+      variant === 'solid' &&
+      'border-border-mute bg-bg-mute text-fg-base',
+    tone === 'neutral' &&
+      variant === 'outline' &&
+      'border-border-base bg-bg-base text-fg-base',
+    tone === 'info' &&
+      variant === 'solid' &&
+      'border-border-info bg-bg-info text-fg-info',
+    tone === 'info' &&
+      variant === 'outline' &&
+      'border-border-info bg-bg-base text-fg-info',
     tone === 'success' &&
       variant === 'solid' &&
       'border-border-success bg-bg-success text-fg-success',
@@ -81,8 +90,12 @@ export const Badge: FC<Props> = ({
     tone === 'warning' &&
       variant === 'outline' &&
       'border-border-warning bg-bg-base text-fg-warning',
-    tone === 'error' && variant === 'solid' && 'border-border-error bg-bg-error text-fg-error',
-    tone === 'error' && variant === 'outline' && 'border-border-error bg-bg-base text-fg-error',
+    tone === 'error' &&
+      variant === 'solid' &&
+      'border-border-error bg-bg-error text-fg-error',
+    tone === 'error' &&
+      variant === 'outline' &&
+      'border-border-error bg-bg-base text-fg-error',
     interactiveClassName,
   );
 

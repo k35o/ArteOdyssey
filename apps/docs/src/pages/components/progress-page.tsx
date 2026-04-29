@@ -1,4 +1,5 @@
 import { Anchor, Heading, Progress, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -23,7 +24,10 @@ export function ProgressPage() {
           <T k="components.progress.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-progress--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-progress--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -35,7 +39,10 @@ export function ProgressPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Progress } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Progress } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -85,7 +92,11 @@ export function ProgressPage() {
 />`}
           >
             <div className="w-full">
-              <Progress label="Upload progress" maxProgress={100} progress={75} />
+              <Progress
+                label="Upload progress"
+                maxProgress={100}
+                progress={75}
+              />
             </div>
           </ComponentPreview>
         </div>

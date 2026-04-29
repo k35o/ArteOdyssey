@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { screen, waitFor } from 'storybook/test';
+
 import { Button } from '../../buttons/button';
 import { Tooltip } from './tooltip';
 

@@ -1,4 +1,5 @@
 import { Alert, Anchor, Heading, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -29,7 +30,10 @@ export function AlertPage() {
           <T k="components.alert.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-alert--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-alert--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -41,7 +45,10 @@ export function AlertPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Alert } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Alert } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -67,7 +74,10 @@ export function AlertPage() {
 <Alert message="Please proceed with caution." status="warning" />
 <Alert message="Something went wrong." status="error" />`}
           >
-            <Alert message="Operation completed successfully." status="success" />
+            <Alert
+              message="Operation completed successfully."
+              status="success"
+            />
             <Alert message="Here is some useful information." status="info" />
             <Alert message="Please proceed with caution." status="warning" />
             <Alert message="Something went wrong." status="error" />

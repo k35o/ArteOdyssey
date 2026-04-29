@@ -11,7 +11,7 @@ export function UseStepPreview() {
   return (
     <div className="flex items-center gap-4">
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute disabled:opacity-40"
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors disabled:opacity-40"
         disabled={isDisabledBack}
         onClick={back}
         type="button"
@@ -22,7 +22,7 @@ export function UseStepPreview() {
         Step <strong>{count}</strong> / 5
       </span>
       <button
-        className="rounded-lg border border-border-mute px-4 py-2 text-sm transition-colors hover:bg-bg-mute disabled:opacity-40"
+        className="border-border-mute hover:bg-bg-mute rounded-lg border px-4 py-2 text-sm transition-colors disabled:opacity-40"
         disabled={isDisabledNext}
         onClick={next}
         type="button"

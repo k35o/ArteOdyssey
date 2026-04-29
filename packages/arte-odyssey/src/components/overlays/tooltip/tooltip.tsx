@@ -2,25 +2,24 @@
 
 import type { Placement } from '@floating-ui/react';
 import type { FC, PropsWithChildren, ReactElement } from 'react';
+
 import { Popover } from '../popover';
 import { usePlacement } from '../popover/hooks';
 
 const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
   children,
   placement = 'bottom-start',
-}) => {
-  return (
-    <Popover.Root placement={placement} type="tooltip">
-      {children}
-    </Popover.Root>
-  );
-};
+}) => (
+  <Popover.Root placement={placement} type="tooltip">
+    {children}
+  </Popover.Root>
+);
 
 const Trigger: FC<{
   renderItem: (props: Record<string, unknown>) => ReactElement;
-}> = ({ renderItem }) => {
-  return <Popover.Trigger renderItem={(props) => renderItem({ ...props })} />;
-};
+}> = ({ renderItem }) => (
+  <Popover.Trigger renderItem={(props) => renderItem({ ...props })} />
+);
 
 const Content: FC<PropsWithChildren> = ({ children }) => {
   const placement = usePlacement();
@@ -29,7 +28,9 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     bottom: { translateY: -5 },
     left: { translateX: 5 },
     right: { translateX: -5 },
-  }[placement.includes('-') ? (placement.split('-')[0] ?? 'bottom') : placement];
+  }[
+    placement.includes('-') ? (placement.split('-')[0] ?? 'bottom') : placement
+  ];
 
   return (
     <Popover.Content
@@ -51,7 +52,10 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
         },
       }}
       renderItem={(props) => (
-        <div {...props} className="rounded-lg bg-bg-inverse px-4 py-2 text-fg-inverse shadow-md">
+        <div
+          {...props}
+          className="bg-bg-inverse text-fg-inverse rounded-lg px-4 py-2 shadow-md"
+        >
           {children}
         </div>
       )}

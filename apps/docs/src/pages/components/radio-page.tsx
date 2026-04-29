@@ -1,4 +1,5 @@
 import { Anchor, Heading, Radio, Separator } from '@k8o/arte-odyssey';
+
 import { CodeBlock } from '../../components/code-block';
 import { ComponentPreview } from '../../components/component-preview';
 import type { PropItem } from '../../components/props-table';
@@ -35,7 +36,10 @@ export function RadioPage() {
           <T k="components.radio.description" />
         </p>
         <div>
-          <Anchor href={`${STORYBOOK_URL}/?path=/docs/components-form-radio--docs`} openInNewTab>
+          <Anchor
+            href={`${STORYBOOK_URL}/?path=/docs/components-form-radio--docs`}
+            openInNewTab
+          >
             <T k="components.common.storybookLink" />
           </Anchor>
         </div>
@@ -46,7 +50,10 @@ export function RadioPage() {
         <Heading type="h2">
           <T k="components.common.importTitle" />
         </Heading>
-        <CodeBlock code="import { Radio } from '@k8o/arte-odyssey';" lang="ts" />
+        <CodeBlock
+          code="import { Radio } from '@k8o/arte-odyssey';"
+          lang="ts"
+        />
       </section>
       <Separator color="mute" />
 
@@ -73,7 +80,7 @@ const options = [
 />`}
           >
             <div className="w-full max-w-md">
-              <p className="mb-3 font-medium text-fg-base" id="radio-label">
+              <p className="text-fg-base mb-3 font-medium" id="radio-label">
                 Framework
               </p>
               <Radio
@@ -120,7 +127,10 @@ const options = [
 />`}
           >
             <div className="w-full max-w-md">
-              <p className="mb-3 font-medium text-fg-base" id="radio-disabled-label">
+              <p
+                className="text-fg-base mb-3 font-medium"
+                id="radio-disabled-label"
+              >
                 Framework
               </p>
               <Radio

@@ -2,6 +2,7 @@
 
 import { useLocation } from '@funstack/router';
 import { DropdownMenu } from '@k8o/arte-odyssey';
+
 import type { Locale } from '../i18n';
 import { deLocalizeHref, LOCALES, localizeHref, useLocale } from '../i18n';
 
@@ -18,7 +19,11 @@ export function LanguageSwitcher() {
 
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger size="sm" text={LOCALE_LABELS[locale]} variant="skeleton" />
+      <DropdownMenu.Trigger
+        size="sm"
+        text={LOCALE_LABELS[locale]}
+        variant="skeleton"
+      />
       <DropdownMenu.Content>
         {LOCALES.map((l) => (
           <DropdownMenu.Item

@@ -1,8 +1,9 @@
 'use client';
 
 import type { FC, PropsWithChildren } from 'react';
-import { cn } from './../../../helpers/cn';
+
 import { ChevronIcon } from '../../icons';
+import { cn } from './../../../helpers/cn';
 import { useItemId, useOpen, useToggleOpen } from './context';
 
 export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
@@ -24,7 +25,12 @@ export const AccordionButton: FC<PropsWithChildren> = ({ children }) => {
       type="button"
     >
       {children}
-      <span className={cn('transition-transform duration-150', open && 'rotate-180')}>
+      <span
+        className={cn(
+          'transition-transform duration-150',
+          open && 'rotate-180',
+        )}
+      >
         <ChevronIcon direction="down" />
       </span>
     </button>

@@ -1,6 +1,7 @@
 import { type FC, useRef } from 'react';
-import { userEvent } from 'vitest/browser';
 import { render } from 'vitest-browser-react';
+import { userEvent } from 'vitest/browser';
+
 import { useClickAway } from '.';
 
 const OutsideClicker: FC<{
@@ -18,7 +19,7 @@ const OutsideClicker: FC<{
 
 describe('useClickAway', () => {
   it('領域外を触るとcallbackが呼び出される', async () => {
-    const fn = vi.fn();
+    const fn = vi.fn<() => void>();
 
     const { getByText } = await render(<OutsideClicker callback={fn} />);
     const element = getByText('Element');

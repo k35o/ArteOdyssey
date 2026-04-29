@@ -45,7 +45,10 @@ const applyTheme = (theme: Theme) => {
 };
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [storedTheme, setStoredTheme] = useLocalStorage<Theme | null>(STORAGE_KEY, null);
+  const [storedTheme, setStoredTheme] = useLocalStorage<Theme | null>(
+    STORAGE_KEY,
+    null,
+  );
   const systemTheme = useSyncExternalStore(
     subscribeMediaQuery,
     getSystemTheme,
