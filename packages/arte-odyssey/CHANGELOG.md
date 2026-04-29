@@ -1,5 +1,17 @@
 # @k8o/arte-odyssey
 
+## 7.0.1
+
+### Patch Changes
+
+- [#441](https://github.com/k35o/ArteOdyssey/pull/441) [`c33c937`](https://github.com/k35o/ArteOdyssey/commit/c33c93739dc3f0d26edec15744b8f26f5ad2b8bb) Thanks [@k35o](https://github.com/k35o)! - Adopt the shared `@k8o/oxc-config` oxlint+oxfmt preset and apply the resulting cleanup. Mostly internal refactors with no public API changes:
+
+  - Compound component context value memoization (`Tabs.Root`, `Dialog.Root`, `CheckboxGroup.Root`)
+  - `Toast` provider/hook split into `toast/context.ts` and `toast/provider.tsx` to break a circular import
+  - `ChevronIcon` / `AlertIcon` rewritten as record-lookup so the underlying component is determined eagerly instead of in a `switch`
+  - Various conditional truthy checks made explicit (`string \| undefined`, `boolean \| undefined`)
+  - `Checkbox` / `Radio` / `RadioCard` / `Switch` controlled state branching switched to spreading `{ checked }` or `{ defaultChecked }` instead of passing both
+
 ## 7.0.0
 
 ### Major Changes
