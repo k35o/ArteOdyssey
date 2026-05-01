@@ -340,8 +340,22 @@ const extractStoryArgs = (
           for (const prop of path.node.init.properties) {
             if (!t.isObjectProperty(prop)) continue;
             const key = propKeyName(prop.key);
-            if (key === 'component' && t.isIdentifier(prop.value)) {
-              componentName = prop.value.name;
+            if (key === 'component') {
+              // `component: Button` → `Button`
+              if (t.isIdentifier(prop.value)) {
+                componentName = prop.value.name;
+              }
+              // `component: Tooltip.Root` → `Tooltip` (the namespace, which is
+              // what's published from `src/components/index.ts`). ArteOdyssey
+              // uses the compound-component pattern across overlays / tabs /
+              // breadcrumb / etc.; the catalog only references the
+              // public-export name.
+              else if (
+                t.isMemberExpression(prop.value) &&
+                t.isIdentifier(prop.value.object)
+              ) {
+                componentName = prop.value.object.name;
+              }
             } else if (key === 'args' && t.isObjectExpression(prop.value)) {
               metaArgs = literalObject(prop.value);
             }
