@@ -53,7 +53,7 @@
     "generate:decoro-catalog": "node scripts/generate-decoro-catalog.ts",
     "prepare": "pnpm generate:css",
     "storybook": "storybook dev -p 6006 --no-open",
-    "build-storybook": "storybook build && pnpm generate:decoro-catalog",
+    "build-storybook": "storybook build",
     "test": "vitest run",
     "test:ui": "vitest --ui --coverage",
     "test:coverage": "vitest run --coverage",

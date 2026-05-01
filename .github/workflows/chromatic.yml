@@ -17,6 +17,13 @@ jobs:
           persist-credentials: false
       - name: Install
         uses: ./.github/composite-actions/install
+      - name: Build Storybook + Decoro catalog
+        # Build first, then bake `decoro-catalog.json` into the static dir so
+        # Chromatic's upload picks it up alongside the rest. Splitting these
+        # from chromaui/action's internal build means the action runs in
+        # `storybookBuildDir` mode against the directory we just produced.
+        run: pnpm build-storybook && pnpm generate:decoro-catalog
+        working-directory: packages/arte-odyssey
       - name: Publish to Chromatic
         uses: chromaui/action@cad40970f69e7a6a5bef4ddfe42c01309ba17cb1 # v16.6.0
         with:
@@ -24,3 +31,4 @@ jobs:
           onlyChanged: true
           skip: 'renovate/**'
           workingDir: packages/arte-odyssey
+          storybookBuildDir: storybook-static
