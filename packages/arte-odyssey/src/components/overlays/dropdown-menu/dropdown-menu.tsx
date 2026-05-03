@@ -144,12 +144,7 @@ const IconTrigger: FC<{
   return (
     <Popover.Trigger
       renderItem={(props) => (
-        <IconButton
-          bg="base"
-          label={label}
-          tooltipDisabled
-          {...getTriggerProps(props)}
-        >
+        <IconButton bg="base" label={label} {...getTriggerProps(props)}>
           {icon}
         </IconButton>
       )}

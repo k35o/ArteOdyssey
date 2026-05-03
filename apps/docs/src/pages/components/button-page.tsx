@@ -36,7 +36,7 @@ const buttonProps: PropItem[] = [
     defaultValue: "'button'",
   },
   { name: 'fullWidth', types: ['boolean'], defaultValue: 'false' },
-  { name: 'active', types: ['boolean'], defaultValue: 'false' },
+  { name: 'isActive', types: ['boolean'], defaultValue: 'false' },
   { name: 'startIcon', types: ['ReactNode'], defaultValue: null },
   { name: 'endIcon', types: ['ReactNode'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },

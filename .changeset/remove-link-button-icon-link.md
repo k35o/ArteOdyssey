@@ -54,6 +54,12 @@
 - `IconButton` に `renderItem?: (props: { className, children, 'aria-label', triggerProps }) => ReactNode` prop を追加
 - `IconButtonTriggerProps` 型を export
 
+### Cleanups
+
+- `Tooltip` の `onFocus` を `:focus-visible` チェック付きに変更。プログラマティック focus やマウスクリックで tooltip が auto-open しなくなった
+- 上記に伴い `Dialog.Header` / `Drawer` / `DropdownMenu.IconTrigger` / `ListBox` の `IconButton` から `tooltipDisabled` 指定を削除（不要になったため）
+- `Button` の `active` prop を `isActive` に rename（CLAUDE.md の命名規約に合わせる）
+
 ### Notes
 
 - `renderItem` を指定した場合、`disabled` / `onAction` / Spinner などのボタン専用機能は適用されない（リンクには無関係なため）

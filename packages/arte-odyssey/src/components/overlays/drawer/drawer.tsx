@@ -47,7 +47,6 @@ export const Drawer: FC<
                 e.stopPropagation();
                 onClose();
               }}
-              tooltipDisabled
             >
               <CloseIcon size="sm" />
             </IconButton>

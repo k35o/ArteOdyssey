@@ -13,7 +13,7 @@ type Props = {
   color?: 'primary' | 'secondary' | 'gray';
   variant?: 'contained' | 'outlined' | 'skeleton';
   fullWidth?: boolean;
-  active?: boolean;
+  isActive?: boolean;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   onAction?: () => void | Promise<void>;
@@ -29,7 +29,7 @@ export const Button: FC<Props> = ({
   variant = 'contained',
   disabled = false,
   fullWidth = false,
-  active = false,
+  isActive = false,
   onAction,
   onClick,
   startIcon,
@@ -94,7 +94,7 @@ export const Button: FC<Props> = ({
       : hasStartIcon && variant !== 'skeleton'
         ? 'justify-center'
         : hasEndIcon && 'justify-between',
-    active && 'text-fg-info',
+    isActive && 'text-fg-info',
   );
 
   const composedChildren = (

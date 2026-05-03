@@ -50,7 +50,7 @@ export function Navigation() {
             return (
               <li key={item.path}>
                 <Button
-                  active={isActive}
+                  isActive={isActive}
                   renderItem={({ className, children }) => (
                     <a className={className} href={href}>
                       {children}
