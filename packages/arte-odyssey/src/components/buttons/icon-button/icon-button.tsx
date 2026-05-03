@@ -1,26 +1,54 @@
 'use client';
 
-import type { FC, HTMLProps, MouseEvent } from 'react';
+import type { Placement } from '@floating-ui/react';
+import type {
+  FC,
+  FocusEventHandler,
+  HTMLProps,
+  MouseEvent,
+  MouseEventHandler,
+  ReactElement,
+  Ref,
+} from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
+import { Tooltip } from '../../overlays/tooltip';
 import { cn } from './../../../helpers/cn';
+import { mergeRefs } from './../../../helpers/merge-refs';
 
 type Props = {
   size?: 'sm' | 'md' | 'lg';
   bg?: 'transparent' | 'base' | 'primary' | 'secondary';
   label: string;
+  tooltipPlacement?: Placement;
+  tooltipDisabled?: boolean;
   onAction?: () => void | Promise<void>;
 } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>;
+
+type ButtonTriggerProps = {
+  ref: Ref<HTMLButtonElement>;
+  'aria-describedby': string | undefined;
+  onMouseEnter: MouseEventHandler<HTMLButtonElement>;
+  onMouseLeave: MouseEventHandler<HTMLButtonElement>;
+  onFocus: FocusEventHandler<HTMLButtonElement>;
+  onBlur: FocusEventHandler<HTMLButtonElement>;
+};
 
 export const IconButton: FC<Props> = ({
   ref,
   size = 'md',
   bg = 'transparent',
   label,
+  tooltipPlacement = 'bottom',
+  tooltipDisabled = false,
   children,
   onAction,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
   disabled,
   ...props
 }) => {
@@ -42,39 +70,68 @@ export const IconButton: FC<Props> = ({
         }
       : undefined;
 
-  return (
+  const className = cn(
+    'inline-flex cursor-pointer rounded-full transition-colors',
+    'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
+    (bg === 'transparent' || bg === 'base') &&
+      'hover:bg-bg-subtle active:bg-bg-mute',
+    bg === 'base' && 'bg-bg-base',
+    bg === 'transparent' && 'bg-transparent',
+    bg === 'primary' &&
+      'bg-primary-bg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize',
+    bg === 'secondary' &&
+      'bg-secondary-bg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize',
+    size === 'sm' && 'p-1',
+    size === 'md' && 'p-2',
+    size === 'lg' && 'p-3',
+    isDisabled &&
+      'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
+  );
+
+  const renderButton = (triggerProps?: ButtonTriggerProps): ReactElement => (
     <button
-      aria-busy={isPending || undefined}
-      aria-label={
-        props.role !== undefined && props.role !== '' ? label : undefined
-      }
-      className={cn(
-        'inline-flex cursor-pointer rounded-full transition-colors',
-        'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
-        (bg === 'transparent' || bg === 'base') &&
-          'hover:bg-bg-subtle active:bg-bg-mute',
-        bg === 'base' && 'bg-bg-base',
-        bg === 'transparent' && 'bg-transparent',
-        bg === 'primary' &&
-          'bg-primary-bg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize',
-        bg === 'secondary' &&
-          'bg-secondary-bg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize',
-        size === 'sm' && 'p-1',
-        size === 'md' && 'p-2',
-        size === 'lg' && 'p-3',
-        isDisabled &&
-          'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
-      )}
-      disabled={isDisabled}
-      onClick={handleClick}
-      ref={ref}
-      type="button"
       {...props}
+      aria-busy={isPending || undefined}
+      aria-describedby={triggerProps?.['aria-describedby']}
+      aria-label={label}
+      className={className}
+      disabled={isDisabled}
+      onBlur={(e) => {
+        triggerProps?.onBlur(e);
+        onBlur?.(e);
+      }}
+      onClick={handleClick}
+      onFocus={(e) => {
+        triggerProps?.onFocus(e);
+        onFocus?.(e);
+      }}
+      onMouseEnter={(e) => {
+        triggerProps?.onMouseEnter(e);
+        onMouseEnter?.(e);
+      }}
+      onMouseLeave={(e) => {
+        triggerProps?.onMouseLeave(e);
+        onMouseLeave?.(e);
+      }}
+      ref={mergeRefs(ref, triggerProps?.ref)}
+      type="button"
     >
-      {(props.role === undefined || props.role === '') && (
-        <span className="sr-only">{label}</span>
-      )}
       {children}
     </button>
+  );
+
+  if (tooltipDisabled) {
+    return renderButton();
+  }
+
+  return (
+    <Tooltip.Root placement={tooltipPlacement}>
+      <Tooltip.Trigger
+        renderItem={(rawTriggerProps) =>
+          renderButton(rawTriggerProps as unknown as ButtonTriggerProps)
+        }
+      />
+      <Tooltip.Content>{label}</Tooltip.Content>
+    </Tooltip.Root>
   );
 };
