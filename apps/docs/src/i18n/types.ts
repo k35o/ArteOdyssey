@@ -77,6 +77,8 @@ export const MESSAGE_KEYS = [
   'components.iconButton.renderItemTitle',
   'components.anchor.description',
   'components.anchor.openInNewTabTitle',
+  'components.anchor.renderAnchorTitle',
+  'components.anchor.renderAnchorDescription',
   'components.textField.description',
   'components.textField.placeholderTitle',
   'components.textField.disabledTitle',
