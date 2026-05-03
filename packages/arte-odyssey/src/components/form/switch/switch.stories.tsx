@@ -7,9 +7,9 @@ const meta: Meta<typeof Switch> = {
   title: 'components/form/switch',
   component: Switch,
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     label: 'Enable notifications',
   },
 };
@@ -23,9 +23,9 @@ const DefaultRender = (props: ComponentProps<typeof Switch>) => {
   return (
     <Switch
       id={props.id}
-      isDisabled={props.isDisabled}
-      isInvalid={props.isInvalid}
-      isRequired={props.isRequired}
+      disabled={props.disabled}
+      invalid={props.invalid}
+      required={props.required}
       label={props.label}
       name={props.name}
       onChange={(event) => {
@@ -43,9 +43,9 @@ export const Default: Story = {
 export const DefaultChecked: Story = {
   args: {
     defaultChecked: true,
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     label: 'Automatic updates',
   },
 };
@@ -53,9 +53,9 @@ export const DefaultChecked: Story = {
 export const Disabled: Story = {
   args: {
     defaultChecked: true,
-    isDisabled: true,
-    isInvalid: false,
-    isRequired: false,
+    disabled: true,
+    invalid: false,
+    required: false,
     label: 'Location services',
   },
 };

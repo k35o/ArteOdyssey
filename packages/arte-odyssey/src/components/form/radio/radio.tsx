@@ -8,9 +8,9 @@ import type { Option } from '../../../types/variables';
 import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
-  labelId: string;
+  'aria-labelledby': string;
   name?: string;
-  isDisabled: boolean;
+  disabled?: boolean;
   options: readonly Option[];
 };
 
@@ -29,9 +29,9 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Radio: FC<Props> = ({
-  labelId,
+  'aria-labelledby': labelledbyId,
   name,
-  isDisabled,
+  disabled = false,
   value,
   defaultValue,
   onChange,
@@ -41,7 +41,7 @@ export const Radio: FC<Props> = ({
   const { pending } = useFormStatus();
   const isControlled = value !== undefined;
   const selectedValue = isControlled ? value : internalValue;
-  const isDisabledResolved = isDisabled || pending;
+  const disabledResolved = disabled || pending;
 
   const selectValue = (nextValue: string) => {
     if (!isControlled) {
@@ -54,10 +54,10 @@ export const Radio: FC<Props> = ({
 
   return (
     <div
-      aria-labelledby={labelId}
+      aria-labelledby={labelledbyId}
       className={cn(
         'flex cursor-pointer flex-col gap-2',
-        isDisabledResolved && 'cursor-not-allowed',
+        disabledResolved && 'cursor-not-allowed',
       )}
       role="radiogroup"
     >
@@ -65,7 +65,7 @@ export const Radio: FC<Props> = ({
         <label
           className={cn(
             'flex items-center gap-2 text-left',
-            isDisabledResolved ? 'cursor-not-allowed' : 'cursor-pointer',
+            disabledResolved ? 'cursor-not-allowed' : 'cursor-pointer',
           )}
           key={option.value}
         >
@@ -74,8 +74,8 @@ export const Radio: FC<Props> = ({
               ? { checked: value === option.value }
               : { defaultChecked: defaultValue === option.value })}
             className="peer sr-only"
-            disabled={isDisabledResolved}
-            name={name ?? labelId}
+            disabled={disabledResolved}
+            name={name ?? labelledbyId}
             onChange={() => {
               selectValue(option.value);
             }}
@@ -90,7 +90,7 @@ export const Radio: FC<Props> = ({
               selectedValue === option.value
                 ? 'border-border-base bg-primary-bg'
                 : 'border-border-mute bg-bg-base',
-              isDisabledResolved && 'border-border-mute bg-bg-mute',
+              disabledResolved && 'border-border-mute bg-bg-mute',
             )}
           >
             <span

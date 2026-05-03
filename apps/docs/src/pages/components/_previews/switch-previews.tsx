@@ -9,9 +9,9 @@ export function SwitchControlledPreview() {
 
   return (
     <Switch
-      isDisabled={false}
-      isInvalid={false}
-      isRequired={false}
+      disabled={false}
+      invalid={false}
+      required={false}
       label="Controlled switch"
       onChange={(event: ChangeEvent<HTMLInputElement>) => {
         setValue(event.target.checked);

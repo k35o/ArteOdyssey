@@ -7,7 +7,7 @@ const meta: Meta<typeof TextField> = {
   component: TextField,
   args: {
     id: 'textfield',
-    describedbyId: 'textfield-feedback',
+    'aria-describedby': 'textfield-feedback',
   },
   parameters: {
     a11y: {
@@ -27,33 +27,33 @@ type Story = StoryObj<typeof TextField>;
 
 export const Default: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
   },
 };
 
 export const Placeholder: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     placeholder: 'ID',
   },
 };
 
 export const Invalid: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: true,
-    isRequired: false,
+    disabled: false,
+    invalid: true,
+    required: false,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
-    isInvalid: false,
-    isRequired: false,
+    disabled: true,
+    invalid: false,
+    required: false,
   },
 };

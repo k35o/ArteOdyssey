@@ -15,9 +15,9 @@ import {
 } from './_previews/form-control-previews';
 
 const formControlProps: PropItem[] = [
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'label', types: ['string'], defaultValue: null },
   {
     name: 'labelAs',
@@ -111,7 +111,7 @@ export function FormControlPage() {
           <ComponentPreview
             code={`<FormControl
   errorText="This field is required."
-  isInvalid
+  invalid
   label="Email"
   renderInput={(props) => (
     <TextField {...props} />
@@ -129,7 +129,7 @@ export function FormControlPage() {
           </Heading>
           <ComponentPreview
             code={`<FormControl
-  isRequired
+  required
   label="Username"
   renderInput={(props) => (
     <TextField
@@ -150,7 +150,7 @@ export function FormControlPage() {
           </Heading>
           <ComponentPreview
             code={`<FormControl
-  isDisabled
+  disabled
   label="Username"
   renderInput={(props) => (
     <TextField

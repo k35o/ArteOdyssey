@@ -9,10 +9,10 @@ import { STORYBOOK_URL } from '../../constants';
 import { SwitchControlledPreview } from './_previews/switch-previews';
 
 const switchProps: PropItem[] = [
-  { name: 'describedbyId', types: ['string'], defaultValue: null },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-describedby', types: ['string'], defaultValue: null },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
@@ -62,16 +62,16 @@ export function SwitchPage() {
           </Heading>
           <ComponentPreview
             code={`<Switch
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   label="Email notifications"
 />`}
           >
             <Switch
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               label="Email notifications"
             />
           </ComponentPreview>
@@ -84,17 +84,17 @@ export function SwitchPage() {
           <ComponentPreview
             code={`<Switch
   defaultChecked
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   label="Automatic backups"
 />`}
           >
             <Switch
               defaultChecked
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               label="Automatic backups"
             />
           </ComponentPreview>
@@ -108,9 +108,9 @@ export function SwitchPage() {
             code={`const [value, setValue] = useState(false);
 
 <Switch
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   label="Controlled switch"
   onChange={(event) => setValue(event.target.checked)}
   value={value}
@@ -125,20 +125,20 @@ export function SwitchPage() {
             <T k="components.switch.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Switch isDisabled isInvalid={false} isRequired={false} label="Airplane mode" />
-<Switch defaultChecked isDisabled isInvalid={false} isRequired={false} label="Offline sync" />`}
+            code={`<Switch disabled invalid={false} required={false} label="Airplane mode" />
+<Switch defaultChecked disabled invalid={false} required={false} label="Offline sync" />`}
           >
             <Switch
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
               label="Airplane mode"
             />
             <Switch
               defaultChecked
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
               label="Offline sync"
             />
           </ComponentPreview>

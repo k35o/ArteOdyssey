@@ -30,7 +30,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
   render: () => (
-    <CheckboxGroup defaultValue={['vue']} isDisabled name="frameworks-disabled">
+    <CheckboxGroup defaultValue={['vue']} disabled name="frameworks-disabled">
       <Checkbox itemValue="react" label="React" />
       <Checkbox itemValue="vue" label="Vue" />
       <Checkbox itemValue="svelte" label="Svelte" />

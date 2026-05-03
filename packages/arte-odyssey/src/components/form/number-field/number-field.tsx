@@ -10,10 +10,11 @@ import { between, cast, toPrecision } from './../../../helpers/number';
 type BaseProps = {
   id?: string;
   name?: string;
-  describedbyId?: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+  'aria-describedby'?: string | undefined;
+  'aria-labelledby'?: string;
+  invalid?: boolean;
+  disabled?: boolean;
+  required?: boolean;
   step?: number;
   precision?: number;
   max?: number;
@@ -38,10 +39,11 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const NumberField: FC<Props> = ({
   id,
   name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  'aria-describedby': describedbyId,
+  'aria-labelledby': labelledbyId,
+  invalid = false,
+  disabled = false,
+  required = false,
   value,
   defaultValue,
   onChange,
@@ -86,8 +88,9 @@ export const NumberField: FC<Props> = ({
     >
       <input
         aria-describedby={describedbyId}
-        aria-invalid={isInvalid}
-        aria-required={isRequired}
+        aria-invalid={invalid}
+        aria-labelledby={labelledbyId}
+        aria-required={required}
         aria-valuemax={max}
         aria-valuemin={min}
         aria-valuenow={currentValue}
@@ -98,7 +101,7 @@ export const NumberField: FC<Props> = ({
           'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed',
         )}
-        disabled={isDisabled}
+        disabled={disabled}
         id={id}
         inputMode="decimal"
         name={name}
@@ -153,7 +156,7 @@ export const NumberField: FC<Props> = ({
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}
-          disabled={isDisabled || pending}
+          disabled={disabled || pending}
           onClick={() => {
             const newValue = between(
               toPrecision(cast(displayValue, precision) + step, precision),
@@ -175,7 +178,7 @@ export const NumberField: FC<Props> = ({
             'hover:bg-bg-mute hover:text-fg-base',
             'disabled:cursor-not-allowed disabled:text-fg-mute hover:disabled:bg-transparent',
           )}
-          disabled={isDisabled || pending}
+          disabled={disabled || pending}
           onClick={() => {
             const newValue = between(
               toPrecision(cast(displayValue, precision) - step, precision),

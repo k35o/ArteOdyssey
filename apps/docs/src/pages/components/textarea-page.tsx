@@ -9,10 +9,14 @@ import { STORYBOOK_URL } from '../../constants';
 
 const textareaProps: PropItem[] = [
   { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'describedbyId', types: ['string | undefined'], defaultValue: null },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  {
+    name: 'aria-describedby',
+    types: ['string | undefined'],
+    defaultValue: null,
+  },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'placeholder', types: ['string'], defaultValue: null },
   { name: 'rows', types: ['number'], defaultValue: null },
   { name: 'fullHeight', types: ['boolean'], defaultValue: 'false' },
@@ -67,19 +71,19 @@ export function TextareaPage() {
           <ComponentPreview
             code={`<Textarea
   id="textarea-basic"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   placeholder="Enter text"
 />`}
           >
             <Textarea
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="textarea-basic"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               placeholder="Enter text"
             />
           </ComponentPreview>
@@ -93,20 +97,20 @@ export function TextareaPage() {
           <ComponentPreview
             code={`<Textarea
   id="textarea-rows"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   placeholder="6 rows"
   rows={6}
 />`}
           >
             <Textarea
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="textarea-rows"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               placeholder="6 rows"
               rows={6}
             />
@@ -121,22 +125,22 @@ export function TextareaPage() {
           <ComponentPreview
             code={`<Textarea
   id="textarea-auto"
-  describedbyId={undefined}
+  aria-describedby={undefined}
   autoResize
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   placeholder="Type to auto-resize"
   rows={2}
 />`}
           >
             <Textarea
               autoResize
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="textarea-auto"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               placeholder="Type to auto-resize"
               rows={2}
             />
@@ -151,19 +155,19 @@ export function TextareaPage() {
           <ComponentPreview
             code={`<Textarea
   id="textarea-disabled"
-  describedbyId={undefined}
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled
+  invalid={false}
+  required={false}
   placeholder="Disabled"
 />`}
           >
             <Textarea
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="textarea-disabled"
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
               placeholder="Disabled"
             />
           </ComponentPreview>
@@ -177,20 +181,20 @@ export function TextareaPage() {
           <ComponentPreview
             code={`<Textarea
   id="textarea-invalid"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid
+  required={false}
   defaultValue="invalid value"
 />`}
           >
             <Textarea
               defaultValue="invalid value"
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="textarea-invalid"
-              isDisabled={false}
-              isInvalid
-              isRequired={false}
+              disabled={false}
+              invalid
+              required={false}
             />
           </ComponentPreview>
         </div>

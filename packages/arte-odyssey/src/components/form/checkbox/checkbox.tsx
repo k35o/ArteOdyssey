@@ -11,7 +11,7 @@ import { cn } from './../../../helpers/cn';
 type BaseProps = {
   name?: string;
   itemValue?: string;
-  isDisabled?: boolean;
+  disabled?: boolean;
   label: string;
 };
 
@@ -32,7 +32,7 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Checkbox: FC<Props> = ({
   name,
   itemValue,
-  isDisabled = false,
+  disabled = false,
   label,
   value,
   defaultChecked,
@@ -50,8 +50,8 @@ export const Checkbox: FC<Props> = ({
   }
 
   const isControlled = value !== undefined;
-  const isDisabledResolved =
-    isDisabled || groupContext?.isDisabled === true || pending;
+  const disabledResolved =
+    disabled || groupContext?.disabled === true || pending;
   const checked = groupContext
     ? groupContext.currentValue.includes(groupItemValue)
     : isControlled
@@ -71,9 +71,7 @@ export const Checkbox: FC<Props> = ({
     <label
       className={cn(
         'inline-flex items-center gap-2 text-left',
-        isDisabledResolved
-          ? 'cursor-not-allowed text-fg-mute'
-          : 'cursor-pointer',
+        disabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
       )}
     >
       <input
@@ -81,7 +79,7 @@ export const Checkbox: FC<Props> = ({
           ? { checked: groupContext ? checked : value }
           : { defaultChecked })}
         className="peer sr-only"
-        disabled={isDisabledResolved}
+        disabled={disabledResolved}
         name={groupContext?.name ?? name}
         onChange={(event) => {
           if (groupContext) {
@@ -99,7 +97,7 @@ export const Checkbox: FC<Props> = ({
         className={cn(
           'inline-flex size-5 items-center justify-center rounded-md border-2 transition-colors',
           'peer-focus-visible:border-transparent peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info',
-          isDisabledResolved && 'border-border-mute bg-bg-mute',
+          disabledResolved && 'border-border-mute bg-bg-mute',
           checked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',

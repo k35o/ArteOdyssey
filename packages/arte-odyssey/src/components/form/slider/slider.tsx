@@ -9,10 +9,10 @@ import { useControllableState } from '../../../hooks/controllable-state';
 type BaseProps = {
   id?: string;
   name?: string;
-  describedbyId?: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+  'aria-describedby'?: string;
+  invalid?: boolean;
+  disabled?: boolean;
+  required?: boolean;
   step?: number;
   max?: number;
   min?: number;
@@ -35,10 +35,10 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Slider: FC<Props> = ({
   id,
   name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  'aria-describedby': describedbyId,
+  invalid = false,
+  disabled = false,
+  required = false,
   value,
   defaultValue,
   onChange,
@@ -52,7 +52,7 @@ export const Slider: FC<Props> = ({
     onChange,
   });
   const { pending } = useFormStatus();
-  const isDisabledResolved = isDisabled || pending;
+  const disabledResolved = disabled || pending;
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
   const style = {
@@ -66,14 +66,14 @@ export const Slider: FC<Props> = ({
         'before:absolute before:inset-x-0 before:h-2 before:rounded-full before:bg-bg-mute',
         'after:absolute after:left-0 after:h-2 after:rounded-full after:bg-primary-bg',
         'after:w-(--slider-progress)',
-        isInvalid && 'after:bg-bg-error',
-        isDisabledResolved && 'opacity-50',
+        invalid && 'after:bg-bg-error',
+        disabledResolved && 'opacity-50',
       )}
       style={style}
     >
       <input
         aria-describedby={describedbyId}
-        aria-invalid={isInvalid}
+        aria-invalid={invalid}
         aria-valuemax={max}
         aria-valuemin={min}
         aria-valuenow={currentValue}
@@ -88,10 +88,10 @@ export const Slider: FC<Props> = ({
           '[&::-moz-range-progress]:h-2 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-transparent',
           '[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-border-base [&::-moz-range-thumb]:bg-bg-base [&::-moz-range-thumb]:shadow-xs',
           '[&:focus-visible::-moz-range-thumb]:border-transparent [&:focus-visible::-moz-range-thumb]:ring-2 [&:focus-visible::-moz-range-thumb]:ring-border-info',
-          isInvalid &&
+          invalid &&
             '[&::-moz-range-thumb]:border-border-error [&::-webkit-slider-thumb]:border-border-error [&:focus-visible::-moz-range-thumb]:ring-border-error [&:focus-visible::-webkit-slider-thumb]:ring-border-error',
         )}
-        disabled={isDisabledResolved}
+        disabled={disabledResolved}
         id={id}
         max={max}
         min={min}
@@ -99,7 +99,7 @@ export const Slider: FC<Props> = ({
         onChange={(event) => {
           handleChange(Number(event.target.value));
         }}
-        required={isRequired}
+        required={required}
         step={step}
         type="range"
         value={currentValue}

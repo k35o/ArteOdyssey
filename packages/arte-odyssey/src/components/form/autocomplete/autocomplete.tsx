@@ -13,10 +13,10 @@ import { cn } from './../../../helpers/cn';
 type BaseProps = {
   id: string;
   name?: string;
-  describedbyId: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+  'aria-describedby'?: string;
+  invalid?: boolean;
+  disabled?: boolean;
+  required?: boolean;
   options: readonly Option[];
 };
 
@@ -37,10 +37,10 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Autocomplete: FC<Props> = ({
   id,
   name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  'aria-describedby': describedbyId,
+  invalid = false,
+  disabled = false,
+  required = false,
   options,
   value,
   defaultValue,
@@ -62,7 +62,7 @@ export const Autocomplete: FC<Props> = ({
     option.label.includes(deferredText),
   );
   const { pending: formPending } = useFormStatus();
-  const isDisabledResolved = isDisabled || formPending;
+  const disabledResolved = disabled || formPending;
 
   const reset = useCallback(() => {
     setText('');
@@ -136,14 +136,14 @@ export const Autocomplete: FC<Props> = ({
             aria-controls={open ? `${id}_listbox` : undefined}
             aria-describedby={describedbyId}
             aria-expanded={open}
-            aria-invalid={isInvalid}
-            aria-required={isRequired}
+            aria-invalid={invalid}
+            aria-required={required}
             autoComplete="off"
             className={cn(
               'grow bg-transparent focus-visible:outline-hidden',
               'disabled:cursor-not-allowed',
             )}
-            disabled={isDisabledResolved}
+            disabled={disabledResolved}
             id={id}
             onBlur={(e) => {
               if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {

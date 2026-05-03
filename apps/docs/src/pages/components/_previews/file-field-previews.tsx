@@ -49,7 +49,7 @@ export function FileFieldMultiplePreview() {
 
 export function FileFieldDisabledPreview() {
   return (
-    <FileField.Root isDisabled multiple={false}>
+    <FileField.Root disabled multiple={false}>
       <FileField.Trigger
         renderItem={({ disabled, onClick }) => (
           <Button disabled={disabled} onClick={onClick}>
@@ -64,7 +64,7 @@ export function FileFieldDisabledPreview() {
 
 export function FileFieldInvalidPreview() {
   return (
-    <FileField.Root isInvalid multiple={false}>
+    <FileField.Root invalid multiple={false}>
       <FileField.Trigger
         renderItem={({ disabled, onClick }) => (
           <Button disabled={disabled} onClick={onClick}>

@@ -9,10 +9,10 @@ import { STORYBOOK_URL } from '../../constants';
 import { PasswordInputControlledPreview } from './_previews/password-input-previews';
 
 const passwordInputProps: PropItem[] = [
-  { name: 'describedbyId', types: ['string'], defaultValue: null },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-describedby', types: ['string'], defaultValue: null },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'placeholder', types: ['string'], defaultValue: null },
   {
     name: 'autoComplete',
@@ -69,16 +69,16 @@ export function PasswordInputPage() {
           </Heading>
           <ComponentPreview
             code={`<PasswordInput
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   placeholder="Enter your password"
 />`}
           >
             <PasswordInput
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               placeholder="Enter your password"
             />
           </ComponentPreview>
@@ -92,9 +92,9 @@ export function PasswordInputPage() {
             code={`const [value, setValue] = useState('hunter2');
 
 <PasswordInput
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   onChange={(event) => setValue(event.target.value)}
   value={value}
 />`}
@@ -110,16 +110,16 @@ export function PasswordInputPage() {
           <ComponentPreview
             code={`<PasswordInput
   defaultValue="read-only-password"
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  disabled
+  invalid={false}
+  required={false}
 />`}
           >
             <PasswordInput
               defaultValue="read-only-password"
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
             />
           </ComponentPreview>
         </div>

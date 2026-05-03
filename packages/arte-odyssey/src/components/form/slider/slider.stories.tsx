@@ -27,9 +27,9 @@ const meta: Meta<typeof Slider> = {
     min: 0,
     max: 100,
     step: 1,
-    isInvalid: false,
-    isDisabled: false,
-    isRequired: false,
+    invalid: false,
+    disabled: false,
+    required: false,
     defaultValue: 50,
   },
 };
@@ -41,14 +41,14 @@ export const Default: Story = {};
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
+    disabled: true,
     defaultValue: 30,
   },
 };
 
 export const Invalid: Story = {
   args: {
-    isInvalid: true,
+    invalid: true,
     defaultValue: 90,
   },
 };

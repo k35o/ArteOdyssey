@@ -5,10 +5,10 @@ import { Autocomplete } from './autocomplete';
 
 const AutocompleteRender = ({
   id,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  'aria-describedby': describedBy,
+  invalid,
+  disabled,
+  required,
 }: ComponentProps<typeof Autocomplete>) => {
   const options = [
     { value: '2', label: '2進数' },
@@ -20,11 +20,11 @@ const AutocompleteRender = ({
 
   return (
     <Autocomplete
-      describedbyId={describedbyId}
+      aria-describedby={describedBy}
       id={id}
-      isDisabled={isDisabled}
-      isInvalid={isInvalid}
-      isRequired={isRequired}
+      disabled={disabled}
+      invalid={invalid}
+      required={required}
       onChange={setValue}
       options={options}
       value={value}
@@ -44,29 +44,29 @@ type Story = StoryObj<typeof Autocomplete>;
 export const Default: Story = {
   args: {
     id: 'autocomplete',
-    describedbyId: undefined,
-    isInvalid: false,
-    isDisabled: false,
-    isRequired: false,
+    'aria-describedby': undefined,
+    invalid: false,
+    disabled: false,
+    required: false,
   },
 };
 
 export const Invalid: Story = {
   args: {
     id: 'autocomplete',
-    describedbyId: undefined,
-    isInvalid: true,
-    isDisabled: false,
-    isRequired: true,
+    'aria-describedby': undefined,
+    invalid: true,
+    disabled: false,
+    required: true,
   },
 };
 
 export const Disabled: Story = {
   args: {
     id: 'autocomplete',
-    describedbyId: undefined,
-    isInvalid: false,
-    isDisabled: true,
-    isRequired: true,
+    'aria-describedby': undefined,
+    invalid: false,
+    disabled: true,
+    required: true,
   },
 };

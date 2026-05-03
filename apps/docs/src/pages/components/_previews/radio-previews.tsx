@@ -19,8 +19,8 @@ export function RadioControlledPreview() {
       </p>
       <Radio
         defaultValue={undefined}
-        isDisabled={false}
-        labelId="radio-controlled-label"
+        disabled={false}
+        aria-labelledby="radio-controlled-label"
         onChange={(event) => {
           setValue(event.target.value);
         }}

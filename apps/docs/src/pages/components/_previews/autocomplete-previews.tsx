@@ -15,11 +15,11 @@ export function AutocompleteBasicPreview() {
   const [value, setValue] = useState<string[]>([]);
   return (
     <Autocomplete
-      describedbyId={undefined}
+      aria-describedby={undefined}
       id="autocomplete-basic"
-      isDisabled={false}
-      isInvalid={false}
-      isRequired={false}
+      disabled={false}
+      invalid={false}
+      required={false}
       onChange={setValue}
       options={options}
       value={value}
@@ -31,11 +31,11 @@ export function AutocompleteRequiredPreview() {
   const [value, setValue] = useState<string[]>([]);
   return (
     <Autocomplete
-      describedbyId={undefined}
+      aria-describedby={undefined}
       id="autocomplete-required"
-      isDisabled={false}
-      isInvalid={false}
-      isRequired
+      disabled={false}
+      invalid={false}
+      required
       onChange={setValue}
       options={options}
       value={value}
@@ -47,11 +47,11 @@ export function AutocompleteMultiplePreview() {
   const [value, setValue] = useState<string[]>(['apple', 'cherry']);
   return (
     <Autocomplete
-      describedbyId={undefined}
+      aria-describedby={undefined}
       id="autocomplete-multiple"
-      isDisabled={false}
-      isInvalid={false}
-      isRequired={false}
+      disabled={false}
+      invalid={false}
+      required={false}
       onChange={setValue}
       options={options}
       value={value}
@@ -63,11 +63,11 @@ export function AutocompleteDisabledPreview() {
   const [value, setValue] = useState<string[]>(['apple']);
   return (
     <Autocomplete
-      describedbyId={undefined}
+      aria-describedby={undefined}
       id="autocomplete-disabled"
-      isDisabled
-      isInvalid={false}
-      isRequired={false}
+      disabled
+      invalid={false}
+      required={false}
       onChange={setValue}
       options={options}
       value={value}
@@ -79,11 +79,11 @@ export function AutocompleteInvalidPreview() {
   const [value, setValue] = useState<string[]>([]);
   return (
     <Autocomplete
-      describedbyId={undefined}
+      aria-describedby={undefined}
       id="autocomplete-invalid"
-      isDisabled={false}
-      isInvalid
-      isRequired={false}
+      disabled={false}
+      invalid
+      required={false}
       onChange={setValue}
       options={options}
       value={value}

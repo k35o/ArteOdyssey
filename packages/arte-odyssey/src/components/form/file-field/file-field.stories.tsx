@@ -39,26 +39,26 @@ type Story = StoryObj<typeof FileField.Root>;
 
 export const Default: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
   },
 };
 
 export const Multiple: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     multiple: true,
   },
 };
 
 export const MaxFiles: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     multiple: true,
     maxFiles: 3,
   },
@@ -66,27 +66,27 @@ export const MaxFiles: Story = {
 
 export const ImageOnly: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     accept: 'image/*',
   },
 };
 
 export const WebkitDirectory: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     webkitDirectory: true,
   },
 };
 
 export const HasClearButton: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     multiple: true,
   },
   render: (args) => (
@@ -105,9 +105,9 @@ export const HasClearButton: Story = {
 
 export const ShowWebkitRelativePath: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     webkitDirectory: true,
   },
   render: (args) => (
@@ -126,9 +126,9 @@ export const ShowWebkitRelativePath: Story = {
 
 export const OnlyTrigger: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
   },
   render: (args) => (
     <FileField.Root {...args}>

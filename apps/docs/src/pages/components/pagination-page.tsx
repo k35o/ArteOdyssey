@@ -19,7 +19,7 @@ const paginationProps: PropItem[] = [
     types: ['(page: number) => void'],
     defaultValue: null,
   },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'prevLabel', types: ['string'], defaultValue: "'前へ'" },
   { name: 'nextLabel', types: ['string'], defaultValue: "'次へ'" },
   { name: 'aria-label', types: ['string'], defaultValue: "'ページネーション'" },
@@ -80,7 +80,7 @@ export function PaginationPage() {
           <ComponentPreview
             code={`<Pagination
   currentPage={3}
-  isDisabled
+  disabled
   onPageChange={() => {}}
   totalPages={10}
 />`}

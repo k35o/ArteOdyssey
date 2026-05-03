@@ -16,9 +16,9 @@ const meta: Meta<typeof PasswordInput> = {
     ),
   ],
   args: {
-    isInvalid: false,
-    isDisabled: false,
-    isRequired: false,
+    invalid: false,
+    disabled: false,
+    required: false,
     placeholder: 'Enter your password',
     defaultValue: 'secret-password',
   },
@@ -37,13 +37,13 @@ export const Empty: Story = {
 
 export const Invalid: Story = {
   args: {
-    isInvalid: true,
+    invalid: true,
     defaultValue: 'too-short',
   },
 };
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
+    disabled: true,
   },
 };

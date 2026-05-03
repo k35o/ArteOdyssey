@@ -9,8 +9,8 @@ import { STORYBOOK_URL } from '../../constants';
 import { RadioControlledPreview } from './_previews/radio-previews';
 
 const radioProps: PropItem[] = [
-  { name: 'labelId', types: ['string'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'options', types: ['Option[]'], defaultValue: null },
   { name: 'value', types: ['string'], defaultValue: null },
   {
@@ -74,8 +74,8 @@ const options = [
 <p id="radio-label">Framework</p>
 <Radio
   defaultValue="vue"
-  isDisabled={false}
-  labelId="radio-label"
+  disabled={false}
+  aria-labelledby="radio-label"
   options={options}
 />`}
           >
@@ -85,8 +85,8 @@ const options = [
               </p>
               <Radio
                 defaultValue="vue"
-                isDisabled={false}
-                labelId="radio-label"
+                disabled={false}
+                aria-labelledby="radio-label"
                 options={options}
               />
             </div>
@@ -102,8 +102,8 @@ const options = [
 
 <p id="radio-controlled-label">Framework</p>
 <Radio
-  isDisabled={false}
-  labelId="radio-controlled-label"
+  disabled={false}
+  aria-labelledby="radio-controlled-label"
   onChange={(event) => setValue(event.target.value)}
   options={options}
   value={value}
@@ -121,8 +121,8 @@ const options = [
             code={`<p id="radio-disabled-label">Framework</p>
 <Radio
   defaultValue="vue"
-  isDisabled
-  labelId="radio-disabled-label"
+  disabled
+  aria-labelledby="radio-disabled-label"
   options={options}
 />`}
           >
@@ -135,8 +135,8 @@ const options = [
               </p>
               <Radio
                 defaultValue="vue"
-                isDisabled
-                labelId="radio-disabled-label"
+                disabled
+                aria-labelledby="radio-disabled-label"
                 options={options}
               />
             </div>

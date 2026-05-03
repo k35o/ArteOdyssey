@@ -9,9 +9,9 @@ import { STORYBOOK_URL } from '../../constants';
 import { RadioCardControlledPreview } from './_previews/radio-card-previews';
 
 const radioCardProps: PropItem[] = [
-  { name: 'labelId', types: ['string'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
   { name: 'options', types: ['RadioCardOption[]'], defaultValue: null },
   { name: 'value', types: ['string'], defaultValue: null },
   {
@@ -89,9 +89,9 @@ const [value, setValue] = useState('pro');
 
 <p id="plan-label">プランを選択</p>
 <RadioCard
-  isDisabled={false}
-  isInvalid={false}
-  labelId="plan-label"
+  disabled={false}
+  invalid={false}
+  aria-labelledby="plan-label"
   onChange={(event) => setValue(event.target.value)}
   options={options}
   value={value}
@@ -115,9 +115,9 @@ const [value, setValue] = useState('pro');
 <p id="plan-default-label">プランを選択</p>
 <RadioCard
   defaultValue="starter"
-  isDisabled={false}
-  isInvalid={false}
-  labelId="plan-default-label"
+  disabled={false}
+  invalid={false}
+  aria-labelledby="plan-default-label"
   options={options}
 />`}
           >
@@ -130,9 +130,9 @@ const [value, setValue] = useState('pro');
               </p>
               <RadioCard
                 defaultValue="starter"
-                isDisabled={false}
-                isInvalid={false}
-                labelId="plan-default-label"
+                disabled={false}
+                invalid={false}
+                aria-labelledby="plan-default-label"
                 options={options}
               />
             </div>

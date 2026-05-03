@@ -1,67 +1,36 @@
 'use client';
 
-import type { ChangeEventHandler, FC } from 'react';
+import type { FC, SelectHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Option } from '../../../types/variables';
 import { ChevronIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
 
-type BaseProps = {
-  id: string;
-  name?: string;
-  describedbyId: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+type Props = {
+  invalid?: boolean;
   options: readonly Option[];
-};
-
-type ControlledProps = {
-  value: string;
-  onChange: ChangeEventHandler<HTMLSelectElement>;
-  defaultValue?: never;
-};
-
-type UncontrolledProps = {
-  defaultValue?: string;
-  value?: never;
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-};
-
-type Props = BaseProps & (ControlledProps | UncontrolledProps);
+} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'className'>;
 
 export const Select: FC<Props> = ({
-  id,
-  name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  invalid = false,
   options,
-  value,
-  defaultValue,
-  onChange,
+  disabled = false,
+  ...rest
 }) => {
   const { pending } = useFormStatus();
   return (
     <div className="relative h-fit w-full">
       <select
-        aria-describedby={describedbyId}
-        aria-invalid={isInvalid}
-        aria-required={isRequired}
+        aria-invalid={invalid}
         className={cn(
           'w-full appearance-none rounded-xl border border-border-base bg-bg-base px-3 py-2 text-fg-base',
           'aria-invalid:border-border-error',
           'disabled:cursor-not-allowed disabled:border-border-mute disabled:bg-bg-mute hover:disabled:bg-bg-mute',
           'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         )}
-        defaultValue={defaultValue}
-        disabled={isDisabled || pending}
-        id={id}
-        name={name}
-        onChange={onChange}
-        value={value}
+        disabled={disabled || pending}
+        {...rest}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>

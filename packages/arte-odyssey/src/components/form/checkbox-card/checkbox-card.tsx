@@ -15,10 +15,10 @@ export type CheckboxCardOption = Readonly<{
 }>;
 
 type BaseProps = {
-  labelId?: string;
+  'aria-labelledby'?: string;
   name?: string;
-  isDisabled: boolean;
-  isInvalid?: boolean;
+  disabled?: boolean;
+  invalid?: boolean;
   options: readonly CheckboxCardOption[];
 };
 
@@ -37,10 +37,10 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const CheckboxCard: FC<Props> = ({
-  labelId,
+  'aria-labelledby': labelledbyId,
   name,
-  isDisabled,
-  isInvalid = false,
+  disabled = false,
+  invalid = false,
   options,
   value,
   defaultValue,
@@ -64,16 +64,16 @@ export const CheckboxCard: FC<Props> = ({
 
   return (
     <fieldset
-      aria-labelledby={labelId}
+      aria-labelledby={labelledbyId}
       className={cn(
         'm-0 w-full min-w-0 border-0 p-0',
         'grid gap-3',
-        isDisabled && 'opacity-70',
+        disabled && 'opacity-70',
       )}
     >
       {options.map((option) => {
         const checked = selectedValues.includes(option.value);
-        const disabled = isDisabled || option.disabled === true;
+        const optionDisabled = disabled || option.disabled === true;
         const hasDescription =
           option.description !== undefined && option.description !== '';
         const hasVisual = option.visual !== undefined && option.visual !== null;
@@ -86,10 +86,10 @@ export const CheckboxCard: FC<Props> = ({
               'has-[input:focus-visible]:outline-hidden has-[input:focus-visible]:ring-2 has-[input:focus-visible]:ring-border-info',
               checked &&
                 'border-primary-border bg-primary-bg-subtle hover:bg-primary-bg-mute',
-              isInvalid
+              invalid
                 ? 'border-border-error'
                 : !checked && 'border-border-mute hover:bg-bg-subtle',
-              disabled &&
+              optionDisabled &&
                 'cursor-not-allowed border-border-mute bg-bg-subtle text-fg-mute',
             )}
             id={optionId}
@@ -101,7 +101,7 @@ export const CheckboxCard: FC<Props> = ({
               }
               checked={checked}
               className="sr-only"
-              disabled={disabled}
+              disabled={optionDisabled}
               name={name}
               onChange={(event) => {
                 handleToggle(option.value, event.target.checked);

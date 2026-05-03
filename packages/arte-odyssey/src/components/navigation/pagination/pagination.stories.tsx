@@ -34,7 +34,7 @@ export const Disabled: Story = {
   render: () => (
     <Pagination
       currentPage={3}
-      isDisabled
+      disabled
       onPageChange={() => {}}
       totalPages={10}
     />

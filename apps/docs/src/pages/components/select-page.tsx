@@ -9,10 +9,14 @@ import { STORYBOOK_URL } from '../../constants';
 
 const selectProps: PropItem[] = [
   { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'describedbyId', types: ['string | undefined'], defaultValue: null },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  {
+    name: 'aria-describedby',
+    types: ['string | undefined'],
+    defaultValue: null,
+  },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'options', types: ['Option[]'], defaultValue: null },
   { name: 'value', types: ['string'], defaultValue: null },
   {
@@ -76,19 +80,19 @@ export function SelectPage() {
 
 <Select
   id="select-basic"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   options={options}
 />`}
           >
             <Select
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="select-basic"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               options={options}
             />
           </ComponentPreview>
@@ -102,19 +106,19 @@ export function SelectPage() {
           <ComponentPreview
             code={`<Select
   id="select-required"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required
   options={options}
 />`}
           >
             <Select
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="select-required"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired
+              disabled={false}
+              invalid={false}
+              required
               options={options}
             />
           </ComponentPreview>
@@ -129,20 +133,20 @@ export function SelectPage() {
             code={`<Select
   id="select-default-value"
   defaultValue="cherry"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   options={options}
 />`}
           >
             <Select
               defaultValue="cherry"
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="select-default-value"
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               options={options}
             />
           </ComponentPreview>
@@ -156,19 +160,19 @@ export function SelectPage() {
           <ComponentPreview
             code={`<Select
   id="select-disabled"
-  describedbyId={undefined}
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled
+  invalid={false}
+  required={false}
   options={options}
 />`}
           >
             <Select
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="select-disabled"
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
               options={options}
             />
           </ComponentPreview>
@@ -182,19 +186,19 @@ export function SelectPage() {
           <ComponentPreview
             code={`<Select
   id="select-invalid"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid
+  required={false}
   options={options}
 />`}
           >
             <Select
-              describedbyId={undefined}
+              aria-describedby={undefined}
               id="select-invalid"
-              isDisabled={false}
-              isInvalid
-              isRequired={false}
+              disabled={false}
+              invalid
+              required={false}
               options={options}
             />
           </ComponentPreview>

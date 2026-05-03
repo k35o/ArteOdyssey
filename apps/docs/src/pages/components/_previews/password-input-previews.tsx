@@ -8,9 +8,9 @@ export function PasswordInputControlledPreview() {
 
   return (
     <PasswordInput
-      isDisabled={false}
-      isInvalid={false}
-      isRequired={false}
+      disabled={false}
+      invalid={false}
+      required={false}
       onChange={(event) => {
         setValue(event.target.value);
       }}

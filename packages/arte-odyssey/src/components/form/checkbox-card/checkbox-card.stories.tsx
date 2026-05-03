@@ -35,9 +35,9 @@ const meta: Meta<typeof CheckboxCard> = {
     ),
   ],
   args: {
-    labelId: 'checkbox-card-label',
-    isDisabled: false,
-    isInvalid: false,
+    'aria-labelledby': 'checkbox-card-label',
+    disabled: false,
+    invalid: false,
     options: OPTIONS,
   },
 };
@@ -55,9 +55,9 @@ const DefaultRender = (props: StoryArgs) => {
         Enable collaboration features
       </p>
       <CheckboxCard
-        isDisabled={props.isDisabled}
-        isInvalid={props.isInvalid}
-        labelId={props.labelId}
+        aria-labelledby={props['aria-labelledby']}
+        disabled={props.disabled}
+        invalid={props.invalid}
         onChange={setValue}
         options={props.options}
         value={value}
@@ -80,10 +80,10 @@ export const DefaultValue: Story = {
         Enable collaboration features
       </p>
       <CheckboxCard
+        aria-labelledby={props['aria-labelledby']}
         defaultValue={props.defaultValue}
-        isDisabled={props.isDisabled}
-        isInvalid={props.isInvalid}
-        labelId={props.labelId}
+        disabled={props.disabled}
+        invalid={props.invalid}
         options={props.options}
       />
     </div>
@@ -92,7 +92,7 @@ export const DefaultValue: Story = {
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
+    disabled: true,
     defaultValue: ['comments'],
   },
   render: DefaultValue.render,
