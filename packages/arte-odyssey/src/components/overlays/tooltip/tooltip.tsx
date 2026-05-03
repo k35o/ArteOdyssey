@@ -1,14 +1,30 @@
 'use client';
 
 import type { Placement } from '@floating-ui/react';
-import type { FC, PropsWithChildren, ReactElement } from 'react';
+import type {
+  FC,
+  FocusEventHandler,
+  MouseEventHandler,
+  PropsWithChildren,
+  ReactElement,
+  RefCallback,
+} from 'react';
 
 import { Popover } from '../popover';
 import { usePlacement } from '../popover/hooks';
 
+export type TooltipTriggerProps = {
+  ref: RefCallback<HTMLElement>;
+  onMouseEnter: MouseEventHandler<HTMLElement>;
+  onMouseLeave: MouseEventHandler<HTMLElement>;
+  onFocus: FocusEventHandler<HTMLElement>;
+  onBlur: FocusEventHandler<HTMLElement>;
+  'aria-describedby'?: string;
+};
+
 const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
   children,
-  placement = 'bottom-start',
+  placement = 'bottom',
 }) => (
   <Popover.Root placement={placement} type="tooltip">
     {children}
@@ -16,9 +32,11 @@ const Root: FC<PropsWithChildren<{ placement?: Placement }>> = ({
 );
 
 const Trigger: FC<{
-  renderItem: (props: Record<string, unknown>) => ReactElement;
+  renderItem: (props: TooltipTriggerProps) => ReactElement;
 }> = ({ renderItem }) => (
-  <Popover.Trigger renderItem={(props) => renderItem({ ...props })} />
+  <Popover.Trigger
+    renderItem={(props) => renderItem(props as TooltipTriggerProps)}
+  />
 );
 
 const Content: FC<PropsWithChildren> = ({ children }) => {

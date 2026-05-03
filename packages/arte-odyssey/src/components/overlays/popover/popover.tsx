@@ -13,7 +13,6 @@ import { AnimatePresence, type Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
   type FC,
-  type HTMLProps,
   type PropsWithChildren,
   type ReactElement,
   useEffect,
@@ -22,9 +21,14 @@ import {
 
 import { useDisclosure } from '../../../hooks/disclosure';
 import { usePortalRoot } from '../../providers';
-import { PopoverProvider, usePopoverContent, usePopoverTrigger } from './hooks';
+import {
+  PopoverProvider,
+  type PopoverTriggerProps,
+  usePopoverContent,
+  usePopoverTrigger,
+} from './hooks';
 
-export { useOpenContext } from './hooks';
+export { useOpenContext, type PopoverTriggerProps } from './hooks';
 
 const Root: FC<
   PropsWithChildren<{
@@ -152,14 +156,8 @@ const Content: FC<{
 };
 
 const Trigger: FC<{
-  renderItem: (
-    props: Omit<HTMLProps<HTMLButtonElement>, 'selected' | 'active' | 'color'>,
-  ) => ReactElement;
-}> = ({ renderItem }) => {
-  const props = usePopoverTrigger();
-
-  return renderItem(props);
-};
+  renderItem: (props: PopoverTriggerProps) => ReactElement;
+}> = ({ renderItem }) => renderItem(usePopoverTrigger());
 
 export const Popover = {
   Root,

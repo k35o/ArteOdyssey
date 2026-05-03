@@ -1,1 +1,1 @@
-export { Tooltip } from './tooltip';
+export { Tooltip, type TooltipTriggerProps } from './tooltip';

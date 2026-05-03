@@ -9,8 +9,11 @@ import {
   type CSSProperties,
   createContext,
   type FocusEvent,
-  type HTMLProps,
+  type FocusEventHandler,
   type KeyboardEvent,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type RefCallback,
   type RefObject,
   use,
   useMemo,
@@ -147,10 +150,22 @@ export const usePopoverContent = () => {
   );
 };
 
-export const usePopoverTrigger = (): Omit<
-  HTMLProps<HTMLButtonElement>,
-  'selected' | 'active'
-> => {
+export type PopoverTriggerProps = {
+  ref: RefCallback<HTMLElement>;
+  onClick?: MouseEventHandler<HTMLElement>;
+  onKeyDown?: KeyboardEventHandler<HTMLElement>;
+  onMouseEnter?: MouseEventHandler<HTMLElement>;
+  onMouseLeave?: MouseEventHandler<HTMLElement>;
+  onFocus?: FocusEventHandler<HTMLElement>;
+  onBlur?: FocusEventHandler<HTMLElement>;
+  'aria-haspopup'?: 'dialog' | 'menu' | 'listbox';
+  'aria-expanded'?: boolean;
+  'aria-controls'?: string;
+  'aria-describedby'?: string;
+  role?: 'combobox';
+};
+
+export const usePopoverTrigger = (): PopoverTriggerProps => {
   const popover = usePopoverContext();
   return useMemo(() => {
     const listId = popover.isOpen ? `${popover.rootId}_list` : undefined;
