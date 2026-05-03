@@ -26,6 +26,17 @@ const iconButtonProps: PropItem[] = [
   },
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'tooltipPlacement',
+    types: ['Placement'],
+    defaultValue: "'bottom'",
+  },
+  { name: 'tooltipDisabled', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'onAction',
+    types: ['() => void | Promise<void>'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 

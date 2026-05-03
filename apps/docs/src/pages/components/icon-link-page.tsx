@@ -27,6 +27,12 @@ const iconLinkProps: PropItem[] = [
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'href', types: ['string'], defaultValue: null },
   { name: 'openInNewTab', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'tooltipPlacement',
+    types: ['Placement'],
+    defaultValue: "'bottom'",
+  },
+  { name: 'tooltipDisabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'renderAnchor', types: ['(props) => ReactNode'], defaultValue: null },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];

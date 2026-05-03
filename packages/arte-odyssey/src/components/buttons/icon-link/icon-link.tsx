@@ -13,7 +13,16 @@ import { Tooltip } from '../../overlays/tooltip';
 import { cn } from './../../../helpers/cn';
 import { isInternalRoute } from './../../../helpers/is-internal-route';
 
-type AnchorTriggerProps = {
+export type IconLinkTriggerProps = {
+  ref?: Ref<HTMLAnchorElement>;
+  'aria-describedby'?: string;
+  onMouseEnter?: MouseEventHandler<HTMLAnchorElement>;
+  onMouseLeave?: MouseEventHandler<HTMLAnchorElement>;
+  onFocus?: FocusEventHandler<HTMLAnchorElement>;
+  onBlur?: FocusEventHandler<HTMLAnchorElement>;
+};
+
+type RawTriggerProps = {
   ref: Ref<HTMLAnchorElement>;
   'aria-describedby': string | undefined;
   onMouseEnter: MouseEventHandler<HTMLAnchorElement>;
@@ -31,8 +40,10 @@ export const IconLink = <T extends string>({
   openInNewTab = false,
   tooltipPlacement = 'bottom',
   tooltipDisabled = false,
-  renderAnchor = ({ children: anchorChildren, ...rest }) => (
-    <a {...rest}>{anchorChildren}</a>
+  renderAnchor = ({ children: anchorChildren, triggerProps, ...rest }) => (
+    <a {...rest} {...triggerProps}>
+      {anchorChildren}
+    </a>
   ),
 }: PropsWithChildren<{
   size?: 'sm' | 'md' | 'lg';
@@ -47,14 +58,9 @@ export const IconLink = <T extends string>({
     className: string;
     target?: string;
     rel?: string;
-    children: ReactNode;
     'aria-label': string;
-    'aria-describedby': string | undefined;
-    ref: Ref<HTMLAnchorElement> | undefined;
-    onMouseEnter: MouseEventHandler<HTMLAnchorElement> | undefined;
-    onMouseLeave: MouseEventHandler<HTMLAnchorElement> | undefined;
-    onFocus: FocusEventHandler<HTMLAnchorElement> | undefined;
-    onBlur: FocusEventHandler<HTMLAnchorElement> | undefined;
+    triggerProps: IconLinkTriggerProps;
+    children: ReactNode;
   }) => ReactNode;
 }>) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
@@ -81,33 +87,39 @@ export const IconLink = <T extends string>({
     size === 'lg' && 'p-3',
   );
 
-  const renderAnchorWith = (triggerProps?: AnchorTriggerProps): ReactNode =>
-    renderAnchor({
-      href,
-      className,
-      ...externalProps,
-      'aria-label': label,
-      'aria-describedby': triggerProps?.['aria-describedby'],
-      ref: triggerProps?.ref,
-      onMouseEnter: triggerProps?.onMouseEnter,
-      onMouseLeave: triggerProps?.onMouseLeave,
-      onFocus: triggerProps?.onFocus,
-      onBlur: triggerProps?.onBlur,
-      children,
-    });
-
   if (tooltipDisabled) {
-    return <>{renderAnchorWith()}</>;
+    return (
+      <>
+        {renderAnchor({
+          href,
+          className,
+          ...externalProps,
+          'aria-label': label,
+          triggerProps: {},
+          children,
+        })}
+      </>
+    );
   }
 
   return (
     <Tooltip.Root placement={tooltipPlacement}>
       <Tooltip.Trigger
-        renderItem={(rawTriggerProps) => (
-          <>
-            {renderAnchorWith(rawTriggerProps as unknown as AnchorTriggerProps)}
-          </>
-        )}
+        renderItem={(rawTriggerProps) => {
+          const triggerProps = rawTriggerProps as unknown as RawTriggerProps;
+          return (
+            <>
+              {renderAnchor({
+                href,
+                className,
+                ...externalProps,
+                'aria-label': label,
+                triggerProps,
+                children,
+              })}
+            </>
+          );
+        }}
       />
       <Tooltip.Content>{label}</Tooltip.Content>
     </Tooltip.Root>

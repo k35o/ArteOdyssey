@@ -7,7 +7,6 @@ import type {
   HTMLProps,
   MouseEvent,
   MouseEventHandler,
-  ReactElement,
   Ref,
 } from 'react';
 import { useTransition } from 'react';
@@ -35,6 +34,13 @@ type ButtonTriggerProps = {
   onBlur: FocusEventHandler<HTMLButtonElement>;
 };
 
+const joinIds = (
+  ...ids: ReadonlyArray<string | undefined>
+): string | undefined => {
+  const filtered = ids.filter(Boolean);
+  return filtered.length === 0 ? undefined : filtered.join(' ');
+};
+
 export const IconButton: FC<Props> = ({
   ref,
   size = 'md',
@@ -50,6 +56,7 @@ export const IconButton: FC<Props> = ({
   onFocus,
   onBlur,
   disabled,
+  'aria-describedby': describedBy,
   ...props
 }) => {
   const [transitionPending, startTransition] = useTransition();
@@ -88,48 +95,68 @@ export const IconButton: FC<Props> = ({
       'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
   );
 
-  const renderButton = (triggerProps?: ButtonTriggerProps): ReactElement => (
-    <button
-      {...props}
-      aria-busy={isPending || undefined}
-      aria-describedby={triggerProps?.['aria-describedby']}
-      aria-label={label}
-      className={className}
-      disabled={isDisabled}
-      onBlur={(e) => {
-        triggerProps?.onBlur(e);
-        onBlur?.(e);
-      }}
-      onClick={handleClick}
-      onFocus={(e) => {
-        triggerProps?.onFocus(e);
-        onFocus?.(e);
-      }}
-      onMouseEnter={(e) => {
-        triggerProps?.onMouseEnter(e);
-        onMouseEnter?.(e);
-      }}
-      onMouseLeave={(e) => {
-        triggerProps?.onMouseLeave(e);
-        onMouseLeave?.(e);
-      }}
-      ref={mergeRefs(ref, triggerProps?.ref)}
-      type="button"
-    >
-      {children}
-    </button>
-  );
-
   if (tooltipDisabled) {
-    return renderButton();
+    return (
+      <button
+        {...props}
+        aria-busy={isPending || undefined}
+        aria-describedby={describedBy}
+        aria-label={label}
+        className={className}
+        disabled={isDisabled}
+        onBlur={onBlur}
+        onClick={handleClick}
+        onFocus={onFocus}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        ref={ref}
+        type="button"
+      >
+        {children}
+      </button>
+    );
   }
 
   return (
     <Tooltip.Root placement={tooltipPlacement}>
       <Tooltip.Trigger
-        renderItem={(rawTriggerProps) =>
-          renderButton(rawTriggerProps as unknown as ButtonTriggerProps)
-        }
+        renderItem={(rawTriggerProps) => {
+          const triggerProps = rawTriggerProps as unknown as ButtonTriggerProps;
+          return (
+            <button
+              {...props}
+              aria-busy={isPending || undefined}
+              aria-describedby={joinIds(
+                describedBy,
+                triggerProps['aria-describedby'],
+              )}
+              aria-label={label}
+              className={className}
+              disabled={isDisabled}
+              onBlur={(e) => {
+                triggerProps.onBlur(e);
+                onBlur?.(e);
+              }}
+              onClick={handleClick}
+              onFocus={(e) => {
+                triggerProps.onFocus(e);
+                onFocus?.(e);
+              }}
+              onMouseEnter={(e) => {
+                triggerProps.onMouseEnter(e);
+                onMouseEnter?.(e);
+              }}
+              onMouseLeave={(e) => {
+                triggerProps.onMouseLeave(e);
+                onMouseLeave?.(e);
+              }}
+              ref={mergeRefs(ref, triggerProps.ref)}
+              type="button"
+            >
+              {children}
+            </button>
+          );
+        }}
       />
       <Tooltip.Content>{label}</Tooltip.Content>
     </Tooltip.Root>
