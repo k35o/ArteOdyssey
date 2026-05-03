@@ -12,6 +12,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { IconButtonAsLinkPreview } from './_previews/icon-button-previews';
 
 const iconButtonProps: PropItem[] = [
   {
@@ -203,26 +204,7 @@ export function IconButtonPage() {
   <CloseIcon size="sm" />
 </IconButton>`}
           >
-            <IconButton
-              label="Close"
-              renderItem={({
-                className,
-                children,
-                'aria-label': ariaLabel,
-                triggerProps,
-              }) => (
-                <a
-                  aria-label={ariaLabel}
-                  className={className}
-                  href="https://example.com"
-                  {...triggerProps}
-                >
-                  {children}
-                </a>
-              )}
-            >
-              <CloseIcon size="sm" />
-            </IconButton>
+            <IconButtonAsLinkPreview />
           </ComponentPreview>
         </div>
       </section>
