@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import { useState } from 'react';
 
 import { cn } from '../../../helpers/cn';
@@ -11,7 +11,7 @@ type Props = {
   name?: string;
   size?: 'sm' | 'md' | 'lg';
   src?: string;
-};
+} & Omit<HTMLAttributes<HTMLSpanElement>, 'role' | 'aria-label'>;
 
 const getInitials = (name?: string) => {
   if (name === undefined || name === '') {
@@ -34,6 +34,8 @@ export const Avatar: FC<Props> = ({
   name,
   size = 'md',
   src,
+  className,
+  ...rest
 }) => {
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const showImage = Boolean(src) && failedSrc !== src;
@@ -42,12 +44,14 @@ export const Avatar: FC<Props> = ({
 
   return (
     <span
+      {...rest}
       aria-label={label}
       className={cn(
         'inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full border border-border-base bg-bg-mute font-medium text-fg-base',
         size === 'sm' && 'size-8 text-xs',
         size === 'md' && 'size-10 text-sm',
         size === 'lg' && 'size-14 text-lg',
+        className,
       )}
       role="img"
     >

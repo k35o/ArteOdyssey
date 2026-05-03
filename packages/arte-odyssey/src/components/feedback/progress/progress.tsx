@@ -1,14 +1,27 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
+import { cn } from './../../../helpers/cn';
 import { toPrecision } from './../../../helpers/number';
 
-export const Progress: FC<{
+type Props = {
   progress: number;
   maxProgress: number;
   minProgress?: number;
   label?: string;
-}> = ({ progress, maxProgress, minProgress = 0, label }) => (
-  <div className="bg-bg-emphasize w-full rounded-full">
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
+
+export const Progress: FC<Props> = ({
+  progress,
+  maxProgress,
+  minProgress = 0,
+  label,
+  className,
+  ...rest
+}) => (
+  <div
+    {...rest}
+    className={cn('bg-bg-emphasize w-full rounded-full', className)}
+  >
     <div
       aria-label={label ?? `${toPrecision(progress / maxProgress).toString()}%`}
       aria-valuemax={maxProgress}

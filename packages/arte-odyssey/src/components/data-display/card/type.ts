@@ -1,6 +1,6 @@
-import type { PropsWithChildren } from 'react';
+import type { HTMLAttributes } from 'react';
 
-export type CardProps = PropsWithChildren<{
+export type CardProps = {
   width?: 'full' | 'fit';
   appearance?: 'shadow' | 'bordered';
-}>;
+} & HTMLAttributes<HTMLDivElement>;

@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from '../../../helpers/cn';
 
@@ -6,14 +6,17 @@ type Props = {
   animate?: boolean;
   shape?: 'rect' | 'circle';
   size?: 'sm' | 'md' | 'lg';
-};
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children'>;
 
 export const Skeleton: FC<Props> = ({
   animate = true,
   shape = 'rect',
   size = 'md',
+  className,
+  ...rest
 }) => (
   <div
+    {...rest}
     aria-hidden
     className={cn(
       'bg-bg-mute',
@@ -26,6 +29,7 @@ export const Skeleton: FC<Props> = ({
       shape === 'circle' && size === 'sm' && 'size-8',
       shape === 'circle' && size === 'md' && 'size-12',
       shape === 'circle' && size === 'lg' && 'size-16',
+      className,
     )}
   />
 );

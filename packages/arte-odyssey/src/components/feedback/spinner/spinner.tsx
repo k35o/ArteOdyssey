@@ -1,17 +1,23 @@
-import type { FC } from 'react';
+import type { FC, OutputHTMLAttributes } from 'react';
 
 import { cn } from '../../../helpers/cn';
 
 type Props = {
   label?: string;
   size?: 'sm' | 'md' | 'lg';
-};
+} & Omit<OutputHTMLAttributes<HTMLOutputElement>, 'children' | 'aria-label'>;
 
-export const Spinner: FC<Props> = ({ label = 'Loading', size = 'md' }) => (
+export const Spinner: FC<Props> = ({
+  label = 'Loading',
+  size = 'md',
+  className,
+  ...rest
+}) => (
   <output
+    {...rest}
     aria-label={label}
     aria-live="polite"
-    className="inline-flex items-center justify-center"
+    className={cn('inline-flex items-center justify-center', className)}
   >
     <span
       aria-hidden

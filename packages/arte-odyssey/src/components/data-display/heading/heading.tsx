@@ -1,21 +1,31 @@
-import type { FC, PropsWithChildren } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from './../../../helpers/cn';
 
-type Props = PropsWithChildren<{
-  id?: string;
+type Props = {
   type: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
   lineClamp?: number;
-}>;
+} & HTMLAttributes<HTMLHeadingElement>;
 
-export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
+export const Heading: FC<Props> = ({
+  children,
+  type,
+  lineClamp,
+  className,
+  ...rest
+}) => {
+  const lineClampClass = {
+    [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
+  };
   if (type === 'h1') {
     return (
       <h1
-        className={cn('font-bold text-2xl md:text-3xl', {
-          [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-        })}
-        id={id}
+        {...rest}
+        className={cn(
+          'font-bold text-2xl md:text-3xl',
+          lineClampClass,
+          className,
+        )}
       >
         {children}
       </h1>
@@ -24,10 +34,12 @@ export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
   if (type === 'h2') {
     return (
       <h2
-        className={cn('font-bold text-xl md:text-2xl', {
-          [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-        })}
-        id={id}
+        {...rest}
+        className={cn(
+          'font-bold text-xl md:text-2xl',
+          lineClampClass,
+          className,
+        )}
       >
         {children}
       </h2>
@@ -36,10 +48,12 @@ export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
   if (type === 'h3') {
     return (
       <h3
-        className={cn('font-bold text-lg md:text-xl', {
-          [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-        })}
-        id={id}
+        {...rest}
+        className={cn(
+          'font-bold text-lg md:text-xl',
+          lineClampClass,
+          className,
+        )}
       >
         {children}
       </h3>
@@ -48,10 +62,12 @@ export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
   if (type === 'h4') {
     return (
       <h4
-        className={cn('font-bold text-md md:text-lg', {
-          [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-        })}
-        id={id}
+        {...rest}
+        className={cn(
+          'font-bold text-md md:text-lg',
+          lineClampClass,
+          className,
+        )}
       >
         {children}
       </h4>
@@ -60,10 +76,12 @@ export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
   if (type === 'h5') {
     return (
       <h5
-        className={cn('font-bold text-sm md:text-md', {
-          [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-        })}
-        id={id}
+        {...rest}
+        className={cn(
+          'font-bold text-sm md:text-md',
+          lineClampClass,
+          className,
+        )}
       >
         {children}
       </h5>
@@ -71,10 +89,8 @@ export const Heading: FC<Props> = ({ children, id, type, lineClamp }) => {
   }
   return (
     <h6
-      className={cn('font-bold text-xs md:text-sm', {
-        [`line-clamp-${lineClamp?.toString() ?? ''}`]: lineClamp,
-      })}
-      id={id}
+      {...rest}
+      className={cn('font-bold text-xs md:text-sm', lineClampClass, className)}
     >
       {children}
     </h6>
