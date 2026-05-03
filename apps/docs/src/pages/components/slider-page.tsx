@@ -8,9 +8,9 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
 const sliderProps: PropItem[] = [
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'step', types: ['number'], defaultValue: '1' },
   { name: 'max', types: ['number'], defaultValue: '100' },
   { name: 'min', types: ['number'], defaultValue: '0' },
@@ -23,7 +23,7 @@ const sliderProps: PropItem[] = [
   { name: 'defaultValue', types: ['number'], defaultValue: null },
   { name: 'id', types: ['string'], defaultValue: null },
   { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'describedbyId', types: ['string'], defaultValue: null },
+  { name: 'aria-describedby', types: ['string'], defaultValue: null },
 ];
 
 export function SliderPage() {
@@ -64,17 +64,17 @@ export function SliderPage() {
           <ComponentPreview
             code={`<Slider
   defaultValue={50}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
 />`}
           >
             <div className="w-full">
               <Slider
                 defaultValue={50}
-                isDisabled={false}
-                isInvalid={false}
-                isRequired={false}
+                disabled={false}
+                invalid={false}
+                required={false}
               />
             </div>
           </ComponentPreview>
@@ -87,9 +87,9 @@ export function SliderPage() {
           <ComponentPreview
             code={`<Slider
   defaultValue={20}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   max={50}
   min={10}
   step={5}
@@ -98,9 +98,9 @@ export function SliderPage() {
             <div className="w-full">
               <Slider
                 defaultValue={20}
-                isDisabled={false}
-                isInvalid={false}
-                isRequired={false}
+                disabled={false}
+                invalid={false}
+                required={false}
                 max={50}
                 min={10}
                 step={5}
@@ -116,17 +116,17 @@ export function SliderPage() {
           <ComponentPreview
             code={`<Slider
   defaultValue={30}
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  disabled
+  invalid={false}
+  required={false}
 />`}
           >
             <div className="w-full">
               <Slider
                 defaultValue={30}
-                isDisabled
-                isInvalid={false}
-                isRequired={false}
+                disabled
+                invalid={false}
+                required={false}
               />
             </div>
           </ComponentPreview>
@@ -138,7 +138,10 @@ export function SliderPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={sliderProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={sliderProps}
+        />
       </section>
     </div>
   );

@@ -14,7 +14,7 @@ const meta: Meta<typeof Textarea> = {
   ],
   args: {
     id: 'textarea',
-    describedbyId: 'textarea-feedback',
+    'aria-describedby': 'textarea-feedback',
   },
   parameters: {
     a11y: {
@@ -34,60 +34,60 @@ type Story = StoryObj<typeof Textarea>;
 
 export const Default: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
   },
 };
 
 export const FullHeight: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     fullHeight: true,
   },
 };
 
 export const AutoResize: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     autoResize: true,
   },
 };
 
 export const Rows: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     rows: 10,
   },
 };
 
 export const Placeholder = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     placeholder: '10進数',
   },
 };
 
 export const Invalid: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: true,
-    isRequired: false,
+    disabled: false,
+    invalid: true,
+    required: false,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
-    isInvalid: false,
-    isRequired: false,
+    disabled: true,
+    invalid: false,
+    required: false,
   },
 };

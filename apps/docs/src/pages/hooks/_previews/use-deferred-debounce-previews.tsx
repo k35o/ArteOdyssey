@@ -44,11 +44,11 @@ export function UseDeferredDebouncePreview() {
   return (
     <div className="flex flex-col gap-3">
       <TextField
-        describedbyId={undefined}
+        aria-describedby={undefined}
         id="deferred-debounce-demo"
-        isDisabled={false}
-        isInvalid={false}
-        isRequired={false}
+        disabled={false}
+        invalid={false}
+        required={false}
         onChange={(e) => {
           setQuery(e.target.value);
         }}

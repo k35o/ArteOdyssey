@@ -13,8 +13,8 @@ const meta: Meta<typeof Radio> = {
   title: 'components/form/radio',
   component: Radio,
   args: {
-    isDisabled: false,
-    labelId: 'radio-story-label',
+    disabled: false,
+    'aria-labelledby': 'radio-story-label',
     options,
   },
 };
@@ -28,7 +28,10 @@ const DefaultRender = (props: ComponentProps<typeof Radio>) => {
 
   return (
     <div className="w-full max-w-md">
-      <p className="text-fg-base mb-3 font-medium" id={props.labelId}>
+      <p
+        className="text-fg-base mb-3 font-medium"
+        id={props['aria-labelledby']}
+      >
         Framework
       </p>
       <Radio
@@ -49,6 +52,6 @@ export const Default: Story = {
 export const Disabled: Story = {
   args: {
     defaultValue: 'vue',
-    isDisabled: true,
+    disabled: true,
   },
 };

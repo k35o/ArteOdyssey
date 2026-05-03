@@ -3,6 +3,7 @@
 import {
   createContext,
   type FC,
+  type FieldsetHTMLAttributes,
   type PropsWithChildren,
   use,
   useCallback,
@@ -14,7 +15,7 @@ import { useControllableState } from '../../../hooks/controllable-state';
 
 type CheckboxGroupContextValue = {
   currentValue: string[];
-  isDisabled: boolean;
+  disabled: boolean;
   name: string;
   toggleValue: (value: string) => void;
 };
@@ -25,14 +26,16 @@ const CheckboxGroupContext = createContext<
 
 export const useCheckboxGroupContext = () => use(CheckboxGroupContext);
 
-type RootBaseProps = PropsWithChildren<{
-  describedbyId?: string;
-  isDisabled?: boolean;
-  isInvalid?: boolean;
-  isRequired?: boolean;
-  labelId?: string;
-  name: string;
-}>;
+type RootBaseProps = PropsWithChildren<
+  {
+    invalid?: boolean;
+    required?: boolean;
+    name: string;
+  } & Omit<
+    FieldsetHTMLAttributes<HTMLFieldSetElement>,
+    'className' | 'onChange' | 'defaultValue' | 'name'
+  >
+>;
 
 type RootControlledProps = {
   value: string[];
@@ -50,22 +53,21 @@ type RootProps = RootBaseProps & (RootControlledProps | RootUncontrolledProps);
 
 const Root: FC<RootProps> = ({
   children,
-  describedbyId,
   defaultValue,
-  isDisabled = false,
-  isInvalid = false,
-  isRequired = false,
-  labelId,
+  disabled = false,
+  invalid = false,
+  required = false,
   name,
   onChange,
   value,
+  ...rest
 }) => {
   const [currentValue, setCurrentValue] = useControllableState({
     value,
     defaultValue: defaultValue ?? [],
     onChange,
   });
-  void isRequired;
+  void required;
 
   const toggleValue = useCallback(
     (targetValue: string) => {
@@ -81,19 +83,18 @@ const Root: FC<RootProps> = ({
   const contextValue = useMemo<CheckboxGroupContextValue>(
     () => ({
       currentValue,
-      isDisabled,
+      disabled,
       name,
       toggleValue,
     }),
-    [currentValue, isDisabled, name, toggleValue],
+    [currentValue, disabled, name, toggleValue],
   );
 
   return (
     <fieldset
-      aria-describedby={describedbyId}
-      aria-invalid={isInvalid}
-      aria-labelledby={labelId}
-      className={cn('flex flex-col gap-2', isDisabled && 'cursor-not-allowed')}
+      {...rest}
+      aria-invalid={invalid}
+      className={cn('flex flex-col gap-2', disabled && 'cursor-not-allowed')}
     >
       <CheckboxGroupContext value={contextValue}>
         {children}

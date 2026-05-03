@@ -33,9 +33,9 @@ export function RadioCardControlledPreview() {
         プランを選択
       </p>
       <RadioCard
-        isDisabled={false}
-        isInvalid={false}
-        labelId="radio-card-preview-label"
+        disabled={false}
+        invalid={false}
+        aria-labelledby="radio-card-preview-label"
         onChange={(event) => {
           setValue(event.target.value);
         }}

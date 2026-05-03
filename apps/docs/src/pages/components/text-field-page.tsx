@@ -8,9 +8,9 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
 const textFieldProps: PropItem[] = [
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'placeholder', types: ['string'], defaultValue: null },
   { name: 'value', types: ['string'], defaultValue: null },
   {
@@ -61,16 +61,12 @@ export function TextFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<TextField
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
 />`}
           >
-            <TextField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
-            />
+            <TextField disabled={false} invalid={false} required={false} />
           </ComponentPreview>
         </div>
 
@@ -81,16 +77,16 @@ export function TextFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<TextField
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   placeholder="Enter your name"
 />`}
           >
             <TextField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               placeholder="Enter your name"
             />
           </ComponentPreview>
@@ -103,16 +99,16 @@ export function TextFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<TextField
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  disabled
+  invalid={false}
+  required={false}
   placeholder="Disabled field"
 />`}
           >
             <TextField
-              isDisabled
-              isInvalid={false}
-              isRequired={false}
+              disabled
+              invalid={false}
+              required={false}
               placeholder="Disabled field"
             />
           </ComponentPreview>
@@ -125,17 +121,17 @@ export function TextFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<TextField
-  isDisabled={false}
-  isInvalid
-  isRequired={false}
+  disabled={false}
+  invalid
+  required={false}
   defaultValue="invalid value"
 />`}
           >
             <TextField
               defaultValue="invalid value"
-              isDisabled={false}
-              isInvalid
-              isRequired={false}
+              disabled={false}
+              invalid
+              required={false}
             />
           </ComponentPreview>
         </div>
@@ -147,7 +143,10 @@ export function TextFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={textFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={textFieldProps}
+        />
       </section>
     </div>
   );

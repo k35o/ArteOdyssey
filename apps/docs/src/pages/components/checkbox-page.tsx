@@ -15,7 +15,7 @@ import {
 const checkboxProps: PropItem[] = [
   { name: 'label', types: ['string'], defaultValue: null },
   { name: 'itemValue', types: ['string'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
   { name: 'value', types: ['boolean'], defaultValue: null },
   {
     name: 'onChange',
@@ -27,11 +27,11 @@ const checkboxProps: PropItem[] = [
 
 const checkboxGroupProps: PropItem[] = [
   { name: 'name', types: ['string'], defaultValue: null },
-  { name: 'labelId', types: ['string'], defaultValue: null },
-  { name: 'describedbyId', types: ['string'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'aria-describedby', types: ['string'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
     name: 'onChange',
@@ -118,11 +118,11 @@ export function CheckboxPage() {
             <T k="components.checkbox.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<Checkbox isDisabled label="Unchecked disabled" />
-<Checkbox defaultChecked isDisabled label="Checked disabled" />`}
+            code={`<Checkbox disabled label="Unchecked disabled" />
+<Checkbox defaultChecked disabled label="Checked disabled" />`}
           >
-            <Checkbox isDisabled label="Unchecked disabled" />
-            <Checkbox defaultChecked isDisabled label="Checked disabled" />
+            <Checkbox disabled label="Unchecked disabled" />
+            <Checkbox defaultChecked disabled label="Checked disabled" />
           </ComponentPreview>
         </div>
 
@@ -142,7 +142,7 @@ export function CheckboxPage() {
         <div className="flex flex-col gap-4">
           <Heading type="h3">Group Disabled</Heading>
           <ComponentPreview
-            code={`<CheckboxGroup defaultValue={['vue']} isDisabled name="frameworks-disabled">
+            code={`<CheckboxGroup defaultValue={['vue']} disabled name="frameworks-disabled">
   <Checkbox itemValue="react" label="React" />
   <Checkbox itemValue="vue" label="Vue" />
   <Checkbox itemValue="svelte" label="Svelte" />
@@ -159,13 +159,19 @@ export function CheckboxPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={checkboxProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={checkboxProps}
+        />
       </section>
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
         <Heading type="h2">CheckboxGroup Props</Heading>
-        <PropsTable items={checkboxGroupProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={checkboxGroupProps}
+        />
       </section>
     </div>
   );

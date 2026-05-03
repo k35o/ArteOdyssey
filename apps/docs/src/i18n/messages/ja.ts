@@ -70,6 +70,8 @@ export const ja = {
   'components.common.importTitle': 'インポート',
   'components.common.usageTitle': '使い方',
   'components.common.propsTitle': 'Props',
+  'components.common.inheritsLabel':
+    'これらに加えて、以下の HTML 属性を渡せます:',
   'components.button.description':
     'ユーザーのアクションを受け付けるボタンコンポーネントです。',
   'components.button.variantsTitle': 'バリアント',

@@ -1,36 +1,15 @@
 'use client';
 
-import { type ChangeEventHandler, type FC, useEffect, useRef } from 'react';
+import { type FC, type TextareaHTMLAttributes, useEffect, useRef } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from './../../../helpers/cn';
 
-type BaseProps = {
-  id: string;
-  name?: string;
-  describedbyId: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
-  placeholder?: string;
-  rows?: number;
+type Props = {
+  invalid?: boolean;
   fullHeight?: boolean;
   autoResize?: boolean;
-};
-
-type ControlledProps = {
-  value: string;
-  onChange: ChangeEventHandler<HTMLTextAreaElement>;
-  defaultValue?: never;
-};
-
-type UncontrolledProps = {
-  defaultValue?: string;
-  value?: never;
-  onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-};
-
-type Props = BaseProps & (ControlledProps | UncontrolledProps);
+} & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className'>;
 
 const resizeToContent = (el: HTMLTextAreaElement) => {
   el.style.height = 'auto';
@@ -38,19 +17,14 @@ const resizeToContent = (el: HTMLTextAreaElement) => {
 };
 
 export const Textarea: FC<Props> = ({
-  id,
-  name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
-  placeholder,
-  rows,
+  invalid = false,
   fullHeight = false,
   autoResize = false,
-  defaultValue,
+  readOnly,
   value,
-  onChange,
+  onInput,
+  onKeyDown,
+  ...rest
 }) => {
   const ref = useRef<HTMLTextAreaElement>(null);
   const { pending } = useFormStatus();
@@ -63,9 +37,7 @@ export const Textarea: FC<Props> = ({
 
   return (
     <textarea
-      aria-describedby={describedbyId}
-      aria-invalid={isInvalid}
-      aria-required={isRequired}
+      aria-invalid={invalid}
       className={cn(
         'w-full resize-none rounded-xl border border-border-base bg-bg-base px-3 py-2',
         'aria-invalid:border-border-error',
@@ -74,24 +46,20 @@ export const Textarea: FC<Props> = ({
         'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
         fullHeight && 'h-full',
       )}
-      defaultValue={defaultValue}
-      disabled={isDisabled}
-      id={id}
-      name={name}
-      onChange={onChange}
       onInput={(e) => {
         if (autoResize) {
           resizeToContent(e.currentTarget);
         }
+        onInput?.(e);
       }}
       onKeyDown={(e) => {
         e.stopPropagation();
+        onKeyDown?.(e);
       }}
-      placeholder={placeholder}
-      readOnly={pending || undefined}
+      readOnly={pending || readOnly}
       ref={ref}
-      rows={rows}
       value={value}
+      {...rest}
     />
   );
 };

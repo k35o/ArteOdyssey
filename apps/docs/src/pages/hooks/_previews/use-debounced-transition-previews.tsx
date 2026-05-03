@@ -31,11 +31,11 @@ export function UseDebouncedTransitionPreview() {
   return (
     <div className="flex flex-col gap-3">
       <TextField
-        describedbyId={undefined}
+        aria-describedby={undefined}
         id="debounced-transition-demo"
-        isDisabled={false}
-        isInvalid={false}
-        isRequired={false}
+        disabled={false}
+        invalid={false}
+        required={false}
         onChange={(e) => {
           const next = e.target.value;
           setQuery(next);

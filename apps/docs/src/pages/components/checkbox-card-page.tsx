@@ -9,9 +9,9 @@ import { STORYBOOK_URL } from '../../constants';
 import { CheckboxCardControlledPreview } from './_previews/checkbox-card-previews';
 
 const checkboxCardProps: PropItem[] = [
-  { name: 'labelId', types: ['string'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'aria-labelledby', types: ['string'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
   { name: 'options', types: ['CheckboxCardOption[]'], defaultValue: null },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
@@ -101,9 +101,9 @@ const [value, setValue] = useState(['comments']);
 
 <p id="features-label">有効にする機能を選択</p>
 <CheckboxCard
-  isDisabled={false}
-  isInvalid={false}
-  labelId="features-label"
+  disabled={false}
+  invalid={false}
+  aria-labelledby="features-label"
   onChange={setValue}
   options={options}
   value={value}
@@ -139,9 +139,9 @@ const [value, setValue] = useState(['comments']);
 <p id="features-default-label">有効にする機能を選択</p>
 <CheckboxCard
   defaultValue={['history', 'share']}
-  isDisabled={false}
-  isInvalid={false}
-  labelId="features-default-label"
+  disabled={false}
+  invalid={false}
+  aria-labelledby="features-default-label"
   options={options}
 />`}
           >
@@ -154,9 +154,9 @@ const [value, setValue] = useState(['comments']);
               </p>
               <CheckboxCard
                 defaultValue={['history', 'share']}
-                isDisabled={false}
-                isInvalid={false}
-                labelId="features-default-label"
+                disabled={false}
+                invalid={false}
+                aria-labelledby="features-default-label"
                 options={options}
               />
             </div>
@@ -169,7 +169,10 @@ const [value, setValue] = useState(['comments']);
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={checkboxCardProps} />
+        <PropsTable
+          inherits="FieldsetHTMLAttributes<HTMLFieldSetElement>"
+          items={checkboxCardProps}
+        />
       </section>
     </div>
   );

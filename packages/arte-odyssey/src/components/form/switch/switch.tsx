@@ -1,20 +1,25 @@
 'use client';
 
-import type { ChangeEventHandler, FC } from 'react';
+import type { ChangeEventHandler, FC, InputHTMLAttributes } from 'react';
 import { useId, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 
 type BaseProps = {
-  id?: string;
-  name?: string;
-  describedbyId?: string | undefined;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  isRequired: boolean;
+  invalid?: boolean;
   label: string;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'role'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultChecked'
+  | 'checked'
+  | 'children'
+>;
 
 type ControlledProps = {
   value: boolean;
@@ -33,14 +38,13 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Switch: FC<Props> = ({
   value,
   defaultChecked,
-  describedbyId,
   id,
-  isDisabled,
-  isInvalid,
-  isRequired,
+  disabled = false,
+  invalid = false,
+  required = false,
   label,
-  name,
   onChange,
+  ...rest
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
@@ -51,36 +55,33 @@ export const Switch: FC<Props> = ({
 
   const isControlled = value !== undefined;
   const isSelected = isControlled ? value : internalChecked;
-  const isDisabledResolved = isDisabled || pending;
+  const disabledResolved = disabled || pending;
 
   return (
     <label
       className={cn(
         'inline-flex w-fit items-center gap-3',
-        isDisabledResolved
-          ? 'cursor-not-allowed text-fg-mute'
-          : 'cursor-pointer',
+        disabledResolved ? 'cursor-not-allowed text-fg-mute' : 'cursor-pointer',
       )}
       htmlFor={inputId}
     >
       <span className="relative inline-flex shrink-0">
         <input
+          {...rest}
           aria-checked={isSelected}
-          aria-describedby={describedbyId}
-          aria-invalid={isInvalid}
-          aria-required={isRequired}
+          aria-invalid={invalid}
+          aria-required={required}
           {...(isControlled ? { checked: value } : { defaultChecked })}
           className="peer sr-only"
-          disabled={isDisabledResolved}
+          disabled={disabledResolved}
           id={inputId}
-          name={name}
           onChange={(event) => {
             if (!isControlled) {
               setInternalChecked(event.target.checked);
             }
             onChange?.(event);
           }}
-          required={isRequired}
+          required={required}
           role="switch"
           type="checkbox"
         />
@@ -88,9 +89,9 @@ export const Switch: FC<Props> = ({
           aria-hidden
           className={cn(
             'inline-flex h-7 w-12 items-center rounded-full transition-colors',
-            isInvalid && 'ring-2 ring-border-error',
+            invalid && 'ring-2 ring-border-error',
             isSelected ? 'bg-primary-bg' : 'bg-bg-mute',
-            isDisabledResolved && 'bg-bg-subtle',
+            disabledResolved && 'bg-bg-subtle',
             'peer-focus-visible:outline-hidden peer-focus-visible:ring-2 peer-focus-visible:ring-border-info peer-focus-visible:ring-offset-2',
           )}
         >
@@ -98,7 +99,7 @@ export const Switch: FC<Props> = ({
             className={cn(
               'ml-0.5 size-5 rounded-full bg-bg-base shadow-xs transition-transform',
               isSelected && 'translate-x-5',
-              isDisabledResolved && 'bg-bg-emphasize',
+              disabledResolved && 'bg-bg-emphasize',
             )}
           />
         </span>

@@ -7,7 +7,7 @@ const meta: Meta<typeof Checkbox> = {
   title: 'components/form/checkbox',
   component: Checkbox,
   args: {
-    isDisabled: false,
+    disabled: false,
     label: 'checkbox',
   },
 };
@@ -20,7 +20,7 @@ const DefaultRender = (props: ComponentProps<typeof Checkbox>) => {
 
   return (
     <Checkbox
-      isDisabled={props.isDisabled}
+      disabled={props.disabled}
       label={props.label}
       onChange={(e) => {
         setValue(e.target.checked);
@@ -36,7 +36,7 @@ export const Default: Story = {
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
+    disabled: true,
     defaultChecked: true,
     label: 'disabled checkbox',
   },

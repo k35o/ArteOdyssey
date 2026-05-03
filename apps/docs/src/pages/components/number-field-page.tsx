@@ -8,9 +8,9 @@ import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
 
 const numberFieldProps: PropItem[] = [
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'step', types: ['number'], defaultValue: '1' },
   { name: 'precision', types: ['number'], defaultValue: '0' },
   { name: 'max', types: ['number'], defaultValue: null },
@@ -65,16 +65,12 @@ export function NumberFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<NumberField
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
 />`}
           >
-            <NumberField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
-            />
+            <NumberField disabled={false} invalid={false} required={false} />
           </ComponentPreview>
         </div>
 
@@ -85,17 +81,17 @@ export function NumberFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<NumberField
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   precision={2}
   step={0.25}
 />`}
           >
             <NumberField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               precision={2}
               step={0.25}
             />
@@ -109,18 +105,18 @@ export function NumberFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<NumberField
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  disabled={false}
+  invalid={false}
+  required={false}
   max={10}
   min={0}
   step={1}
 />`}
           >
             <NumberField
-              isDisabled={false}
-              isInvalid={false}
-              isRequired={false}
+              disabled={false}
+              invalid={false}
+              required={false}
               max={10}
               min={0}
               step={1}
@@ -135,12 +131,12 @@ export function NumberFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<NumberField
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  disabled
+  invalid={false}
+  required={false}
 />`}
           >
-            <NumberField isDisabled isInvalid={false} isRequired={false} />
+            <NumberField disabled invalid={false} required={false} />
           </ComponentPreview>
         </div>
 
@@ -151,12 +147,12 @@ export function NumberFieldPage() {
           </Heading>
           <ComponentPreview
             code={`<NumberField
-  isDisabled={false}
-  isInvalid
-  isRequired={false}
+  disabled={false}
+  invalid
+  required={false}
 />`}
           >
-            <NumberField isDisabled={false} isInvalid isRequired={false} />
+            <NumberField disabled={false} invalid required={false} />
           </ComponentPreview>
         </div>
       </section>
@@ -167,7 +163,10 @@ export function NumberFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={numberFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={numberFieldProps}
+        />
       </section>
     </div>
   );

@@ -4,6 +4,7 @@ import type {
   ChangeEvent,
   ChangeEventHandler,
   FC,
+  InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
 } from 'react';
@@ -28,8 +29,8 @@ type AcceptedFile = {
 };
 
 type FileFieldContext = {
-  isDisabled: boolean;
-  isInvalid: boolean;
+  disabled: boolean;
+  invalid: boolean;
   acceptedFiles: AcceptedFile[];
   onFileDelete: (id: string) => void;
   openFilePicker: () => void;
@@ -48,37 +49,34 @@ const useFileFieldContext = (): FileFieldContext => {
   return fileField;
 };
 
+type RootProps = PropsWithChildren<
+  {
+    invalid?: boolean;
+    maxFiles?: number;
+    defaultValue?: File[];
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    webkitDirectory?: boolean;
+  } & Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'type' | 'className' | 'onChange' | 'defaultValue' | 'value' | 'children'
+  >
+>;
+
 const Root = ({
   children,
-  id,
-  name,
-  describedbyId,
-  isDisabled = false,
-  isInvalid = false,
-  isRequired = false,
-  accept,
+  disabled = false,
+  invalid = false,
+  required = false,
   multiple = false,
   maxFiles,
   onChange,
   webkitDirectory = false,
-}: PropsWithChildren<{
-  id?: string;
-  name?: string;
-  describedbyId?: string | undefined;
-  isDisabled?: boolean;
-  isInvalid?: boolean;
-  isRequired?: boolean;
-  accept?: string;
-  multiple?: boolean;
-  maxFiles?: number;
-  defaultValue?: File[];
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  webkitDirectory?: boolean;
-}>) => {
+  ...rest
+}: RootProps) => {
   const generatedId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const { pending } = useFormStatus();
-  const isDisabledResolved = isDisabled || pending;
+  const disabledResolved = disabled || pending;
 
   const [acceptedFiles, setAcceptedFiles] = useState<AcceptedFile[]>([]);
 
@@ -130,36 +128,28 @@ const Root = ({
 
   const contextValue = useMemo(
     () => ({
-      isDisabled: isDisabledResolved,
-      isInvalid,
+      disabled: disabledResolved,
+      invalid,
       acceptedFiles,
       onFileDelete,
       openFilePicker,
     }),
-    [
-      isDisabledResolved,
-      isInvalid,
-      acceptedFiles,
-      onFileDelete,
-      openFilePicker,
-    ],
+    [disabledResolved, invalid, acceptedFiles, onFileDelete, openFilePicker],
   );
 
   return (
     <FileFieldProvider value={contextValue}>
       <div className="w-full">
         <input
-          accept={accept}
-          aria-describedby={describedbyId}
-          aria-invalid={isInvalid}
+          {...rest}
+          aria-invalid={invalid}
           className="sr-only"
-          disabled={isDisabledResolved}
-          id={id ?? generatedId}
+          disabled={disabledResolved}
+          id={rest.id ?? generatedId}
           multiple={multiple}
-          name={name}
           onChange={onFilesChange}
           ref={inputRef}
-          required={isRequired}
+          required={required}
           type="file"
           // @ts-expect-error -- webkitdirectoryがReactのHTMLInputElementのPropsに存在しないため
           // Baseline 2025の機能なので、利用に問題はない
@@ -181,8 +171,8 @@ const Trigger: FC<{
   const context = useFileFieldContext();
   return renderItem({
     onClick: context.openFilePicker,
-    disabled: context.isDisabled,
-    invalid: context.isInvalid,
+    disabled: context.disabled,
+    invalid: context.invalid,
   });
 };
 

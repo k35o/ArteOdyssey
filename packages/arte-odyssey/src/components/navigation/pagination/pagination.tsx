@@ -9,7 +9,7 @@ type Props = {
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
-  isDisabled?: boolean;
+  disabled?: boolean;
   prevLabel?: string;
   nextLabel?: string;
   'aria-label'?: string;
@@ -19,7 +19,7 @@ export const Pagination: FC<Props> = ({
   totalPages,
   currentPage,
   onPageChange,
-  isDisabled = false,
+  disabled = false,
   prevLabel = '前へ',
   nextLabel = '次へ',
   'aria-label': ariaLabel = 'ページネーション',
@@ -34,7 +34,7 @@ export const Pagination: FC<Props> = ({
       <div className="flex items-center justify-center gap-2">
         <Button
           color="gray"
-          disabled={isDisabled || isFirst}
+          disabled={disabled || isFirst}
           onClick={() => {
             onPageChange(safeCurrent - 1);
           }}
@@ -55,7 +55,7 @@ export const Pagination: FC<Props> = ({
         </p>
         <Button
           color="gray"
-          disabled={isDisabled || isLast}
+          disabled={disabled || isLast}
           endIcon={<ChevronIcon direction="right" size="sm" />}
           onClick={() => {
             onPageChange(safeCurrent + 1);

@@ -33,9 +33,9 @@ export function CheckboxCardControlledPreview() {
         有効にする機能を選択
       </p>
       <CheckboxCard
-        isDisabled={false}
-        isInvalid={false}
-        labelId="checkbox-card-preview-label"
+        disabled={false}
+        invalid={false}
+        aria-labelledby="checkbox-card-preview-label"
         onChange={setValue}
         options={options}
         value={value}

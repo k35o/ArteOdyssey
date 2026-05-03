@@ -15,9 +15,9 @@ import {
 } from './_previews/file-field-previews';
 
 const fileFieldProps: PropItem[] = [
-  { name: 'isDisabled', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: 'false' },
-  { name: 'isRequired', types: ['boolean'], defaultValue: 'false' },
+  { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  { name: 'invalid', types: ['boolean'], defaultValue: 'false' },
+  { name: 'required', types: ['boolean'], defaultValue: 'false' },
   { name: 'accept', types: ['string'], defaultValue: null },
   { name: 'multiple', types: ['boolean'], defaultValue: 'false' },
   { name: 'maxFiles', types: ['number'], defaultValue: null },
@@ -131,7 +131,7 @@ export function FileFieldPage() {
             <T k="components.fileField.disabledTitle" />
           </Heading>
           <ComponentPreview
-            code={`<FileField.Root isDisabled multiple={false}>
+            code={`<FileField.Root disabled multiple={false}>
   <FileField.Trigger
     renderItem={({ disabled, onClick }) => (
       <Button disabled={disabled} onClick={onClick}>
@@ -152,7 +152,7 @@ export function FileFieldPage() {
             <T k="components.fileField.invalidTitle" />
           </Heading>
           <ComponentPreview
-            code={`<FileField.Root isInvalid multiple={false}>
+            code={`<FileField.Root invalid multiple={false}>
   <FileField.Trigger
     renderItem={({ disabled, onClick }) => (
       <Button disabled={disabled} onClick={onClick}>
@@ -174,7 +174,10 @@ export function FileFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={fileFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={fileFieldProps}
+        />
       </section>
     </div>
   );

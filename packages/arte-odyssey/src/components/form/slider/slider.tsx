@@ -1,22 +1,28 @@
 'use client';
 
-import type { CSSProperties, FC } from 'react';
+import type { CSSProperties, FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
 
 type BaseProps = {
-  id?: string;
-  name?: string;
-  describedbyId?: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+  invalid?: boolean;
   step?: number;
   max?: number;
   min?: number;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultValue'
+  | 'children'
+  | 'step'
+  | 'max'
+  | 'min'
+>;
 
 type ControlledProps = {
   value: number;
@@ -33,18 +39,16 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Slider: FC<Props> = ({
-  id,
-  name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  invalid = false,
+  disabled = false,
+  required = false,
   value,
   defaultValue,
   onChange,
   step = 1,
   max = 100,
   min = 0,
+  ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
     value,
@@ -52,7 +56,7 @@ export const Slider: FC<Props> = ({
     onChange,
   });
   const { pending } = useFormStatus();
-  const isDisabledResolved = isDisabled || pending;
+  const disabledResolved = disabled || pending;
   const range = Math.max(max - min, 1);
   const progress = ((currentValue - min) / range) * 100;
   const style = {
@@ -66,14 +70,14 @@ export const Slider: FC<Props> = ({
         'before:absolute before:inset-x-0 before:h-2 before:rounded-full before:bg-bg-mute',
         'after:absolute after:left-0 after:h-2 after:rounded-full after:bg-primary-bg',
         'after:w-(--slider-progress)',
-        isInvalid && 'after:bg-bg-error',
-        isDisabledResolved && 'opacity-50',
+        invalid && 'after:bg-bg-error',
+        disabledResolved && 'opacity-50',
       )}
       style={style}
     >
       <input
-        aria-describedby={describedbyId}
-        aria-invalid={isInvalid}
+        {...rest}
+        aria-invalid={invalid}
         aria-valuemax={max}
         aria-valuemin={min}
         aria-valuenow={currentValue}
@@ -88,18 +92,16 @@ export const Slider: FC<Props> = ({
           '[&::-moz-range-progress]:h-2 [&::-moz-range-progress]:rounded-full [&::-moz-range-progress]:bg-transparent',
           '[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border [&::-moz-range-thumb]:border-border-base [&::-moz-range-thumb]:bg-bg-base [&::-moz-range-thumb]:shadow-xs',
           '[&:focus-visible::-moz-range-thumb]:border-transparent [&:focus-visible::-moz-range-thumb]:ring-2 [&:focus-visible::-moz-range-thumb]:ring-border-info',
-          isInvalid &&
+          invalid &&
             '[&::-moz-range-thumb]:border-border-error [&::-webkit-slider-thumb]:border-border-error [&:focus-visible::-moz-range-thumb]:ring-border-error [&:focus-visible::-webkit-slider-thumb]:ring-border-error',
         )}
-        disabled={isDisabledResolved}
-        id={id}
+        disabled={disabledResolved}
         max={max}
         min={min}
-        name={name}
         onChange={(event) => {
           handleChange(Number(event.target.value));
         }}
-        required={isRequired}
+        required={required}
         step={step}
         type="range"
         value={currentValue}

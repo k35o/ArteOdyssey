@@ -3,27 +3,27 @@
 import { type FC, type ReactElement, useId } from 'react';
 
 type FormControlProps = {
-  isDisabled?: boolean;
-  isInvalid?: boolean;
-  isRequired?: boolean;
+  disabled?: boolean;
+  invalid?: boolean;
+  required?: boolean;
   label: string;
   labelAs?: 'label' | 'legend';
   helpText?: string;
   errorText?: string | undefined;
   renderInput: (props: {
     id: string;
-    describedbyId: string | undefined;
-    labelId: string;
-    isDisabled: boolean;
-    isInvalid: boolean;
-    isRequired: boolean;
+    'aria-describedby': string | undefined;
+    'aria-labelledby': string;
+    disabled: boolean;
+    invalid: boolean;
+    required: boolean;
   }) => ReactElement;
 };
 
 export const FormControl: FC<FormControlProps> = ({
-  isDisabled = false,
-  isInvalid = false,
-  isRequired = false,
+  disabled = false,
+  invalid = false,
+  required = false,
   label,
   labelAs = 'label',
   helpText,
@@ -34,7 +34,7 @@ export const FormControl: FC<FormControlProps> = ({
   const hasErrorText = errorText !== undefined && errorText !== '';
   const hasHelpText = helpText !== undefined && helpText !== '';
   const describedbyId =
-    isInvalid && hasErrorText
+    invalid && hasErrorText
       ? `${id}-feedback`
       : hasHelpText
         ? `${id}-helptext`
@@ -49,27 +49,23 @@ export const FormControl: FC<FormControlProps> = ({
           id={labelId}
         >
           {label}
-          {isRequired && (
-            <span className="text-fg-error font-medium">必須</span>
-          )}
+          {required && <span className="text-fg-error font-medium">必須</span>}
         </label>
       ) : (
         <legend className="text-fg-base text-md mb-1 flex gap-2 pl-0.5 font-bold">
           {label}
-          {isRequired && (
-            <span className="text-fg-error font-medium">必須</span>
-          )}
+          {required && <span className="text-fg-error font-medium">必須</span>}
         </legend>
       )}
       {renderInput({
         id,
-        describedbyId,
-        labelId,
-        isDisabled,
-        isInvalid,
-        isRequired,
+        'aria-describedby': describedbyId,
+        'aria-labelledby': labelId,
+        disabled,
+        invalid,
+        required,
       })}
-      {isInvalid && hasErrorText ? (
+      {invalid && hasErrorText ? (
         <p
           aria-live="polite"
           className="text-fg-error mt-1 pl-0.5 text-sm"

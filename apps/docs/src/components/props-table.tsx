@@ -1,6 +1,8 @@
 import { Code } from '@k8o/arte-odyssey';
 import type { FC } from 'react';
 
+import { T } from './t';
+
 export type PropItem = {
   name: string;
   types: readonly string[];
@@ -21,8 +23,11 @@ const TypeCodes: FC<{ types: readonly string[] }> = ({ types }) => (
 const DefaultValue: FC<{ value: string | null }> = ({ value }) =>
   value !== null && value !== '' ? <Code>{value}</Code> : <>-</>;
 
-export const PropsTable: FC<{ items: readonly PropItem[] }> = ({ items }) => (
-  <>
+export const PropsTable: FC<{
+  items: readonly PropItem[];
+  inherits?: string;
+}> = ({ items, inherits }) => (
+  <div className="flex flex-col gap-4">
     {/* Mobile: card list */}
     <dl className="flex flex-col gap-4 md:hidden">
       {items.map((prop) => (
@@ -69,5 +74,10 @@ export const PropsTable: FC<{ items: readonly PropItem[] }> = ({ items }) => (
         ))}
       </tbody>
     </table>
-  </>
+    {inherits !== undefined && inherits !== '' ? (
+      <p className="text-fg-mute text-sm">
+        <T k="components.common.inheritsLabel" /> <Code>{inherits}</Code>
+      </p>
+    ) : null}
+  </div>
 );

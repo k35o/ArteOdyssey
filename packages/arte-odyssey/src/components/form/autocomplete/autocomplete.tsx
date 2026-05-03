@@ -1,6 +1,13 @@
 'use client';
 
-import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  type FC,
+  type InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { useControllableState } from '../../../hooks/controllable-state';
@@ -12,13 +19,23 @@ import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
   id: string;
-  name?: string;
-  describedbyId: string | undefined;
-  isInvalid: boolean;
-  isDisabled: boolean;
-  isRequired: boolean;
+  invalid?: boolean;
   options: readonly Option[];
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'role'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultValue'
+  | 'children'
+  | 'id'
+  | 'autoComplete'
+  | 'aria-autocomplete'
+  | 'aria-controls'
+  | 'aria-expanded'
+>;
 
 type ControlledProps = {
   value: string[];
@@ -37,14 +54,14 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Autocomplete: FC<Props> = ({
   id,
   name,
-  describedbyId,
-  isInvalid,
-  isDisabled,
-  isRequired,
+  invalid = false,
+  disabled = false,
+  required = false,
   options,
   value,
   defaultValue,
   onChange,
+  ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
     value,
@@ -62,7 +79,7 @@ export const Autocomplete: FC<Props> = ({
     option.label.includes(deferredText),
   );
   const { pending: formPending } = useFormStatus();
-  const isDisabledResolved = isDisabled || formPending;
+  const disabledResolved = disabled || formPending;
 
   const reset = useCallback(() => {
     setText('');
@@ -132,18 +149,18 @@ export const Autocomplete: FC<Props> = ({
             );
           })}
           <input
+            {...rest}
             aria-autocomplete="list"
             aria-controls={open ? `${id}_listbox` : undefined}
-            aria-describedby={describedbyId}
             aria-expanded={open}
-            aria-invalid={isInvalid}
-            aria-required={isRequired}
+            aria-invalid={invalid}
+            aria-required={required}
             autoComplete="off"
             className={cn(
               'grow bg-transparent focus-visible:outline-hidden',
               'disabled:cursor-not-allowed',
             )}
-            disabled={isDisabledResolved}
+            disabled={disabledResolved}
             id={id}
             onBlur={(e) => {
               if (e.relatedTarget?.id.startsWith(`${id}_option_`) === true) {

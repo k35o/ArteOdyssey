@@ -29,7 +29,7 @@ export function FormControlErrorTextPreview() {
   return (
     <FormControl
       errorText="This field is required."
-      isInvalid
+      invalid
       label="Email"
       renderInput={(props) => <TextField {...props} />}
     />
@@ -39,7 +39,7 @@ export function FormControlErrorTextPreview() {
 export function FormControlRequiredPreview() {
   return (
     <FormControl
-      isRequired
+      required
       label="Username"
       renderInput={(props) => (
         <TextField {...props} placeholder="Required field" />
@@ -51,7 +51,7 @@ export function FormControlRequiredPreview() {
 export function FormControlDisabledPreview() {
   return (
     <FormControl
-      isDisabled
+      disabled
       label="Username"
       renderInput={(props) => (
         <TextField {...props} placeholder="Disabled field" />

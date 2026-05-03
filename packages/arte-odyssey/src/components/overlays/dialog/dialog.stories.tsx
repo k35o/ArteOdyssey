@@ -104,4 +104,14 @@ export const ModalDialog: Story = {
     trigger.focus();
     await userEvent.keyboard('{Enter}');
   },
+  parameters: {
+    a11y: {
+      options: {
+        rules: {
+          // モーダルのフェードイン中は axe が低コントラストとして検出するため無効化
+          'color-contrast': { enabled: false },
+        },
+      },
+    },
+  },
 };

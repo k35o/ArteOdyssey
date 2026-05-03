@@ -16,10 +16,14 @@ import {
 
 const autocompleteProps: PropItem[] = [
   { name: 'id', types: ['string'], defaultValue: null },
-  { name: 'describedbyId', types: ['string | undefined'], defaultValue: null },
-  { name: 'isInvalid', types: ['boolean'], defaultValue: null },
-  { name: 'isDisabled', types: ['boolean'], defaultValue: null },
-  { name: 'isRequired', types: ['boolean'], defaultValue: null },
+  {
+    name: 'aria-describedby',
+    types: ['string | undefined'],
+    defaultValue: null,
+  },
+  { name: 'invalid', types: ['boolean'], defaultValue: null },
+  { name: 'disabled', types: ['boolean'], defaultValue: null },
+  { name: 'required', types: ['boolean'], defaultValue: null },
   { name: 'options', types: ['Option[]'], defaultValue: null },
   { name: 'value', types: ['string[]'], defaultValue: null },
   {
@@ -81,10 +85,10 @@ const options = [
 
 <Autocomplete
   id="autocomplete-basic"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   onChange={setValue}
   options={options}
   value={value}
@@ -102,10 +106,10 @@ const options = [
           <ComponentPreview
             code={`<Autocomplete
   id="autocomplete-required"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required
   onChange={setValue}
   options={options}
   value={value}
@@ -125,10 +129,10 @@ const options = [
 
 <Autocomplete
   id="autocomplete-multiple"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid={false}
+  required={false}
   onChange={setValue}
   options={options}
   value={value}
@@ -146,10 +150,10 @@ const options = [
           <ComponentPreview
             code={`<Autocomplete
   id="autocomplete-disabled"
-  describedbyId={undefined}
-  isDisabled
-  isInvalid={false}
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled
+  invalid={false}
+  required={false}
   onChange={setValue}
   options={options}
   value={['apple']}
@@ -167,10 +171,10 @@ const options = [
           <ComponentPreview
             code={`<Autocomplete
   id="autocomplete-invalid"
-  describedbyId={undefined}
-  isDisabled={false}
-  isInvalid
-  isRequired={false}
+  aria-describedby={undefined}
+  disabled={false}
+  invalid
+  required={false}
   onChange={setValue}
   options={options}
   value={value}
@@ -187,7 +191,10 @@ const options = [
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={autocompleteProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={autocompleteProps}
+        />
       </section>
     </div>
   );

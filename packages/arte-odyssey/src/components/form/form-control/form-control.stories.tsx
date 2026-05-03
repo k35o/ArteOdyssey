@@ -6,11 +6,11 @@ import { FormControl } from './form-control';
 
 type RenderInputProps = {
   id: string;
-  describedbyId: string | undefined;
-  labelId: string;
-  isDisabled: boolean;
-  isInvalid: boolean;
-  isRequired: boolean;
+  'aria-describedby': string | undefined;
+  'aria-labelledby': string;
+  disabled: boolean;
+  invalid: boolean;
+  required: boolean;
 };
 
 const RenderInput = (props: RenderInputProps) => {
@@ -54,7 +54,7 @@ export const Required: Story = {
   args: {
     label: 'メールアドレス',
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
-    isRequired: true,
+    required: true,
   },
 };
 
@@ -62,9 +62,9 @@ export const Error: Story = {
   args: {
     label: 'メールアドレス',
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
-    isInvalid: true,
+    invalid: true,
     errorText: 'メールアドレスが正しくありません。',
-    isRequired: true,
+    required: true,
   },
 };
 
@@ -72,8 +72,8 @@ export const ErrorWithoutText: Story = {
   args: {
     label: 'メールアドレス',
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
-    isInvalid: true,
-    isRequired: true,
+    invalid: true,
+    required: true,
   },
 };
 
@@ -81,7 +81,7 @@ export const Disabled: Story = {
   args: {
     label: 'メールアドレス',
     helpText: 'RFCに準拠したメールアドレスを入力してください。',
-    isDisabled: true,
+    disabled: true,
   },
 };
 

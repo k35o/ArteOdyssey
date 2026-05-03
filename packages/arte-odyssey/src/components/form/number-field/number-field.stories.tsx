@@ -8,7 +8,7 @@ const meta: Meta<typeof NumberField> = {
   component: NumberField,
   args: {
     id: 'textfield',
-    describedbyId: 'numberfield-feedback',
+    'aria-describedby': 'numberfield-feedback',
     defaultValue: 0,
   },
   parameters: {
@@ -29,9 +29,9 @@ type Story = StoryObj<typeof NumberField>;
 
 export const Default: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
   },
   play: async ({ canvas, userEvent }) => {
     const input = canvas.getByRole('spinbutton');
@@ -52,9 +52,9 @@ export const Default: Story = {
 
 export const Min0Max100: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     min: 0,
     max: 100,
   },
@@ -80,9 +80,9 @@ export const Min0Max100: Story = {
 
 export const Precision: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     precision: 2,
     step: 0.01,
   },
@@ -90,25 +90,25 @@ export const Precision: Story = {
 
 export const Placeholder: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: false,
-    isRequired: false,
+    disabled: false,
+    invalid: false,
+    required: false,
     placeholder: '10.2',
   },
 };
 
 export const Invalid: Story = {
   args: {
-    isDisabled: false,
-    isInvalid: true,
-    isRequired: false,
+    disabled: false,
+    invalid: true,
+    required: false,
   },
 };
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
-    isInvalid: false,
-    isRequired: false,
+    disabled: true,
+    invalid: false,
+    required: false,
   },
 };

@@ -35,9 +35,9 @@ const meta: Meta<typeof RadioCard> = {
     ),
   ],
   args: {
-    labelId: 'radio-card-label',
-    isDisabled: false,
-    isInvalid: false,
+    'aria-labelledby': 'radio-card-label',
+    disabled: false,
+    invalid: false,
     options: OPTIONS,
   },
 };
@@ -54,9 +54,9 @@ const DefaultRender = (props: ComponentProps<typeof RadioCard>) => {
         Choose a plan
       </p>
       <RadioCard
-        isDisabled={props.isDisabled}
-        isInvalid={props.isInvalid}
-        labelId={props.labelId}
+        aria-labelledby={props['aria-labelledby']}
+        disabled={props.disabled}
+        invalid={props.invalid}
         onChange={(event) => {
           setValue(event.target.value);
         }}
@@ -81,10 +81,10 @@ export const DefaultValue: Story = {
         Choose a plan
       </p>
       <RadioCard
+        aria-labelledby={props['aria-labelledby']}
         defaultValue={props.defaultValue}
-        isDisabled={props.isDisabled}
-        isInvalid={props.isInvalid}
-        labelId={props.labelId}
+        disabled={props.disabled}
+        invalid={props.invalid}
         options={props.options}
       />
     </div>
@@ -93,7 +93,7 @@ export const DefaultValue: Story = {
 
 export const Disabled: Story = {
   args: {
-    isDisabled: true,
+    disabled: true,
     defaultValue: 'team',
   },
   render: DefaultValue.render,
