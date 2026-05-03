@@ -1,5 +1,5 @@
 ---
-'@k8o/arte-odyssey': major
+'@k8o/arte-odyssey': minor
 ---
 
 `LinkButton` と `IconLink` を廃止し、`Button` / `IconButton` の `renderItem` render prop に統合した。
