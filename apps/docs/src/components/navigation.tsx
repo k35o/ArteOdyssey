@@ -1,11 +1,7 @@
 'use client';
 
 import { useLocation } from '@funstack/router';
-import {
-  DropdownMenu,
-  LinkButton,
-  NavigationMenuIcon,
-} from '@k8o/arte-odyssey';
+import { Button, DropdownMenu, NavigationMenuIcon } from '@k8o/arte-odyssey';
 
 import type { MessageKey } from '../i18n';
 import { localizeHref, useTranslation } from '../i18n';
@@ -53,14 +49,18 @@ export function Navigation() {
             const isActive = location.pathname === href;
             return (
               <li key={item.path}>
-                <LinkButton
+                <Button
                   active={isActive}
-                  href={href}
+                  renderItem={({ className, children }) => (
+                    <a className={className} href={href}>
+                      {children}
+                    </a>
+                  )}
                   size="sm"
                   variant="skeleton"
                 >
                   {t(item.labelKey)}
-                </LinkButton>
+                </Button>
               </li>
             );
           })}

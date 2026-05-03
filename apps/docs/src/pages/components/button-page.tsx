@@ -36,9 +36,20 @@ const buttonProps: PropItem[] = [
     defaultValue: "'button'",
   },
   { name: 'fullWidth', types: ['boolean'], defaultValue: 'false' },
+  { name: 'active', types: ['boolean'], defaultValue: 'false' },
   { name: 'startIcon', types: ['ReactNode'], defaultValue: null },
   { name: 'endIcon', types: ['ReactNode'], defaultValue: null },
   { name: 'disabled', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'onAction',
+    types: ['() => void | Promise<void>'],
+    defaultValue: null,
+  },
+  {
+    name: 'renderItem',
+    types: ['(props: { className, children }) => ReactNode'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 
@@ -180,6 +191,34 @@ export function ButtonPage() {
           </Heading>
           <ComponentPreview code="<Button disabled>Disabled</Button>">
             <Button disabled>Disabled</Button>
+          </ComponentPreview>
+        </div>
+
+        {/* Render as Link */}
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.button.renderItemTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`<Button
+  renderItem={({ className, children }) => (
+    <a className={className} href="https://example.com">
+      {children}
+    </a>
+  )}
+>
+  Visit
+</Button>`}
+          >
+            <Button
+              renderItem={({ className, children }) => (
+                <a className={className} href="https://example.com">
+                  {children}
+                </a>
+              )}
+            >
+              Visit
+            </Button>
           </ComponentPreview>
         </div>
       </section>

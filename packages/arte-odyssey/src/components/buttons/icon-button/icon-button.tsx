@@ -7,7 +7,9 @@ import type {
   HTMLProps,
   MouseEvent,
   MouseEventHandler,
+  ReactNode,
   Ref,
+  RefCallback,
 } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
@@ -16,6 +18,15 @@ import { Tooltip } from '../../overlays/tooltip';
 import { cn } from './../../../helpers/cn';
 import { mergeRefs } from './../../../helpers/merge-refs';
 
+export type IconButtonTriggerProps = {
+  ref?: RefCallback<HTMLElement>;
+  'aria-describedby'?: string;
+  onMouseEnter?: MouseEventHandler<HTMLElement>;
+  onMouseLeave?: MouseEventHandler<HTMLElement>;
+  onFocus?: FocusEventHandler<HTMLElement>;
+  onBlur?: FocusEventHandler<HTMLElement>;
+};
+
 type Props = {
   size?: 'sm' | 'md' | 'lg';
   bg?: 'transparent' | 'base' | 'primary' | 'secondary';
@@ -23,9 +34,15 @@ type Props = {
   tooltipPlacement?: Placement;
   tooltipDisabled?: boolean;
   onAction?: () => void | Promise<void>;
+  renderItem?: (props: {
+    className: string;
+    children: ReactNode;
+    'aria-label': string;
+    triggerProps: IconButtonTriggerProps;
+  }) => ReactNode;
 } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>;
 
-type ButtonTriggerProps = {
+type RawButtonTriggerProps = {
   ref: Ref<HTMLButtonElement>;
   'aria-describedby': string | undefined;
   onMouseEnter: MouseEventHandler<HTMLButtonElement>;
@@ -56,6 +73,7 @@ export const IconButton: FC<Props> = ({
   onFocus,
   onBlur,
   disabled,
+  renderItem,
   'aria-describedby': describedBy,
   ...props
 }) => {
@@ -78,7 +96,7 @@ export const IconButton: FC<Props> = ({
       : undefined;
 
   const className = cn(
-    'inline-flex cursor-pointer rounded-full transition-colors',
+    'inline-flex rounded-full transition-colors',
     'focus-visible:border-transparent focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-border-info',
     (bg === 'transparent' || bg === 'base') &&
       'hover:bg-bg-subtle active:bg-bg-mute',
@@ -91,11 +109,25 @@ export const IconButton: FC<Props> = ({
     size === 'sm' && 'p-1',
     size === 'md' && 'p-2',
     size === 'lg' && 'p-3',
-    isDisabled &&
+    !renderItem && 'cursor-pointer',
+    !renderItem &&
+      isDisabled &&
       'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
   );
 
   if (tooltipDisabled) {
+    if (renderItem) {
+      return (
+        <>
+          {renderItem({
+            className,
+            children,
+            'aria-label': label,
+            triggerProps: {},
+          })}
+        </>
+      );
+    }
     return (
       <button
         {...props}
@@ -121,7 +153,34 @@ export const IconButton: FC<Props> = ({
     <Tooltip.Root placement={tooltipPlacement}>
       <Tooltip.Trigger
         renderItem={(rawTriggerProps) => {
-          const triggerProps = rawTriggerProps as unknown as ButtonTriggerProps;
+          const triggerProps =
+            rawTriggerProps as unknown as RawButtonTriggerProps;
+          if (renderItem) {
+            return (
+              <>
+                {renderItem({
+                  className,
+                  children,
+                  'aria-label': label,
+                  triggerProps: {
+                    ref: triggerProps.ref as RefCallback<HTMLElement>,
+                    'aria-describedby': joinIds(
+                      describedBy,
+                      triggerProps['aria-describedby'],
+                    ),
+                    onMouseEnter:
+                      triggerProps.onMouseEnter as MouseEventHandler<HTMLElement>,
+                    onMouseLeave:
+                      triggerProps.onMouseLeave as MouseEventHandler<HTMLElement>,
+                    onFocus:
+                      triggerProps.onFocus as FocusEventHandler<HTMLElement>,
+                    onBlur:
+                      triggerProps.onBlur as FocusEventHandler<HTMLElement>,
+                  },
+                })}
+              </>
+            );
+          }
           return (
             <button
               {...props}

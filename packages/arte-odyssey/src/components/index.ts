@@ -1,6 +1,5 @@
 export { Button } from './buttons/button';
 export { IconButton } from './buttons/icon-button';
-export { LinkButton } from './buttons/link-button';
 export { Accordion } from './data-display/accordion';
 export { Avatar } from './data-display/avatar';
 export { Badge } from './data-display/badge';
@@ -30,7 +29,6 @@ export { Slider } from './form/slider';
 export { Switch } from './form/switch';
 export { TextField } from './form/text-field';
 export { Textarea } from './form/textarea';
-export { IconLink } from './buttons/icon-link';
 export * from './icons';
 export { ScrollLinked } from './layout/scroll-linked';
 export { Separator } from './layout/separator';
