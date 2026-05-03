@@ -108,7 +108,10 @@ export function ProgressPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={progressProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLDivElement>"
+          items={progressProps}
+        />
       </section>
     </div>
   );

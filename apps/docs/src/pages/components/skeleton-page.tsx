@@ -100,7 +100,10 @@ export function SkeletonPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={skeletonProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLDivElement>"
+          items={skeletonProps}
+        />
       </section>
     </div>
   );

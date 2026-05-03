@@ -89,7 +89,10 @@ export function AnchorPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={anchorProps} />
+        <PropsTable
+          inherits="AnchorHTMLAttributes<HTMLAnchorElement>"
+          items={anchorProps}
+        />
       </section>
     </div>
   );

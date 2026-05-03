@@ -93,7 +93,10 @@ export function CardPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={cardProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLDivElement>"
+          items={cardProps}
+        />
       </section>
     </div>
   );

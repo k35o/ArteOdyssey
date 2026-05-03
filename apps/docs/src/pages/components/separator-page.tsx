@@ -116,7 +116,10 @@ export function SeparatorPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={separatorProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLSpanElement>"
+          items={separatorProps}
+        />
       </section>
     </div>
   );

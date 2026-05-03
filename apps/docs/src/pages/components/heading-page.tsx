@@ -112,7 +112,10 @@ export function HeadingPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={headingProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLHeadingElement>"
+          items={headingProps}
+        />
       </section>
     </div>
   );
