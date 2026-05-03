@@ -8,6 +8,7 @@ import type {
 import {
   type CSSProperties,
   createContext,
+  type FocusEvent,
   type HTMLProps,
   type KeyboardEvent,
   type RefObject,
@@ -172,7 +173,11 @@ export const usePopoverTrigger = (): Omit<
         return {
           onMouseEnter: popover.onOpen,
           onMouseLeave: popover.onClose,
-          onFocus: popover.onOpen,
+          onFocus: (e: FocusEvent<HTMLElement>) => {
+            if (e.target.matches(':focus-visible')) {
+              popover.onOpen();
+            }
+          },
           onBlur: popover.onClose,
           'aria-describedby': popover.isOpen ? listId : undefined,
           ref: popover.setTriggerRef,

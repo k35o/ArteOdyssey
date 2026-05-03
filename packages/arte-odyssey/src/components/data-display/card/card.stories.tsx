@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import { Button } from '../../buttons/button';
-import { LinkButton } from '../../buttons/link-button';
 import { Card } from './card';
 import { InteractiveCard } from './interactive-card';
 
@@ -44,9 +43,16 @@ export const Interactive: Story = {
             カード内にインタラクティブ要素を配置できます。
           </p>
           <nav className="flex gap-2">
-            <LinkButton href="https://example.com" size="sm">
+            <Button
+              renderItem={({ className, children }) => (
+                <a className={className} href="https://example.com">
+                  {children}
+                </a>
+              )}
+              size="sm"
+            >
               詳細を見る
-            </LinkButton>
+            </Button>
             <Button color="gray" size="sm" variant="outlined">
               保存
             </Button>

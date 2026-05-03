@@ -37,6 +37,13 @@ const iconButtonProps: PropItem[] = [
     types: ['() => void | Promise<void>'],
     defaultValue: null,
   },
+  {
+    name: 'renderItem',
+    types: [
+      '(props: { className, children, "aria-label", triggerProps }) => ReactNode',
+    ],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 
@@ -164,6 +171,56 @@ export function IconButtonPage() {
 </IconButton>`}
           >
             <IconButton disabled label="Close">
+              <CloseIcon size="sm" />
+            </IconButton>
+          </ComponentPreview>
+        </div>
+
+        {/* Render as Link */}
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.iconButton.renderItemTitle" />
+          </Heading>
+          <ComponentPreview
+            code={`<IconButton
+  label="Close"
+  renderItem={({
+    className,
+    children,
+    'aria-label': ariaLabel,
+    triggerProps,
+  }) => (
+    <a
+      aria-label={ariaLabel}
+      className={className}
+      href="https://example.com"
+      {...triggerProps}
+    >
+      {children}
+    </a>
+  )}
+>
+  <CloseIcon size="sm" />
+</IconButton>`}
+          >
+            <IconButton
+              label="Close"
+              renderItem={({
+                className,
+                children,
+                'aria-label': ariaLabel,
+                triggerProps,
+              }) => (
+                <a
+                  aria-label={ariaLabel}
+                  className={className}
+                  href="https://example.com"
+                  {...triggerProps}
+                >
+                  {children}
+                </a>
+              )}
+            >
               <CloseIcon size="sm" />
             </IconButton>
           </ComponentPreview>

@@ -4,11 +4,11 @@ import {
   AccessibilityIcon,
   AtomIcon,
   BlogIcon,
+  Button,
   Card,
   DarkModeIcon,
   GitHubIcon,
   Heading,
-  LinkButton,
   PaletteIcon,
   Separator,
   ShieldCheckIcon,
@@ -86,25 +86,41 @@ export function Home() {
       </div>
       <Separator color="mute" />
       <div className="flex gap-6">
-        <LinkButton
+        <Button
           color="gray"
-          href="https://github.com/k35o/ArteOdyssey"
-          openInNewTab
+          renderItem={({ className, children }) => (
+            <a
+              className={className}
+              href="https://github.com/k35o/ArteOdyssey"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {children}
+            </a>
+          )}
           size="md"
           startIcon={<GitHubIcon />}
           variant="outlined"
         >
           {t('home.github')}
-        </LinkButton>
-        <LinkButton
-          href={STORYBOOK_URL}
-          openInNewTab
+        </Button>
+        <Button
+          renderItem={({ className, children }) => (
+            <a
+              className={className}
+              href={STORYBOOK_URL}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {children}
+            </a>
+          )}
           size="md"
           startIcon={<BlogIcon />}
           variant="contained"
         >
           {t('home.storybook')}
-        </LinkButton>
+        </Button>
       </div>
       <div className="flex w-full max-w-4xl flex-col gap-6">
         <Heading type="h2">{t('home.featuresTitle')}</Heading>
