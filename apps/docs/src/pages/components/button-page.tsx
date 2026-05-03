@@ -229,7 +229,10 @@ export function ButtonPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={buttonProps} />
+        <PropsTable
+          inherits="ButtonHTMLAttributes<HTMLButtonElement>"
+          items={buttonProps}
+        />
       </section>
     </div>
   );
