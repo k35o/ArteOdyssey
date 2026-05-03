@@ -211,7 +211,10 @@ export function SelectPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={selectProps} />
+        <PropsTable
+          inherits="SelectHTMLAttributes<HTMLSelectElement>"
+          items={selectProps}
+        />
       </section>
     </div>
   );

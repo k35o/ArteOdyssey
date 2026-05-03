@@ -1,6 +1,11 @@
 'use client';
 
-import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
+import type {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  HTMLAttributes,
+} from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -12,7 +17,10 @@ type BaseProps = {
   name?: string;
   disabled?: boolean;
   options: readonly Option[];
-};
+} & Omit<
+  HTMLAttributes<HTMLDivElement>,
+  'role' | 'className' | 'children' | 'aria-labelledby' | 'onChange'
+>;
 
 type ControlledProps = {
   value: string;
@@ -36,6 +44,7 @@ export const Radio: FC<Props> = ({
   defaultValue,
   onChange,
   options,
+  ...rest
 }) => {
   const [internalValue, setInternalValue] = useState(defaultValue);
   const { pending } = useFormStatus();
@@ -54,6 +63,7 @@ export const Radio: FC<Props> = ({
 
   return (
     <div
+      {...rest}
       aria-labelledby={labelledbyId}
       className={cn(
         'flex cursor-pointer flex-col gap-2',

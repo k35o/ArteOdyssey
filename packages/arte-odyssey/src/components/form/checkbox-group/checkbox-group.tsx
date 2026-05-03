@@ -3,6 +3,7 @@
 import {
   createContext,
   type FC,
+  type FieldsetHTMLAttributes,
   type PropsWithChildren,
   use,
   useCallback,
@@ -25,14 +26,16 @@ const CheckboxGroupContext = createContext<
 
 export const useCheckboxGroupContext = () => use(CheckboxGroupContext);
 
-type RootBaseProps = PropsWithChildren<{
-  'aria-describedby'?: string;
-  'aria-labelledby'?: string;
-  disabled?: boolean;
-  invalid?: boolean;
-  required?: boolean;
-  name: string;
-}>;
+type RootBaseProps = PropsWithChildren<
+  {
+    invalid?: boolean;
+    required?: boolean;
+    name: string;
+  } & Omit<
+    FieldsetHTMLAttributes<HTMLFieldSetElement>,
+    'className' | 'onChange' | 'defaultValue' | 'name'
+  >
+>;
 
 type RootControlledProps = {
   value: string[];
@@ -50,8 +53,6 @@ type RootProps = RootBaseProps & (RootControlledProps | RootUncontrolledProps);
 
 const Root: FC<RootProps> = ({
   children,
-  'aria-describedby': describedbyId,
-  'aria-labelledby': labelledbyId,
   defaultValue,
   disabled = false,
   invalid = false,
@@ -59,6 +60,7 @@ const Root: FC<RootProps> = ({
   name,
   onChange,
   value,
+  ...rest
 }) => {
   const [currentValue, setCurrentValue] = useControllableState({
     value,
@@ -90,9 +92,8 @@ const Root: FC<RootProps> = ({
 
   return (
     <fieldset
-      aria-describedby={describedbyId}
+      {...rest}
       aria-invalid={invalid}
-      aria-labelledby={labelledbyId}
       className={cn('flex flex-col gap-2', disabled && 'cursor-not-allowed')}
     >
       <CheckboxGroupContext value={contextValue}>

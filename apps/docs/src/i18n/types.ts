@@ -61,6 +61,7 @@ export const MESSAGE_KEYS = [
   'components.common.importTitle',
   'components.common.usageTitle',
   'components.common.propsTitle',
+  'components.common.inheritsLabel',
   'components.button.description',
   'components.button.variantsTitle',
   'components.button.colorsTitle',

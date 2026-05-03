@@ -169,7 +169,10 @@ const [value, setValue] = useState(['comments']);
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={checkboxCardProps} />
+        <PropsTable
+          inherits="FieldsetHTMLAttributes<HTMLFieldSetElement>"
+          items={checkboxCardProps}
+        />
       </section>
     </div>
   );

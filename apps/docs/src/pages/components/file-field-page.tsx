@@ -174,7 +174,10 @@ export function FileFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={fileFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={fileFieldProps}
+        />
       </section>
     </div>
   );

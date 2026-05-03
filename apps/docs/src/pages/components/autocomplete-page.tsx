@@ -191,7 +191,10 @@ const options = [
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={autocompleteProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={autocompleteProps}
+        />
       </section>
     </div>
   );

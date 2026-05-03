@@ -130,7 +130,10 @@ export function PasswordInputPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={passwordInputProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={passwordInputProps}
+        />
       </section>
     </div>
   );

@@ -4,6 +4,7 @@ import type {
   ChangeEvent,
   ChangeEventHandler,
   FC,
+  InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
 } from 'react';
@@ -48,33 +49,30 @@ const useFileFieldContext = (): FileFieldContext => {
   return fileField;
 };
 
+type RootProps = PropsWithChildren<
+  {
+    invalid?: boolean;
+    maxFiles?: number;
+    defaultValue?: File[];
+    onChange?: ChangeEventHandler<HTMLInputElement>;
+    webkitDirectory?: boolean;
+  } & Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    'type' | 'className' | 'onChange' | 'defaultValue' | 'value' | 'children'
+  >
+>;
+
 const Root = ({
   children,
-  id,
-  name,
-  'aria-describedby': describedbyId,
   disabled = false,
   invalid = false,
   required = false,
-  accept,
   multiple = false,
   maxFiles,
   onChange,
   webkitDirectory = false,
-}: PropsWithChildren<{
-  id?: string;
-  name?: string;
-  'aria-describedby'?: string;
-  disabled?: boolean;
-  invalid?: boolean;
-  required?: boolean;
-  accept?: string;
-  multiple?: boolean;
-  maxFiles?: number;
-  defaultValue?: File[];
-  onChange?: ChangeEventHandler<HTMLInputElement>;
-  webkitDirectory?: boolean;
-}>) => {
+  ...rest
+}: RootProps) => {
   const generatedId = useId();
   const inputRef = useRef<HTMLInputElement>(null);
   const { pending } = useFormStatus();
@@ -143,14 +141,12 @@ const Root = ({
     <FileFieldProvider value={contextValue}>
       <div className="w-full">
         <input
-          accept={accept}
-          aria-describedby={describedbyId}
+          {...rest}
           aria-invalid={invalid}
           className="sr-only"
           disabled={disabledResolved}
-          id={id ?? generatedId}
+          id={rest.id ?? generatedId}
           multiple={multiple}
-          name={name}
           onChange={onFilesChange}
           ref={inputRef}
           required={required}

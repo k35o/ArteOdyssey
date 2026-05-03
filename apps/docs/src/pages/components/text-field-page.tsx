@@ -143,7 +143,10 @@ export function TextFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={textFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={textFieldProps}
+        />
       </section>
     </div>
   );

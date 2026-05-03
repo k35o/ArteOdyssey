@@ -163,7 +163,10 @@ export function NumberFieldPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={numberFieldProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={numberFieldProps}
+        />
       </section>
     </div>
   );

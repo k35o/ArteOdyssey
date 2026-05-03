@@ -1,22 +1,28 @@
 'use client';
 
-import type { CSSProperties, FC } from 'react';
+import type { CSSProperties, FC, InputHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 import { useControllableState } from '../../../hooks/controllable-state';
 
 type BaseProps = {
-  id?: string;
-  name?: string;
-  'aria-describedby'?: string;
   invalid?: boolean;
-  disabled?: boolean;
-  required?: boolean;
   step?: number;
   max?: number;
   min?: number;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultValue'
+  | 'children'
+  | 'step'
+  | 'max'
+  | 'min'
+>;
 
 type ControlledProps = {
   value: number;
@@ -33,9 +39,6 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const Slider: FC<Props> = ({
-  id,
-  name,
-  'aria-describedby': describedbyId,
   invalid = false,
   disabled = false,
   required = false,
@@ -45,6 +48,7 @@ export const Slider: FC<Props> = ({
   step = 1,
   max = 100,
   min = 0,
+  ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
     value,
@@ -72,7 +76,7 @@ export const Slider: FC<Props> = ({
       style={style}
     >
       <input
-        aria-describedby={describedbyId}
+        {...rest}
         aria-invalid={invalid}
         aria-valuemax={max}
         aria-valuemin={min}
@@ -92,10 +96,8 @@ export const Slider: FC<Props> = ({
             '[&::-moz-range-thumb]:border-border-error [&::-webkit-slider-thumb]:border-border-error [&:focus-visible::-moz-range-thumb]:ring-border-error [&:focus-visible::-webkit-slider-thumb]:ring-border-error',
         )}
         disabled={disabledResolved}
-        id={id}
         max={max}
         min={min}
-        name={name}
         onChange={(event) => {
           handleChange(Number(event.target.value));
         }}

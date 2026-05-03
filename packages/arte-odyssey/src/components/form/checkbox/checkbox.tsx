@@ -1,6 +1,11 @@
 'use client';
 
-import type { ChangeEvent, ChangeEventHandler, FC } from 'react';
+import type {
+  ChangeEvent,
+  ChangeEventHandler,
+  FC,
+  InputHTMLAttributes,
+} from 'react';
 import { useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
@@ -9,11 +14,18 @@ import { useCheckboxGroupContext } from '../checkbox-group/checkbox-group';
 import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
-  name?: string;
   itemValue?: string;
-  disabled?: boolean;
   label: string;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultChecked'
+  | 'checked'
+  | 'children'
+>;
 
 type ControlledProps = {
   value: boolean;
@@ -37,6 +49,7 @@ export const Checkbox: FC<Props> = ({
   value,
   defaultChecked,
   onChange,
+  ...rest
 }) => {
   const groupContext = useCheckboxGroupContext();
   const { pending } = useFormStatus();
@@ -75,6 +88,7 @@ export const Checkbox: FC<Props> = ({
       )}
     >
       <input
+        {...rest}
         {...(groupContext || isControlled
           ? { checked: groupContext ? checked : value }
           : { defaultChecked })}

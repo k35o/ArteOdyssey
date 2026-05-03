@@ -14,14 +14,17 @@ Form 系コンポーネントのカスタム命名 (`isXxx` / `describedbyId` / 
 
 ### HTMLAttributes spread
 
-以下のコンポーネントは対応する `HTMLAttributes<...>` を extend するようになり、HTML 属性 (`name` / `autoComplete` / `inputMode` / `pattern` / `data-*` / `placeholder` etc.) がそのまま渡せる:
+すべての form 系コンポーネントが対応する `HTMLAttributes` を extend するようになり、HTML 属性 (`name` / `autoComplete` / `inputMode` / `pattern` / `data-*` / `placeholder` etc.) がそのまま渡せる。各コンポーネントが描画する主要な要素に対応する型を選択:
 
-- `TextField` (`InputHTMLAttributes<HTMLInputElement>`)
-- `Textarea` (`TextareaHTMLAttributes<HTMLTextAreaElement>`)
-- `Select` (`SelectHTMLAttributes<HTMLSelectElement>`)
-- `PasswordInput` (`InputHTMLAttributes<HTMLInputElement>`)
+| Component | extend する型 |
+|---|---|
+| `TextField` / `PasswordInput` / `Checkbox` / `Switch` / `Slider` / `NumberField` / `Autocomplete` / `FileField.Root` | `InputHTMLAttributes<HTMLInputElement>` |
+| `Textarea` | `TextareaHTMLAttributes<HTMLTextAreaElement>` |
+| `Select` | `SelectHTMLAttributes<HTMLSelectElement>` |
+| `Radio` | `HTMLAttributes<HTMLDivElement>` (radiogroup wrapper) |
+| `RadioCard` / `CheckboxCard` / `CheckboxGroup` | `FieldsetHTMLAttributes<HTMLFieldSetElement>` |
 
-`Checkbox` / `Radio` / `Switch` / `Slider` / `NumberField` / `Autocomplete` / `FileField` / `CheckboxCard` / `RadioCard` / `CheckboxGroup` は独自の controlled API があるため一律 spread はしないが、prop 名は HTML 標準に揃えた。
+機能を乱す attrs（独自 controlled API の `value` / `onChange` / `defaultValue` / `defaultChecked`、内部で固定する `type` / `role` / `className` 等）は `Omit` で除外。
 
 ### Newly accepted attrs
 

@@ -159,13 +159,19 @@ export function CheckboxPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={checkboxProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={checkboxProps}
+        />
       </section>
       <Separator color="mute" />
 
       <section className="flex flex-col gap-4">
         <Heading type="h2">CheckboxGroup Props</Heading>
-        <PropsTable items={checkboxGroupProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={checkboxGroupProps}
+        />
       </section>
     </div>
   );

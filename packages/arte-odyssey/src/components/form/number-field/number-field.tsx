@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useState } from 'react';
+import { type FC, type InputHTMLAttributes, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { ChevronIcon } from '../../icons';
@@ -8,19 +8,25 @@ import { cn } from './../../../helpers/cn';
 import { between, cast, toPrecision } from './../../../helpers/number';
 
 type BaseProps = {
-  id?: string;
-  name?: string;
-  'aria-describedby'?: string | undefined;
-  'aria-labelledby'?: string;
   invalid?: boolean;
-  disabled?: boolean;
-  required?: boolean;
-  step?: number;
   precision?: number;
-  max?: number;
-  min?: number;
-  placeholder?: string;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'role'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultValue'
+  | 'children'
+  | 'step'
+  | 'min'
+  | 'max'
+> & {
+    step?: number;
+    min?: number;
+    max?: number;
+  };
 
 type ControlledProps = {
   value: number;
@@ -37,10 +43,6 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const NumberField: FC<Props> = ({
-  id,
-  name,
-  'aria-describedby': describedbyId,
-  'aria-labelledby': labelledbyId,
   invalid = false,
   disabled = false,
   required = false,
@@ -51,7 +53,7 @@ export const NumberField: FC<Props> = ({
   precision = 0,
   max = 9_007_199_254_740_991,
   min = -9_007_199_254_740_991,
-  placeholder,
+  ...rest
 }) => {
   const isControlled = value !== undefined;
   const initialValue = defaultValue ?? value ?? 0;
@@ -87,24 +89,21 @@ export const NumberField: FC<Props> = ({
       )}
     >
       <input
-        aria-describedby={describedbyId}
+        autoComplete="off"
+        autoCorrect="off"
+        inputMode="decimal"
+        {...rest}
         aria-invalid={invalid}
-        aria-labelledby={labelledbyId}
         aria-required={required}
         aria-valuemax={max}
         aria-valuemin={min}
         aria-valuenow={currentValue}
-        autoComplete="off"
-        autoCorrect="off"
         className={cn(
           'grow bg-transparent pr-8 pl-3 focus-visible:outline-hidden size-full',
           'disabled:cursor-not-allowed',
           'read-only:cursor-not-allowed',
         )}
         disabled={disabled}
-        id={id}
-        inputMode="decimal"
-        name={name}
         readOnly={pending || undefined}
         onBlur={() => {
           const newValue = between(cast(displayValue, precision), min, max);
@@ -141,7 +140,6 @@ export const NumberField: FC<Props> = ({
           }
         }}
         pattern="[0-9]*(.[0-9]+)?"
-        placeholder={placeholder}
         role="spinbutton"
         type="text"
         value={displayValue}

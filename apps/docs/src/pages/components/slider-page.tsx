@@ -138,7 +138,10 @@ export function SliderPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={sliderProps} />
+        <PropsTable
+          inherits="InputHTMLAttributes<HTMLInputElement>"
+          items={sliderProps}
+        />
       </section>
     </div>
   );

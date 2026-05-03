@@ -1,6 +1,13 @@
 'use client';
 
-import { type FC, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  type FC,
+  type InputHTMLAttributes,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { useControllableState } from '../../../hooks/controllable-state';
@@ -12,13 +19,23 @@ import { cn } from './../../../helpers/cn';
 
 type BaseProps = {
   id: string;
-  name?: string;
-  'aria-describedby'?: string;
   invalid?: boolean;
-  disabled?: boolean;
-  required?: boolean;
   options: readonly Option[];
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'role'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultValue'
+  | 'children'
+  | 'id'
+  | 'autoComplete'
+  | 'aria-autocomplete'
+  | 'aria-controls'
+  | 'aria-expanded'
+>;
 
 type ControlledProps = {
   value: string[];
@@ -37,7 +54,6 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Autocomplete: FC<Props> = ({
   id,
   name,
-  'aria-describedby': describedbyId,
   invalid = false,
   disabled = false,
   required = false,
@@ -45,6 +61,7 @@ export const Autocomplete: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ...rest
 }) => {
   const [currentValue, handleChange] = useControllableState({
     value,
@@ -132,9 +149,9 @@ export const Autocomplete: FC<Props> = ({
             );
           })}
           <input
+            {...rest}
             aria-autocomplete="list"
             aria-controls={open ? `${id}_listbox` : undefined}
-            aria-describedby={describedbyId}
             aria-expanded={open}
             aria-invalid={invalid}
             aria-required={required}

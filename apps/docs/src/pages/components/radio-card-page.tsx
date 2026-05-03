@@ -145,7 +145,10 @@ const [value, setValue] = useState('pro');
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={radioCardProps} />
+        <PropsTable
+          inherits="FieldsetHTMLAttributes<HTMLFieldSetElement>"
+          items={radioCardProps}
+        />
       </section>
     </div>
   );

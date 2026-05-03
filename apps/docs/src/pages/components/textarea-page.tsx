@@ -206,7 +206,10 @@ export function TextareaPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={textareaProps} />
+        <PropsTable
+          inherits="TextareaHTMLAttributes<HTMLTextAreaElement>"
+          items={textareaProps}
+        />
       </section>
     </div>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import type { FC, ReactNode } from 'react';
+import type { FC, FieldsetHTMLAttributes, ReactNode } from 'react';
 import { useId, useState } from 'react';
 
 import { cn } from '../../../helpers/cn';
@@ -15,12 +15,12 @@ export type CheckboxCardOption = Readonly<{
 }>;
 
 type BaseProps = {
-  'aria-labelledby'?: string;
-  name?: string;
-  disabled?: boolean;
   invalid?: boolean;
   options: readonly CheckboxCardOption[];
-};
+} & Omit<
+  FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  'className' | 'children' | 'onChange' | 'defaultValue'
+>;
 
 type ControlledProps = {
   value: string[];
@@ -37,7 +37,6 @@ type UncontrolledProps = {
 type Props = BaseProps & (ControlledProps | UncontrolledProps);
 
 export const CheckboxCard: FC<Props> = ({
-  'aria-labelledby': labelledbyId,
   name,
   disabled = false,
   invalid = false,
@@ -45,6 +44,7 @@ export const CheckboxCard: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ...rest
 }) => {
   const groupId = useId();
   const [internalValue, setInternalValue] = useState(defaultValue ?? []);
@@ -64,7 +64,7 @@ export const CheckboxCard: FC<Props> = ({
 
   return (
     <fieldset
-      aria-labelledby={labelledbyId}
+      {...rest}
       className={cn(
         'm-0 w-full min-w-0 border-0 p-0',
         'grid gap-3',

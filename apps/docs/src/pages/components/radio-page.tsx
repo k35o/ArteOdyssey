@@ -149,7 +149,10 @@ const options = [
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={radioProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLDivElement>"
+          items={radioProps}
+        />
       </section>
     </div>
   );

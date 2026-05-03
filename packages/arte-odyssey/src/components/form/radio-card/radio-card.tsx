@@ -4,6 +4,7 @@ import type {
   ChangeEvent,
   ChangeEventHandler,
   FC,
+  FieldsetHTMLAttributes,
   KeyboardEvent,
   ReactNode,
 } from 'react';
@@ -21,11 +22,12 @@ export type RadioCardOption = Readonly<{
 
 type BaseProps = {
   'aria-labelledby': string;
-  name?: string;
-  disabled?: boolean;
   invalid?: boolean;
   options: readonly RadioCardOption[];
-};
+} & Omit<
+  FieldsetHTMLAttributes<HTMLFieldSetElement>,
+  'className' | 'children' | 'onChange' | 'defaultValue' | 'aria-labelledby'
+>;
 
 type ControlledProps = {
   value: string;
@@ -50,6 +52,7 @@ export const RadioCard: FC<Props> = ({
   value,
   defaultValue,
   onChange,
+  ...rest
 }) => {
   const groupId = useId();
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -85,6 +88,7 @@ export const RadioCard: FC<Props> = ({
 
   return (
     <fieldset
+      {...rest}
       aria-labelledby={labelledbyId}
       className={cn(
         'm-0 w-full min-w-0 border-0 p-0',

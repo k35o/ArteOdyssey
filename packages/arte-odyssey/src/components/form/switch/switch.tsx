@@ -1,20 +1,25 @@
 'use client';
 
-import type { ChangeEventHandler, FC } from 'react';
+import type { ChangeEventHandler, FC, InputHTMLAttributes } from 'react';
 import { useId, useState } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { cn } from '../../../helpers/cn';
 
 type BaseProps = {
-  id?: string;
-  name?: string;
-  'aria-describedby'?: string;
-  disabled?: boolean;
   invalid?: boolean;
-  required?: boolean;
   label: string;
-};
+} & Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  | 'type'
+  | 'role'
+  | 'className'
+  | 'value'
+  | 'onChange'
+  | 'defaultChecked'
+  | 'checked'
+  | 'children'
+>;
 
 type ControlledProps = {
   value: boolean;
@@ -33,14 +38,13 @@ type Props = BaseProps & (ControlledProps | UncontrolledProps);
 export const Switch: FC<Props> = ({
   value,
   defaultChecked,
-  'aria-describedby': describedbyId,
   id,
   disabled = false,
   invalid = false,
   required = false,
   label,
-  name,
   onChange,
+  ...rest
 }) => {
   const generatedId = useId();
   const inputId = id ?? generatedId;
@@ -63,15 +67,14 @@ export const Switch: FC<Props> = ({
     >
       <span className="relative inline-flex shrink-0">
         <input
+          {...rest}
           aria-checked={isSelected}
-          aria-describedby={describedbyId}
           aria-invalid={invalid}
           aria-required={required}
           {...(isControlled ? { checked: value } : { defaultChecked })}
           className="peer sr-only"
           disabled={disabledResolved}
           id={inputId}
-          name={name}
           onChange={(event) => {
             if (!isControlled) {
               setInternalChecked(event.target.checked);

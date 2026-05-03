@@ -71,6 +71,8 @@ export const en = {
   'components.common.importTitle': 'Import',
   'components.common.usageTitle': 'Usage',
   'components.common.propsTitle': 'Props',
+  'components.common.inheritsLabel':
+    'In addition, the following HTML attributes can be passed:',
   'components.button.description':
     'A button component that triggers user actions.',
   'components.button.variantsTitle': 'Variants',
