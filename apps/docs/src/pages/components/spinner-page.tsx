@@ -73,7 +73,10 @@ export function SpinnerPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={spinnerProps} />
+        <PropsTable
+          inherits="OutputHTMLAttributes<HTMLOutputElement>"
+          items={spinnerProps}
+        />
       </section>
     </div>
   );

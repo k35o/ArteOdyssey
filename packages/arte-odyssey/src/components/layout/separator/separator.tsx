@@ -1,14 +1,25 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from './../../../helpers/cn';
 
-export const Separator: FC<{
+type Props = {
   orientation?: 'horizontal' | 'vertical';
   color?: 'base' | 'mute' | 'subtle';
-}> = ({ orientation = 'horizontal', color = 'base' }) => {
+} & Omit<
+  HTMLAttributes<HTMLSpanElement>,
+  'children' | 'role' | 'aria-orientation'
+>;
+
+export const Separator: FC<Props> = ({
+  orientation = 'horizontal',
+  color = 'base',
+  className,
+  ...rest
+}) => {
   const isVertical = orientation === 'vertical';
   return (
     <span
+      {...rest}
       aria-orientation={orientation}
       className={cn(
         'block',
@@ -19,6 +30,7 @@ export const Separator: FC<{
         color === 'base' && 'bg-border-base',
         color === 'mute' && 'bg-border-mute',
         color === 'subtle' && 'bg-border-subtle',
+        className,
       )}
       role="separator"
     />

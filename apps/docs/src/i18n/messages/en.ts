@@ -72,7 +72,7 @@ export const en = {
   'components.common.usageTitle': 'Usage',
   'components.common.propsTitle': 'Props',
   'components.common.inheritsLabel':
-    'In addition, the following HTML attributes can be passed:',
+    'Type base (some attrs are managed internally):',
   'components.button.description':
     'A button component that triggers user actions.',
   'components.button.variantsTitle': 'Variants',
@@ -89,6 +89,9 @@ export const en = {
   'components.iconButton.renderItemTitle': 'Render as Link',
   'components.anchor.description': 'A text link component.',
   'components.anchor.openInNewTabTitle': 'Open in New Tab',
+  'components.anchor.renderAnchorTitle': 'Swap element via render prop',
+  'components.anchor.renderAnchorDescription':
+    'Pass renderAnchor to swap the element to a framework-specific anchor (e.g. Next.js Link, react-router Link). Spread all received props onto the replacement element.',
   'components.textField.description': 'A text input field.',
   'components.textField.placeholderTitle': 'Placeholder',
   'components.textField.disabledTitle': 'Disabled',

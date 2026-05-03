@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { AlertIcon } from '../../icons';
 import { cn } from './../../../helpers/cn';
@@ -7,7 +7,7 @@ import type { Status } from './../../../types/variables';
 type Props = {
   status: Status;
   message: string | string[];
-};
+} & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'role'>;
 
 const STATUS_LABEL = {
   success: '成功',
@@ -16,14 +16,16 @@ const STATUS_LABEL = {
   error: 'エラー',
 } as const satisfies Record<Status, string>;
 
-export const Alert: FC<Props> = ({ status, message }) => (
+export const Alert: FC<Props> = ({ status, message, className, ...rest }) => (
   <div
+    {...rest}
     className={cn(
       'flex items-center gap-3 rounded-lg p-4',
       status === 'success' && 'bg-bg-success',
       status === 'info' && 'bg-bg-info',
       status === 'warning' && 'bg-bg-warning',
       status === 'error' && 'bg-bg-error',
+      className,
     )}
     role={status === 'error' || status === 'warning' ? 'alert' : 'status'}
   >

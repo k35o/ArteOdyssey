@@ -13,6 +13,7 @@ import type { PropItem } from '../../components/props-table';
 import { PropsTable } from '../../components/props-table';
 import { T } from '../../components/t';
 import { STORYBOOK_URL } from '../../constants';
+import { ButtonAsLinkPreview } from './_previews/button-previews';
 
 const buttonProps: PropItem[] = [
   {
@@ -210,15 +211,7 @@ export function ButtonPage() {
   Visit
 </Button>`}
           >
-            <Button
-              renderItem={({ className, children }) => (
-                <a className={className} href="https://example.com">
-                  {children}
-                </a>
-              )}
-            >
-              Visit
-            </Button>
+            <ButtonAsLinkPreview />
           </ComponentPreview>
         </div>
       </section>
@@ -229,7 +222,10 @@ export function ButtonPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={buttonProps} />
+        <PropsTable
+          inherits="ButtonHTMLAttributes<HTMLButtonElement>"
+          items={buttonProps}
+        />
       </section>
     </div>
   );

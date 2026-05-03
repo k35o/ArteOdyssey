@@ -1,15 +1,24 @@
-import { type FC, Fragment } from 'react';
+import { type FC, Fragment, type HTMLAttributes } from 'react';
 
+import { cn } from './../../../helpers/cn';
 import { findAllColors } from './../../../helpers/color/find-all-colors';
 
-export const Code: FC<{
+type Props = {
   children: string;
-}> = ({ children }) => {
+} & Omit<HTMLAttributes<HTMLElement>, 'children'>;
+
+export const Code: FC<Props> = ({ children, className, ...rest }) => {
   const colors = findAllColors(children);
 
   if (colors.length === 0) {
     return (
-      <code className="bg-bg-mute m-0.5 rounded-md px-1.5 sm:py-0.5">
+      <code
+        {...rest}
+        className={cn(
+          'bg-bg-mute m-0.5 rounded-md px-1.5 sm:py-0.5',
+          className,
+        )}
+      >
         {children}
       </code>
     );
@@ -47,7 +56,13 @@ export const Code: FC<{
   }
 
   return (
-    <code className="bg-bg-mute m-0.5 inline-flex items-center gap-1 rounded-md px-1.5 sm:py-0.5">
+    <code
+      {...rest}
+      className={cn(
+        'bg-bg-mute m-0.5 inline-flex items-center gap-1 rounded-md px-1.5 sm:py-0.5',
+        className,
+      )}
+    >
       {parts}
     </code>
   );

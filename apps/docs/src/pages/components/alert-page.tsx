@@ -117,7 +117,10 @@ export function AlertPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={alertProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLDivElement>"
+          items={alertProps}
+        />
       </section>
     </div>
   );

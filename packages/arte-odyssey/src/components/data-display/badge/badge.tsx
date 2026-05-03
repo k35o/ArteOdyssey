@@ -1,4 +1,4 @@
-import type { FC } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 
 import { cn } from '../../../helpers/cn';
 
@@ -8,7 +8,7 @@ type Props = {
   interactive?: boolean;
   tone?: 'neutral' | 'info' | 'success' | 'warning' | 'error';
   variant?: 'solid' | 'outline';
-};
+} & Omit<HTMLAttributes<HTMLElement>, 'children'>;
 
 export const Badge: FC<Props> = ({
   interactive = false,
@@ -16,6 +16,8 @@ export const Badge: FC<Props> = ({
   text,
   tone = 'neutral',
   variant = 'solid',
+  className,
+  ...rest
 }) => {
   const interactiveClassName = cn(
     interactive &&
@@ -101,11 +103,15 @@ export const Badge: FC<Props> = ({
 
   if (interactive) {
     return (
-      <button className={badgeClassName} type="button">
+      <button {...rest} className={cn(badgeClassName, className)} type="button">
         {text}
       </button>
     );
   }
 
-  return <span className={badgeClassName}>{text}</span>;
+  return (
+    <span {...rest} className={cn(badgeClassName, className)}>
+      {text}
+    </span>
+  );
 };

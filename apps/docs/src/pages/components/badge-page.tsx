@@ -150,7 +150,7 @@ export function BadgePage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={badgeProps} />
+        <PropsTable inherits="HTMLAttributes<HTMLElement>" items={badgeProps} />
       </section>
     </div>
   );

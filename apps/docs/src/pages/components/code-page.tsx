@@ -81,7 +81,7 @@ export function CodePage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={codeProps} />
+        <PropsTable inherits="HTMLAttributes<HTMLElement>" items={codeProps} />
       </section>
     </div>
   );

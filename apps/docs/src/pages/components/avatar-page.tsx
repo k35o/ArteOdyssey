@@ -93,7 +93,10 @@ export function AvatarPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={avatarProps} />
+        <PropsTable
+          inherits="HTMLAttributes<HTMLSpanElement>"
+          items={avatarProps}
+        />
       </section>
     </div>
   );

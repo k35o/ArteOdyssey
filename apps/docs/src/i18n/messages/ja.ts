@@ -71,7 +71,7 @@ export const ja = {
   'components.common.usageTitle': '使い方',
   'components.common.propsTitle': 'Props',
   'components.common.inheritsLabel':
-    'これらに加えて、以下の HTML 属性を渡せます:',
+    '型ベース（内部で固定する一部 attrs は除外）:',
   'components.button.description':
     'ユーザーのアクションを受け付けるボタンコンポーネントです。',
   'components.button.variantsTitle': 'バリアント',
@@ -89,6 +89,9 @@ export const ja = {
   'components.iconButton.renderItemTitle': 'リンクとしてレンダリング',
   'components.anchor.description': 'テキストリンクコンポーネントです。',
   'components.anchor.openInNewTabTitle': '新しいタブで開く',
+  'components.anchor.renderAnchorTitle': 'render prop で要素差し替え',
+  'components.anchor.renderAnchorDescription':
+    'Next.js の Link や react-router の Link など、フレームワーク固有の anchor コンポーネントに差し替えるには renderAnchor を渡してください。受け取った props はすべて差し替え後の要素にスプレッドしてください。',
   'components.textField.description': 'テキスト入力フィールドです。',
   'components.textField.placeholderTitle': 'プレースホルダー',
   'components.textField.disabledTitle': '無効',

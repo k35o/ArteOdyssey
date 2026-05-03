@@ -10,6 +10,11 @@ import { STORYBOOK_URL } from '../../constants';
 const anchorProps: PropItem[] = [
   { name: 'href', types: ['string'], defaultValue: null },
   { name: 'openInNewTab', types: ['boolean'], defaultValue: 'false' },
+  {
+    name: 'renderAnchor',
+    types: ['(props) => ReactNode'],
+    defaultValue: null,
+  },
   { name: 'children', types: ['ReactNode'], defaultValue: null },
 ];
 
@@ -81,6 +86,30 @@ export function AnchorPage() {
             </Anchor>
           </ComponentPreview>
         </div>
+
+        {/* renderAnchor */}
+        <div className="flex flex-col gap-4">
+          <Heading type="h3">
+            <T k="components.anchor.renderAnchorTitle" />
+          </Heading>
+          <p className="text-fg-mute text-sm">
+            <T k="components.anchor.renderAnchorDescription" />
+          </p>
+          <CodeBlock
+            code={`// Next.js の Link で差し替え
+import Link from 'next/link';
+
+<Anchor
+  href="/about"
+  renderAnchor={({ children, ...rest }) => (
+    <Link {...rest}>{children}</Link>
+  )}
+>
+  About
+</Anchor>`}
+            lang="tsx"
+          />
+        </div>
       </section>
       <Separator color="mute" />
 
@@ -89,7 +118,10 @@ export function AnchorPage() {
         <Heading type="h2">
           <T k="components.common.propsTitle" />
         </Heading>
-        <PropsTable items={anchorProps} />
+        <PropsTable
+          inherits="AnchorHTMLAttributes<HTMLAnchorElement>"
+          items={anchorProps}
+        />
       </section>
     </div>
   );
