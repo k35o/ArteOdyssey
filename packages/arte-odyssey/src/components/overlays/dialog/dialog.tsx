@@ -71,6 +71,7 @@ const Header: FC<{
             e.stopPropagation();
             onClose();
           }}
+          tooltipDisabled
         >
           <CloseIcon size="sm" />
         </IconButton>

@@ -56,8 +56,7 @@
 
 ### Cleanups
 
-- `Tooltip` の `onFocus` を `:focus-visible` チェック付きに変更。プログラマティック focus やマウスクリックで tooltip が auto-open しなくなった
-- 上記に伴い `Dialog.Header` / `Drawer` / `DropdownMenu.IconTrigger` / `ListBox` の `IconButton` から `tooltipDisabled` 指定を削除（不要になったため）
+- `Tooltip` の `onFocus` を `:focus-visible` チェック付きに変更。マウスクリック直後など focus-visible にならないケースで tooltip が auto-open しなくなった
 - `Button` の `active` prop を `isActive` に rename（CLAUDE.md の命名規約に合わせる）
 
 ### Notes
