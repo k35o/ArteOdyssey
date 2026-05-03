@@ -1,7 +1,35 @@
-import type { PropsWithChildren, ReactNode } from 'react';
+'use client';
 
+import type { Placement } from '@floating-ui/react';
+import type {
+  FocusEventHandler,
+  MouseEventHandler,
+  PropsWithChildren,
+  ReactNode,
+  Ref,
+} from 'react';
+
+import { Tooltip } from '../../overlays/tooltip';
 import { cn } from './../../../helpers/cn';
 import { isInternalRoute } from './../../../helpers/is-internal-route';
+
+export type IconLinkTriggerProps = {
+  ref?: Ref<HTMLAnchorElement>;
+  'aria-describedby'?: string;
+  onMouseEnter?: MouseEventHandler<HTMLAnchorElement>;
+  onMouseLeave?: MouseEventHandler<HTMLAnchorElement>;
+  onFocus?: FocusEventHandler<HTMLAnchorElement>;
+  onBlur?: FocusEventHandler<HTMLAnchorElement>;
+};
+
+type RawTriggerProps = {
+  ref: Ref<HTMLAnchorElement>;
+  'aria-describedby': string | undefined;
+  onMouseEnter: MouseEventHandler<HTMLAnchorElement>;
+  onMouseLeave: MouseEventHandler<HTMLAnchorElement>;
+  onFocus: FocusEventHandler<HTMLAnchorElement>;
+  onBlur: FocusEventHandler<HTMLAnchorElement>;
+};
 
 export const IconLink = <T extends string>({
   size = 'md',
@@ -10,53 +38,90 @@ export const IconLink = <T extends string>({
   href,
   children,
   openInNewTab = false,
-  renderAnchor = ({ children: anchorChildren, ...rest }) => (
-    <a {...rest}>{anchorChildren}</a>
+  tooltipPlacement = 'bottom',
+  tooltipDisabled = false,
+  renderAnchor = ({ children: anchorChildren, triggerProps, ...rest }) => (
+    <a {...rest} {...triggerProps}>
+      {anchorChildren}
+    </a>
   ),
 }: PropsWithChildren<{
   size?: 'sm' | 'md' | 'lg';
   bg?: 'transparent' | 'base' | 'primary' | 'secondary';
-  label?: string;
+  label: string;
   href: T;
   openInNewTab?: boolean;
+  tooltipPlacement?: Placement;
+  tooltipDisabled?: boolean;
   renderAnchor?: (props: {
     href: NoInfer<T>;
     className: string;
     target?: string;
     rel?: string;
+    'aria-label': string;
+    triggerProps: IconLinkTriggerProps;
     children: ReactNode;
   }) => ReactNode;
 }>) => {
   const type = isInternalRoute(href) && !openInNewTab ? 'internal' : 'external';
-  const props =
+  const externalProps =
     type === 'internal'
       ? {}
       : {
           target: '_blank',
           rel: 'noopener noreferrer',
         };
-  return renderAnchor({
-    href,
-    className: cn(
-      'inline-flex rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-border-info',
-      (bg === 'transparent' || bg === 'base') &&
-        'hover:bg-bg-subtle active:bg-bg-mute',
-      bg === 'base' && 'bg-bg-base',
-      bg === 'transparent' && 'bg-transparent',
-      bg === 'primary' &&
-        'bg-primary-bg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize',
-      bg === 'secondary' &&
-        'bg-secondary-bg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize',
-      size === 'sm' && 'p-1',
-      size === 'md' && 'p-2',
-      size === 'lg' && 'p-3',
-    ),
-    ...props,
-    children: (
+
+  const className = cn(
+    'inline-flex rounded-full transition-colors focus-visible:ring-2 focus-visible:ring-border-info',
+    (bg === 'transparent' || bg === 'base') &&
+      'hover:bg-bg-subtle active:bg-bg-mute',
+    bg === 'base' && 'bg-bg-base',
+    bg === 'transparent' && 'bg-transparent',
+    bg === 'primary' &&
+      'bg-primary-bg hover:bg-primary-bg-emphasize/80 active:bg-primary-bg-emphasize',
+    bg === 'secondary' &&
+      'bg-secondary-bg hover:bg-secondary-bg-emphasize/80 active:bg-secondary-bg-emphasize',
+    size === 'sm' && 'p-1',
+    size === 'md' && 'p-2',
+    size === 'lg' && 'p-3',
+  );
+
+  if (tooltipDisabled) {
+    return (
       <>
-        <span className="sr-only">{label}</span>
-        {children}
+        {renderAnchor({
+          href,
+          className,
+          ...externalProps,
+          'aria-label': label,
+          triggerProps: {},
+          children,
+        })}
       </>
-    ),
-  });
+    );
+  }
+
+  return (
+    <Tooltip.Root placement={tooltipPlacement}>
+      <Tooltip.Trigger
+        renderItem={(rawTriggerProps) => {
+          const triggerProps = rawTriggerProps as unknown as RawTriggerProps;
+          return (
+            <>
+              {renderAnchor({
+                href,
+                className,
+                ...externalProps,
+                'aria-label': label,
+                triggerProps,
+                children,
+              })}
+            </>
+          );
+        }}
+      />
+      <Tooltip.Content>{label}</Tooltip.Content>
+    </Tooltip.Root>
+  );
 };

@@ -174,7 +174,7 @@ export const usePopoverTrigger = (): Omit<
           onMouseLeave: popover.onClose,
           onFocus: popover.onOpen,
           onBlur: popover.onClose,
-          'aria-describedby': `${popover.rootId}_content`,
+          'aria-describedby': popover.isOpen ? listId : undefined,
           ref: popover.setTriggerRef,
         };
       case 'menu':
