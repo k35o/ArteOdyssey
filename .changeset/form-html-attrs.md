@@ -23,6 +23,10 @@ Form 系コンポーネントのカスタム命名 (`isXxx` / `describedbyId` / 
 
 `Checkbox` / `Radio` / `Switch` / `Slider` / `NumberField` / `Autocomplete` / `FileField` / `CheckboxCard` / `RadioCard` / `CheckboxGroup` は独自の controlled API があるため一律 spread はしないが、prop 名は HTML 標準に揃えた。
 
+### Newly accepted attrs
+
+- `NumberField` に `aria-labelledby` prop を追加（FormControl の `legend` ラベル用）
+
 ### FormControl の renderInput slot
 
 ```tsx
