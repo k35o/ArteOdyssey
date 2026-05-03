@@ -121,12 +121,12 @@ const Trigger: FC<{
     <Popover.Trigger
       renderItem={(props) => (
         <Button
+          {...getTriggerProps(props)}
           color="gray"
           endIcon={<ChevronIcon direction="down" />}
           size={size}
           type="button"
           variant={variant}
-          {...getTriggerProps(props)}
         >
           {text}
         </Button>

@@ -22,13 +22,18 @@ import {
 import { useDisclosure } from '../../../hooks/disclosure';
 import { usePortalRoot } from '../../providers';
 import {
+  type PopoverContentProps,
   PopoverProvider,
   type PopoverTriggerProps,
   usePopoverContent,
   usePopoverTrigger,
 } from './hooks';
 
-export { useOpenContext, type PopoverTriggerProps } from './hooks';
+export {
+  useOpenContext,
+  type PopoverContentProps,
+  type PopoverTriggerProps,
+} from './hooks';
 
 const Root: FC<
   PropsWithChildren<{
@@ -120,7 +125,7 @@ const contentMotionVariants = {
 } satisfies Variants;
 
 const Content: FC<{
-  renderItem: (props: Record<string, unknown>) => ReactElement;
+  renderItem: (props: PopoverContentProps) => ReactElement;
   motionVariants?: Variants;
 }> = ({ renderItem, motionVariants = contentMotionVariants }) => {
   const { isOpen, isHover, context, setContentRef, contentStyles, itemProps } =

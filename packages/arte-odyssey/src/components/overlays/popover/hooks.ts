@@ -95,7 +95,7 @@ export const usePopoverContent = () => {
     !isHover,
   );
 
-  const itemProps = useMemo(() => {
+  const itemProps = useMemo<PopoverContentProps>(() => {
     const id = `${popover.rootId}_list`;
     switch (popover.type) {
       case 'dialog':
@@ -163,6 +163,17 @@ export type PopoverTriggerProps = {
   'aria-controls'?: string;
   'aria-describedby'?: string;
   role?: 'combobox';
+};
+
+export type PopoverContentProps = {
+  id: string;
+  ref: RefObject<HTMLDivElement | null>;
+  role: 'dialog' | 'menu' | 'tooltip' | 'listbox';
+  'aria-orientation'?: 'vertical';
+  onMouseEnter?: () => void;
+  onMouseLeave?: () => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
 };
 
 export const usePopoverTrigger = (): PopoverTriggerProps => {

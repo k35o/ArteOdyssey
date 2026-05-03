@@ -3,6 +3,7 @@
 import { useListItem } from '@floating-ui/react';
 import {
   createContext,
+  type HTMLAttributes,
   type HTMLProps,
   type RefObject,
   use,
@@ -24,13 +25,13 @@ type MenuContext = {
   itemElementsRef: RefObject<Array<HTMLElement | null>>;
   getTriggerProps: (
     userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
+  ) => HTMLAttributes<HTMLElement>;
   getContentProps: (
     userProps?: HTMLProps<HTMLElement>,
-  ) => Record<string, unknown>;
+  ) => HTMLAttributes<HTMLElement>;
   getItemProps: (
     userProps?: Omit<HTMLProps<HTMLElement>, 'selected' | 'active'>,
-  ) => Record<string, unknown>;
+  ) => HTMLAttributes<HTMLElement>;
 };
 
 const MenuContext = createContext<MenuContext | null>(null);
