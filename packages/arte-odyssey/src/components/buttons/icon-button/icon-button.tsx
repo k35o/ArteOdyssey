@@ -1,31 +1,15 @@
 'use client';
 
 import type { Placement } from '@floating-ui/react';
-import type {
-  FC,
-  FocusEventHandler,
-  HTMLProps,
-  MouseEvent,
-  MouseEventHandler,
-  ReactNode,
-  Ref,
-  RefCallback,
-} from 'react';
+import type { FC, HTMLProps, MouseEvent, ReactNode } from 'react';
 import { useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
-import { Tooltip } from '../../overlays/tooltip';
+import { Tooltip, type TooltipTriggerProps } from '../../overlays/tooltip';
 import { cn } from './../../../helpers/cn';
 import { mergeRefs } from './../../../helpers/merge-refs';
 
-export type IconButtonTriggerProps = {
-  ref?: RefCallback<HTMLElement>;
-  'aria-describedby'?: string;
-  onMouseEnter?: MouseEventHandler<HTMLElement>;
-  onMouseLeave?: MouseEventHandler<HTMLElement>;
-  onFocus?: FocusEventHandler<HTMLElement>;
-  onBlur?: FocusEventHandler<HTMLElement>;
-};
+export type IconButtonTriggerProps = Partial<TooltipTriggerProps>;
 
 type Props = {
   size?: 'sm' | 'md' | 'lg';
@@ -41,15 +25,6 @@ type Props = {
     triggerProps: IconButtonTriggerProps;
   }) => ReactNode;
 } & Omit<HTMLProps<HTMLButtonElement>, 'size' | 'type'>;
-
-type RawButtonTriggerProps = {
-  ref: Ref<HTMLButtonElement>;
-  'aria-describedby': string | undefined;
-  onMouseEnter: MouseEventHandler<HTMLButtonElement>;
-  onMouseLeave: MouseEventHandler<HTMLButtonElement>;
-  onFocus: FocusEventHandler<HTMLButtonElement>;
-  onBlur: FocusEventHandler<HTMLButtonElement>;
-};
 
 const joinIds = (
   ...ids: ReadonlyArray<string | undefined>
@@ -152,9 +127,7 @@ export const IconButton: FC<Props> = ({
   return (
     <Tooltip.Root placement={tooltipPlacement}>
       <Tooltip.Trigger
-        renderItem={(rawTriggerProps) => {
-          const triggerProps =
-            rawTriggerProps as unknown as RawButtonTriggerProps;
+        renderItem={(triggerProps) => {
           if (renderItem) {
             return (
               <>
@@ -163,19 +136,11 @@ export const IconButton: FC<Props> = ({
                   children,
                   'aria-label': label,
                   triggerProps: {
-                    ref: triggerProps.ref as RefCallback<HTMLElement>,
+                    ...triggerProps,
                     'aria-describedby': joinIds(
                       describedBy,
                       triggerProps['aria-describedby'],
                     ),
-                    onMouseEnter:
-                      triggerProps.onMouseEnter as MouseEventHandler<HTMLElement>,
-                    onMouseLeave:
-                      triggerProps.onMouseLeave as MouseEventHandler<HTMLElement>,
-                    onFocus:
-                      triggerProps.onFocus as FocusEventHandler<HTMLElement>,
-                    onBlur:
-                      triggerProps.onBlur as FocusEventHandler<HTMLElement>,
                   },
                 })}
               </>

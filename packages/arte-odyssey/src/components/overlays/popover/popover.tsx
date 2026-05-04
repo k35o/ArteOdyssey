@@ -13,7 +13,6 @@ import { AnimatePresence, type Variants } from 'motion/react';
 import * as motion from 'motion/react-client';
 import {
   type FC,
-  type HTMLProps,
   type PropsWithChildren,
   type ReactElement,
   useEffect,
@@ -22,21 +21,35 @@ import {
 
 import { useDisclosure } from '../../../hooks/disclosure';
 import { usePortalRoot } from '../../providers';
-import { PopoverProvider, usePopoverContent, usePopoverTrigger } from './hooks';
+import {
+  type PopoverContentProps,
+  PopoverProvider,
+  type PopoverTriggerProps,
+  usePopoverContent,
+  usePopoverTrigger,
+} from './hooks';
 
-export { useOpenContext } from './hooks';
+export {
+  useOpenContext,
+  type PopoverContentProps,
+  type PopoverTriggerProps,
+} from './hooks';
 
 const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
-    type?: 'dialog' | 'menu' | 'tooltip' | 'listbox';
+    type?: 'dialog' | 'menu' | 'listbox';
     flipDisabled?: boolean;
+    closeOnClickAway?: boolean;
+    trapFocus?: boolean;
   }>
 > = ({
   children,
   type = 'menu',
   placement = 'bottom-start',
   flipDisabled = false,
+  closeOnClickAway = true,
+  trapFocus = true,
 }) => {
   const id = useId();
   const { isOpen, open, close, toggle } = useDisclosure();
@@ -82,6 +95,8 @@ const Root: FC<
       value={{
         rootId: id,
         type,
+        closeOnClickAway,
+        trapFocus,
         isOpen,
         toggleOpen: toggle,
         onOpen: open,
@@ -116,11 +131,17 @@ const contentMotionVariants = {
 } satisfies Variants;
 
 const Content: FC<{
-  renderItem: (props: Record<string, unknown>) => ReactElement;
+  renderItem: (props: PopoverContentProps) => ReactElement;
   motionVariants?: Variants;
 }> = ({ renderItem, motionVariants = contentMotionVariants }) => {
-  const { isOpen, isHover, context, setContentRef, contentStyles, itemProps } =
-    usePopoverContent();
+  const {
+    isOpen,
+    trapFocus,
+    context,
+    setContentRef,
+    contentStyles,
+    itemProps,
+  } = usePopoverContent();
 
   const root = usePortalRoot();
   const protalProps = root ? { root } : {};
@@ -131,7 +152,7 @@ const Content: FC<{
         <FloatingPortal {...protalProps}>
           <FloatingFocusManager
             context={context}
-            disabled={isHover}
+            disabled={!trapFocus}
             modal={false}
           >
             <div ref={setContentRef} style={contentStyles}>
@@ -152,14 +173,8 @@ const Content: FC<{
 };
 
 const Trigger: FC<{
-  renderItem: (
-    props: Omit<HTMLProps<HTMLButtonElement>, 'selected' | 'active' | 'color'>,
-  ) => ReactElement;
-}> = ({ renderItem }) => {
-  const props = usePopoverTrigger();
-
-  return renderItem(props);
-};
+  renderItem: (props: PopoverTriggerProps) => ReactElement;
+}> = ({ renderItem }) => renderItem(usePopoverTrigger());
 
 export const Popover = {
   Root,
