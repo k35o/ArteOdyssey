@@ -1,5 +1,226 @@
 # @k8o/arte-odyssey
 
+## 8.0.0
+
+### Major Changes
+
+- [#447](https://github.com/k35o/ArteOdyssey/pull/447) [`a5846ac`](https://github.com/k35o/ArteOdyssey/commit/a5846ace1cf9d260e05e46f8822e9e1be8499378) Thanks [@k35o](https://github.com/k35o)! - `IconButton` と `IconLink` にホバー/フォーカス時の `Tooltip` を内蔵し、`label` を視覚的にも確認できるようにした。
+
+  ### Breaking changes
+
+  - **`IconLink` の `label` を必須化**（旧: optional）
+  - **`IconLink` の `renderAnchor` シグネチャを変更**: 旧来の `{ href, className, target, rel, children }` に加えて `'aria-label': string` と `triggerProps: IconLinkTriggerProps`（Tooltip 連携用の `ref` / `aria-describedby` / mouse・focus handlers）を渡すようになった。カスタム `renderAnchor` を提供している場合は `triggerProps` を `<a>` にスプレッドする必要がある:
+
+    ```tsx
+    // Before
+    renderAnchor={(props) => <a {...props}>{props.children}</a>}
+
+    // After
+    renderAnchor={({ triggerProps, children, ...rest }) => (
+      <a {...rest} {...triggerProps}>{children}</a>
+    )}
+    ```
+
+  - **`IconLink` が client component になった**（`'use client'` 追加）。Tooltip 内蔵に伴う変更で、React Server Component として render できなくなる。Tooltip 不要なら `tooltipDisabled` を指定しても client 化は避けられない点に注意。
+
+  ### Additions
+
+  - 別の Popover のトリガーとして使う場合（`DropdownMenu.IconTrigger` / `ListBox.IconTrigger` など）に Tooltip を抑止できる `tooltipDisabled` prop を追加
+  - Tooltip の表示位置を制御する `tooltipPlacement` prop を追加（デフォルト `'bottom'`、`Tooltip.Root` のデフォルト `'bottom-start'` とは異なる）
+  - ユーザーが `aria-describedby` を渡した場合、Tooltip の describedby とスペース区切りでマージされるようになった
+
+  ### Internal fixes
+
+  - `Popover` の `tooltip` タイプにおいて `aria-describedby` が存在しない `_content` ID を参照していたバグを `_list` に修正、加えて `isOpen` 時のみ set する形に変更
+
+### Minor Changes
+
+- [#450](https://github.com/k35o/ArteOdyssey/pull/450) [`c6583b4`](https://github.com/k35o/ArteOdyssey/commit/c6583b4b310ed4ee374950ce94d73f8557a2e301) Thanks [@k35o](https://github.com/k35o)! - Form 系コンポーネントのカスタム命名 (`isXxx` / `describedbyId` / `labelId`) を廃止し、HTML 標準属性名に揃えた。素直に `<input>` の HTML 属性が渡せるようになる。
+
+  ### Renamed props
+
+  - `isDisabled` → `disabled`（HTML 標準）
+  - `isRequired` → `required`（HTML 標準）
+  - `isInvalid` → `invalid`（HTML には native invalid がないため独自、`aria-invalid` を生成）
+  - `describedbyId` → `aria-describedby`（HTML 標準）
+  - `labelId` → `aria-labelledby`（HTML 標準）
+
+  ### HTMLAttributes spread
+
+  すべての form 系コンポーネントが対応する `HTMLAttributes` を extend するようになり、HTML 属性 (`name` / `autoComplete` / `inputMode` / `pattern` / `data-*` / `placeholder` etc.) がそのまま渡せる。各コンポーネントが描画する主要な要素に対応する型を選択:
+
+  | Component                                                                                                            | extend する型                                         |
+  | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+  | `TextField` / `PasswordInput` / `Checkbox` / `Switch` / `Slider` / `NumberField` / `Autocomplete` / `FileField.Root` | `InputHTMLAttributes<HTMLInputElement>`               |
+  | `Textarea`                                                                                                           | `TextareaHTMLAttributes<HTMLTextAreaElement>`         |
+  | `Select`                                                                                                             | `SelectHTMLAttributes<HTMLSelectElement>`             |
+  | `Radio`                                                                                                              | `HTMLAttributes<HTMLDivElement>` (radiogroup wrapper) |
+  | `RadioCard` / `CheckboxCard` / `CheckboxGroup`                                                                       | `FieldsetHTMLAttributes<HTMLFieldSetElement>`         |
+
+  機能を乱す attrs（独自 controlled API の `value` / `onChange` / `defaultValue` / `defaultChecked`、内部で固定する `type` / `role` / `className` 等）は `Omit` で除外。
+
+  ### Newly accepted attrs
+
+  - `NumberField` に `aria-labelledby` prop を追加（FormControl の `legend` ラベル用）
+
+  ### FormControl の renderInput slot
+
+  ```tsx
+  // Before
+  renderInput={({ id, describedbyId, labelId, isDisabled, isInvalid, isRequired }) => (
+    <TextField
+      id={id}
+      describedbyId={describedbyId}
+      isDisabled={isDisabled}
+      isInvalid={isInvalid}
+      isRequired={isRequired}
+    />
+  )}
+
+  // After (props が HTML 標準名なのでスプレッド一発で済む)
+  renderInput={(props) => <TextField {...props} />}
+  ```
+
+  ### Migration
+
+  機械的なリネームで対応可能:
+
+  ```diff
+  - <TextField isDisabled={...} isInvalid={...} isRequired={...} describedbyId={...} />
+  + <TextField disabled={...} invalid={...} required={...} aria-describedby={...} />
+
+  - <Radio labelId="..." />
+  + <Radio aria-labelledby="..." />
+  ```
+
+- [#449](https://github.com/k35o/ArteOdyssey/pull/449) [`3c4f4bb`](https://github.com/k35o/ArteOdyssey/commit/3c4f4bbc61546e305cdde1dbf6a9e5da7d6169be) Thanks [@k35o](https://github.com/k35o)! - `LinkButton` と `IconLink` を廃止し、`Button` / `IconButton` の `renderItem` render prop に統合した。
+
+  ### Breaking changes
+
+  - **`LinkButton` を削除**: `Button` の `renderItem` で `<a>` を返す形に置き換える。
+
+    ```tsx
+    // Before
+    <LinkButton href="/foo" variant="contained">Go</LinkButton>
+
+    // After
+    <Button
+      renderItem={({ className, children }) => (
+        <a className={className} href="/foo">{children}</a>
+      )}
+      variant="contained"
+    >
+      Go
+    </Button>
+    ```
+
+  - **`IconLink` を削除**: `IconButton` の `renderItem` で `<a>` を返す形に置き換える。Tooltip 連携用の props は `triggerProps` で渡される。
+
+    ```tsx
+    // Before
+    <IconLink href="/foo" label="Go"><Icon /></IconLink>
+
+    // After
+    <IconButton
+      label="Go"
+      renderItem={({ className, children, 'aria-label': ariaLabel, triggerProps }) => (
+        <a
+          aria-label={ariaLabel}
+          className={className}
+          href="/foo"
+          {...triggerProps}
+        >
+          {children}
+        </a>
+      )}
+    >
+      <Icon />
+    </IconButton>
+    ```
+
+  ### Additions
+
+  - `Button` に `active?: boolean` prop を追加（旧 `LinkButton` のアクティブ状態スタイル）
+  - `Button` に `renderItem?: (props: { className, children }) => ReactNode` prop を追加
+  - `IconButton` に `renderItem?: (props: { className, children, 'aria-label', triggerProps }) => ReactNode` prop を追加
+  - `IconButtonTriggerProps` 型を export
+
+  ### Cleanups
+
+  - `Tooltip` の `onFocus` を `:focus-visible` チェック付きに変更。マウスクリック直後など focus-visible にならないケースで tooltip が auto-open しなくなった
+  - `Button` の `active` prop を `isActive` に rename（CLAUDE.md の命名規約に合わせる）
+
+  ### Notes
+
+  - `renderItem` を指定した場合、`disabled` / `onAction` / Spinner などのボタン専用機能は適用されない（リンクには無関係なため）
+  - `renderItem` 内で適切な `href` / `target` / `rel` 等のリンク属性を指定する責任は利用者側にある
+
+- [#451](https://github.com/k35o/ArteOdyssey/pull/451) [`27da7f0`](https://github.com/k35o/ArteOdyssey/commit/27da7f03032a2f988ae10a8cfa98437d915004d5) Thanks [@k35o](https://github.com/k35o)! - Styled element 系コンポーネントが `HTMLAttributes` を受けるようになった。`id` / `data-*` / `aria-*` / `style` / event handlers / `className` 等が普通に渡せるようになり、テストや analytics の attrs を component 編集なしで追加できる。
+
+  ### 対象
+
+  | Component                  | 受ける attrs                                                             |
+  | -------------------------- | ------------------------------------------------------------------------ |
+  | `Avatar`                   | `HTMLAttributes<HTMLSpanElement>`                                        |
+  | `Badge`                    | `HTMLAttributes<HTMLElement>` (interactive モードでは `<button>` に渡る) |
+  | `Card` / `InteractiveCard` | `HTMLAttributes<HTMLDivElement>`                                         |
+  | `Code`                     | `HTMLAttributes<HTMLElement>`                                            |
+  | `Heading`                  | `HTMLAttributes<HTMLHeadingElement>`                                     |
+  | `Spinner`                  | `OutputHTMLAttributes<HTMLOutputElement>`                                |
+  | `Skeleton`                 | `HTMLAttributes<HTMLDivElement>`                                         |
+  | `Progress`                 | `HTMLAttributes<HTMLDivElement>`                                         |
+  | `Alert`                    | `HTMLAttributes<HTMLDivElement>`                                         |
+  | `Separator`                | `HTMLAttributes<HTMLSpanElement>`                                        |
+  | `Anchor`                   | `AnchorHTMLAttributes<HTMLAnchorElement>`                                |
+
+  `className` を渡した場合はコンポーネント内部の class とマージされる。`role` / `aria-orientation` / `aria-label` (component が責任を持つもの) は `Omit` で除外。
+
+  ### 例
+
+  ```tsx
+  <Avatar id="user" data-testid="avatar" name="k8o" />
+  <Heading id="section-1" type="h2">タイトル</Heading>
+  <Card onClick={...} className="custom-class">...</Card>
+  ```
+
+  ### Anchor の `renderAnchor` シグネチャ拡張
+
+  `renderAnchor` のコールバック引数に `AnchorHTMLAttributes` の rest props が含まれるようになった。デフォルト実装は spread するので影響なし。カスタム `renderAnchor` を提供している場合、追加された attrs を `<a>` (or `<Link>`) にスプレッドし忘れないよう注意。
+
+- [#452](https://github.com/k35o/ArteOdyssey/pull/452) [`d791552`](https://github.com/k35o/ArteOdyssey/commit/d791552fbfa55cb6f01059e8d8aa267757dada13) Thanks [@k35o](https://github.com/k35o)! - `Popover.Trigger` / `Tooltip.Trigger` の `renderItem` の型を緩い `Record<string, unknown>` から固有型 `PopoverTriggerProps` / `TooltipTriggerProps` に置き換え、利用者が型キャストなしで spread できるようにした。
+
+  ### Type changes
+
+  - `PopoverTriggerProps`: `Popover` から export。すべての popover type で必要な props (ref / onClick / onKeyDown / mouse・focus handlers / aria-haspopup / aria-expanded / aria-controls / aria-describedby / role) を optional union として持つ
+  - `PopoverContentProps`: `Popover` から export。content の props (id / ref / role / aria-orientation / mouse・focus handlers) を持つ
+  - `TooltipTriggerProps`: `Tooltip` から export。tooltip type 専用の props (ref / mouse・focus handlers / aria-describedby) のみ
+  - 各 props の handler は `MouseEventHandler<HTMLElement>` などの汎用型なので、`<button>` / `<a>` / `<div>` など任意の要素に spread 可能
+  - `DropdownMenu` / `ListBox` の `getTriggerProps` / `getContentProps` / `getItemProps` の return 型を `Record<string, unknown>` から `HTMLAttributes<HTMLElement>` に変更
+
+  ### IconButton の型整理
+
+  - 内部の `as unknown as` キャストを撤廃し、`Tooltip.Trigger` の renderItem からそのまま `triggerProps` を取り回せるようになった
+  - `IconButtonTriggerProps` は `Partial<TooltipTriggerProps>` のエイリアスに
+
+  ### Default placement の統一
+
+  - `Tooltip.Root` のデフォルト `placement` を `'bottom-start'` から `'bottom'` に変更（`IconButton.tooltipPlacement` のデフォルトと揃えた）。アイコンボタン下に中央寄せで表示されるのが視覚的に自然なため
+  - 以前の挙動が必要な場合は `<Tooltip.Root placement="bottom-start">` を明示
+
+  ### Popover を tooltip 知識から切り離し
+
+  - `Popover.Root` の `type` union から `'tooltip'` を削除（`'dialog' | 'menu' | 'listbox'` のみ）
+  - 旧 `type='tooltip'` で暗黙的に切り替えていた挙動を `Popover.Root` の専用 props として明示化:
+    - `closeOnClickAway?: boolean` (デフォルト `true`) — 外側クリックで閉じるか
+    - `trapFocus?: boolean` (デフォルト `true`) — `FloatingFocusManager` の focus trap
+  - `Tooltip` 関連の型 (`TooltipTriggerProps`) と hook (`useTooltipTriggerProps`) を popover モジュールから tooltip モジュールへ移動
+  - `Tooltip.Root` は `<Popover.Root closeOnClickAway={false} trapFocus={false}>` を内部で利用しつつ、自前で trigger / content 要素を組み立てる形に
+  - これにより Popover が generic な primitive として綺麗になり、Tooltip-specific な分岐が popover/hooks.ts から消えた
+
+  ### Migration
+
+  利用者は `<Popover.Root type="tooltip">` を直接使っていなければ影響なし。直接使っていた場合は `<Tooltip.Root>` への置き換えを推奨。
+
 ## 7.0.1
 
 ### Patch Changes
