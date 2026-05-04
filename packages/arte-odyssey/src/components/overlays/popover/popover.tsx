@@ -38,14 +38,18 @@ export {
 const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
-    type?: 'dialog' | 'menu' | 'tooltip' | 'listbox';
+    type?: 'dialog' | 'menu' | 'listbox';
     flipDisabled?: boolean;
+    closeOnClickAway?: boolean;
+    trapFocus?: boolean;
   }>
 > = ({
   children,
   type = 'menu',
   placement = 'bottom-start',
   flipDisabled = false,
+  closeOnClickAway = true,
+  trapFocus = true,
 }) => {
   const id = useId();
   const { isOpen, open, close, toggle } = useDisclosure();
@@ -91,6 +95,8 @@ const Root: FC<
       value={{
         rootId: id,
         type,
+        closeOnClickAway,
+        trapFocus,
         isOpen,
         toggleOpen: toggle,
         onOpen: open,
@@ -128,8 +134,14 @@ const Content: FC<{
   renderItem: (props: PopoverContentProps) => ReactElement;
   motionVariants?: Variants;
 }> = ({ renderItem, motionVariants = contentMotionVariants }) => {
-  const { isOpen, isHover, context, setContentRef, contentStyles, itemProps } =
-    usePopoverContent();
+  const {
+    isOpen,
+    trapFocus,
+    context,
+    setContentRef,
+    contentStyles,
+    itemProps,
+  } = usePopoverContent();
 
   const root = usePortalRoot();
   const protalProps = root ? { root } : {};
@@ -140,7 +152,7 @@ const Content: FC<{
         <FloatingPortal {...protalProps}>
           <FloatingFocusManager
             context={context}
-            disabled={isHover}
+            disabled={!trapFocus}
             modal={false}
           >
             <div ref={setContentRef} style={contentStyles}>

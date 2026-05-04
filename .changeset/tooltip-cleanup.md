@@ -21,3 +21,17 @@
 
 - `Tooltip.Root` のデフォルト `placement` を `'bottom-start'` から `'bottom'` に変更（`IconButton.tooltipPlacement` のデフォルトと揃えた）。アイコンボタン下に中央寄せで表示されるのが視覚的に自然なため
 - 以前の挙動が必要な場合は `<Tooltip.Root placement="bottom-start">` を明示
+
+### Popover を tooltip 知識から切り離し
+
+- `Popover.Root` の `type` union から `'tooltip'` を削除（`'dialog' | 'menu' | 'listbox'` のみ）
+- 旧 `type='tooltip'` で暗黙的に切り替えていた挙動を `Popover.Root` の専用 props として明示化:
+  - `closeOnClickAway?: boolean` (デフォルト `true`) — 外側クリックで閉じるか
+  - `trapFocus?: boolean` (デフォルト `true`) — `FloatingFocusManager` の focus trap
+- `Tooltip` 関連の型 (`TooltipTriggerProps`) と hook (`useTooltipTriggerProps`) を popover モジュールから tooltip モジュールへ移動
+- `Tooltip.Root` は `<Popover.Root closeOnClickAway={false} trapFocus={false}>` を内部で利用しつつ、自前で trigger / content 要素を組み立てる形に
+- これにより Popover が generic な primitive として綺麗になり、Tooltip-specific な分岐が popover/hooks.ts から消えた
+
+### Migration
+
+利用者は `<Popover.Root type="tooltip">` を直接使っていなければ影響なし。直接使っていた場合は `<Tooltip.Root>` への置き換えを推奨。

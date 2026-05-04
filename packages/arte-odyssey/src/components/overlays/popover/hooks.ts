@@ -8,8 +8,6 @@ import type {
 import {
   type CSSProperties,
   createContext,
-  type FocusEvent,
-  type FocusEventHandler,
   type KeyboardEvent,
   type KeyboardEventHandler,
   type MouseEventHandler,
@@ -24,7 +22,9 @@ import { useClickAway } from './../../../hooks/click-away';
 
 type PopoverContext = {
   rootId: string;
-  type: 'dialog' | 'menu' | 'tooltip' | 'listbox';
+  type: 'dialog' | 'menu' | 'listbox';
+  closeOnClickAway: boolean;
+  trapFocus: boolean;
   isOpen: boolean;
   toggleOpen: () => void;
   onOpen: () => void;
@@ -42,7 +42,7 @@ const PopoverContext = createContext<PopoverContext | null>(null);
 
 export const PopoverProvider = PopoverContext;
 
-const usePopoverContext = (): PopoverContext => {
+export const usePopoverContext = (): PopoverContext => {
   const popover = use(PopoverContext);
   if (!popover) {
     throw new Error('usePopoverContext must be used within a Popover.Root');
@@ -74,9 +74,15 @@ export const useOpenContext = () => {
   );
 };
 
+export type PopoverContentProps = {
+  id: string;
+  ref: RefObject<HTMLDivElement | null>;
+  role: 'dialog' | 'menu' | 'listbox';
+  'aria-orientation'?: 'vertical';
+};
+
 export const usePopoverContent = () => {
   const popover = usePopoverContext();
-  const isHover = popover.type === 'tooltip';
   const ref = useRef<HTMLDivElement>(null);
   useClickAway(
     ref,
@@ -92,7 +98,7 @@ export const usePopoverContent = () => {
       }
       popover.onClose();
     },
-    !isHover,
+    popover.closeOnClickAway,
   );
 
   const itemProps = useMemo<PopoverContentProps>(() => {
@@ -107,16 +113,6 @@ export const usePopoverContent = () => {
           role: 'menu',
           'aria-orientation': 'vertical',
         };
-      case 'tooltip':
-        return {
-          id,
-          ref,
-          role: 'tooltip',
-          onMouseEnter: popover.onOpen,
-          onMouseLeave: popover.onClose,
-          onFocus: popover.onOpen,
-          onBlur: popover.onClose,
-        };
       case 'listbox':
         return { id, ref, role: 'listbox' };
       default: {
@@ -124,14 +120,14 @@ export const usePopoverContent = () => {
         return _exhaustive;
       }
     }
-  }, [popover.rootId, popover.type, ref, popover.onClose, popover.onOpen]);
+  }, [popover.rootId, popover.type, ref]);
 
   return useMemo(
     () => ({
       id: `${popover.rootId}_list`,
       ref,
       isOpen: popover.isOpen,
-      isHover,
+      trapFocus: popover.trapFocus,
       context: popover.context,
       setContentRef: popover.setContentRef,
       contentStyles: popover.contentStyles,
@@ -144,7 +140,7 @@ export const usePopoverContent = () => {
       popover.setContentRef,
       popover.contentStyles,
       ref,
-      isHover,
+      popover.trapFocus,
       itemProps,
     ],
   );
@@ -152,28 +148,12 @@ export const usePopoverContent = () => {
 
 export type PopoverTriggerProps = {
   ref: RefCallback<HTMLElement>;
-  onClick?: MouseEventHandler<HTMLElement>;
-  onKeyDown?: KeyboardEventHandler<HTMLElement>;
-  onMouseEnter?: MouseEventHandler<HTMLElement>;
-  onMouseLeave?: MouseEventHandler<HTMLElement>;
-  onFocus?: FocusEventHandler<HTMLElement>;
-  onBlur?: FocusEventHandler<HTMLElement>;
-  'aria-haspopup'?: 'dialog' | 'menu' | 'listbox';
-  'aria-expanded'?: boolean;
+  onClick: MouseEventHandler<HTMLElement>;
+  onKeyDown: KeyboardEventHandler<HTMLElement>;
+  'aria-haspopup': 'dialog' | 'menu' | 'listbox';
+  'aria-expanded': boolean;
   'aria-controls'?: string;
-  'aria-describedby'?: string;
   role?: 'combobox';
-};
-
-export type PopoverContentProps = {
-  id: string;
-  ref: RefObject<HTMLDivElement | null>;
-  role: 'dialog' | 'menu' | 'tooltip' | 'listbox';
-  'aria-orientation'?: 'vertical';
-  onMouseEnter?: () => void;
-  onMouseLeave?: () => void;
-  onFocus?: () => void;
-  onBlur?: () => void;
 };
 
 export const usePopoverTrigger = (): PopoverTriggerProps => {
@@ -193,19 +173,6 @@ export const usePopoverTrigger = (): PopoverTriggerProps => {
           'aria-haspopup': 'dialog',
           'aria-expanded': popover.isOpen,
           'aria-controls': listId,
-          ref: popover.setTriggerRef,
-        };
-      case 'tooltip':
-        return {
-          onMouseEnter: popover.onOpen,
-          onMouseLeave: popover.onClose,
-          onFocus: (e: FocusEvent<HTMLElement>) => {
-            if (e.target.matches(':focus-visible')) {
-              popover.onOpen();
-            }
-          },
-          onBlur: popover.onClose,
-          'aria-describedby': popover.isOpen ? listId : undefined,
           ref: popover.setTriggerRef,
         };
       case 'menu':
