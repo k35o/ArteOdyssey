@@ -2,6 +2,8 @@
 
 import { type FC, Suspense, use } from 'react';
 
+import { useClient } from '../../../hooks/client';
+
 declare global {
   namespace React {
     namespace JSX {
@@ -22,6 +24,12 @@ const loadBaselineStatus = (): Promise<unknown> => {
 };
 
 const BaselineStatusResolved: FC<{ featureId: string }> = ({ featureId }) => {
+  const isClient = useClient();
+
+  if (!isClient) {
+    return <BaselineStatusSkeleton />;
+  }
+
   use(loadBaselineStatus());
   return (
     <baseline-status
