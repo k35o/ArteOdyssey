@@ -7,6 +7,7 @@ export type { Rule } from './rules/rules';
 export type {
   DerivedArray,
   DerivedField,
+  DroppedCheck,
   FieldInput,
   FormFields,
   FormState,

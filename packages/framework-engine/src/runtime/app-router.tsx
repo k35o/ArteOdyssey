@@ -1,6 +1,10 @@
 'use client';
 
-import { PathnameProvider, useInterceptedNavigation } from '@k8ordo/router';
+import {
+  NavigationGeneration,
+  PathnameProvider,
+  useInterceptedNavigation,
+} from '@k8ordo/router';
 import {
   createFromFetch,
   createFromReadableStream,
@@ -35,6 +39,12 @@ setServerCallback(async (id: string, args: unknown[]) => {
     }),
     { temporaryReferences },
   );
+  // An action that redirected has no page to apply: the visitor is going
+  // somewhere else, and the router takes them there.
+  if (payload.redirect !== undefined) {
+    await navigation.navigate(payload.redirect).finished;
+    return undefined;
+  }
   // The action's answer arrives with the page it re-rendered, so the screen
   // is up to date by the time the caller has its value.
   applyPayload?.(payload);
@@ -71,7 +81,7 @@ export function AppRouter({
     };
   }, []);
 
-  useInterceptedNavigation<ReactNode>({
+  const { generation } = useInterceptedNavigation<ReactNode>({
     // The browser holds no route table, so this cannot answer "is it mine?"
     // the way the client router does. It claims every same-origin URL and
     // finds out from the answer — which is why `load` has somewhere to put
@@ -114,7 +124,9 @@ export function AppRouter({
   // `usePathname` until the browser can answer for itself.
   return (
     <PathnameProvider pathname={pathname}>
-      <Recover>{current}</Recover>
+      <NavigationGeneration value={generation}>
+        <Recover>{current}</Recover>
+      </NavigationGeneration>
     </PathnameProvider>
   );
 }

@@ -1,3 +1,5 @@
+import { normalizePathname } from '@k8ordo/router';
+
 /**
  * Where a page's RSC payload lives. It has to be a plain path, not a header
  * or a query, because static hosting varies on neither — the same convention
@@ -8,13 +10,10 @@
 const SUFFIX = '/index.rsc';
 
 export const payloadPathFor = (pathname: string): string => {
-  // 末尾を走査で落とす。`/\/+$/` は「/」だけの長い pathname に対して開始位置
-  // ごとに末尾まで走るので、リクエストから来る入力には二乗の穴になる。
-  let end = pathname.length;
-  while (end > 0 && pathname.charAt(end - 1) === '/') {
-    end -= 1;
-  }
-  return `${pathname.slice(0, end)}${SUFFIX}`;
+  // The router's own reading of a pathname, so the two never disagree about
+  // a trailing slash; the root is the one pathname that is only a slash.
+  const page = normalizePathname(pathname);
+  return `${page === '/' ? '' : page}${SUFFIX}`;
 };
 
 export const isPayloadPath = (pathname: string): boolean =>

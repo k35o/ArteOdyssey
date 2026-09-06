@@ -23,7 +23,7 @@ import {
   useMenuTrigger,
 } from './hooks';
 
-const Root: FC<
+export const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
     options: readonly Option[];
@@ -101,7 +101,7 @@ const MenuProvider: FC<
   );
 };
 
-const Content: FC<{
+export const Content: FC<{
   helpContent?: ReactElement;
 }> = ({ helpContent }) => {
   const { options, contentProps } = useMenuContent();
@@ -179,7 +179,7 @@ const useTriggerLabels = (label: string | undefined) => {
   };
 };
 
-const Trigger: FC<{
+export const Trigger: FC<{
   size?: ComponentProps<typeof Button>['size'];
   label?: string;
 }> = ({ size = 'md', label }) => {
@@ -212,7 +212,7 @@ const Trigger: FC<{
   );
 };
 
-const IconTrigger: FC<{
+export const IconTrigger: FC<{
   size?: ComponentProps<typeof Button>['size'];
   icon: ReactElement;
   label?: string;
@@ -246,10 +246,3 @@ const IconTrigger: FC<{
     />
   );
 };
-
-export const ListBox = {
-  Root,
-  Content,
-  Trigger,
-  IconTrigger,
-} as const;

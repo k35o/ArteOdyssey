@@ -1,3 +1,4 @@
+export type { ErrorComponent, ErrorProps } from './boundary';
 export { defineRoutes } from './define-routes';
 export type {
   Match,
@@ -11,13 +12,26 @@ export type {
 } from './define-routes';
 export { href, navigateTo } from './links';
 export { PathnameProvider, usePathname } from './location';
-export { useInterceptedNavigation } from './navigation';
+export { matchPath, useMatch } from './match';
+export type { MatchablePattern } from './match';
+export { NavigationGeneration, useInterceptedNavigation } from './navigation';
 export type { NavigationHandler } from './navigation';
 export type { NavigateToOptions } from './links';
-export type { ParamsOf, PathFor } from './paths';
+export { normalizePathname } from './paths';
+export type {
+  ParamsOf,
+  ParamsSchemaFor,
+  ParamValue,
+  ParsedParams,
+  ParsedParamsMap,
+  PathFor,
+  SchemaOutput,
+  StandardSchemaLike,
+} from './paths';
 export type {
   Register,
   RegisteredNavigablePattern,
+  RegisteredParams,
   RegisteredPattern,
 } from './register';
 export { Outlet, Router, useParams, useRoute } from './router';

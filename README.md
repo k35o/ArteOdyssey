@@ -59,13 +59,14 @@ packages/
   form/                  # @k8ordo/form
   state/                 # @k8ordo/state
   router/                # @k8ordo/router
-  framework-engine/      # @k8ordo/framework-engine (internal)
+  framework-engine/      # private engine, bundled into static and server
   static/                # @k8ordo/static
   server/                # @k8ordo/server
 examples/
   ui-integrations/       # @k8ordo/ui × generative UI adapters (Vite)
   ui-nextjs/             # @k8ordo/ui × Next.js
   ui-css-modules/        # @k8ordo/ui with prebuilt CSS, no Tailwind
+  router-basic/          # @k8ordo/router, client-rendered
   static-basic/          # @k8ordo/static
   server-basic/          # @k8ordo/server
 ```

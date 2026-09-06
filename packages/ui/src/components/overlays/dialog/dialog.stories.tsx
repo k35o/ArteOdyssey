@@ -3,10 +3,10 @@ import { useState } from 'react';
 import type { ComponentProps, FC } from 'react';
 import { expect, fn, waitFor } from 'storybook/test';
 
+import { Dialog } from '.';
 import { Button } from '../../buttons/button';
 import { Modal } from '../modal';
 import { Popover, useOpenContext } from '../popover';
-import { Dialog } from './dialog';
 
 const meta: Meta<typeof Dialog.Root> = {
   title: 'components/overlays/dialog',

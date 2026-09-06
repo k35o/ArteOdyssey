@@ -1,8 +1,18 @@
 import type { ReactNode } from 'react';
 
 import { DEFAULT_LOCALE, isLocale } from '../i18n';
+import { themeState } from '../theme/state';
 
 import '../styles/globals.css';
+
+// hydrate 前に dark クラスを付けるスクリプト。保存行の読み方は定義側
+// （`inlineRead()`）が出すので、キーや JSON の形をここに複写しない。スキーマは
+// まだ走らないので、読むのは mode だけ、値も自分で確かめる。
+const THEME_INIT = `const s = ${themeState.inlineRead()};
+const mode = s && s.mode;
+if (mode === 'dark' || (mode !== 'light' && matchMedia('(prefers-color-scheme:dark)').matches)) {
+  document.documentElement.classList.add('dark');
+}`;
 
 export default function Root({
   children,
@@ -18,23 +28,17 @@ export default function Root({
   return (
     // 下のスクリプトが hydrate 前に dark クラスを付けるので、html の属性だけは
     // サーバーの出力と一致しない。それが目的の差分なので警告を抑える。
+    // <title> はここには無い。React 19 が各ページの <title> を head に持ち上げる
+    // ので、ここにも書くと 2 つ並ぶ。
     <html lang={locale} suppressHydrationWarning>
       <head>
         <meta charSet="UTF-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>k8ordo</title>
         <meta
           content="k8ordo - React libraries that use Baseline features without holding back"
           name="description"
         />
-        <script>
-          {`// @k8ordo/state (defineLocalState 'theme') と同じ保存形式を読む
-let mode = null;
-try { mode = JSON.parse(localStorage.getItem('k8ordo-state:theme')).mode; } catch {}
-if (mode === 'dark' || (mode !== 'light' && matchMedia('(prefers-color-scheme:dark)').matches)) {
-  document.documentElement.classList.add('dark');
-}`}
-        </script>
+        <script>{THEME_INIT}</script>
       </head>
       <body className="bg-bg-surface text-fg-base antialiased">{children}</body>
     </html>

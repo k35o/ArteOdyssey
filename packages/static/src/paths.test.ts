@@ -109,7 +109,8 @@ describe('patternsNeedingPaths', () => {
 describe('catchAllPatterns', () => {
   it('names every not-found, so the build can refuse to choose between them', () => {
     const tree = treeOf(['page.tsx', 'not-found.tsx', 'docs/not-found.tsx']);
-    expect(catchAllPatterns(tree)).toStrictEqual(['/*', '/docs/*']);
+    // マッチャーが試す順: 枝の catch-all が先、根の catch-all が最後
+    expect(catchAllPatterns(tree)).toStrictEqual(['/docs/*', '/*']);
   });
 });
 

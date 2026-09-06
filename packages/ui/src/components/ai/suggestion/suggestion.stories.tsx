@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn } from 'storybook/test';
 
-import { Suggestion } from './suggestion';
+import { Suggestion } from '.';
 
 const meta: Meta<{ onSelect: (value: string) => void }> = {
   title: 'components/ai/suggestion',

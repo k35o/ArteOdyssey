@@ -10,6 +10,7 @@ import { cn } from './../../../helpers/cn';
 import { useControllableState } from './../../../hooks/controllable-state';
 
 type BaseProps = {
+  invalid?: boolean;
   itemValue?: string;
   label: string;
   ref?: Ref<HTMLInputElement>;
@@ -43,6 +44,7 @@ export const Checkbox: FC<Props> = ({
   name,
   itemValue,
   disabled = false,
+  invalid = false,
   label,
   checked,
   defaultChecked,
@@ -89,6 +91,7 @@ export const Checkbox: FC<Props> = ({
         {...(groupContext || isControlled
           ? { checked: isChecked }
           : { defaultChecked })}
+        aria-invalid={invalid}
         className="peer sr-only"
         disabled={disabledResolved}
         name={groupContext?.name ?? name}
@@ -113,6 +116,7 @@ export const Checkbox: FC<Props> = ({
           isChecked
             ? 'border-border-base bg-primary-bg text-fg-base'
             : 'border-border-mute bg-bg-base',
+          invalid && 'border-border-error',
         )}
       >
         {isChecked ? <CheckIcon size="sm" /> : null}

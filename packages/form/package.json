@@ -11,6 +11,9 @@
     "zod"
   ],
   "homepage": "https://ordo.k8o.me",
+  "bugs": {
+    "url": "https://github.com/k35o/k8ordo/issues"
+  },
   "license": "MIT",
   "author": "k8o <kosakanoki@gmail.com>",
   "repository": {
@@ -59,7 +62,7 @@
     "vite-plus": "catalog:",
     "vitest": "catalog:",
     "vitest-browser-react": "2.2.0",
-    "zod": "4.4.3"
+    "zod": "catalog:"
   },
   "peerDependencies": {
     "@types/react": ">=19.2.18",

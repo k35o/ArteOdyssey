@@ -3,9 +3,10 @@
 import { createContext, use, useMemo, useState } from 'react';
 import type { FC, ReactNode } from 'react';
 
+import { setBoundaryOutlet } from './define-routes';
 import type { Match, RouteComponent, Routes } from './define-routes';
 import { PathnameProvider } from './location';
-import { useInterceptedNavigation } from './navigation';
+import { NavigationGeneration, useInterceptedNavigation } from './navigation';
 import type { ParamsOf } from './paths';
 import type { RegisteredPattern } from './register';
 
@@ -46,6 +47,10 @@ export const Outlet: FC = () => {
   return <RenderStack stack={ctx.stack} index={ctx.index} />;
 };
 
+// A table's `error` boundary nests the same way a layout does here: by
+// context. Registered at module load, before any table is walked.
+setBoundaryOutlet(() => <Outlet />);
+
 /**
  * Mounts a route table on the Navigation API: every same-origin navigation
  * that the table claims is handled in the client, and the rest is left to the
@@ -61,7 +66,7 @@ export function Router({ routes }: { routes: Routes }): ReactNode {
     routes.match(location.pathname),
   );
 
-  useInterceptedNavigation<Match>({
+  const { generation } = useInterceptedNavigation<Match>({
     claim: (url) => routes.match(url.pathname) !== null,
     load: (url) => routes.match(url.pathname) as Match,
     apply: setMatch,
@@ -70,9 +75,13 @@ export function Router({ routes }: { routes: Routes }): ReactNode {
   const value = useMemo(() => ({ routes, match }), [routes, match]);
   return (
     <PathnameProvider pathname={location.pathname}>
-      <RouterContext value={value}>
-        {match === null ? null : <RenderStack stack={match.stack} index={0} />}
-      </RouterContext>
+      <NavigationGeneration value={generation}>
+        <RouterContext value={value}>
+          {match === null ? null : (
+            <RenderStack stack={match.stack} index={0} />
+          )}
+        </RouterContext>
+      </NavigationGeneration>
     </PathnameProvider>
   );
 }

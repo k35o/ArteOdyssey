@@ -248,6 +248,8 @@ stories and rendered props rather than relying on trained knowledge:
 
 ### Layout
 
+- **Grid** - CSS grid with token-based gaps and responsive auto-fill/auto-fit columns
+- **Stack** - Flex layout with token-based gaps
 - **ScrollLinked** - Scroll progress indicator
 - **Separator** - Visual content divider
 
@@ -341,7 +343,7 @@ All components and hooks ship from a single ESM entry point — there are no per
 
 ```tsx
 // Named imports from the root entry — unused exports are tree-shaken away
-import { Button, Card, useClickAway, useLocalStorage } from '@k8ordo/ui';
+import { Button, Card, useClickAway, useDisclosure } from '@k8ordo/ui';
 ```
 
 Optional features live behind dedicated subpath exports:
@@ -574,11 +576,9 @@ The library includes several useful hooks:
 - **useDebouncedTransition** - Rate-limited transition with `AbortSignal`
 - **useDeferredDebounce** - `useDeferredValue` with pending flag
 - **useDisclosure** - Open/close/toggle disclosure state
-- **useHash** - URL hash management
 - **useHover** - Element hover detection
 - **useIntersectionObserver** / **useInView** - Element visibility
 - **useInterval** - Interval timer management
-- **useLocalStorage** / **useSessionStorage** - Web Storage with React state
 - **useResize** - Element resize detection (ResizeObserver)
 - **useScrollDirection** - Scroll direction detection
 - **useScrollLock** - Body/element scroll lock
@@ -587,6 +587,8 @@ The library includes several useful hooks:
 - **useWindowResize** - Window resize events
 - **useWindowSize** - Window size tracking
 - **useWritingMode** - Detect horizontal/vertical `writing-mode`
+
+State that lives in a place — the URL, a history entry, localStorage, memory — is [`@k8ordo/state`](https://www.npmjs.com/package/@k8ordo/state)'s job (`defineLocalState` and friends), not a hook here: a package that owned it twice would give an app two answers.
 
 ## Accessibility
 

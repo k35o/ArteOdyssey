@@ -2,6 +2,18 @@ import { z } from 'zod';
 
 import { formFields } from './form-fields';
 
+// Several cases below derive a schema with a non-empty `dropped` list on
+// purpose; keep their development warning out of the test output.
+const warn = vi.spyOn(console, 'warn').mockImplementation(() => undefined);
+
+beforeEach(() => {
+  warn.mockClear();
+});
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+});
+
 describe('formFields', () => {
   it('derives the constraint attributes the browser can enforce', () => {
     const { fields } = formFields(
@@ -189,5 +201,38 @@ describe('formFields', () => {
 
     expect(fields.password.input.type).toBe('password');
     expect(fields.password.secret).toBe(true);
+  });
+});
+
+describe('the dropped report outside production', () => {
+  it('warns once per schema, naming every dropped field and its reason', () => {
+    const schema = z
+      .object({ email: z.email(), password: z.string(), confirm: z.string() })
+      .refine((v) => v.password === v.confirm, { path: ['confirm'] });
+
+    const first = formFields(schema);
+    formFields(schema);
+
+    expect(warn).toHaveBeenCalledTimes(1);
+    const message = String(warn.mock.calls[0]?.[0]);
+    expect(message).toContain('@k8ordo/form');
+    for (const entry of first.dropped) {
+      expect(message).toContain(entry.field);
+      expect(message).toContain(entry.reason);
+    }
+    // 「サーバーでは検査される」ことを読む人に伝える
+    expect(message).toContain('サーバー');
+  });
+
+  it('stays silent when nothing was dropped', () => {
+    formFields(z.object({ title: z.string().min(1).max(10) }));
+    expect(warn).not.toHaveBeenCalled();
+  });
+
+  it('stays silent in production', () => {
+    vi.stubEnv('NODE_ENV', 'production');
+    const { dropped } = formFields(z.object({ email: z.email() }));
+    expect(dropped).not.toHaveLength(0);
+    expect(warn).not.toHaveBeenCalled();
   });
 });

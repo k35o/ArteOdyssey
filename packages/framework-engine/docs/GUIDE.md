@@ -1,10 +1,9 @@
 # @k8ordo/framework-engine
 
-**Do not install this package.** An application installs `@k8ordo/static` or
-`@k8ordo/server`; this is the machinery both of them are built on, published
-only so that they can resolve it.
-
-What it holds is everything the two modes share, which is nearly everything:
+**Private.** This package is never published: an application installs
+`@k8ordo/static` or `@k8ordo/server`, and each of those bundles this engine
+into itself at pack time. What is here is everything the two modes share,
+which is nearly everything:
 
 - **The `routes/` grammar.** A directory tree is the application's pathname
   space, parsed and checked as a pure function of the file list.
@@ -20,5 +19,5 @@ What it holds is everything the two modes share, which is nearly everything:
   build time, or once per request.
 
 The grammar and the generator are documented where an application meets them,
-in [`@k8ordo/static`](https://ordo.k8o.me/static/docs/GUIDE.md) and
-[`@k8ordo/server`](https://ordo.k8o.me/server/docs/GUIDE.md).
+in [`@k8ordo/static`](../../static/docs/GUIDE.md) and
+[`@k8ordo/server`](../../server/docs/GUIDE.md).

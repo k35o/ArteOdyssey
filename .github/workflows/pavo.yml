@@ -15,5 +15,8 @@ jobs:
     with:
       instructions: default,react,typescript
       extra_prompt: |
-        React コンポーネントライブラリ（デザインシステム）。Storybook + Chromatic VRT。
+        @k8ordo/* の React ライブラリ群のモノレポ。ui（コンポーネント、Storybook + Chromatic VRT）、
+        form、state、router、static / server（RSC フレームワーク。framework-engine は
+        両モードに同梱される非公開の共通部）、apps/docs（サイト、@k8ordo/static で構築）。
+        前提: React 19 + RSC、Baseline newly available のみ、ポリフィルなし。
     secrets: inherit

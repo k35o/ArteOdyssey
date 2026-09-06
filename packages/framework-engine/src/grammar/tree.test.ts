@@ -115,3 +115,45 @@ describe('what routes/ refuses to hold', () => {
     expect(problems.length).toBeGreaterThan(1);
   });
 });
+
+describe('error.tsx and redirect.ts', () => {
+  it('fills the error and redirect slots from the convention filenames', () => {
+    const { tree, problems } = parseRouteTree([
+      'page.tsx',
+      'error.tsx',
+      'old/redirect.ts',
+    ]);
+    expect(problems).toStrictEqual([]);
+    expect(tree.error).toBe('error.tsx');
+    expect(childOf(tree, 'old').redirect).toBe('old/redirect.ts');
+  });
+
+  it('lets a directory declare a route with a redirect alone', () => {
+    const { problems } = parseRouteTree(['page.tsx', 'old/redirect.ts']);
+    expect(problems).toStrictEqual([]);
+  });
+
+  it('refuses a directory that both renders and redirects', () => {
+    const { problems } = parseRouteTree([
+      'page.tsx',
+      'old/page.tsx',
+      'old/redirect.ts',
+    ]);
+    expect(problems).toStrictEqual([
+      {
+        path: 'old/redirect.ts',
+        message: '"old" cannot both render page.tsx and redirect — keep one',
+      },
+    ]);
+  });
+
+  it('counts a redirect as a declared URL, so a second one at the same URL is refused', () => {
+    const { problems } = parseRouteTree([
+      'page.tsx',
+      '(a)/old/redirect.ts',
+      '(b)/old/page.tsx',
+    ]);
+    expect(problems).toHaveLength(1);
+    expect(problems[0]?.message).toContain('"/old" is already declared');
+  });
+});

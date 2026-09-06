@@ -1,5 +1,10 @@
 'use server';
 
+import { parseForm } from '@k8ordo/form/server';
+import type { FormState } from '@k8ordo/form/server';
+
+import { guestbookSchema } from './guestbook-schema';
+
 // `'use server'` と `.server` は別のことを言っている。ここは「クライアントから
 // 呼べる、サーバーで動く関数」で、`.server` は「クライアントから届いてはいけない
 // モジュール」。だからこのファイルは `.server` を名乗らない。
@@ -9,14 +14,15 @@ const entries: string[] = [];
 // 同期にはできない。
 // oxlint-disable eslint/require-await, typescript/require-await
 export async function sign(
-  _previous: string | null,
+  _previous: FormState,
   formData: FormData,
-): Promise<string | null> {
-  const value = formData.get('name');
-  const name = typeof value === 'string' ? value.trim() : '';
-  if (name === '') return 'name is required';
-  entries.push(name);
-  return null;
+): Promise<FormState> {
+  // 検証はスキーマ 1 つ。失敗したら per-field のエラーと入力値をそのまま
+  // フォームに返す (JavaScript なしの再送でも入力が残る)
+  const parsed = parseForm(guestbookSchema, formData);
+  if (!parsed.success) return parsed.state;
+  entries.push(parsed.data.name);
+  return {};
 }
 
 export async function listEntries(): Promise<readonly string[]> {

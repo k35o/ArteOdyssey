@@ -12,11 +12,13 @@
     "start": "node ./serve.js"
   },
   "dependencies": {
+    "@k8ordo/form": "workspace:^",
     "@k8ordo/router": "workspace:^",
     "@k8ordo/server": "workspace:^",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "server-only": "0.0.1"
+    "server-only": "0.0.1",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

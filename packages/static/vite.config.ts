@@ -5,11 +5,15 @@ export default defineConfig({
     '*': 'vp check --fix',
   },
   pack: {
-    entry: ['src/**/*.ts', '!src/**/*.test.ts'],
+    entry: ['src/index.ts'],
     format: 'esm',
     dts: true,
     outDir: 'dist',
-    unbundle: true,
+    // The engine is a private workspace package: it is bundled into this
+    // file rather than published, and its runtime entries — the three
+    // environments Vite is pointed at — are copied beside it.
+    deps: { alwaysBundle: ['@k8ordo/framework-engine'] },
+    copy: [{ from: '../framework-engine/dist/runtime', to: 'dist' }],
   },
   test: {
     globals: true,

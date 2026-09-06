@@ -60,7 +60,7 @@ type RootProps = PropsWithChildren<
   >
 >;
 
-const Root = ({
+export const Root = ({
   children,
   disabled = false,
   invalid = false,
@@ -167,7 +167,7 @@ const Root = ({
   );
 };
 
-const Trigger: FC<{
+export const Trigger: FC<{
   renderItem: (props: {
     onClick: () => void;
     disabled: boolean;
@@ -182,7 +182,7 @@ const Trigger: FC<{
   });
 };
 
-const ItemList: FC<{
+export const ItemList: FC<{
   showWebkitRelativePath?: boolean;
   clearable?: boolean;
 }> = ({ showWebkitRelativePath, clearable }) => {
@@ -227,9 +227,3 @@ const ItemList: FC<{
     </ul>
   );
 };
-
-export const FileField = {
-  Root,
-  Trigger,
-  ItemList,
-} as const;

@@ -48,6 +48,9 @@ catalogs:
     vitest:
       specifier: 4.1.10
       version: 4.1.10
+    zod:
+      specifier: 4.4.3
+      version: 4.4.3
 
 overrides:
   '@oxc-project/types': 0.144.0
@@ -92,6 +95,9 @@ importers:
       '@fontsource-variable/noto-sans-jp':
         specifier: 5.3.0
         version: 5.3.0
+      '@k8ordo/form':
+        specifier: workspace:^
+        version: link:../../packages/form
       '@k8ordo/router':
         specifier: workspace:^
         version: link:../../packages/router
@@ -104,9 +110,6 @@ importers:
       '@tailwindcss/vite':
         specifier: 'catalog:'
         version: 4.3.3(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
-      react-error-boundary:
-        specifier: 6.1.2
-        version: 6.1.2(react@19.2.8)
       shiki:
         specifier: 4.4.3
         version: 4.4.3
@@ -114,7 +117,7 @@ importers:
         specifier: 'catalog:'
         version: 4.3.3
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
     devDependencies:
       '@k8ordo/static':
@@ -136,8 +139,51 @@ importers:
         specifier: 'catalog:'
         version: 8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)
 
+  examples/router-basic:
+    dependencies:
+      '@k8ordo/router':
+        specifier: workspace:^
+        version: link:../../packages/router
+      react:
+        specifier: 'catalog:'
+        version: 19.2.8
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.8(react@19.2.8)
+    devDependencies:
+      '@types/node':
+        specifier: 24.12.4
+        version: 24.12.4
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.4(@types/react@19.2.18)
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.0.5(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))
+      '@vitest/browser-playwright':
+        specifier: 4.1.10
+        version: 4.1.10(playwright@1.62.1)(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)
+      vite:
+        specifier: 'catalog:'
+        version: 8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0)
+      vite-plus:
+        specifier: 'catalog:'
+        version: 0.2.9(@arethetypeswrong/core@0.18.5)(@types/node@24.12.4)(@vitest/browser-playwright@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(esbuild@0.28.2)(jiti@2.7.0)(publint@0.3.23)(typescript@7.0.2)(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@types/node@24.12.4)(@vitest/browser-playwright@4.1.10)(@vitest/browser-preview@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))
+      vitest-browser-react:
+        specifier: 2.2.0
+        version: 2.2.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.10)
+
   examples/server-basic:
     dependencies:
+      '@k8ordo/form':
+        specifier: workspace:^
+        version: link:../../packages/form
       '@k8ordo/router':
         specifier: workspace:^
         version: link:../../packages/router
@@ -153,6 +199,9 @@ importers:
       server-only:
         specifier: 0.0.1
         version: 0.0.1
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
     devDependencies:
       '@types/react':
         specifier: 'catalog:'
@@ -184,6 +233,9 @@ importers:
       server-only:
         specifier: 0.0.1
         version: 0.0.1
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
     devDependencies:
       '@k8ordo/static':
         specifier: workspace:^
@@ -256,7 +308,7 @@ importers:
         specifier: 'catalog:'
         version: 4.3.3
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
     devDependencies:
       '@types/react':
@@ -305,7 +357,7 @@ importers:
         specifier: 'catalog:'
         version: 19.2.8(react@19.2.8)
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
     devDependencies:
       '@tailwindcss/postcss':
@@ -360,7 +412,7 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.10)
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
 
   packages/framework-engine:
@@ -375,9 +427,6 @@ importers:
         specifier: 0.0.8
         version: 0.0.8
     devDependencies:
-      '@arethetypeswrong/cli':
-        specifier: 'catalog:'
-        version: 0.18.5
       '@k8ordo/router':
         specifier: workspace:^
         version: link:../router
@@ -390,9 +439,6 @@ importers:
       '@vitest/browser-playwright':
         specifier: 4.1.10
         version: 4.1.10(playwright@1.62.1)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)
-      publint:
-        specifier: 'catalog:'
-        version: 0.3.23
       react:
         specifier: 'catalog:'
         version: 19.2.8
@@ -456,13 +502,22 @@ importers:
 
   packages/server:
     dependencies:
-      '@k8ordo/framework-engine':
-        specifier: workspace:^
-        version: link:../framework-engine
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      '@vitejs/plugin-rsc':
+        specifier: 0.5.34
+        version: 0.5.34(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      rsc-html-stream:
+        specifier: 0.0.8
+        version: 0.0.8
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: 'catalog:'
         version: 0.18.5
+      '@k8ordo/framework-engine':
+        specifier: workspace:^
+        version: link:../framework-engine
       '@k8ordo/router':
         specifier: workspace:^
         version: link:../router
@@ -493,6 +548,9 @@ importers:
       '@arethetypeswrong/cli':
         specifier: 'catalog:'
         version: 0.18.5
+      '@k8ordo/router':
+        specifier: workspace:^
+        version: link:../router
       '@types/react':
         specifier: 'catalog:'
         version: 19.2.18
@@ -527,18 +585,27 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.10)
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
 
   packages/static:
     dependencies:
-      '@k8ordo/framework-engine':
-        specifier: workspace:^
-        version: link:../framework-engine
+      '@vitejs/plugin-react':
+        specifier: 'catalog:'
+        version: 6.0.5(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      '@vitejs/plugin-rsc':
+        specifier: 0.5.34
+        version: 0.5.34(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      rsc-html-stream:
+        specifier: 0.0.8
+        version: 0.0.8
     devDependencies:
       '@arethetypeswrong/cli':
         specifier: 'catalog:'
         version: 0.18.5
+      '@k8ordo/framework-engine':
+        specifier: workspace:^
+        version: link:../framework-engine
       '@k8ordo/router':
         specifier: workspace:^
         version: link:../router
@@ -685,7 +752,7 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(@types/react-dom@19.2.4(@types/react@19.2.18))(@types/react@19.2.18)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)(vitest@4.1.10)
       zod:
-        specifier: 4.4.3
+        specifier: 'catalog:'
         version: 4.4.3
 
 packages:
@@ -4616,11 +4683,6 @@ packages:
     peerDependencies:
       react: ^19.2.8
 
-  react-error-boundary@6.1.2:
-    resolution: {integrity: sha512-3DpCr5HVdZ0caUjYE/kIHBEJN0mNP3ZCgf16c48uJ5TbWjorKVp+YG8W3XqlJ7vJAVNw6wNIImyPXmFydwmyng==}
-    peerDependencies:
-      react: ^18.0.0 || ^19.0.0
-
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
 
@@ -7000,7 +7062,6 @@ snapshots:
       - msw
       - utf-8-validate
       - vite
-    optional: true
 
   '@vitest/browser-playwright@4.1.10(playwright@1.62.1)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)':
     dependencies:
@@ -7102,9 +7163,9 @@ snapshots:
       obug: 2.1.4
       std-env: 4.2.0
       tinyrainbow: 3.1.1
-      vitest: 4.1.10(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/browser-preview@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      vitest: 4.1.10(@types/node@24.12.4)(@vitest/browser-playwright@4.1.10)(@vitest/browser-preview@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))
     optionalDependencies:
-      '@vitest/browser': 4.1.10(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)
+      '@vitest/browser': 4.1.10(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))(vitest@4.1.10)
 
   '@vitest/expect@3.2.4':
     dependencies:
@@ -9011,10 +9072,6 @@ snapshots:
       react: 19.2.8
       scheduler: 0.27.0
 
-  react-error-boundary@6.1.2(react@19.2.8):
-    dependencies:
-      react: 19.2.8
-
   react-is@17.0.2: {}
 
   react@19.2.8: {}
@@ -9784,7 +9841,7 @@ snapshots:
     dependencies:
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
-      vitest: 4.1.10(@types/node@24.13.3)(@vitest/browser-playwright@4.1.10)(@vitest/browser-preview@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.2.1(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0))
+      vitest: 4.1.10(@types/node@24.12.4)(@vitest/browser-playwright@4.1.10)(@vitest/browser-preview@4.1.10)(@vitest/coverage-v8@4.1.10)(@vitest/ui@4.1.10)(vite@8.2.1(@types/node@24.12.4)(esbuild@0.28.2)(jiti@2.7.0))
     optionalDependencies:
       '@types/react': 19.2.18
       '@types/react-dom': 19.2.4(@types/react@19.2.18)

@@ -1,8 +1,12 @@
 # Agent guide — packages/framework-engine
 
 `@k8ordo/framework-engine` — the machinery `@k8ordo/static` and
-`@k8ordo/server` are both built on. **Internal**: applications install a mode
-package, never this one. It is published only so those two can resolve it.
+`@k8ordo/server` are both built on. **Private**: it is never published. Each
+mode package bundles it into its own `dist/index.mjs` at pack time
+(`deps.alwaysBundle` in the mode's `vite.config.ts`) and copies
+`dist/runtime/` — the three environment entries — beside it, then tells the
+engine where they landed (`EngineHost.runtimeDir`). Nothing outside this
+repository can resolve the name.
 
 The framework's job is to make the application's structure a checkable form:
 `routes/` is the pathname space and holds nothing else, execution boundaries
@@ -15,7 +19,7 @@ newly available only) is in the repository root's [`CLAUDE.md`](../../CLAUDE.md)
 
 ```bash
 pnpm test          # unit (node)
-pnpm build         # vp pack
+pnpm build         # vp pack (the mode packages bundle the result)
 pnpm typecheck
 pnpm check         # check:write to auto-fix
 ```
@@ -46,6 +50,11 @@ pnpm check         # check:write to auto-fix
   not a pattern — running it on a broken tree throws instead of reporting. So
   a build with grammar problems names all of those at once, and shadowing on
   the next run.
+- **The host names itself.** `EngineHost.via` is the mode package the
+  application installed — the only name resolvable from the project root once
+  the engine is bundled — so the generated files' banner, the optimizer's
+  `include` entries, and any message that tells a person what to install all
+  say `@k8ordo/static` or `@k8ordo/server`, never this package.
 - **The browser holds no route table.** `runtime/app-router.tsx` claims every
   same-origin URL and learns from the answer; anything that is not a payload
   (`runtime/is-payload.ts`) becomes a document load, which is also the
@@ -55,6 +64,38 @@ pnpm check         # check:write to auto-fix
   `runtime/entry.ssr.tsx` injects the RSC stream into the HTML and
   `runtime/entry.browser.tsx` reads it back; nothing refetches on load, which
   is what lets a prerendered `404.html` come alive.
+- **A `paramsSchema` export is found in the text, run before render.**
+  `generate/write.ts` reads each page/layout and regexes for the export (an
+  import would evaluate the page before anything is compiled); `emit.ts`
+  imports it beside the component, checks it with `satisfies
+ParamsSchemaFor<pattern>`, lists per page pattern the schemas along its
+  stack in `paramSchemas`, and types the page by them. `runtime/params.ts`
+  runs them synchronously inside `routes.match`'s `accept`, so a refused
+  value is a pattern that did not match and the catch-all answers under 404.
+  A catch-all's own params are never validated; a layout receives strings.
+- **`error.tsx` is the router's `error`; `redirect.ts` is answered before the
+  table.** The generator puts an error file on its branch (a page with an
+  error becomes a branch of its own) and lists redirects in `redirects`,
+  keyed by pattern, which the handler matches first. A Server Action's
+  `redirect()` throws a `Symbol.for`-branded `Redirect` — never checked by
+  `instanceof`, because the mode package holds two copies of this module —
+  and the handler answers 303 (no JavaScript) or a payload with `redirect`.
+- **The request reaches a page only under a server.** `K8ORDO_MODE` is
+  defined by the host; the handler attaches `request` (headers, cookies) only
+  under `@k8ordo/server`, and the generator emits the field only there. Under
+  `@k8ordo/static` the handler also buffers the HTML and answers 500 when the
+  render threw, so the build stops naming the page instead of writing it.
+- **One pattern walk.** `declaredPatterns(tree)` is the order the matcher
+  tries patterns — pages and redirects, literals before params, the
+  catch-all last in its branch — and everything that asks "which URLs does
+  this site have" reads it: the shadow check here, `patternsOf` in
+  `@k8ordo/static`. `decodePathname` is likewise the one decoding both mode
+  packages use before a pathname may name a file.
+- **The two GUIDEs share their common sections from one source.**
+  `docs/shared/<name>.md` is written into both `packages/static/docs/GUIDE.md`
+  and `packages/server/docs/GUIDE.md` between `<!-- shared:<name> -->`
+  markers by `scripts/sync-guides.ts`; `pnpm check` fails on drift and
+  `pnpm check:write` re-syncs. Edit the fragment, never the copy.
 - **A route file's props are checked by the generator.** `routes.gen.ts`
   emits `satisfies Page<'/products/:id'>` / `satisfies Layout<'/:locale'>`
   per file, so a mistyped param name fails the build without any route file
@@ -72,6 +113,9 @@ src/
   plugin/server-actions.ts   which modules declared 'use server'
   runtime/entry.{rsc,ssr,browser}.tsx  the three environments
   runtime/app-router.tsx     the client half: navigation + payloads
+  runtime/params.ts          runs the params schemas along a matched stack
+  runtime/redirect.ts        redirect() / redirect.ts targets
+  runtime/request.ts         the read-only request a page receives
   runtime/render.tsx         the matched stack, nested through children
   index.ts
 ```

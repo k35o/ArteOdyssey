@@ -36,9 +36,30 @@ pnpm check         # check:write to auto-fix
   before the tree arrives, so comparing against the address bar makes a
   state update during a pending load abort that load and strand the old page
   under the new URL (regression test in `router.browser.test.tsx`).
+- **A new page starts where a document load would.** The commit effect that
+  resolves `finished` also places the viewport: top for push/replace, the
+  fragment's element when the URL names one, nothing for a traversal (the
+  browser restores). `scroll: 'manual'` is passed for exactly the cases this
+  hook scrolls itself, so the platform and the hook never both act.
+- **`useMatch` reads the platform, never the table.** It is `matchPath` over
+  `usePathname`, which is why it works under the framework where `useRoute`
+  cannot; `/*` on a table pattern is the one extension of the grammar it
+  accepts, meaning "and everything below".
 - **Unmatched pathnames are not intercepted.** A real 404 is the server's.
 - **Reload, POST, download and hash are not ours.** `isOurs` says no before
   the table is consulted; a GET form (no `formData`) still comes through.
+- **Schemas are typed here, run elsewhere.** `ParamsSchemaFor` /
+  `ParsedParams` / `RegisteredParams` describe what a Standard Schema produces
+  so `href` can take it; the framework runs the schema and hands `match` an
+  `accept` that declines a refused param, which makes the walk go on to the
+  next pattern. Nothing in this package validates anything.
+- **An `error` boundary is an element of the stack, keyed by generation.**
+  `boundaryFor` puts it after the layout; `RouteErrorBoundary` keys its
+  class boundary by `NavigationGeneration` — the id of the navigation that
+  applied the tree — never by the pathname, which commits before the tree
+  arrives and would remount the boundary onto the old, still-failing tree
+  (regression test in `router.browser.test.tsx`). It sits under a Suspense
+  boundary so a server render leaves a throwing subtree to the browser.
 - **Declaration order decides.** No specificity ranking, ever — the table
   reads top to bottom like the code it is.
 - **The type mirrors the runtime walk.** `Below` resets a branch that landed
@@ -55,6 +76,8 @@ src/
   register.ts       Register(module augmentation)
   navigation.ts     useInterceptedNavigation(intercept と commit 契約)
   location.tsx      usePathname / PathnameProvider(表を引かない現在地)
+  match.ts          matchPath / useMatch(表を引かない「どの区間にいるか」)
+  boundary.tsx      RouteErrorBoundary(表の error を描く境界)
   router.tsx        Router / Outlet / useRoute / useParams
 ```
 

@@ -88,6 +88,15 @@ export const en = {
   'form.docsTitle': 'Documentation',
   'form.docsDescription':
     'The guide and reference ship inside the npm package. An AI coding assistant reads the exact installed version out of `node_modules/@k8ordo/form/docs/`.',
+  'form.demoTitle': 'Running on this very page',
+  'form.demoDescription':
+    'The form below submits as GET and lands in this URL’s search params. Its constraint attributes were derived by `formFields(demoState.url)` in a Server Component, and the same schema is what @k8ordo/state’s `definePageState` reads back. The row underneath shows the URL the form wrote and the values state read agreeing.',
+  'form.demoLabelQ': 'Keyword',
+  'form.demoLabelMin': 'Minimum',
+  'form.demoSubmit': 'Filter',
+  'form.demoUrlEmpty': 'no query (all defaults)',
+  'form.demoHint':
+    'This site is built with @k8ordo/static, so there is no Server Action. A GET form carries no body, so the router intercepts it, and a navigation to the same pathname is a state update. With JavaScript off, the same form lands on the same URL. Type -1 into `min` and the browser’s own constraint validation stops it, in the schema’s own words.',
   'state.description':
     'Declare state by where it lives. Four places — URL search params, the history entry, localStorage, memory — each typed by one zod schema, from which the server read, link building and the subscription are all derived.',
   'state.demoTitle': 'Running on this very page',
@@ -130,10 +139,16 @@ export const en = {
     'Params are inferred from the pattern literal, and once `Register` is declared a pattern the table does not have fails to compile. No code generation.',
   'router.featureNavigation': 'finished means on screen',
   'router.featureNavigationDescription':
-    'The intercept handler resolves after React commits the new tree. When only the search moved, the route tree is left alone and neither scroll nor focus is disturbed.',
+    'The intercept handler resolves after React commits the new tree. When only the search moved, the route tree is left alone and neither scroll nor focus is disturbed; when the page changed, the router is what puts it at the top.',
   'router.featureNoLink': 'No Link component',
   'router.featureNoLinkDescription':
     'Under the Navigation API a plain `<a>` is already a client navigation. Wrapping it would add a second way to write the same thing; `href` is what makes it typed.',
+  'router.featureMatch': 'Ask where you are',
+  'router.featureMatchDescription':
+    "`useMatch('/products/*')` answers whether a page under a section is showing. It needs no table in the browser, which is why a sidebar under the framework asks with it too.",
+  'router.featureError': 'Error boundaries live in the table',
+  'router.featureErrorDescription':
+    'Name an `error` beside a `layout` and, when what is below throws, it renders inside the layout with the frame intact. Scrolling a new page to the top — or to its #fragment — is the router’s job too.',
   'router.exampleTitle': 'The table, and a link',
   'router.exampleDescription':
     'The table lives in one place. Pages never import it — a typed link needs only the pattern string.',
@@ -154,7 +169,13 @@ export const en = {
     "Execution is declared with React's own `'use client'`. The build fails the moment a `server-only` module reaches the client, so secrets cannot cross however many imports sit in between.",
   'static.featureFiles': 'The mode is the dependency',
   'static.featureFilesDescription':
-    'Installing this package is what makes the application static: Server Actions and request-time data are not rules to remember but APIs that do not exist. Parameterised routes must be enumerated, or the build stops.',
+    'Installing this package is what makes the application static: Server Actions and request-time data are not rules to remember but APIs that do not exist. Parameterised routes must be enumerated, or the build stops. Pass `site` and the build writes sitemap.xml too.',
+  'static.featureRouteFiles': 'error.tsx and redirect.ts',
+  'static.featureRouteFilesDescription':
+    'When a page throws, `error.tsx` renders inside the layout and the frame survives; a page that throws during the build stops it. A directory that moved keeps a one-line `redirect.ts`.',
+  'static.featureParams': 'Parameters take a schema',
+  'static.featureParamsDescription':
+    'A `page.tsx` or `layout.tsx` that exports `paramsSchema` makes a refused value a pathname the pattern does not answer, so it falls through to not-found. Links take what the page receives, typed by the schema.',
   'static.exampleTitle': 'Directories are the URL',
   'static.exampleDescription':
     'The routes/ tree is the pathname space; the table and the type wiring are generated from it.',
@@ -166,7 +187,7 @@ export const en = {
   'server.featuresTitle': 'Features',
   'server.featureRequest': 'Values arrive with the request',
   'server.featureRequestDescription':
-    "Parameter values arrive with the request, so nothing has to be enumerated ahead of time. An unknown URL gets your not-found page under a genuine 404 rather than the host's error page.",
+    "Parameter values arrive with the request, so nothing has to be enumerated ahead of time. An unknown URL gets your not-found page under a genuine 404 rather than the host's error page. A page or layout reads the request's headers and cookies from `request`, read-only.",
   'server.featureRoutes': 'routes/ is the URL space',
   'server.featureRoutesDescription':
     'The directory tree is the pathname space: page/layout/not-found, `[param]`, `(group)`, and `_`-prefixed privates. Anything outside the grammar fails the build.',
@@ -176,6 +197,12 @@ export const en = {
   'server.featureSameHandler': 'The same handler as static',
   'server.featureSameHandlerDescription':
     'The function that turns a request into a page is identical; only when it is called differs. If a page renders differently under the two modes, something has leaked.',
+  'server.featureRouteFiles': 'error.tsx and redirect.ts',
+  'server.featureRouteFilesDescription':
+    'When a page throws, `error.tsx` renders inside the layout and the frame survives. A directory that moved keeps a one-line `redirect.ts`, and a Server Action ends with `redirect()` to say where next.',
+  'server.featureParams': 'Parameters take a schema',
+  'server.featureParamsDescription':
+    'A `page.tsx` or `layout.tsx` that exports `paramsSchema` makes a refused value a pathname the pattern does not answer — a genuine 404. Links take what the page receives, typed by the schema.',
   'server.exampleTitle': 'A Server Action',
   'server.exampleDescription':
     'A function marked `use server` is callable from the client, and runs on the server. The same form still works with no JavaScript at all.',
@@ -529,16 +556,8 @@ export const en = {
     'A hook that returns whether the code is running on the client.',
   'hooks.useClipboard.description':
     'A hook that provides clipboard read/write operations.',
-  'hooks.useHash.description':
-    'A hook that tracks the URL hash and reacts to changes.',
   'hooks.useInterval.description':
     'A hook that executes a callback at regular intervals.',
-  'hooks.useLocalStorage.description':
-    'A hook that persists state in localStorage with cross-tab sync.',
-  'hooks.useLocalStorage.removeTitle': 'Remove Value',
-  'hooks.useSessionStorage.description':
-    'A hook that persists state in sessionStorage.',
-  'hooks.useSessionStorage.removeTitle': 'Remove Value',
   'hooks.useResize.description':
     'A hook that observes element size changes via ResizeObserver.',
   'hooks.useScrollDirection.description':

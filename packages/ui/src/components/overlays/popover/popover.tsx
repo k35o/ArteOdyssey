@@ -5,7 +5,7 @@ import type { FC, FocusEvent, PropsWithChildren, ReactElement } from 'react';
 
 import { cn } from '../../../helpers';
 import { useControllableState, useWritingMode } from '../../../hooks';
-import { useFocusTrap } from '../../../hooks/focus-trap';
+import { useFocusTrap } from '../../../internal/focus-trap';
 import type { Placement } from '../../../types/variables';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
 import { pushEscapeLayer } from './escape-stack';
@@ -23,7 +23,7 @@ export {
   type PopoverTriggerProps,
 } from './hooks';
 
-const Root: FC<
+export const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
     role?: 'dialog' | 'menu' | 'listbox';
@@ -106,7 +106,7 @@ const Root: FC<
   );
 };
 
-const Content: FC<{
+export const Content: FC<{
   renderItem: (props: PopoverContentProps) => ReactElement;
   // 開閉アニメーション。scale=ポップ（既定）、fade=フェード（Tooltip 用）。
   animation?: 'scale' | 'fade';
@@ -179,12 +179,6 @@ const Content: FC<{
   );
 };
 
-const Trigger: FC<{
+export const Trigger: FC<{
   renderItem: (props: PopoverTriggerProps) => ReactElement;
 }> = ({ renderItem }) => renderItem(usePopoverTrigger());
-
-export const Popover = {
-  Root,
-  Content,
-  Trigger,
-} as const;

@@ -1,4 +1,11 @@
-import { AtomIcon, FormIcon, LocationIcon, SendIcon } from '@k8ordo/ui';
+import {
+  AtomIcon,
+  FormIcon,
+  LocationIcon,
+  SendIcon,
+  RefreshIcon,
+  ShieldCheckIcon,
+} from '@k8ordo/ui';
 
 import { PackageExample } from '../../../components/package-example';
 import { PackageLanding } from '../../../components/package-landing';
@@ -25,6 +32,16 @@ const FEATURES: PackageFeature[] = [
     description: 'server.featureSameHandlerDescription',
     icon: <AtomIcon />,
   },
+  {
+    title: 'server.featureRouteFiles',
+    description: 'server.featureRouteFilesDescription',
+    icon: <RefreshIcon />,
+  },
+  {
+    title: 'server.featureParams',
+    description: 'server.featureParamsDescription',
+    icon: <ShieldCheckIcon />,
+  },
 ];
 
 const EXAMPLE = `// src/routes/_parts/actions.ts
@@ -34,7 +51,7 @@ export async function createTalk(_previous: FormState, formData: FormData) {
   const parsed = parseForm(talkSchema, formData);
   if (!parsed.success) return parsed.state;
   await insertTalk(parsed.data);
-  return null;
+  redirect('/talks'); // throw されるので、この後の行は走らない
 }
 
 // src/routes/_parts/talk-form.tsx

@@ -14,7 +14,7 @@ const [DialogContext, useDialogContext] = createSafeContext<{
   rootId: string;
 }>('useDialogContext must be used within a DialogProvider');
 
-const Root: FC<
+export const Root: FC<
   PropsWithChildren<{
     ref?: Ref<HTMLElement> | undefined;
     id?: string | undefined;
@@ -65,7 +65,7 @@ const Root: FC<
   );
 };
 
-const Header: FC<{
+export const Header: FC<{
   title: ReactNode;
   onClose: () => void;
 }> = ({ title, onClose }) => {
@@ -92,7 +92,7 @@ const Header: FC<{
   );
 };
 
-const Content: FC<PropsWithChildren> = ({ children }) => {
+export const Content: FC<PropsWithChildren> = ({ children }) => {
   const { rootId } = useDialogContext();
   return (
     // バックドロップクリックでの閉じる挙動を内側で止めるためだけの onClick
@@ -110,9 +110,3 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     /* oxlint-enable eslint-plugin-jsx-a11y/click-events-have-key-events, eslint-plugin-jsx-a11y/no-static-element-interactions */
   );
 };
-
-export const Dialog = {
-  Root,
-  Header,
-  Content,
-} as const;

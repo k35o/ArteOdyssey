@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, screen, waitFor } from 'storybook/test';
 
+import { DropdownMenu } from '.';
 import { DarkModeIcon } from '../../icons';
-import { DropdownMenu } from './dropdown-menu';
 
 const meta: Meta<typeof DropdownMenu.Root> = {
   title: 'components/overlays/dropdown-menu',

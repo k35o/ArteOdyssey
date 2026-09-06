@@ -2,6 +2,7 @@ import { Anchor, Code, Heading, Separator } from '@k8ordo/ui';
 import type { FC } from 'react';
 
 import { CodeBlock } from '../../../../../components/code-block';
+import { PageTitle } from '../../../../../components/page-title';
 import { T } from '../../../../../components/t';
 import { STORYBOOK_URL } from '../../../../../constants';
 import type { MessageKey } from '../../../../../i18n';
@@ -60,6 +61,7 @@ const Surface: FC<{ path: string; href: string; descKey: MessageKey }> = ({
 export default function AiAgents() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.aiAgents" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.aiAgents" />

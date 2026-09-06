@@ -1,5 +1,4 @@
 ---
-'@k8ordo/framework-engine': none
 '@k8ordo/router': none
 '@k8ordo/server': none
 '@k8ordo/static': none

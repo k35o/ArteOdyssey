@@ -238,3 +238,43 @@ describe('defineRoutes', () => {
     });
   });
 });
+
+// 数値でない id は、その pattern が答えなかったのと同じ扱いになる
+const onlyNumericIds = (found: {
+  pattern: string;
+  params: Readonly<Record<string, string>>;
+}) =>
+  found.pattern !== '/:locale/products/:id' ||
+  /^\d+$/u.test(found.params['id'] ?? '');
+
+describe('match with accept', () => {
+  it('walks on to the next pattern when the caller declines a match', () => {
+    expect(routes.match('/ja/products/42', onlyNumericIds)?.pattern).toBe(
+      '/:locale/products/:id',
+    );
+    expect(routes.match('/ja/products/shoes', onlyNumericIds)?.pattern).toBe(
+      '/:locale/*',
+    );
+  });
+
+  it('returns null when every fit was declined', () => {
+    expect(routes.match('/', () => false)).toBeNull();
+  });
+});
+
+describe('href with schema-typed params', () => {
+  it('spells a number or a boolean the one way a schema reads back', () => {
+    expect(href('/:locale/products/:id', { locale: 'ja', id: 42 })).toBe(
+      '/ja/products/42',
+    );
+    expect(href('/:locale/products/:id', { locale: 'ja', id: true })).toBe(
+      '/ja/products/true',
+    );
+  });
+
+  it('refuses a value that has no URL spelling', () => {
+    expect(() =>
+      href('/:locale/products/:id', { locale: 'ja', id: { a: 1 } as never }),
+    ).toThrow(/no URL spelling/u);
+  });
+});

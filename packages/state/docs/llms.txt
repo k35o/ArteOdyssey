@@ -20,7 +20,8 @@ When installed via npm, these docs live under `node_modules/@k8ordo/state/docs/`
 - [Design Guide](GUIDE.md): the four places and when each fits, the shared
   definition module, reading on the server, updating on the client, batching
   and update handles, subscription granularity, router requirements, typed
-  routes via `Register`, and pairing with `@k8ordo/form` for GET forms.
+  routes via `Register`, reading local state before hydration, and pairing
+  with `@k8ordo/form` for GET forms.
 
 ## Entry point
 
@@ -33,7 +34,11 @@ When installed via npm, these docs live under `node_modules/@k8ordo/state/docs/`
   `href(base, values?)` builds a canonical link keeping the path literal in
   the type; `search(values?)` returns the query string alone.
   `defineLocalState(key, schema)` and `defineMemoryState(key, initial)`
-  declare app-scope state. `useAppState(definition, keys?, { initialUrl? })`
+  declare app-scope state; a local definition also exposes `storageKey` (the
+  localStorage key, `k8ordo-state:<key>`) and `inlineRead()`, a JavaScript
+  expression for an inline `<script>` that evaluates to the stored object or
+  `null` before hydration — unvalidated, so read only what you need with a
+  fallback. `useAppState(definition, keys?, { initialUrl? })`
   (client) works on any kind and returns `[state, update]` — state is the
   flat merge of a page definition's slots; `update(patch)` applies
   synchronously, batches per handler into one write (url+entry atomically via
@@ -41,5 +46,7 @@ When installed via npm, these docs live under `node_modules/@k8ordo/state/docs/`
   one `setItem`), and returns `{ committed, finished }` promise handles
   (settled for non-navigating kinds; `{ history: 'push' }` exists only on
   page state). `resetStateRegistry()` clears stores between tests. Augment
-  `interface Register { path }` to constrain `href` paths to the app's typed
-  routes.
+  `interface Register { routes: typeof routes }` — the same line as for
+  `@k8ordo/router` — to constrain `href` paths to the route table's linkable
+  paths; a router without a table registers its own path union as
+  `interface Register { path }` instead.

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import type { ComponentProps } from 'react';
+import { expect } from 'storybook/test';
 
 import { Radio } from './radio';
 
@@ -54,5 +55,19 @@ export const Disabled: Story = {
   args: {
     defaultValue: 'vue',
     disabled: true,
+  },
+};
+
+// FormControl の renderInput から受け取る invalid を radiogroup の aria-invalid として伝える
+export const Invalid: Story = {
+  args: {
+    defaultValue: 'vue',
+    invalid: true,
+  },
+  play: async ({ canvas }) => {
+    await expect(canvas.getByRole('radiogroup')).toHaveAttribute(
+      'aria-invalid',
+      'true',
+    );
   },
 };

@@ -5,7 +5,6 @@ import {
   AtomIcon,
   Button,
   Code,
-  GitHubIcon,
   Heading,
   HistoryIcon,
   LinkIcon,
@@ -15,21 +14,15 @@ import {
   PlusIcon,
   ShieldCheckIcon,
 } from '@k8ordo/ui';
-import type { ReactNode } from 'react';
 import * as z from 'zod/mini';
 
+import { PackageLanding } from '../../../components/package-landing';
+import type { PackageFeature } from '../../../components/package-landing';
 import { T } from '../../../components/t';
-import { localizeHref, useTranslation } from '../../../i18n';
-import type { MessageKey } from '../../../i18n/types';
-import { themeState } from '../../../theme/context';
+import { useTranslation } from '../../../i18n';
+import { themeState } from '../../../theme/state';
 
-type Feature = {
-  title: MessageKey;
-  description: MessageKey;
-  icon: ReactNode;
-};
-
-const FEATURES: Feature[] = [
+const FEATURES: PackageFeature[] = [
   {
     title: 'state.featurePlaces',
     description: 'state.featurePlacesDescription',
@@ -158,57 +151,20 @@ function Demo() {
 }
 
 export default function State() {
-  const { t, locale } = useTranslation();
-
   return (
-    <div className="flex flex-1 flex-col">
-      <section className="mx-auto w-full max-w-6xl px-6 py-20 md:px-8 md:py-28">
-        <div className="flex max-w-2xl flex-col justify-center gap-8">
-          <Heading level="h1">@k8ordo/state</Heading>
-          <p className="text-fg-mute break-phrase text-lg leading-relaxed">
-            {t('state.description')}
-          </p>
-          <div className="flex flex-wrap items-center gap-4">
-            <Button
-              renderItem={({ className, children }) => (
-                <a
-                  className={className}
-                  href="https://www.npmjs.com/package/@k8ordo/state"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {children}
-                </a>
-              )}
-              size="md"
-              variant="solid"
-            >
-              npm
-            </Button>
-            <Button
-              color="base"
-              renderItem={({ className, children }) => (
-                <a
-                  className={className}
-                  href="https://github.com/k35o/k8ordo/tree/main/packages/state"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  {children}
-                </a>
-              )}
-              size="md"
-              startIcon={<GitHubIcon />}
-              variant="skeleton"
-            >
-              {t('common.github')}
-            </Button>
-          </div>
-        </div>
-      </section>
-
+    <PackageLanding
+      description="state.description"
+      directory="state"
+      docsDescription="state.docsDescription"
+      docsTitle="state.docsTitle"
+      features={FEATURES}
+      featuresTitle="state.featuresTitle"
+      name="@k8ordo/state"
+    >
       <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
-        <Heading level="h2">{t('state.demoTitle')}</Heading>
+        <Heading level="h2">
+          <T k="state.demoTitle" />
+        </Heading>
         <p className="text-fg-mute mt-4 max-w-2xl text-sm leading-relaxed">
           <T k="state.demoDescription" />
         </p>
@@ -216,49 +172,6 @@ export default function State() {
           <Demo />
         </div>
       </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
-        <Heading level="h2">{t('state.featuresTitle')}</Heading>
-        <ul className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2">
-          {FEATURES.map((feature) => (
-            <li
-              className="border-border-mute flex flex-col gap-3 rounded-lg border p-6"
-              key={feature.title}
-            >
-              <span className="text-primary-border flex items-center gap-2">
-                {feature.icon}
-                <span className="text-fg-base font-medium">
-                  {t(feature.title)}
-                </span>
-              </span>
-              <span className="text-fg-mute text-sm leading-relaxed">
-                <T k={feature.description} />
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="mx-auto w-full max-w-6xl px-6 pb-24 md:px-8">
-        <Heading level="h2">{t('state.docsTitle')}</Heading>
-        <p className="text-fg-mute mt-4 max-w-2xl text-sm leading-relaxed">
-          <T k="state.docsDescription" />
-        </p>
-        <div className="mt-6">
-          <Button
-            color="base"
-            renderItem={({ className, children }) => (
-              <a className={className} href={localizeHref('/', locale)}>
-                {children}
-              </a>
-            )}
-            size="md"
-            variant="skeleton"
-          >
-            {t('nav.home')}
-          </Button>
-        </div>
-      </section>
-    </div>
+    </PackageLanding>
   );
 }

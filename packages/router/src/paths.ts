@@ -20,6 +20,54 @@ export type ParamsOf<Pattern extends string> = Pattern extends `/${infer Rest}`
   ? SegListParams<Rest>
   : Record<never, never>;
 
+/**
+ * The shape every validation library agrees on (Standard Schema): a value
+ * under `~standard` whose `types` carry the input and output. Only the
+ * output is read here — the router itself never runs a schema; the framework
+ * does, and this package only has to type what comes out.
+ */
+export type StandardSchemaLike<Output = unknown> = {
+  readonly '~standard': {
+    readonly types?: { readonly output: Output } | undefined;
+  };
+};
+
+/** What a schema produces. */
+export type SchemaOutput<Schema> =
+  Schema extends StandardSchemaLike<infer Output> ? Output : never;
+
+/**
+ * A schema a route file may declare for the params its pattern names: its
+ * output is an object whose keys are a subset of those params — a key the
+ * pattern does not name has nothing to validate.
+ */
+export type ParamsSchemaFor<Pattern extends string> = StandardSchemaLike<
+  Partial<Record<keyof ParamsOf<Pattern> & string, unknown>>
+>;
+
+type MergedOutput<Schemas extends readonly unknown[]> =
+  Schemas extends readonly [infer Head, ...infer Tail]
+    ? Omit<MergedOutput<Tail>, keyof SchemaOutput<Head>> & SchemaOutput<Head>
+    : Record<never, never>;
+
+/**
+ * A pattern's params after the schemas along its stack have run — outer
+ * layouts first, the page last — each replacing the strings it names with
+ * what it produced. Params no schema names stay strings.
+ */
+export type ParsedParams<
+  Pattern extends string,
+  Schemas extends readonly unknown[],
+> = Omit<ParamsOf<Pattern>, keyof MergedOutput<Schemas>> &
+  MergedOutput<Schemas>;
+
+/** `{ '/products/:id': [schema, …] }` → `{ '/products/:id': { id: number } }` */
+export type ParsedParamsMap<
+  Schemas extends Record<string, readonly unknown[]>,
+> = {
+  [Pattern in keyof Schemas & string]: ParsedParams<Pattern, Schemas[Pattern]>;
+};
+
 type SegPath<Segment extends string> = Segment extends `:${string}`
   ? string
   : Segment;
@@ -77,9 +125,12 @@ export const normalizePathname = (pathname: string): string => {
   return pathname.slice(0, end);
 };
 
+/** What a param value may be on the way into a link: anything with one spelling. */
+export type ParamValue = string | number | bigint | boolean;
+
 export const buildHref = (
   pattern: string,
-  params: Readonly<Record<string, string>> | undefined,
+  params: Readonly<Record<string, unknown>> | undefined,
 ): string => {
   if (pattern.includes('*')) {
     throw new TypeError(`"${pattern}" is a wildcard — it has no href`);
@@ -93,7 +144,20 @@ export const buildHref = (
       if (value === undefined) {
         throw new TypeError(`"${pattern}" needs a value for ":${name}"`);
       }
-      return encodeURIComponent(value);
+      // A schema-typed param arrives as what the page received — a number,
+      // a boolean — and a segment is its one spelling, which is what the
+      // schema will read back.
+      if (
+        typeof value !== 'string' &&
+        typeof value !== 'number' &&
+        typeof value !== 'bigint' &&
+        typeof value !== 'boolean'
+      ) {
+        throw new TypeError(
+          `"${pattern}" got a value for ":${name}" that has no URL spelling`,
+        );
+      }
+      return encodeURIComponent(String(value));
     })
     .join('/');
 };

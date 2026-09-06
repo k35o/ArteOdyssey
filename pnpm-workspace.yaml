@@ -30,6 +30,7 @@ catalog:
   vite: 8.2.1
   vite-plus: 0.2.9
   vitest: 4.1.10
+  zod: 4.4.3
 
 minimumReleaseAge: 10080
 

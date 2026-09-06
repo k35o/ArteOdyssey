@@ -14,5 +14,7 @@ export default function RootRedirect() {
     navigation.navigate(`/${detectLocale()}/`, { history: 'replace' });
   }, []);
 
-  return null;
+  // 描画するものは無いが、title だけは持つ。ルートレイアウトが title を
+  // 持たないので、これが無いとこの 1 枚だけ無題になる。
+  return <title>k8ordo</title>;
 }

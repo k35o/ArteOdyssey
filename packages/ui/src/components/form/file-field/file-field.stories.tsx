@@ -3,8 +3,8 @@ import { useRef, useState } from 'react';
 import type { ComponentProps } from 'react';
 import { expect, fn } from 'storybook/test';
 
+import { FileField } from '.';
 import { Button } from '../../buttons/button';
-import { FileField } from './file-field';
 
 const meta: Meta<typeof FileField.Root> = {
   title: 'components/form/file-field',

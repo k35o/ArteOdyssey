@@ -78,6 +78,10 @@ export const routes = defineRoutes({
   only appear once in an object, so two sections at the same depth could not
   otherwise have different layouts.
 - **A trailing slash is the same pathname.** `/products/` matches `/products`.
+- A branch may name an **`error`** component beside its layout:
+  `{ layout, error, children }`. When anything below throws, it renders in
+  the layout's hole instead — with `{ error, reset }` as props — and the
+  frame around it survives. Leaving the page that failed clears the failure.
 
 ### Order is the rule
 
@@ -167,9 +171,24 @@ const pathname = usePathname(); // where the browser is, table or no table
 **There is no `<Link>`.** Under the Navigation API a plain `<a>` is already a
 client navigation — the router intercepts the event the browser was going to
 send anyway. A component wrapping it would add a second way to write the same
-thing and nothing else. An active link is a comparison you write yourself —
-`useRoute().pattern === '/products'` against the table, or
-`usePathname() === href('/products')` against the URL — not a prop.
+thing and nothing else. An active link is a question you ask, not a prop:
+
+```tsx
+import { matchPath, useMatch } from '@k8ordo/router';
+
+useMatch('/products/:id'); // { id } when that page is showing, else null
+useMatch('/products/*'); // {} anywhere under /products, else null
+matchPath('/products/:id', pathname); // the same, pure, for a pathname in hand
+```
+
+`useMatch` takes a pattern from the table, or a table pattern followed by
+`/*` to mean "everything below it" — what a sidebar asks when it wants to
+know which section of the site is open. The pattern's own page is not below
+it: `/products/*` matches `/products/42` and not `/products`, which is
+`useMatch('/products')`; ask both when a section includes its index. It is built on `usePathname`, so it
+re-renders on the pathname and never on the search, and it needs no table in
+the browser — which is what makes it the one of these that also works under
+the framework, where `useRoute` has no match to read.
 
 **`usePathname` changes when the URL changes, not when the new page appears.**
 Interception commits the URL first and the tree arrives when it has loaded, so
@@ -188,6 +207,9 @@ the boundary between the two packages.
 
 `href` refuses a wildcard: `/*` is something to match, never something to link
 to. Param values are URL-encoded on the way in and decoded on the way out.
+`normalizePathname` is the router's own reading of a pathname — a trailing
+slash dropped, root excepted — for code that compares pathnames the way the
+table does.
 
 `navigateTo` returns the platform's own `{ committed, finished }`, so it
 composes with React 19's async transitions:
@@ -238,22 +260,32 @@ application depends on it — so hand-writing it there is writing a second
 answer to a question already answered. Hand-write it in a client application
 that mounts `<Router>` itself.
 
+The framework's generated `Register` also carries `params`: per pattern, the
+type the route file's `paramsSchema` produces. With it, `href` and
+`navigateTo` take a param as the page receives it — `{ id: 42 }` for a
+schema that said number — and spell it the one way the schema reads back. A
+value with no URL spelling (an object) is refused. Before `Register` is
+augmented — or where no schema covers a param — a link takes any value with
+one spelling (a string, a number, a boolean), so a link written for a schema
+compiles before the generated file exists. `useParams` is unaffected: what a
+hand-written table matches is always a string.
+
 ## Typed paths for @k8ordo/state
 
-`RouteOf<typeof routes>` is the app's pathname space as a union, which is what
-`@k8ordo/state`'s own `Register` wants:
+`@k8ordo/state`'s `Register` takes the same line this one does:
 
 ```ts
 declare module '@k8ordo/state' {
   interface Register {
-    path: RouteOf<typeof routes>;
+    routes: typeof routes;
   }
 }
 ```
 
 With that, `listState.href('/products', { q })` is checked against the same
 table this router matches against, and the two packages agree on what a path
-is without either importing the other.
+is. `RouteOf<typeof routes>` is that pathname space as a union, for any other
+typed-path consumer.
 
 ## What navigation guarantees
 
@@ -273,6 +305,13 @@ loading is a page change and lets that page finish arriving.
 **Route changes run in a transition.** The new tree is applied inside
 `startTransition`, so React can keep the old page interactive while the new
 one prepares.
+
+**A new page starts at the top.** Once the new tree is on screen, the
+viewport goes where a document load would have put it: the top, or the
+element a `#fragment` names. Back and forward are left to the browser, which
+restores the position it saved. A state change never moves the viewport —
+same pathname, same place — so a filter update does not scroll the reader
+back to the top.
 
 **Superseded navigations abort.** A second navigation aborts the first through
 the platform's own signal: the overtaken `finished` rejects with the abort
@@ -309,15 +348,20 @@ instead of `<Outlet />`. What stays is navigation: both build on
 `useInterceptedNavigation`, the primitive `<Router>` itself uses.
 
 ```tsx
-useInterceptedNavigation<Value>({
+const { generation } = useInterceptedNavigation<Value>({
   claim: (url) => boolean, // synchronous: the only moment interception is possible
   load: (url, signal) => Value | Promise<Value>,
   apply: (value) => void, // called inside a transition
 });
 ```
 
+`generation` changes exactly when a new tree is applied — not when the URL
+moved — and a host provides it through `<NavigationGeneration value>` so the
+table's `error` boundaries know when to let a failure go. `<Router>` does
+this itself; the framework's runtime does too.
+
 What carries across unchanged is everything that needs no table: `href`,
-`navigateTo` and `usePathname`. `usePathname` needs one thing on the server,
+`navigateTo`, `usePathname` and `useMatch`. `usePathname` needs one thing on the server,
 where there is no Navigation API to read: the pathname the render is for,
 supplied by `<PathnameProvider pathname>`. `<Router>` mounts one itself and
 both mode runtimes supply it, so an application never writes it — only a host

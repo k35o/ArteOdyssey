@@ -87,6 +87,15 @@ export const ja = {
   'form.docsTitle': 'ドキュメント',
   'form.docsDescription':
     '設計ガイドとリファレンスは npm パッケージに同梱されています。AIコーディングエージェントは `node_modules/@k8ordo/form/docs/` からインストールした版そのものを読みます。',
+  'form.demoTitle': 'このページで動いています',
+  'form.demoDescription':
+    '下のフォームは GET で送信し、この URL の search params に着地します。制約属性は Server Component で `formFields(demoState.url)` が導いたもので、同じスキーマを @k8ordo/state の `definePageState` が読み返します。フォームが書いた URL と state が読んだ値が一致していることを、下の行で確かめられます。',
+  'form.demoLabelQ': 'キーワード',
+  'form.demoLabelMin': '最小値',
+  'form.demoSubmit': '絞り込む',
+  'form.demoUrlEmpty': 'クエリなし（すべて default）',
+  'form.demoHint':
+    'このサイトは @k8ordo/static で焼かれているので Server Action はありません。GET フォームは本体を持たないのでルーターが intercept し、同じ pathname への遷移は状態の更新として扱われます。JavaScript を切っても、同じフォームが同じ URL に着きます。`min` に -1 を入れると、ブラウザの制約検証がスキーマと同じ文言で止めます。',
   'state.description':
     '状態を「どこに住むか」で宣言します。URLのsearchParams・履歴エントリ・localStorage・メモリの4つの置き場所を、それぞれzodスキーマ1つで型付けし、サーバーの読み取り・リンク生成・購読までそこから導きます。',
   'state.demoTitle': 'このページで動いています',
@@ -129,10 +138,16 @@ export const ja = {
     'params はパターン文字列から推論され、`Register` を宣言すれば表に無いパターンもコンパイルで落ちます。コード生成はありません。',
   'router.featureNavigation': 'finished は「画面に出た」',
   'router.featureNavigationDescription':
-    'intercept のハンドラは React が新しい木を commit した後に解決します。search だけが変わったときはルート木に触れず、スクロールもフォーカスも動かしません。',
+    'intercept のハンドラは React が新しい木を commit した後に解決します。search だけが変わったときはルート木に触れず、スクロールもフォーカスも動かしません。ページが変わったときは、先頭へ戻すのもルーターです。',
   'router.featureNoLink': 'Link を作らない',
   'router.featureNoLinkDescription':
     'Navigation API の下では素の `<a>` がすでにクライアント遷移です。包んでも 2 つ目の書き方が増えるだけなので、型は `href` が守ります。',
+  'router.featureMatch': '今どこかは尋ねる',
+  'router.featureMatchDescription':
+    "`useMatch('/products/*')` で「この区画の配下が開いているか」を聞けます。ブラウザに表が無くても動くので、フレームワークの下のサイドナビもこれで書きます。",
+  'router.featureError': 'エラー境界も表に書く',
+  'router.featureErrorDescription':
+    '`{ layout, error, children }` と並べれば、配下が throw したとき枠を残したまま error が描かれます。新しいページを先頭（または #fragment）へ戻すスクロールもルーターの仕事です。',
   'router.exampleTitle': '表とリンク',
   'router.exampleDescription':
     '表は 1 か所。ページは表を import せず、パターン文字列だけで型付きのリンクを書きます。',
@@ -153,7 +168,13 @@ export const ja = {
     "実行環境は React 自身の `'use client'` で宣言します。`server-only` を import したモジュールがクライアントに届いた時点でビルドが落ちるので、秘密は間に何段挟まっても渡りません。",
   'static.featureFiles': 'モードは依存で決まる',
   'static.featureFilesDescription':
-    'このパッケージを入れることが「静的である」ことです。Server Actions もリクエスト依存も、守るべき規則ではなく存在しない API になります。パラメータ付きルートは列挙必須で、欠けたままビルドは通りません。',
+    'このパッケージを入れることが「静的である」ことです。Server Actions もリクエスト依存も、守るべき規則ではなく存在しない API になります。パラメータ付きルートは列挙必須で、欠けたままビルドは通りません。`site` を渡せば sitemap.xml も書きます。',
+  'static.featureRouteFiles': 'error.tsx と redirect.ts',
+  'static.featureRouteFilesDescription':
+    'ページが throw したら `error.tsx` が layout の内側に描かれ、枠は残ります。ビルド中に落ちたページはビルドを止めます。移転したディレクトリには `redirect.ts` を 1 行置くだけです。',
+  'static.featureParams': 'パラメータにスキーマ',
+  'static.featureParamsDescription':
+    '`page.tsx` や `layout.tsx` が `paramsSchema` を export すると、合わない値はそのパターンが答えず、not-found に落ちます。リンクはスキーマの出力型で書けます。',
   'static.exampleTitle': 'ディレクトリが URL',
   'static.exampleDescription':
     'routes/ の木がそのまま pathname 空間になり、表と型の配線は生成されます。',
@@ -165,7 +186,7 @@ export const ja = {
   'server.featuresTitle': '特徴',
   'server.featureRequest': '値はリクエストと来る',
   'server.featureRequestDescription':
-    'パラメータの値はリクエストと一緒に来るので、事前に列挙する必要がありません。知らない URL には、ホスティングのエラーページではなく自分の not-found を本物の 404 で返します。',
+    'パラメータの値はリクエストと一緒に来るので、事前に列挙する必要がありません。知らない URL には、ホスティングのエラーページではなく自分の not-found を本物の 404 で返します。ページと layout は `request` からヘッダーと cookie を読み取り専用で読めます。',
   'server.featureRoutes': 'routes/ が URL 空間',
   'server.featureRoutesDescription':
     'ディレクトリ木がそのまま pathname 空間です。page/layout/not-found・`[param]`・`(group)`・`_` の私物だけを認め、規約から外れたものはビルドを落とします。',
@@ -175,6 +196,12 @@ export const ja = {
   'server.featureSameHandler': 'static と同じハンドラ',
   'server.featureSameHandlerDescription':
     'リクエストをページに変える関数は static と同一で、違いは呼ぶ時期だけです。両モードで描画が食い違うなら、それは何かが漏れています。',
+  'server.featureRouteFiles': 'error.tsx と redirect.ts',
+  'server.featureRouteFilesDescription':
+    'ページが throw したら `error.tsx` が layout の内側に描かれ、枠は残ります。移転したディレクトリには `redirect.ts` を 1 行置き、Server Action は `redirect()` で送り先を告げます。',
+  'server.featureParams': 'パラメータにスキーマ',
+  'server.featureParamsDescription':
+    '`page.tsx` や `layout.tsx` が `paramsSchema` を export すると、合わない値はそのパターンが答えず、本物の 404 になります。リンクはスキーマの出力型で書けます。',
   'server.exampleTitle': 'Server Action',
   'server.exampleDescription':
     '`use server` を付けた関数はクライアントから呼べて、実行はサーバーで起きます。JavaScript が無くても、同じフォームがそのまま動きます。',
@@ -511,14 +538,7 @@ export const ja = {
   'hooks.useClickAway.description': '指定要素の外側のクリックを検出するフック',
   'hooks.useClient.description': 'クライアントで実行中かどうかを返すフック',
   'hooks.useClipboard.description': 'クリップボードの読み書きを提供するフック',
-  'hooks.useHash.description': 'URLハッシュを追跡し変更に反応するフック',
   'hooks.useInterval.description': '一定間隔でコールバックを実行するフック',
-  'hooks.useLocalStorage.description':
-    'localStorageに状態を永続化しタブ間で同期するフック',
-  'hooks.useLocalStorage.removeTitle': '値の削除',
-  'hooks.useSessionStorage.description':
-    'sessionStorageに状態を永続化するフック',
-  'hooks.useSessionStorage.removeTitle': '値の削除',
   'hooks.useResize.description':
     'ResizeObserverで要素のサイズ変更を監視するフック',
   'hooks.useScrollDirection.description':

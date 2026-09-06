@@ -1,4 +1,4 @@
-import { isOurs } from './navigation';
+import { isOurs, scrollPlanFor } from './navigation';
 import type { NavigationFacts } from './navigation';
 
 const facts = (overrides: Partial<NavigationFacts> = {}): NavigationFacts => ({
@@ -31,5 +31,28 @@ describe('isOurs', () => {
     expect(isOurs(facts({ canIntercept: false }))).toBe(false);
     expect(isOurs(facts({ hashChange: true }))).toBe(false);
     expect(isOurs(facts({ downloadRequest: '' }))).toBe(false);
+  });
+});
+
+describe('scrollPlanFor', () => {
+  it('starts a new page at the top, the way a document load does', () => {
+    expect(scrollPlanFor('push', '')).toStrictEqual({ kind: 'top' });
+    expect(scrollPlanFor('replace', '')).toStrictEqual({ kind: 'top' });
+  });
+
+  it('scrolls to the fragment when the URL names one', () => {
+    expect(scrollPlanFor('push', '#install')).toStrictEqual({
+      kind: 'fragment',
+      id: 'install',
+    });
+    expect(scrollPlanFor('push', '#%E5%B0%8E%E5%85%A5')).toStrictEqual({
+      kind: 'fragment',
+      id: '導入',
+    });
+  });
+
+  it('leaves a traversal to the browser, which restores the position', () => {
+    expect(scrollPlanFor('traverse', '')).toBeNull();
+    expect(scrollPlanFor('traverse', '#x')).toBeNull();
   });
 });

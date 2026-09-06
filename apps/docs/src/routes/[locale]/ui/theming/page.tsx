@@ -1,6 +1,7 @@
 import { Card, Heading, Separator } from '@k8ordo/ui';
 
 import { CodeBlock } from '../../../../components/code-block';
+import { PageTitle } from '../../../../components/page-title';
 import { T } from '../../../../components/t';
 import { TokenCard } from '../../../../components/token-card';
 import {
@@ -33,6 +34,7 @@ const Z_INDEX_USAGE = {
 export default function Theming() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.theming" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.theming" />

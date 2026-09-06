@@ -5,6 +5,7 @@ import { render } from 'vitest-browser-react';
 import { defineRoutes } from './define-routes';
 import { href, navigateTo } from './links';
 import { usePathname } from './location';
+import { useMatch } from './match';
 import { useInterceptedNavigation } from './navigation';
 import { Outlet, Router, useParams, useRoute } from './router';
 
@@ -21,6 +22,23 @@ const HomePage: FC = () => (
 
 const AboutPage: FC = () => <div data-testid="about">about</div>;
 
+// 十分に背の高いページ。スクロール位置の主張に使う
+const TallPage: FC = () => (
+  <div data-testid="tall" style={{ height: '5000px' }}>
+    <a href={href('/about')}>leave</a>
+    <a href="/about#target">leave to target</a>
+    <p id="target" style={{ marginTop: '4000px' }}>
+      target
+    </p>
+  </div>
+);
+
+// 表を引かずに「products の下にいるか」を答える
+const SectionProbe: FC = () => {
+  const under = useMatch('/products/*');
+  return <span data-testid="section">{under === null ? 'out' : 'in'}</span>;
+};
+
 // 表を持たない現在地の読み手。レイアウトに置いて、子のルートが入れ替わっても
 // マウントされたままにする
 const PathnameProbe: FC = () => (
@@ -30,6 +48,7 @@ const PathnameProbe: FC = () => (
 const Shell: FC = () => (
   <section data-testid="shell">
     <PathnameProbe />
+    <SectionProbe />
     <Outlet />
   </section>
 );
@@ -54,6 +73,7 @@ const DetailPage: FC = () => {
 const routes = defineRoutes({
   '/': HomePage,
   '/about': AboutPage,
+  '/tall': TallPage,
   '/products': {
     layout: Shell,
     children: {
@@ -195,6 +215,37 @@ it('shows the navigation that won, not the one it overtook', async () => {
   expect(document.querySelector('[data-testid="list"]')).toBeNull();
 });
 
+it('starts a new page at the top, whatever the previous page had scrolled to', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/tall', { history: 'replace' }).finished;
+  await expect.element(screen.getByTestId('tall')).toBeInTheDocument();
+  window.scrollTo(0, 3000);
+  expect(window.scrollY).toBeGreaterThan(0);
+
+  await navigateTo('/about').finished;
+
+  expect(window.scrollY).toBe(0);
+});
+
+it('scrolls to the fragment the new URL names', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/about', { history: 'replace' }).finished;
+
+  await navigation.navigate(`${location.origin}/tall#target`).finished;
+
+  await expect.element(screen.getByTestId('tall')).toBeInTheDocument();
+  expect(window.scrollY).toBeGreaterThan(1000);
+});
+
+it('answers which section is showing without a table in hand', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/products', { history: 'replace' }).finished;
+  await expect.element(screen.getByTestId('section')).toHaveTextContent('out');
+
+  await navigateTo('/products/:id', { id: '1' }).finished;
+  await expect.element(screen.getByTestId('section')).toHaveTextContent('in');
+});
+
 // フレームワークの下ではペイロードの fetch が入るので、load は非同期になる。
 // その待ちの間を再現するための、表を持たない最小のホスト
 const DeferredHost: FC<{ gate: Promise<void> }> = ({ gate }) => {
@@ -237,4 +288,55 @@ it('still loads the page when a state update lands on its URL mid-load', async (
   expect(location.search).toBe('?q=1');
   await expect(page.finished).rejects.toThrow(/abort/iu);
   await screen.unmount();
+});
+
+// error 境界: 表の branch が error を持つと、その layout の内側で下を受け止める
+const Boom: FC = () => {
+  throw new Error('boom');
+};
+const Fine: FC = () => <div data-testid="fine">fine</div>;
+const Oops: FC<{ error: unknown; reset: () => void }> = ({ error }) => (
+  <p data-testid="oops">{error instanceof Error ? error.message : 'unknown'}</p>
+);
+const Frame: FC = () => (
+  <section data-testid="frame">
+    <Outlet />
+  </section>
+);
+const guarded = defineRoutes({
+  '/': HomePage,
+  '/area': {
+    layout: Frame,
+    error: Oops,
+    children: { '/boom': Boom, '/fine': Fine },
+  },
+});
+
+it('shows the error component inside the layout when what is below throws', async () => {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    const screen = await render(<Router routes={guarded} />);
+    await navigateTo('/area/boom', { history: 'replace' }).finished;
+
+    await expect.element(screen.getByTestId('frame')).toBeInTheDocument();
+    await expect.element(screen.getByTestId('oops')).toHaveTextContent('boom');
+  } finally {
+    consoleError.mockRestore();
+  }
+});
+
+it('leaves the failure behind when the pathname changes', async () => {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    const screen = await render(<Router routes={guarded} />);
+    await navigateTo('/area/boom', { history: 'replace' }).finished;
+    await expect.element(screen.getByTestId('oops')).toBeInTheDocument();
+
+    await navigateTo('/area/fine').finished;
+
+    await expect.element(screen.getByTestId('fine')).toBeInTheDocument();
+    expect(document.querySelector('[data-testid="oops"]')).toBeNull();
+  } finally {
+    consoleError.mockRestore();
+  }
 });

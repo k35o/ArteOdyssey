@@ -1,6 +1,6 @@
 'use client';
 
-import { defineLocalState, useAppState } from '@k8ordo/state';
+import { useAppState } from '@k8ordo/state';
 import {
   createContext,
   use,
@@ -10,7 +10,8 @@ import {
   useSyncExternalStore,
 } from 'react';
 import type { ReactNode } from 'react';
-import * as z from 'zod/mini';
+
+import { themeState } from './state';
 
 type Theme = 'light' | 'dark';
 
@@ -20,15 +21,6 @@ type ThemeContextValue = {
 };
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
-
-// mode が未設定のあいだはシステム設定に追従する。過去の `sepia` のような
-// 未知の値はスキーマのサルベージが未設定に落とすので、手動の正規化は無い。
-// 保存先は localStorage の `k8ordo-state:theme`（routes/layout.tsx の初期化スクリプト
-// と対）。
-export const themeState = defineLocalState(
-  'theme',
-  z.object({ mode: z.optional(z.enum(['light', 'dark'])) }),
-);
 
 const subscribeMediaQuery = (cb: () => void) => {
   const mq = window.matchMedia('(prefers-color-scheme: dark)');

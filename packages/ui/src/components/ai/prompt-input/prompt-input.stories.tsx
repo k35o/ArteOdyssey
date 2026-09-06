@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, fn } from 'storybook/test';
 
-import { PromptInput } from './prompt-input';
+import { PromptInput } from '.';
 
 const meta: Meta<typeof PromptInput.Root> = {
   title: 'components/ai/prompt-input',

@@ -8,21 +8,9 @@ import { join } from 'node:path';
 const CLIENT_DIRECTIVE = /^['"]use client['"];/u;
 const COMPOUND_EXPORT = /^export const ([A-Z]\w*) = \{/gmu;
 
-// v12 以前から client モジュール内で合成しており、server コンポーネントから
-// 使うと同じ理由で落ちる。個別に検証しながら順次 index.ts 合成へ移す。
-const PENDING_MIGRATION = new Set([
-  'Conversation',
-  'Dialog',
-  'DropdownMenu',
-  'FileField',
-  'ListBox',
-  'Message',
-  'Popover',
-  'PromptInput',
-  'Suggestion',
-  'Tabs',
-  'Tooltip',
-]);
+// v2 で全ての複合コンポーネントを index.ts 合成へ移した。空のまま保つ:
+// ここに名前を足すのは server コンポーネントから使えない例外を認めることになる。
+const PENDING_MIGRATION = new Set<string>();
 
 const COMPONENTS_DIR = join(import.meta.dirname, '.');
 

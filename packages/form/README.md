@@ -96,6 +96,12 @@ async per-field checks, components that render no input of their own, and what
 the package guarantees (nothing dropped in silence, native validation kept
 without JavaScript, secrets never echoed).
 
+A check HTML cannot express — a `refine`, a regex the `pattern` attribute
+would reinterpret — is returned in `dropped` (typed as `DroppedCheck`, exported
+from both entries) and, outside production, logged once per schema with
+`console.warn`, so it is seen without anyone remembering to read it. It still
+runs on the server.
+
 ## AI Agent Documentation
 
 The docs ship **inside the package**, so an agent always reads the exact

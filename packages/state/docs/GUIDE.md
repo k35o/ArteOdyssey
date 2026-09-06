@@ -62,8 +62,9 @@ a user can edit, localStorage JSON an older schema wrote, entry state a
 session restore revived — and every such field must tolerate absence:
 `.default()` (`z._default()` in mini) or `.optional()`. Definitions throw at
 module load naming the fields that do not. The first argument is the state's
-identity: the localStorage key (`k8ordo-state:<key>`), the entry-state
-namespace, and the store-registry slot. Renaming it renames the data — and
+identity: the localStorage key (`k8ordo-state:<key>`, exposed as the
+definition's `storageKey`), the entry-state namespace, and the store-registry
+slot. Renaming it renames the data — and
 the key must be app-unique per kind: two definitions of the same kind sharing
 a key silently share one store (and, for local, one storage row). The module
 system cannot enforce this, so treat the key like a global name.
@@ -276,12 +277,34 @@ the same division `@k8ordo/form` draws.
 `href` keeps the path literal alive in the type
 (``'/products' | `/products?${string}` ``), which is what typed-route checks
 strip a query from and verify. To constrain paths app-wide, augment `Register`
-once:
+once, with the same line the `@k8ordo/router` augmentation takes:
 
-Under `@k8ordo/static` or `@k8ordo/server` this is generated for you into
-`.k8ordo/` from `routes/`, and hand-writing it is a mistake. Elsewhere, feed
-it your router's own route type — `RouteOf<typeof routes>` from
-`@k8ordo/router`, or `Route` from `next`:
+```ts
+// e.g. types/k8ordo.d.ts
+import type { routes } from '../routes';
+
+declare module '@k8ordo/router' {
+  interface Register {
+    routes: typeof routes;
+  }
+}
+
+declare module '@k8ordo/state' {
+  interface Register {
+    routes: typeof routes;
+  }
+}
+```
+
+`href` then accepts exactly the table's linkable paths — a `:param` becomes
+`${string}`, a `*` wildcard is matched but never linked — derived through
+`RouteOf` from `@k8ordo/router` as a type only, so the router stays an
+optional peer and never loads at runtime. Under `@k8ordo/static` or
+`@k8ordo/server` this is generated for you into `.k8ordo/` from `routes/`,
+and hand-writing it is a mistake.
+
+A router that is not `@k8ordo/router` has no table to hand over; register its
+path union directly under `path` — `Route` from `next`, for instance:
 
 ```ts
 // e.g. types/k8ordo-state.d.ts
@@ -294,10 +317,34 @@ declare module '@k8ordo/state' {
 }
 ```
 
-Every `href` in the app now rejects a path its router does not know. Without
-the augmentation the constraint is any `/`-prefixed string. Augment only in an
-application — a shared library augmenting `Register` leaks the constraint to
-every consumer.
+When both are present, `routes` wins. Every `href` in the app now rejects a
+path its router does not know. Without the augmentation the constraint is any
+`/`-prefixed string. Augment only in an application — a shared library
+augmenting `Register` leaks the constraint to every consumer.
+
+## Reading before hydration
+
+Some state has to be applied before the first paint: a theme class on
+`<html>`, say, or a colour scheme the browser must not flash the default of.
+`useAppState` runs after hydration, which is too late for that, and the
+alternative — an inline script with the storage key and the JSON envelope
+hard-coded in a string — drifts the moment either changes.
+
+A local definition carries both halves: `storageKey` is the key the store
+writes under, and `inlineRead()` returns a JavaScript _expression_ for an
+inline `<script>` that evaluates, in the browser, to the stored object — or
+`null` when nothing is stored, the JSON is corrupt, the value is not an object,
+or storage cannot be read. The key is escaped for a script context, so any
+key is safe to emit.
+
+```tsx
+<script>{`const s = ${themeState.inlineRead()}; if (s && s.mode === 'dark') document.documentElement.classList.add('dark');`}</script>
+```
+
+The schema does not run there — no module has loaded yet — so what comes back
+is the raw row, not the salvaged state `useAppState` will show. Treat it as
+untrusted: read only the fields you need, each with its own fallback, and let
+the hydrated store be the source of truth from then on.
 
 ## What it guarantees
 

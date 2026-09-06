@@ -2,6 +2,7 @@ import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
 import { createServer } from 'node:http';
 import type { IncomingMessage, ServerResponse } from 'node:http';
+import type { AddressInfo } from 'node:net';
 import path from 'node:path';
 import { Readable } from 'node:stream';
 import type { ReadableStream as NodeReadableStream } from 'node:stream/web';
@@ -12,8 +13,16 @@ import { safeJoin } from './static-file';
 export type ServeOptions = {
   /** Build output directory, the one holding `rsc/` and `client/`. */
   readonly dist?: string;
+  /** `0` asks the system for a free port; `port` on the handle says which. */
   readonly port?: number;
   readonly host?: string;
+};
+
+/** What `serve` hands back: where it listens, and how to stop it. */
+export type Server = {
+  readonly port: number;
+  readonly url: string;
+  readonly close: () => Promise<void>;
 };
 
 type Handler = (request: Request) => Promise<Response>;
@@ -89,7 +98,7 @@ const fileFor = async (
  * Serves a built application: the client build's files as they are, and
  * everything else through the RSC handler.
  */
-export const serve = async (options: ServeOptions = {}): Promise<void> => {
+export const serve = async (options: ServeOptions = {}): Promise<Server> => {
   const dist = path.resolve(process.cwd(), options.dist ?? 'dist');
   const clientDir = path.join(dist, 'client');
   const entry = pathToFileURL(path.join(dist, 'rsc', 'index.js')).href;
@@ -164,10 +173,22 @@ export const serve = async (options: ServeOptions = {}): Promise<void> => {
     },
   );
 
+  const host = options.host ?? 'localhost';
   await new Promise<void>((resolve) => {
-    server.listen(options.port ?? 3000, options.host ?? 'localhost', resolve);
+    server.listen(options.port ?? 3000, host, resolve);
   });
-  console.warn(
-    `k8ordo: serving ${dist} on http://${options.host ?? 'localhost'}:${String(options.port ?? 3000)}`,
-  );
+  const { port } = server.address() as AddressInfo;
+  const url = `http://${host}:${String(port)}`;
+  console.warn(`k8ordo: serving ${dist} on ${url}`);
+  return {
+    port,
+    url,
+    close: () =>
+      new Promise<void>((resolve, reject) => {
+        server.close((error) => {
+          if (error === undefined) resolve();
+          else reject(error);
+        });
+      }),
+  };
 };

@@ -38,7 +38,7 @@ const [TabsProvider, useTabsState] = createSafeContext<TabsContext>(
   'useTabsState must be used within a TabsProvider',
 );
 
-const Root: FC<
+export const Root: FC<
   PropsWithChildren<{
     defaultSelectedId?: string | null;
     selectedId?: string;
@@ -80,7 +80,7 @@ const [TabsListProvider, useTabsListState] = createSafeContext<{
   writingMode: WritingMode;
 }>('useTabListState must be used within a TabListProvider');
 
-const List: FC<
+export const List: FC<
   PropsWithChildren<{
     label: string;
   }>
@@ -119,7 +119,10 @@ const List: FC<
   );
 };
 
-const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
+export const Tab: FC<PropsWithChildren<{ id: string }>> = ({
+  id,
+  children,
+}) => {
   const { rootId, ids, selectedId, setSelectedId } = useTabsState();
   const { setFocusRef, writingMode } = useTabsListState();
   const ref = useRef<HTMLAnchorElement & HTMLDivElement>(null);
@@ -186,7 +189,10 @@ const Tab: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
   );
 };
 
-const Panel: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
+export const Panel: FC<PropsWithChildren<{ id: string }>> = ({
+  id,
+  children,
+}) => {
   const { rootId, selectedId } = useTabsState();
 
   if (selectedId !== id) {
@@ -204,10 +210,3 @@ const Panel: FC<PropsWithChildren<{ id: string }>> = ({ id, children }) => {
     </div>
   );
 };
-
-export const Tabs = {
-  Root,
-  List,
-  Tab,
-  Panel,
-} as const;

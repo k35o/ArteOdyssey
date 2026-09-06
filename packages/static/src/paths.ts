@@ -1,34 +1,18 @@
+import { declaredPatterns, decodePathname } from '@k8ordo/framework-engine';
 import type { RouteDir } from '@k8ordo/framework-engine';
+import { normalizePathname } from '@k8ordo/router';
 
 /**
- * Every pattern the table declares, walked the way the router walks it.
- * Groups contribute no segment, which is exactly why they cannot separate
- * two pages that would otherwise share a URL.
+ * Every pattern the table declares — pages, redirects and catch-alls — in
+ * the order the matcher will try them. The engine's one walk, so the build
+ * and the prerenderer agree; a redirect is a URL the site has, so it is a
+ * file the site writes.
  */
-export const patternsOf = (dir: RouteDir, prefix = ''): string[] => {
-  const here = dir.kind === 'root' ? '' : prefix;
-  const found: string[] = [];
-  if (dir.page !== null) found.push(here === '' ? '/' : here);
-  if (dir.notFound !== null) found.push(`${here}/*`);
-  for (const child of dir.children) {
-    found.push(
-      ...patternsOf(
-        child,
-        child.kind === 'group' ? here : `${here}${child.key}`,
-      ),
-    );
-  }
-  return found;
-};
+export const patternsOf = (dir: RouteDir): string[] =>
+  declaredPatterns(dir).map((each) => each.pattern);
 
 export const isConcrete = (pattern: string): boolean =>
   !pattern.includes(':') && !pattern.includes('*');
-
-const trimSlash = (path: string): string => {
-  let end = path.length;
-  while (end > 1 && path.charAt(end - 1) === '/') end -= 1;
-  return path.slice(0, end);
-};
 
 const SENTINEL = '__k8ordo-not-found__';
 
@@ -112,7 +96,7 @@ export const planPaths = (
   // 末尾スラッシュは同じ pathname。ルーターがそう扱う以上、ビルドも揃える。
   const usable = supplied
     .filter((path) => isConcrete(path))
-    .map((path) => trimSlash(path));
+    .map((path) => normalizePathname(path));
   // 表がそのまま持っているパスを渡してくるのは冗長なだけで、誤りではない。
   const used = new Set<string>(paths);
 
@@ -141,18 +125,13 @@ export const planPaths = (
  * resolved by `path.join`.
  */
 export const dirFor = (pathname: string): string => {
-  let decoded: string;
-  try {
-    decoded = decodeURIComponent(pathname);
-  } catch {
+  const decoded = decodePathname(pathname);
+  if (decoded === null) {
     throw new Error(
       `the "paths" option supplied a pathname with a malformed escape: ${pathname}`,
     );
   }
-  if (
-    decoded.includes('\0') ||
-    decoded.split('/').some((segment) => segment === '..')
-  ) {
+  if (decoded.split('/').some((segment) => segment === '..')) {
     throw new Error(
       `the "paths" option supplied a pathname that leaves the output: ${pathname}`,
     );

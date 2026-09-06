@@ -18,7 +18,7 @@
     "@openuidev/react-lang": "0.2.6",
     "@tailwindcss/vite": "catalog:",
     "tailwindcss": "catalog:",
-    "zod": "4.4.3"
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",

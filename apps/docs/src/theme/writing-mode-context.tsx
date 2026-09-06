@@ -1,10 +1,11 @@
 'use client';
 
-import { useLocalStorage } from '@k8ordo/ui';
+import { useAppState } from '@k8ordo/state';
 import { createContext, use, useCallback, useMemo } from 'react';
 import type { ReactNode } from 'react';
 
-type WritingMode = 'horizontal' | 'vertical';
+import type { WritingMode } from './state';
+import { writingModeState } from './state';
 
 type WritingModeContextValue = {
   writingMode: WritingMode;
@@ -13,21 +14,17 @@ type WritingModeContextValue = {
 
 const WritingModeContext = createContext<WritingModeContextValue | null>(null);
 
-const STORAGE_KEY = 'k8ordo-writing-mode';
-
 export function WritingModeProvider({ children }: { children: ReactNode }) {
-  const [storedMode, setStoredMode] = useLocalStorage<WritingMode>(
-    STORAGE_KEY,
-    'horizontal',
-  );
+  const [{ mode }, update] = useAppState(writingModeState);
+  const writingMode: WritingMode = mode ?? 'horizontal';
 
   const toggleWritingMode = useCallback(() => {
-    setStoredMode(storedMode === 'horizontal' ? 'vertical' : 'horizontal');
-  }, [setStoredMode, storedMode]);
+    update({ mode: writingMode === 'horizontal' ? 'vertical' : 'horizontal' });
+  }, [update, writingMode]);
 
   const value = useMemo(
-    () => ({ writingMode: storedMode, toggleWritingMode }),
-    [storedMode, toggleWritingMode],
+    () => ({ writingMode, toggleWritingMode }),
+    [writingMode, toggleWritingMode],
   );
 
   return <WritingModeContext value={value}>{children}</WritingModeContext>;

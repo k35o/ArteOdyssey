@@ -1,11 +1,13 @@
 import { Heading, Separator } from '@k8ordo/ui';
 
 import { CodeBlock } from '../../../../../components/code-block';
+import { PageTitle } from '../../../../../components/page-title';
 import { T } from '../../../../../components/t';
 
 export default function GenerativeUi() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.generativeUi" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.generativeUi" />

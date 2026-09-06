@@ -319,6 +319,8 @@ Avoid the traits that make a UI recognizably AI-generated at a glance.
 ## Implementation principles
 
 - **Use the existing components**: look for a @k8ordo/ui component before building custom UI
+- **Render from Server Components**: every component, compound ones included (`Dialog.Root`, `Tabs.Root`, …), can be placed in a Server Component; only the interactive parts are client modules
+- **Keep placed state in `@k8ordo/state`**: state that lives in the URL, a history entry, localStorage, or memory is `defineLocalState` and friends, not a hook from this package
 - **Use semantic tokens**: tokens (`bg-primary-bg`), never raw color values (`bg-teal-500`)
 - **Let space and shape carry it**: character comes from spacing and soft radii, not from vivid color
 - **Do not forget dark mode**: semantic tokens handle it for you

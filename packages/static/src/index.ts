@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   engine,
@@ -12,6 +12,7 @@ import {
 import type { EngineOptions } from '@k8ordo/framework-engine';
 import type { Plugin, PluginOption } from 'vite';
 
+import { hasUseServerDirective } from './directive';
 import {
   catchAllPath,
   catchAllPatterns,
@@ -33,11 +34,21 @@ export type StaticOptions = EngineOptions & {
   readonly paths?: (
     patterns: readonly string[],
   ) => readonly string[] | Promise<readonly string[]>;
+  /**
+   * The origin the site is served from — `https://example.com`. With it the
+   * build also writes `sitemap.xml`, listing every page it rendered; without
+   * it, no sitemap, because a sitemap of relative URLs is not one.
+   */
+  readonly site?: string;
 };
 
 type Handler = (request: Request) => Promise<Response>;
 
 const ORIGIN = 'http://k8ordo.localhost';
+
+// The engine is bundled into this package, and its runtime entries ship
+// beside this file — `dist/runtime/` — which is where Vite is pointed.
+const RUNTIME_DIR = fileURLToPath(new URL('./runtime/', import.meta.url));
 
 /**
  * Static mode: the same request handler the server mode runs per request is
@@ -59,6 +70,18 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
     configResolved(config) {
       ({ root } = config);
       routesDir = path.resolve(root, options.routesDir ?? 'src/routes');
+    },
+
+    // The build refuses a Server Action (below); `vite dev` is a running
+    // server that would happily accept the POST, and a form that works in
+    // development and posts into nothing in production is the worst of the
+    // two. So the refusal is said here as well, the moment the file is seen.
+    transform(code, id) {
+      if (id.includes('/node_modules/')) return null;
+      if (!hasUseServerDirective(code)) return null;
+      throw new Error(
+        `static build cannot ship Server Actions — a file cannot receive one, and this declares 'use server':\n  ${path.relative(root, id)}\nthis application wants @k8ordo/server`,
+      );
     },
 
     buildApp: {
@@ -111,26 +134,54 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
         };
         const handler = entryModule.default;
 
+        // A supplied pathname the route's params schema refuses would be
+        // written as a 404 page under a URL the site claims to have. The
+        // handler answers it the way it answers any unknown URL; here that
+        // answer is a build error naming the pathname.
+        const refused: string[] = [];
+        // A page that threw while rendering: the handler answers 500 with
+        // the message, and a build that wrote it would ship the failure.
+        const failed: string[] = [];
+        // What was written as a redirect rather than a page.
+        const redirected = new Set<string>();
         await inParallel(
           plan.paths.flatMap((pathname) => {
             // The URL keeps its escapes; only the file name is decoded.
             const dir = path.join(clientDir, dirFor(pathname));
             return [
-              () =>
-                write(
+              async () => {
+                const status = await write(
                   path.join(dir, 'index.html'),
                   handler,
                   `${ORIGIN}${pathname}`,
-                ),
-              () =>
-                write(
-                  path.join(dir, 'index.rsc'),
-                  handler,
-                  `${ORIGIN}${payloadPathFor(pathname)}`,
-                ),
+                );
+                if (status === 404) refused.push(pathname);
+                if (status === 500) failed.push(pathname);
+                if (status === 307 || status === 308) redirected.add(pathname);
+                // A redirect has no payload: a client navigation to it finds
+                // nothing at index.rsc and hands the URL to the browser, which
+                // loads the HTML above and follows it.
+                if (status !== 307 && status !== 308) {
+                  await write(
+                    path.join(dir, 'index.rsc'),
+                    handler,
+                    `${ORIGIN}${payloadPathFor(pathname)}`,
+                  );
+                }
+              },
             ];
           }),
         );
+        if (failed.length > 0) {
+          throw new Error(
+            `static build could not render ${failed.toSorted().join(', ')} — see the error above`,
+          );
+        }
+        if (refused.length > 0) {
+          throw new Error(
+            `the "paths" option supplied pathnames a params schema refused: ${refused.toSorted().join(', ')}`,
+          );
+        }
         // A static host answers an unknown URL from a file, so the
         // application's own not-found has to be one — otherwise declaring it
         // would mean nothing in this mode.
@@ -142,14 +193,28 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
             `${ORIGIN}${unmatched}`,
           );
         }
+        // The build knows every page it wrote, which is what a sitemap is.
+        // Redirects are not pages, and a not-found is not a URL to offer.
+        if (options.site !== undefined) {
+          await writeFile(
+            path.join(clientDir, 'sitemap.xml'),
+            sitemap(
+              options.site,
+              plan.paths.filter((pathname) => !redirected.has(pathname)),
+            ),
+          );
+        }
         builder.config.logger.info(
-          `k8ordo: wrote ${String(plan.paths.length)} routes${unmatched === null ? '' : ' and 404.html'}`,
+          `k8ordo: wrote ${String(plan.paths.length)} routes${unmatched === null ? '' : ' and 404.html'}${options.site === undefined ? '' : ' and sitemap.xml'}`,
         );
       },
     },
   };
 
-  return [...engine(options, { via: '@k8ordo/static' }), prerender];
+  return [
+    ...engine(options, { via: '@k8ordo/static', runtimeDir: RUNTIME_DIR }),
+    prerender,
+  ];
 };
 
 /**
@@ -162,7 +227,7 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
 const WIDTH = 8;
 
 const inParallel = async (
-  tasks: ReadonlyArray<() => Promise<void>>,
+  tasks: ReadonlyArray<() => Promise<unknown>>,
 ): Promise<void> => {
   let next = 0;
   const worker = async (): Promise<void> => {
@@ -177,12 +242,63 @@ const inParallel = async (
   );
 };
 
+/**
+ * The sitemap protocol's one required element per URL: `<loc>`. The site is
+ * taken as given, without a trailing slash, and the pathname as the URL
+ * carries it, escaped for XML.
+ */
+const escapeXml = (value: string): string =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+
+export const sitemap = (site: string, pathnames: readonly string[]): string => {
+  const origin = site.endsWith('/') ? site.slice(0, -1) : site;
+  const urls = pathnames
+    .toSorted()
+    .map(
+      (pathname) =>
+        `  <url><loc>${escapeXml(`${origin}${pathname}`)}</loc></url>`,
+    )
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+};
+
+/**
+ * A redirect as a file: no server will ever send the status, so the page
+ * itself has to send the visitor on. `http-equiv="refresh"` is what every
+ * browser honours; the link is for the one that does not.
+ */
+const redirectPage = (to: string): string => {
+  const escaped = to.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${escaped}"><link rel="canonical" href="${escaped}"><title>Redirecting</title></head><body><a href="${escaped}">${escaped}</a></body></html>\n`;
+};
+
+/** Writes what the handler answered, and says with which status. */
 const write = async (
   file: string,
   handler: Handler,
   url: string,
-): Promise<void> => {
+): Promise<number> => {
   const response = await handler(new Request(url));
+  // A page that failed to render is not a page: nothing is written, and the
+  // caller stops the build with its name.
+  if (response.status === 500) {
+    console.error(`k8ordo: ${url} — ${await response.text()}`);
+    return response.status;
+  }
   await mkdir(path.dirname(file), { recursive: true });
-  await writeFile(file, Buffer.from(await response.arrayBuffer()));
+  const location = response.headers.get('location');
+  if (
+    (response.status === 307 || response.status === 308) &&
+    location !== null
+  ) {
+    await writeFile(file, redirectPage(location));
+  } else {
+    await writeFile(file, Buffer.from(await response.arrayBuffer()));
+  }
+  return response.status;
 };
