@@ -1,7 +1,14 @@
+import { formFields } from '@k8ordo/form/server';
+
 import { Counter } from './_parts/counter';
 import { listEntries } from './_parts/guestbook';
 import { GuestbookForm } from './_parts/guestbook-form';
+import { guestbookSchema } from './_parts/guestbook-schema';
 import { leave } from './_parts/leave';
+
+// スキーマから属性と文言を導くのは Server Component 側。モジュールスコープで
+// 一度だけ導き、素の JSON として props でクライアントに渡す
+const guestbookFields = formFields(guestbookSchema);
 
 export default async function HomePage({
   request,
@@ -18,7 +25,7 @@ export default async function HomePage({
         {`visitor:${request.cookies.get('visitor') ?? '-'} language:${request.headers.get('accept-language') ?? '-'}`}
       </p>
       <Counter />
-      <GuestbookForm />
+      <GuestbookForm fields={guestbookFields} />
       <form action={leave} data-testid="leave-form">
         <button type="submit">leave</button>
       </form>

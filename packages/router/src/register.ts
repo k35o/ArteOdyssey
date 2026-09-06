@@ -26,20 +26,24 @@ import type { ParamsOf } from './paths';
 // oxlint-disable-next-line typescript/consistent-type-definitions, typescript/no-empty-object-type -- augmentation needs a merge-open interface
 export interface Register {}
 
-type RegisteredRecord = Register extends {
-  routes: Routes<infer R extends RoutesRecord>;
-}
-  ? R
-  : null;
+// Applied to the `infer` variable directly rather than through an alias of
+// it: under TypeScript 7 `PatternOf<Alias>` stays deferred and never reduces
+// to the union, which leaves every pattern rejected where the union is
+// compared against (`useMatch`), while `href` only survives through generic
+// inference taking another path.
 
 /** Every pattern in the registered table; any `/`-pattern before Register. */
-export type RegisteredPattern = RegisteredRecord extends RoutesRecord
-  ? PatternOf<RegisteredRecord>
+export type RegisteredPattern = Register extends {
+  routes: Routes<infer R extends RoutesRecord>;
+}
+  ? PatternOf<R>
   : `/${string}`;
 
 /** Linkable patterns of the registered table (wildcards excluded). */
-export type RegisteredNavigablePattern = RegisteredRecord extends RoutesRecord
-  ? NavigablePatternOf<RegisteredRecord>
+export type RegisteredNavigablePattern = Register extends {
+  routes: Routes<infer R extends RoutesRecord>;
+}
+  ? NavigablePatternOf<R>
   : `/${string}`;
 
 type RegisteredParamsMap = Register extends { params: infer M } ? M : null;

@@ -66,6 +66,7 @@ examples/
   ui-integrations/       # @k8ordo/ui × generative UI adapters (Vite)
   ui-nextjs/             # @k8ordo/ui × Next.js
   ui-css-modules/        # @k8ordo/ui with prebuilt CSS, no Tailwind
+  router-basic/          # @k8ordo/router, client-rendered
   static-basic/          # @k8ordo/static
   server-basic/          # @k8ordo/server
 ```
