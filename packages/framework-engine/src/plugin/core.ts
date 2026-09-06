@@ -1,5 +1,4 @@
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 
 import react from '@vitejs/plugin-react';
 import rsc from '@vitejs/plugin-rsc';
@@ -13,19 +12,20 @@ export type EngineOptions = {
 };
 
 /**
- * The package the application actually installed. Under a strict node_modules
- * layout only that name is resolvable from the project root, so anything this
- * package asks the optimizer to prebundle has to be addressed through it.
+ * The package the application actually installed. This engine is bundled
+ * into it rather than published on its own, so the mode package is the only
+ * name resolvable from the project root: anything the optimizer is asked to
+ * prebundle is addressed through it, the generated files name it, and the
+ * runtime entries are read from the directory it ships them in.
  */
 export type EngineHost = {
   readonly via: string;
+  /** Absolute path of the directory holding `entry.{rsc,ssr,browser}.mjs`. */
+  readonly runtimeDir: string;
 };
 
 const VIRTUAL_ROUTES = 'virtual:k8ordo/routes';
 const OUT_DIR = '.k8ordo';
-
-const runtime = (name: string): string =>
-  fileURLToPath(new URL(`../runtime/${name}.mjs`, import.meta.url));
 
 /** Vite's own answer, so nothing downstream can disagree with it. */
 const isProduction = (mode: string): boolean =>
@@ -60,6 +60,9 @@ export const engine = (
   let root = '';
   let routesDir = '';
   let outDir = '';
+  const runtime = (name: string): string =>
+    path.join(host.runtimeDir, `${name}.mjs`);
+  const generateOptions = () => ({ root, routesDir, outDir, via: host.via });
 
   const plugin: Plugin = {
     name: 'k8ordo:engine',
@@ -91,13 +94,11 @@ export const engine = (
         resolve: { dedupe: ['react', 'react-dom'] },
         environments: {
           rsc: {
-            resolve: { noExternal: ['@k8ordo/framework-engine'] },
             build: {
               rolldownOptions: { input: { index: runtime('entry.rsc') } },
             },
           },
           ssr: {
-            resolve: { noExternal: ['@k8ordo/framework-engine'] },
             build: {
               rolldownOptions: { input: { index: runtime('entry.ssr') } },
             },
@@ -113,17 +114,17 @@ export const engine = (
     },
 
     configEnvironment(_name, config) {
-      // The RSC plugin is this package's dependency, not the application's,
-      // so the entries it asks the optimizer to prebundle cannot be resolved
-      // from the project root. Pointing them through this package is how it
-      // documents framework use.
+      // The RSC plugin is the mode package's dependency, not the
+      // application's, so the entries it asks the optimizer to prebundle
+      // cannot be resolved from the project root. Pointing them through the
+      // mode package is how it documents framework use.
       const include = config.optimizeDeps?.include;
       if (include !== undefined) {
         config.optimizeDeps = {
           ...config.optimizeDeps,
           include: include.map((entry) =>
             entry.startsWith('@vitejs/plugin-rsc')
-              ? `${host.via} > @k8ordo/framework-engine > ${entry}`
+              ? `${host.via} > ${entry}`
               : entry,
           ),
         };
@@ -137,7 +138,7 @@ export const engine = (
     },
 
     async buildStart() {
-      const { problems } = await generate({ root, routesDir, outDir });
+      const { problems } = await generate(generateOptions());
       // this.error は投げるので、1 件ずつ渡すと最初の 1 件しか出ない。文法は
       // 全部集めて返してくるのだから、全部見せる。
       if (problems.length > 0) {
@@ -155,7 +156,7 @@ export const engine = (
         // `routes` と `routes-x` を取り違えないよう、区切りまで含めて見る
         if (!file.startsWith(`${routesDir}${path.sep}`)) return;
         void (async () => {
-          const { problems } = await generate({ root, routesDir, outDir });
+          const { problems } = await generate(generateOptions());
           for (const problem of problems) {
             server.config.logger.error(
               `routes/${problem.path}: ${problem.message}`,

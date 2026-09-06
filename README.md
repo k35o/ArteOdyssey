@@ -59,7 +59,7 @@ packages/
   form/                  # @k8ordo/form
   state/                 # @k8ordo/state
   router/                # @k8ordo/router
-  framework-engine/      # @k8ordo/framework-engine (internal)
+  framework-engine/      # private engine, bundled into static and server
   static/                # @k8ordo/static
   server/                # @k8ordo/server
 examples/

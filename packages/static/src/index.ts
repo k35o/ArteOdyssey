@@ -1,6 +1,6 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   engine,
@@ -38,6 +38,10 @@ export type StaticOptions = EngineOptions & {
 type Handler = (request: Request) => Promise<Response>;
 
 const ORIGIN = 'http://k8ordo.localhost';
+
+// The engine is bundled into this package, and its runtime entries ship
+// beside this file — `dist/runtime/` — which is where Vite is pointed.
+const RUNTIME_DIR = fileURLToPath(new URL('./runtime/', import.meta.url));
 
 /**
  * Static mode: the same request handler the server mode runs per request is
@@ -149,7 +153,10 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
     },
   };
 
-  return [...engine(options, { via: '@k8ordo/static' }), prerender];
+  return [
+    ...engine(options, { via: '@k8ordo/static', runtimeDir: RUNTIME_DIR }),
+    prerender,
+  ];
 };
 
 /**

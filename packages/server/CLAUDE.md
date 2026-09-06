@@ -2,7 +2,10 @@
 
 `@k8ordo/server` — one of the two modes an application chooses between by
 installing it. Everything shared with `@k8ordo/static` lives in
-`@k8ordo/framework-engine`; what is here is only the part that makes an
+`@k8ordo/framework-engine`, a private workspace package this one bundles at
+pack time (`deps.alwaysBundle` plus a copy of its `dist/runtime/` into
+`dist/runtime/`, which `framework()` hands the engine as `runtimeDir`); what
+is here is only the part that makes an
 application run. The repository-wide discipline is in the root
 [`CLAUDE.md`](../../CLAUDE.md).
 

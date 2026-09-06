@@ -1,8 +1,12 @@
 # Agent guide — packages/framework-engine
 
 `@k8ordo/framework-engine` — the machinery `@k8ordo/static` and
-`@k8ordo/server` are both built on. **Internal**: applications install a mode
-package, never this one. It is published only so those two can resolve it.
+`@k8ordo/server` are both built on. **Private**: it is never published. Each
+mode package bundles it into its own `dist/index.mjs` at pack time
+(`deps.alwaysBundle` in the mode's `vite.config.ts`) and copies
+`dist/runtime/` — the three environment entries — beside it, then tells the
+engine where they landed (`EngineHost.runtimeDir`). Nothing outside this
+repository can resolve the name.
 
 The framework's job is to make the application's structure a checkable form:
 `routes/` is the pathname space and holds nothing else, execution boundaries
@@ -15,7 +19,7 @@ newly available only) is in the repository root's [`CLAUDE.md`](../../CLAUDE.md)
 
 ```bash
 pnpm test          # unit (node)
-pnpm build         # vp pack
+pnpm build         # vp pack (the mode packages bundle the result)
 pnpm typecheck
 pnpm check         # check:write to auto-fix
 ```
@@ -46,6 +50,11 @@ pnpm check         # check:write to auto-fix
   not a pattern — running it on a broken tree throws instead of reporting. So
   a build with grammar problems names all of those at once, and shadowing on
   the next run.
+- **The host names itself.** `EngineHost.via` is the mode package the
+  application installed — the only name resolvable from the project root once
+  the engine is bundled — so the generated files' banner, the optimizer's
+  `include` entries, and any message that tells a person what to install all
+  say `@k8ordo/static` or `@k8ordo/server`, never this package.
 - **The browser holds no route table.** `runtime/app-router.tsx` claims every
   same-origin URL and learns from the answer; anything that is not a payload
   (`runtime/is-payload.ts`) becomes a document load, which is also the

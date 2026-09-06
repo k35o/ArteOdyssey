@@ -1,8 +1,14 @@
+import { fileURLToPath } from 'node:url';
+
 import { engine } from '@k8ordo/framework-engine';
 import type { EngineOptions } from '@k8ordo/framework-engine';
 import type { PluginOption } from 'vite';
 
 export type ServerOptions = EngineOptions;
+
+// The engine is bundled into this package, and its runtime entries ship
+// beside this file — `dist/runtime/` — which is where Vite is pointed.
+const RUNTIME_DIR = fileURLToPath(new URL('./runtime/', import.meta.url));
 
 /**
  * Server mode: the request handler runs per request, so pages can depend on
@@ -14,7 +20,7 @@ export type ServerOptions = EngineOptions;
  * is what "the mode is the dependency" says.
  */
 export const framework = (options: ServerOptions = {}): PluginOption[] =>
-  engine(options, { via: '@k8ordo/server' });
+  engine(options, { via: '@k8ordo/server', runtimeDir: RUNTIME_DIR });
 
 export { serve } from './serve';
 export type { ServeOptions } from './serve';
