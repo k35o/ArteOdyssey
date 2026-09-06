@@ -563,6 +563,12 @@
           "required": false
         },
         {
+          "name": "invalid",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
           "name": "itemValue",
           "types": ["string"],
           "defaultValue": null,
@@ -652,6 +658,12 @@
           "name": "defaultChecked",
           "types": ["never"],
           "defaultValue": null,
+          "required": false
+        },
+        {
+          "name": "invalid",
+          "types": ["boolean"],
+          "defaultValue": "false",
           "required": false
         },
         {
@@ -2430,6 +2442,12 @@
         },
         {
           "name": "disabled",
+          "types": ["boolean"],
+          "defaultValue": "false",
+          "required": false
+        },
+        {
+          "name": "invalid",
           "types": ["boolean"],
           "defaultValue": "false",
           "required": false

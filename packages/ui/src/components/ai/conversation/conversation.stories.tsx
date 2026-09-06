@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect, waitFor } from 'storybook/test';
 
+import { Conversation } from '.';
 import { Message } from '../message';
-import { Conversation } from './conversation';
 
 const meta: Meta<typeof Conversation.Root> = {
   title: 'components/ai/conversation',

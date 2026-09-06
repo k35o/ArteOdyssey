@@ -11,7 +11,7 @@ type ListProps = {
   children: ReactNode;
 };
 
-const List: FC<ListProps> = ({ label, children }) => {
+export const List: FC<ListProps> = ({ label, children }) => {
   const messages = useMessages();
 
   return (
@@ -31,7 +31,7 @@ type ItemProps = {
   children?: ReactNode;
 };
 
-const Item: FC<ItemProps> = ({ value, onSelect, children }) => (
+export const Item: FC<ItemProps> = ({ value, onSelect, children }) => (
   <button
     className={cn(
       'rounded-full border border-border-base bg-bg-subtle px-3 py-1.5 text-sm text-fg-base transition-colors duration-150 ease-out hover:bg-bg-mute',
@@ -45,5 +45,3 @@ const Item: FC<ItemProps> = ({ value, onSelect, children }) => (
     {children ?? value}
   </button>
 );
-
-export const Suggestion = { List, Item } as const;

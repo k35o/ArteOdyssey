@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, waitFor, within } from 'storybook/test';
 
+import { ListBox } from '.';
 import { ListIcon } from '../../icons';
 import type { Option } from './../../../types/variables';
-import { ListBox } from './list-box';
 
 const meta: Meta<typeof ListBox.Root> = {
   title: 'components/overlays/list-box',

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { expect } from 'storybook/test';
 
-import { Tabs } from './tabs';
+import { Tabs } from '.';
 
 const meta: Meta<typeof Tabs.Root> = {
   title: 'components/navigation/tabs',

@@ -18,7 +18,7 @@ type RootProps = {
   children: ReactNode;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
-const Root: FC<RootProps> = ({ from, children, ...rest }) => {
+export const Root: FC<RootProps> = ({ from, children, ...rest }) => {
   const contextValue = useMemo(() => ({ from }), [from]);
 
   return (
@@ -42,7 +42,7 @@ type ContentProps = {
   children: ReactNode;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'className' | 'style'>;
 
-const Content: FC<ContentProps> = ({
+export const Content: FC<ContentProps> = ({
   isStreaming = false,
   children,
   ...rest
@@ -64,5 +64,3 @@ const Content: FC<ContentProps> = ({
     </div>
   );
 };
-
-export const Message = { Root, Content } as const;

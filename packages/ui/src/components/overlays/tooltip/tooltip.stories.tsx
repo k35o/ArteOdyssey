@@ -2,8 +2,8 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import type { ComponentProps, FC } from 'react';
 import { expect, screen, waitFor } from 'storybook/test';
 
+import { Tooltip } from '.';
 import { Button } from '../../buttons/button';
-import { Tooltip } from './tooltip';
 
 const meta: Meta<typeof Tooltip.Root> = {
   title: 'components/overlays/tooltip',

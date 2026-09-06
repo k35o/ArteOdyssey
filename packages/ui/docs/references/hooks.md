@@ -6,6 +6,12 @@ The custom hooks `@k8ordo/ui` provides.
 import { useDisclosure, useDeferredDebounce } from '@k8ordo/ui';
 ```
 
+These hooks cover UI mechanics: disclosure, timing, DOM observation, and the
+like. State that lives in a place — the URL, a history entry, localStorage,
+memory — is `@k8ordo/state`'s job (`defineLocalState` and friends). There is
+deliberately no `useLocalStorage`, `useSessionStorage`, or `useHash` here: a
+package that owned that state twice would give an app two answers.
+
 ## State
 
 ### useDisclosure
@@ -37,32 +43,6 @@ const { count, next, back, isDisabledBack, isDisabledNext } = useStep({
   initialCount: 0,
   maxCount: 5,
 });
-```
-
-### useHash
-
-Reads the URL hash (read-only).
-
-```tsx
-const hash = useHash(); // string | null
-```
-
-## Storage
-
-### useLocalStorage
-
-State kept in sync with LocalStorage. `remove` deletes the entry.
-
-```tsx
-const [value, setValue, remove] = useLocalStorage<string>('key', 'default');
-```
-
-### useSessionStorage
-
-State kept in sync with SessionStorage. `remove` deletes the entry.
-
-```tsx
-const [value, setValue, remove] = useSessionStorage<string>('key', 'default');
 ```
 
 ## Events

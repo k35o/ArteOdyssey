@@ -14,6 +14,11 @@ import { UIProvider } from '@k8ordo/ui';
 import { Button, Card, TextField } from '@k8ordo/ui';
 ```
 
+Every component can be rendered from a Server Component, compound ones
+included: `Dialog.Root`, `Tabs.Root`, `Popover.Trigger`, and the rest are
+composed outside the client modules, so the parts resolve on the server. Only
+the interactive parts carry `'use client'`.
+
 ## Buttons and links
 
 ### Button
@@ -620,6 +625,7 @@ Props:
 - `label`: `string` (required)
 - `checked`: `boolean`
 - `defaultChecked`: `never`
+- `invalid`: `boolean` (default: `false`)
 - `itemValue`: `string`
 - `onChange`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
 - `ref`: `Ref<HTMLInputElement>`
@@ -652,6 +658,7 @@ Props (CheckboxGroup.Item):
 - `label`: `string` (required)
 - `checked`: `boolean`
 - `defaultChecked`: `never`
+- `invalid`: `boolean` (default: `false`)
 - `itemValue`: `string`
 - `onChange`: `(checked: boolean, event: ChangeEvent<HTMLInputElement>) => void`
 - `ref`: `Ref<HTMLInputElement>`
@@ -723,6 +730,7 @@ Props:
 - `aria-labelledby`: `string` (required)
 - `options`: `readonly Option[]` (required)
 - `disabled`: `boolean` (default: `false`)
+- `invalid`: `boolean` (default: `false`)
 - `name`: `string`
 - `onChange`: `(value: string, event: ChangeEvent<HTMLInputElement>) => void`
 - `ref`: `Ref<HTMLDivElement>`

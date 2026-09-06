@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
+import { Message } from '.';
 import { Avatar } from '../../data-display/avatar';
 import { AssistantIcon } from '../../icons';
-import { Message } from './message';
 
 const meta: Meta<typeof Message.Root> = {
   title: 'components/ai/message',

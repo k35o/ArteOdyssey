@@ -3,7 +3,7 @@ import type { FC } from 'react';
 import { render } from 'vitest-browser-react';
 import { userEvent } from 'vitest/browser';
 
-import { useFocusTrap } from '.';
+import { useFocusTrap } from './focus-trap';
 
 const Popup: FC<{
   withFocusable?: boolean;

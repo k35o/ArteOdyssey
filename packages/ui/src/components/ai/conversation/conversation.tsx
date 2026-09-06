@@ -22,7 +22,7 @@ const [ConversationProvider, useConversationContext] = createSafeContext<{
   contentRef: RefObject<HTMLDivElement | null>;
 }>('Conversation.* must be used within <Conversation.Root>');
 
-const Root: FC<{ children: ReactNode }> = ({ children }) => {
+export const Root: FC<{ children: ReactNode }> = ({ children }) => {
   const [viewport, setViewport] = useState<HTMLDivElement | null>(null);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -97,7 +97,7 @@ type MessagesProps = {
   children: ReactNode;
 };
 
-const Messages: FC<MessagesProps> = ({
+export const Messages: FC<MessagesProps> = ({
   label,
   isStreaming = false,
   children,
@@ -128,7 +128,7 @@ const Messages: FC<MessagesProps> = ({
   );
 };
 
-const ScrollButton: FC<{ label?: string }> = ({ label }) => {
+export const ScrollButton: FC<{ label?: string }> = ({ label }) => {
   const messages = useMessages();
   const { isAtBottom, scrollToBottom } = useConversationContext();
 
@@ -152,5 +152,3 @@ const ScrollButton: FC<{ label?: string }> = ({ label }) => {
     </button>
   );
 };
-
-export const Conversation = { Root, Messages, ScrollButton } as const;

@@ -118,16 +118,32 @@ such as `href` or `src` (`Button` and `IconButton` were moved for this reason).
 
 ### Compound Component (Dialog, Tabs, FileField pattern)
 
+The parts live in the `'use client'` module and are exported one by one; the
+`X.Root` object is assembled in `index.ts`, which has no directive.
+
 ```tsx
-const Root: FC<PropsWithChildren> = ({ children }) => (
+// my-component.tsx
+'use client';
+
+export const Root: FC<PropsWithChildren> = ({ children }) => (
   <Context value={...}>{children}</Context>
 );
-const Part: FC = () => { /* use(Context) */ };
+export const Part: FC = () => { /* use(Context) */ };
+```
+
+```ts
+// index.ts — no 'use client'
+import { Part, Root } from './my-component';
 
 export const MyComponent = { Root, Part } as const;
 ```
 
-- Use `createContext` + `use()` for sharing state between parts
+- Never build the object inside the client module. In the RSC server
+  environment a client module's exports are reference proxies, so an object
+  exported from there has no readable properties and `X.Root` is `undefined`
+  in a Server Component. `src/components/compound-rsc.test.ts` fails on any
+  `export const X = {` inside a `'use client'` file.
+- Use `createContext` + `use()` (or `createSafeContext`) for sharing state between parts
 - Use `useId()` for accessible `aria-labelledby`/`aria-describedby` connections
 - `'use client'` directive at top when using hooks
 

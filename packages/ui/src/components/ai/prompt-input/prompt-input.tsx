@@ -42,7 +42,7 @@ type RootProps = {
   children: ReactNode;
 };
 
-const Root: FC<RootProps> = ({
+export const Root: FC<RootProps> = ({
   status = 'ready',
   value,
   defaultValue = '',
@@ -104,7 +104,7 @@ type TextareaProps = {
   'value' | 'defaultValue' | 'onChange' | 'className' | 'style' | 'rows'
 >;
 
-const Textarea: FC<TextareaProps> = ({
+export const Textarea: FC<TextareaProps> = ({
   placeholder,
   onKeyDown,
   ref,
@@ -163,7 +163,7 @@ type SubmitProps = {
   stopLabel?: string;
 };
 
-const Submit: FC<SubmitProps> = ({ sendLabel, stopLabel }) => {
+export const Submit: FC<SubmitProps> = ({ sendLabel, stopLabel }) => {
   const messages = useMessages();
   const { value, status, stop } = usePromptInputContext();
   const isBusy = status === 'submitted' || status === 'streaming';
@@ -199,5 +199,3 @@ const Submit: FC<SubmitProps> = ({ sendLabel, stopLabel }) => {
     </button>
   );
 };
-
-export const PromptInput = { Root, Textarea, Submit } as const;

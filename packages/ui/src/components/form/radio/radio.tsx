@@ -12,6 +12,7 @@ type BaseProps = {
   'aria-labelledby': string;
   name?: string;
   disabled?: boolean;
+  invalid?: boolean;
   options: readonly Option[];
   ref?: Ref<HTMLDivElement>;
 } & Omit<
@@ -37,6 +38,7 @@ export const Radio: FC<Props> = ({
   'aria-labelledby': labelledbyId,
   name,
   disabled = false,
+  invalid = false,
   value,
   defaultValue,
   onChange,
@@ -65,6 +67,7 @@ export const Radio: FC<Props> = ({
   return (
     <div
       {...rest}
+      aria-invalid={invalid}
       aria-labelledby={labelledbyId}
       className={cn(
         'flex cursor-pointer flex-col gap-2',
@@ -103,6 +106,7 @@ export const Radio: FC<Props> = ({
                 ? 'border-border-base bg-primary-bg'
                 : 'border-border-mute bg-bg-base',
               disabledResolved && 'border-border-mute bg-bg-mute',
+              invalid && 'border-border-error',
             )}
           >
             <span

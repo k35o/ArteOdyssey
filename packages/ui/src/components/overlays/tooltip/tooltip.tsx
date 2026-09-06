@@ -75,7 +75,7 @@ const IntentProvider: FC<
   );
 };
 
-const Root: FC<
+export const Root: FC<
   PropsWithChildren<{
     placement?: Placement;
     isOpen?: boolean;
@@ -113,11 +113,11 @@ const Root: FC<
   </Popover.Root>
 );
 
-const Trigger: FC<{
+export const Trigger: FC<{
   renderItem: (props: TooltipTriggerProps) => ReactElement;
 }> = ({ renderItem }) => renderItem(useTooltipTriggerProps());
 
-const Content: FC<PropsWithChildren> = ({ children }) => {
+export const Content: FC<PropsWithChildren> = ({ children }) => {
   const popover = usePopoverContext();
   const intent = useTooltipIntent();
 
@@ -145,9 +145,3 @@ const Content: FC<PropsWithChildren> = ({ children }) => {
     />
   );
 };
-
-export const Tooltip = {
-  Root,
-  Trigger,
-  Content,
-} as const;

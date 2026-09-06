@@ -102,3 +102,16 @@ export const ForwardsRef: Story = {
     ).toHaveFocus();
   },
 };
+
+// FormControl の renderInput から受け取る invalid を aria-invalid として伝える
+export const Invalid: Story = {
+  args: {
+    invalid: true,
+    label: 'invalid checkbox',
+  },
+  play: async ({ canvas }) => {
+    await expect(
+      canvas.getByRole('checkbox', { name: 'invalid checkbox' }),
+    ).toHaveAttribute('aria-invalid', 'true');
+  },
+};

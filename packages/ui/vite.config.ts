@@ -63,7 +63,11 @@ export default defineConfig({
         extends: true,
         test: {
           name: { label: 'hooks', color: 'green' },
-          include: ['src/hooks/**/*.test.{ts,tsx}'],
+          include: [
+            'src/hooks/**/*.test.{ts,tsx}',
+            // ブラウザで動く内部 hook のテスト（src/internal の .tsx テストのみ）
+            'src/internal/**/*.test.tsx',
+          ],
           browser: {
             enabled: true,
             instances: [
@@ -86,7 +90,7 @@ export default defineConfig({
           name: { label: 'helpers', color: 'blue' },
           include: [
             'src/helpers/**/*.test.{ts,tsx}',
-            'src/internal/**/*.test.{ts,tsx}',
+            'src/internal/**/*.test.ts',
             'src/components/**/*.test.ts',
             'src/integrations/**/*.test.{ts,tsx}',
           ],

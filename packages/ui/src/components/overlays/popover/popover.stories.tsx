@@ -2,10 +2,10 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
 import { expect, fn, waitFor } from 'storybook/test';
 
+import { Popover } from '.';
 import type { Placement } from '../../../types/variables';
 import { Button } from '../../buttons/button';
 import { Modal } from '../modal';
-import { Popover } from './popover';
 
 const meta: Meta<typeof Popover.Root> = {
   title: 'components/overlays/popover',
