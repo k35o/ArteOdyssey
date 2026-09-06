@@ -264,8 +264,11 @@ The framework's generated `Register` also carries `params`: per pattern, the
 type the route file's `paramsSchema` produces. With it, `href` and
 `navigateTo` take a param as the page receives it — `{ id: 42 }` for a
 schema that said number — and spell it the one way the schema reads back. A
-value with no URL spelling (an object) is refused. A hand-written table has no
-schemas, so its params stay strings.
+value with no URL spelling (an object) is refused. Before `Register` is
+augmented — or where no schema covers a param — a link takes any value with
+one spelling (a string, a number, a boolean), so a link written for a schema
+compiles before the generated file exists. `useParams` is unaffected: what a
+hand-written table matches is always a string.
 
 ## Typed paths for @k8ordo/state
 

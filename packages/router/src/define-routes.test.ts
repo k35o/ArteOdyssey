@@ -264,12 +264,12 @@ describe('match with accept', () => {
 
 describe('href with schema-typed params', () => {
   it('spells a number or a boolean the one way a schema reads back', () => {
-    expect(
-      href('/:locale/products/:id', { locale: 'ja', id: 42 as never }),
-    ).toBe('/ja/products/42');
-    expect(
-      href('/:locale/products/:id', { locale: 'ja', id: true as never }),
-    ).toBe('/ja/products/true');
+    expect(href('/:locale/products/:id', { locale: 'ja', id: 42 })).toBe(
+      '/ja/products/42',
+    );
+    expect(href('/:locale/products/:id', { locale: 'ja', id: true })).toBe(
+      '/ja/products/true',
+    );
   });
 
   it('refuses a value that has no URL spelling', () => {

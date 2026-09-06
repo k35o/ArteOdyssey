@@ -99,6 +99,10 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      # router-basic はブラウザモードのテストを持つ
+      - name: Install Playwright browsers
+        run: pnpm exec playwright install
+
       # examples は他ジョブが必要としないので composite install の build からは
       # 外したまま、このジョブだけで面倒を見る。ビルドが通るだけでは
       # 「生成 UI のデモが実は何も描画しない」「フレームワークが 1 枚も

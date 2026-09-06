@@ -4,7 +4,7 @@ import type {
   Routes,
   RoutesRecord,
 } from './define-routes';
-import type { ParamsOf } from './paths';
+import type { ParamsOf, ParamValue } from './paths';
 
 /**
  * The app-side hook for the route table's type. An application augments this
@@ -48,16 +48,24 @@ export type RegisteredNavigablePattern = Register extends {
 
 type RegisteredParamsMap = Register extends { params: infer M } ? M : null;
 
+/** The pattern's params as anything with one spelling, before any schema. */
+type LooseParamsOf<P extends string> = {
+  [K in keyof ParamsOf<P>]: ParamValue;
+};
+
 /**
- * A pattern's params as a link takes them: the strings the pattern names,
- * except where the registered `params` map — written by the framework from
- * the schemas the route files declared — says a page receives something
- * else, in which case a link takes that same value. A number in, a number's
- * one spelling out.
+ * A pattern's params as a link takes them: where the registered `params`
+ * map — written by the framework from the schemas the route files declared
+ * — says a page receives something, a link takes that same value (a number
+ * in, a number's one spelling out); a param no schema covers takes anything
+ * with one spelling. Before `Register` is augmented — a client application
+ * that has not, or the framework's generated file not yet written — the
+ * same loose shape applies, so a link written for a schema still compiles.
  */
 export type RegisteredParams<P extends string> =
   RegisteredParamsMap extends null
-    ? ParamsOf<P>
+    ? LooseParamsOf<P>
     : P extends keyof RegisteredParamsMap
-      ? Omit<ParamsOf<P>, keyof RegisteredParamsMap[P]> & RegisteredParamsMap[P]
-      : ParamsOf<P>;
+      ? Omit<LooseParamsOf<P>, keyof RegisteredParamsMap[P]> &
+          RegisteredParamsMap[P]
+      : LooseParamsOf<P>;
