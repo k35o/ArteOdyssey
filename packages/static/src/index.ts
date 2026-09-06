@@ -12,6 +12,7 @@ import {
 import type { EngineOptions } from '@k8ordo/framework-engine';
 import type { Plugin, PluginOption } from 'vite';
 
+import { hasUseServerDirective } from './directive';
 import {
   catchAllPath,
   catchAllPatterns,
@@ -45,11 +46,6 @@ type Handler = (request: Request) => Promise<Response>;
 
 const ORIGIN = 'http://k8ordo.localhost';
 
-// A `'use server'` directive is the first statement of a module: a string
-// literal, on its own line, before anything but comments and blank lines.
-const USE_SERVER =
-  /^(?:\s*(?:\/\/[^\n]*|\/\*[\s\S]*?\*\/))*\s*(?:'use server'|"use server");?/u;
-
 // The engine is bundled into this package, and its runtime entries ship
 // beside this file — `dist/runtime/` — which is where Vite is pointed.
 const RUNTIME_DIR = fileURLToPath(new URL('./runtime/', import.meta.url));
@@ -82,7 +78,7 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
     // two. So the refusal is said here as well, the moment the file is seen.
     transform(code, id) {
       if (id.includes('/node_modules/')) return null;
-      if (!USE_SERVER.test(code)) return null;
+      if (!hasUseServerDirective(code)) return null;
       throw new Error(
         `static build cannot ship Server Actions — a file cannot receive one, and this declares 'use server':\n  ${path.relative(root, id)}\nthis application wants @k8ordo/server`,
       );
