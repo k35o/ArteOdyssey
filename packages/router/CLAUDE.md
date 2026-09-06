@@ -36,6 +36,15 @@ pnpm check         # check:write to auto-fix
   before the tree arrives, so comparing against the address bar makes a
   state update during a pending load abort that load and strand the old page
   under the new URL (regression test in `router.browser.test.tsx`).
+- **A new page starts where a document load would.** The commit effect that
+  resolves `finished` also places the viewport: top for push/replace, the
+  fragment's element when the URL names one, nothing for a traversal (the
+  browser restores). `scroll: 'manual'` is passed for exactly the cases this
+  hook scrolls itself, so the platform and the hook never both act.
+- **`useMatch` reads the platform, never the table.** It is `matchPath` over
+  `usePathname`, which is why it works under the framework where `useRoute`
+  cannot; `/*` on a table pattern is the one extension of the grammar it
+  accepts, meaning "and everything below".
 - **Unmatched pathnames are not intercepted.** A real 404 is the server's.
 - **Reload, POST, download and hash are not ours.** `isOurs` says no before
   the table is consulted; a GET form (no `formData`) still comes through.
@@ -55,6 +64,7 @@ src/
   register.ts       Register(module augmentation)
   navigation.ts     useInterceptedNavigation(intercept と commit 契約)
   location.tsx      usePathname / PathnameProvider(表を引かない現在地)
+  match.ts          matchPath / useMatch(表を引かない「どの区間にいるか」)
   router.tsx        Router / Outlet / useRoute / useParams
 ```
 

@@ -11,9 +11,12 @@ export type {
 } from './define-routes';
 export { href, navigateTo } from './links';
 export { PathnameProvider, usePathname } from './location';
+export { matchPath, useMatch } from './match';
+export type { MatchablePattern } from './match';
 export { useInterceptedNavigation } from './navigation';
 export type { NavigationHandler } from './navigation';
 export type { NavigateToOptions } from './links';
+export { normalizePathname } from './paths';
 export type { ParamsOf, PathFor } from './paths';
 export type {
   Register,

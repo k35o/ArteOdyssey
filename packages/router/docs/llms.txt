@@ -15,9 +15,10 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
 
 - [Design Guide](GUIDE.md): the table's grammar (leaves, branches, params,
   wildcards, route groups, declaration order), mounting `<Router>` and
-  `<Outlet>`, links without a `<Link>` component, `Register` for checked
-  patterns, what navigation guarantees, and how the framework reuses the
-  navigation half.
+  `<Outlet>`, links without a `<Link>` component, `useMatch` for active
+  sections, `Register` for checked patterns, what navigation guarantees
+  (`finished` after commit, scroll to top or fragment on a new page), and
+  how the framework reuses the navigation half.
 
 ## Entry point
 
@@ -33,6 +34,11 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
   `@k8ordo/state`'s `Register`. `usePathname()` reads the platform's
   pathname — never the search — so it works with or without a table, which
   makes it the location hook that also works under the framework;
+  `useMatch(pattern)` / `matchPath(pattern, pathname)` answer whether that
+  pattern — or, with a trailing `/*`, anything below it — is the pathname
+  showing, with its params, table-free, so a sidebar can ask which section is
+  open under the framework too; `normalizePathname(pathname)` is the router's
+  own trailing-slash rule;
   `<PathnameProvider pathname>` seeds it for a server render and hydration,
   and is mounted by `<Router>` and by both mode runtimes, never by an
   application. `useInterceptedNavigation({claim, load, apply})` is the

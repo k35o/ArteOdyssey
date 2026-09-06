@@ -46,6 +46,50 @@ export type NavigationHandler<T> = {
 };
 
 /**
+ * Where the viewport goes once the new page is on screen. A traversal is the
+ * browser's to restore, so it carries no instruction; a fragment scrolls to
+ * its target; anything else starts at the top, the way a document load does.
+ */
+export type ScrollPlan = { kind: 'top' } | { kind: 'fragment'; id: string };
+
+export const scrollPlanFor = (
+  navigationType: NavigationType,
+  hash: string,
+): ScrollPlan | null => {
+  if (navigationType === 'traverse') return null;
+  if (hash.length > 1) {
+    let id = hash.slice(1);
+    try {
+      id = decodeURIComponent(id);
+    } catch {
+      // 復号できない fragment は書かれたままの綴りで探す
+    }
+    return { kind: 'fragment', id };
+  }
+  return { kind: 'top' };
+};
+
+const applyScroll = (plan: ScrollPlan): void => {
+  if (plan.kind === 'fragment') {
+    // fragment は id か、古い綴りの <a name> のどちらかを指す
+    const selector = `#${CSS.escape(plan.id)}, [name=${JSON.stringify(plan.id)}]`;
+    const target = document.querySelector(selector);
+    if (target !== null) {
+      target.scrollIntoView();
+      return;
+    }
+  }
+  // 現在位置と同じ座標へのスクロールは最適化で無視されることがあるので、
+  // クランプされる負の値を渡して必ず発火させる
+  window.scrollTo({ left: 0, top: -1 });
+};
+
+type Pending = {
+  resolve: () => void;
+  scroll: ScrollPlan | null;
+};
+
+/**
  * The navigation half of the router, on its own: intercept, load, apply in a
  * transition, and resolve the platform's handler only once the new tree is on
  * screen — which is what makes `navigation.navigate().finished` mean "the
@@ -67,7 +111,7 @@ export function useInterceptedNavigation<T>(
   // slot loses the race a rapid second navigation creates: the first one's
   // commit would resolve whatever resolver happened to be sitting there, and
   // `finished` would mean "some page is on screen" instead of "this one is".
-  const pending = useRef(new Map<number, () => void>());
+  const pending = useRef(new Map<number, Pending>());
   const count = useRef(0);
   const [applied, setApplied] = useState(-1);
 
@@ -93,7 +137,15 @@ export function useInterceptedNavigation<T>(
       if (!latest.current.claim(url)) return;
 
       const id = count.current++;
+      const scroll = scrollPlanFor(event.navigationType, url.hash);
       event.intercept({
+        // The platform would scroll "after transition" — after the handler
+        // settles — but the handler settles only once the tree is on screen,
+        // which is exactly when this hook scrolls itself. Doing it here keeps
+        // the two from disagreeing, and keeps the behaviour where a browser
+        // has not implemented the platform's half. A traversal keeps the
+        // default: restoring a position is the browser's, not ours.
+        scroll: scroll === null ? 'after-transition' : 'manual',
         handler: async () => {
           const value = await latest.current.load(url, event.signal);
           // A load that ignores the signal can come back after a second
@@ -102,7 +154,7 @@ export function useInterceptedNavigation<T>(
           // never fire — an abort that already happened does not fire again.
           if (event.signal.aborted) throw event.signal.reason as Error;
           await new Promise<void>((resolve, reject) => {
-            pending.current.set(id, resolve);
+            pending.current.set(id, { resolve, scroll });
             event.signal.addEventListener(
               'abort',
               () => {
@@ -133,9 +185,12 @@ export function useInterceptedNavigation<T>(
   }, []);
 
   useEffect(() => {
-    const resolve = pending.current.get(applied);
-    if (resolve === undefined) return;
+    const entry = pending.current.get(applied);
+    if (entry === undefined) return;
     pending.current.delete(applied);
-    resolve();
+    // The tree is on screen: this is the moment a document load would have
+    // placed the viewport, so it is the moment to place it here.
+    if (entry.scroll !== null) applyScroll(entry.scroll);
+    entry.resolve();
   }, [applied]);
 }

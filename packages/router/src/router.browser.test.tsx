@@ -5,6 +5,7 @@ import { render } from 'vitest-browser-react';
 import { defineRoutes } from './define-routes';
 import { href, navigateTo } from './links';
 import { usePathname } from './location';
+import { useMatch } from './match';
 import { useInterceptedNavigation } from './navigation';
 import { Outlet, Router, useParams, useRoute } from './router';
 
@@ -21,6 +22,23 @@ const HomePage: FC = () => (
 
 const AboutPage: FC = () => <div data-testid="about">about</div>;
 
+// 十分に背の高いページ。スクロール位置の主張に使う
+const TallPage: FC = () => (
+  <div data-testid="tall" style={{ height: '5000px' }}>
+    <a href={href('/about')}>leave</a>
+    <a href="/about#target">leave to target</a>
+    <p id="target" style={{ marginTop: '4000px' }}>
+      target
+    </p>
+  </div>
+);
+
+// 表を引かずに「products の下にいるか」を答える
+const SectionProbe: FC = () => {
+  const under = useMatch('/products/*');
+  return <span data-testid="section">{under === null ? 'out' : 'in'}</span>;
+};
+
 // 表を持たない現在地の読み手。レイアウトに置いて、子のルートが入れ替わっても
 // マウントされたままにする
 const PathnameProbe: FC = () => (
@@ -30,6 +48,7 @@ const PathnameProbe: FC = () => (
 const Shell: FC = () => (
   <section data-testid="shell">
     <PathnameProbe />
+    <SectionProbe />
     <Outlet />
   </section>
 );
@@ -54,6 +73,7 @@ const DetailPage: FC = () => {
 const routes = defineRoutes({
   '/': HomePage,
   '/about': AboutPage,
+  '/tall': TallPage,
   '/products': {
     layout: Shell,
     children: {
@@ -193,6 +213,37 @@ it('shows the navigation that won, not the one it overtook', async () => {
     .element(screen.getByTestId('detail'))
     .toHaveTextContent('/products/:id:shoes');
   expect(document.querySelector('[data-testid="list"]')).toBeNull();
+});
+
+it('starts a new page at the top, whatever the previous page had scrolled to', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/tall', { history: 'replace' }).finished;
+  await expect.element(screen.getByTestId('tall')).toBeInTheDocument();
+  window.scrollTo(0, 3000);
+  expect(window.scrollY).toBeGreaterThan(0);
+
+  await navigateTo('/about').finished;
+
+  expect(window.scrollY).toBe(0);
+});
+
+it('scrolls to the fragment the new URL names', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/about', { history: 'replace' }).finished;
+
+  await navigation.navigate(`${location.origin}/tall#target`).finished;
+
+  await expect.element(screen.getByTestId('tall')).toBeInTheDocument();
+  expect(window.scrollY).toBeGreaterThan(1000);
+});
+
+it('answers which section is showing without a table in hand', async () => {
+  const screen = await render(<Router routes={routes} />);
+  await navigateTo('/products', { history: 'replace' }).finished;
+  await expect.element(screen.getByTestId('section')).toHaveTextContent('out');
+
+  await navigateTo('/products/:id', { id: '1' }).finished;
+  await expect.element(screen.getByTestId('section')).toHaveTextContent('in');
 });
 
 // フレームワークの下ではペイロードの fetch が入るので、load は非同期になる。

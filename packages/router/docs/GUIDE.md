@@ -167,9 +167,22 @@ const pathname = usePathname(); // where the browser is, table or no table
 **There is no `<Link>`.** Under the Navigation API a plain `<a>` is already a
 client navigation — the router intercepts the event the browser was going to
 send anyway. A component wrapping it would add a second way to write the same
-thing and nothing else. An active link is a comparison you write yourself —
-`useRoute().pattern === '/products'` against the table, or
-`usePathname() === href('/products')` against the URL — not a prop.
+thing and nothing else. An active link is a question you ask, not a prop:
+
+```tsx
+import { matchPath, useMatch } from '@k8ordo/router';
+
+useMatch('/products/:id'); // { id } when that page is showing, else null
+useMatch('/products/*'); // {} anywhere under /products, else null
+matchPath('/products/:id', pathname); // the same, pure, for a pathname in hand
+```
+
+`useMatch` takes a pattern from the table, or a table pattern followed by
+`/*` to mean "it and everything below it" — what a sidebar asks when it wants
+to know which section of the site is open. It is built on `usePathname`, so it
+re-renders on the pathname and never on the search, and it needs no table in
+the browser — which is what makes it the one of these that also works under
+the framework, where `useRoute` has no match to read.
 
 **`usePathname` changes when the URL changes, not when the new page appears.**
 Interception commits the URL first and the tree arrives when it has loaded, so
@@ -188,6 +201,9 @@ the boundary between the two packages.
 
 `href` refuses a wildcard: `/*` is something to match, never something to link
 to. Param values are URL-encoded on the way in and decoded on the way out.
+`normalizePathname` is the router's own reading of a pathname — a trailing
+slash dropped, root excepted — for code that compares pathnames the way the
+table does.
 
 `navigateTo` returns the platform's own `{ committed, finished }`, so it
 composes with React 19's async transitions:
@@ -274,6 +290,13 @@ loading is a page change and lets that page finish arriving.
 `startTransition`, so React can keep the old page interactive while the new
 one prepares.
 
+**A new page starts at the top.** Once the new tree is on screen, the
+viewport goes where a document load would have put it: the top, or the
+element a `#fragment` names. Back and forward are left to the browser, which
+restores the position it saved. A state change never moves the viewport —
+same pathname, same place — so a filter update does not scroll the reader
+back to the top.
+
 **Superseded navigations abort.** A second navigation aborts the first through
 the platform's own signal: the overtaken `finished` rejects with the abort
 reason, and its tree never reaches the screen even if its load had already
@@ -317,7 +340,7 @@ useInterceptedNavigation<Value>({
 ```
 
 What carries across unchanged is everything that needs no table: `href`,
-`navigateTo` and `usePathname`. `usePathname` needs one thing on the server,
+`navigateTo`, `usePathname` and `useMatch`. `usePathname` needs one thing on the server,
 where there is no Navigation API to read: the pathname the render is for,
 supplied by `<PathnameProvider pathname>`. `<Router>` mounts one itself and
 both mode runtimes supply it, so an application never writes it — only a host
