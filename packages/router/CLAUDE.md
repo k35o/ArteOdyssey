@@ -48,6 +48,11 @@ pnpm check         # check:write to auto-fix
 - **Unmatched pathnames are not intercepted.** A real 404 is the server's.
 - **Reload, POST, download and hash are not ours.** `isOurs` says no before
   the table is consulted; a GET form (no `formData`) still comes through.
+- **Schemas are typed here, run elsewhere.** `ParamsSchemaFor` /
+  `ParsedParams` / `RegisteredParams` describe what a Standard Schema produces
+  so `href` can take it; the framework runs the schema and hands `match` an
+  `accept` that declines a refused param, which makes the walk go on to the
+  next pattern. Nothing in this package validates anything.
 - **Declaration order decides.** No specificity ranking, ever — the table
   reads top to bottom like the code it is.
 - **The type mirrors the runtime walk.** `Below` resets a branch that landed

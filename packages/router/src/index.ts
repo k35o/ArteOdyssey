@@ -17,10 +17,20 @@ export { useInterceptedNavigation } from './navigation';
 export type { NavigationHandler } from './navigation';
 export type { NavigateToOptions } from './links';
 export { normalizePathname } from './paths';
-export type { ParamsOf, PathFor } from './paths';
+export type {
+  ParamsOf,
+  ParamsSchemaFor,
+  ParamValue,
+  ParsedParams,
+  ParsedParamsMap,
+  PathFor,
+  SchemaOutput,
+  StandardSchemaLike,
+} from './paths';
 export type {
   Register,
   RegisteredNavigablePattern,
+  RegisteredParams,
   RegisteredPattern,
 } from './register';
 export { Outlet, Router, useParams, useRoute } from './router';

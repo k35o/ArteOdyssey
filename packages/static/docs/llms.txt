@@ -4,7 +4,9 @@
 > output a directory a static host can serve. The mode is the dependency —
 > installing this package means Server Actions and request-time data do not
 > exist as APIs. `src/routes/` is the pathname space (page/layout/not-found,
-> `[param]`, `(group)`, `_private`), boundaries are React's own `'use client'`
+> `[param]`, `(group)`, `_private`), a page or layout may `export const params` (any Standard Schema, synchronous)
+> to type its parameters — a refused value makes the pattern not answer, so the
+> walk goes on to `not-found.tsx` — boundaries are React's own `'use client'`
 > with `server-only` modules barred from the client bundle, and the route table
 > and type wiring are generated rather than hand-written.
 >

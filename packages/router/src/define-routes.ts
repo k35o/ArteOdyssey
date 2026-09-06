@@ -69,8 +69,13 @@ export type Routes<R extends RoutesRecord = RoutesRecord> = {
    * operation that needs the table's value: links and navigation build from
    * the pattern string alone (`href` / `navigateTo`), so only `<Router>`
    * ever holds this object.
+   *
+   * `accept` lets the caller decline a match, in which case the walk goes
+   * on to the next pattern as if this one had not fit — a param a schema
+   * refuses is a pathname the pattern does not answer, and what answers it
+   * instead is whatever the table declares next, the catch-all included.
    */
-  match: (pathname: string) => Match | null;
+  match: (pathname: string, accept?: (match: Match) => boolean) => Match | null;
 };
 
 type Entry = {
@@ -143,7 +148,10 @@ export function defineRoutes<R extends RoutesRecord>(record: R): Routes<R> {
   };
   walk(record, '', []);
 
-  const match = (pathname: string): Match | null => {
+  const match = (
+    pathname: string,
+    accept?: (match: Match) => boolean,
+  ): Match | null => {
     const normalized = normalizePathname(pathname);
     for (const entry of entries) {
       const result = entry.matcher.exec({ pathname: normalized });
@@ -156,7 +164,8 @@ export function defineRoutes<R extends RoutesRecord>(record: R): Routes<R> {
           params[name] = decode(value);
         }
       }
-      return { pattern: entry.pattern, params, stack: entry.stack };
+      const found = { pattern: entry.pattern, params, stack: entry.stack };
+      if (accept === undefined || accept(found)) return found;
     }
     return null;
   };

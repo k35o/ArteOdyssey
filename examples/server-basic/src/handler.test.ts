@@ -32,9 +32,16 @@ describe('the built request handler', () => {
   });
 
   it('reads the parameter out of the request, with no list of values', async () => {
-    expect(
-      await (await handler(new Request(`${ORIGIN}/products/2`))).text(),
-    ).toContain('second product');
+    const html = await (await handler(new Request(`${ORIGIN}/products/2`))).text();
+    expect(html).toContain('second product');
+    // [id] のスキーマが通した値で、page は number を受け取る
+    expect(html).toContain('number:2');
+  });
+
+  it('answers a parameter the schema refuses as a URL it does not have', async () => {
+    const response = await handler(new Request(`${ORIGIN}/products/shoes`));
+    expect(response.status).toBe(404);
+    expect(await response.text()).toContain('not found');
   });
 
   it('answers a URL it does not have with the not-found page, under a real 404', async () => {

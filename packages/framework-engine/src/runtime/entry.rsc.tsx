@@ -6,9 +6,10 @@ import {
   loadServerAction,
   renderToReadableStream,
 } from '@vitejs/plugin-rsc/rsc/server';
-import { routes } from 'virtual:k8ordo/routes';
+import { paramSchemas, routes } from 'virtual:k8ordo/routes';
 
 import type * as SsrEntry from './entry.ssr';
+import { parseParams } from './params';
 import { ACTION_ID_HEADER } from './payload';
 import type { Payload } from './payload';
 import { isPayloadPath, pagePathFor } from './payload-path';
@@ -107,11 +108,35 @@ export default async function handler(request: Request): Promise<Response> {
     ? await runAction(request, temporaryReferences)
     : {};
 
-  const match = routes.match(pathname);
+  // A param a schema refuses is a pathname the pattern does not answer, so
+  // the walk goes on to whatever the table declares next — the catch-all in
+  // the end. A catch-all's own params are not validated: it answers what
+  // nothing else did, and a 404 is already what a refused param means.
+  const parsed: { params: Readonly<Record<string, unknown>> } = {
+    params: {},
+  };
+  const match = routes.match(pathname, (found) => {
+    if (found.pattern.endsWith('/*')) {
+      parsed.params = found.params;
+      return true;
+    }
+    const accepted = parseParams(
+      paramSchemas[found.pattern] ?? [],
+      found.params,
+    );
+    if (accepted === null) return false;
+    parsed.params = accepted;
+    return true;
+  });
   const missing = match === null || match.pattern.endsWith('/*');
   const status = missing ? 404 : 200;
   const payload: Payload = {
-    tree: match === null ? <NotFound /> : renderMatch(match, pathname),
+    tree:
+      match === null ? (
+        <NotFound />
+      ) : (
+        renderMatch(match, pathname, parsed.params)
+      ),
     pathname,
     returnValue: action.returnValue,
     formState: action.formState,

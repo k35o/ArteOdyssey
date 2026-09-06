@@ -136,6 +136,8 @@ export type EmitOptions = {
   readonly importPrefix: string;
   /** The mode package the application installed, named in the banner. */
   readonly via?: string;
+  /** Route files (relative to the routes root) that export a `params` schema. */
+  readonly withParams?: ReadonlySet<string>;
 };
 
 const DEFAULT_VIA = '@k8ordo/static';
@@ -205,6 +207,14 @@ const believed = (
   return type === undefined ? name : `${name} satisfies ${type}`;
 };
 
+type Belief = {
+  /** The pattern the directories put the file under. */
+  readonly pattern: string;
+  readonly kind: 'page' | 'layout' | 'notFound';
+  /** Schema-declaring files along the stack, outer-first, the file's own last. */
+  readonly schemas: readonly string[];
+};
+
 /**
  * What each route file is promised, by the pattern the directories put it
  * under: a page's own pattern, and for a layout the prefix every route below
@@ -212,22 +222,64 @@ const believed = (
  * component is used and let the compiler check the props the file declared —
  * the alternative is asking every route file to restate a pattern its own
  * directory already states.
+ *
+ * A page's belief also carries the `params` schemas that run before it
+ * renders: every layout's above it that declared one, then its own. A
+ * not-found's carries none — a catch-all answers what nothing else did, and
+ * its params are never validated.
  */
-const beliefs = (tree: RouteDir): Map<string, string> => {
-  const found = new Map<string, string>();
-  const walk = (dir: RouteDir, prefix: string): void => {
+const beliefs = (
+  tree: RouteDir,
+  withParams: ReadonlySet<string>,
+): Map<string, Belief> => {
+  const found = new Map<string, Belief>();
+  const walk = (
+    dir: RouteDir,
+    prefix: string,
+    inherited: readonly string[],
+  ): void => {
     const here = dir.kind === 'root' ? '' : prefix;
     const own = here === '' ? '/' : here;
-    if (dir.layout !== null) found.set(dir.layout, `Layout<'${own}'>`);
-    if (dir.page !== null) found.set(dir.page, `Page<'${own}'>`);
-    if (dir.notFound !== null) found.set(dir.notFound, `Page<'${here}/*'>`);
+    const layoutSchemas =
+      dir.layout !== null && withParams.has(dir.layout)
+        ? [...inherited, dir.layout]
+        : inherited;
+    if (dir.layout !== null) {
+      found.set(dir.layout, {
+        pattern: own,
+        kind: 'layout',
+        schemas: layoutSchemas,
+      });
+    }
+    if (dir.page !== null) {
+      found.set(dir.page, {
+        pattern: own,
+        kind: 'page',
+        schemas: withParams.has(dir.page)
+          ? [...layoutSchemas, dir.page]
+          : layoutSchemas,
+      });
+    }
+    if (dir.notFound !== null) {
+      found.set(dir.notFound, {
+        pattern: `${here}/*`,
+        kind: 'notFound',
+        schemas: [],
+      });
+    }
     for (const child of dir.children) {
-      walk(child, child.kind === 'group' ? here : `${here}${child.key}`);
+      walk(
+        child,
+        child.kind === 'group' ? here : `${here}${child.key}`,
+        layoutSchemas,
+      );
     }
   };
-  walk(tree, '');
+  walk(tree, '', []);
   return found;
 };
+
+const schemaName = (componentName: string): string => `${componentName}_params`;
 
 export const emitRoutesModule = (
   tree: RouteDir,
@@ -235,37 +287,77 @@ export const emitRoutesModule = (
 ): string => {
   const namer = createNamer();
   const table = buildTable(tree, namer.take);
+  const withParams = options.withParams ?? new Set<string>();
 
-  const byFile = beliefs(tree);
+  const byFile = beliefs(tree, withParams);
   const asserted = new Map<string, string>();
+  // Per page pattern, the schema identifiers along its stack — what the
+  // handler runs before the page renders, and what its params are typed by.
+  const stacks = new Map<string, readonly string[]>();
   for (const [file, name] of namer.names) {
     const belief = byFile.get(file);
-    if (belief !== undefined) asserted.set(name, belief);
+    if (belief === undefined) continue;
+    const schemas = belief.schemas.map((f) => schemaName(namer.take(f)));
+    if (belief.kind === 'layout') {
+      asserted.set(name, `Layout<'${belief.pattern}'>`);
+    } else if (belief.kind === 'notFound' || schemas.length === 0) {
+      asserted.set(name, `Page<'${belief.pattern}'>`);
+    } else {
+      asserted.set(
+        name,
+        `Page<'${belief.pattern}', (typeof paramSchemas)['${belief.pattern}']>`,
+      );
+      stacks.set(belief.pattern, schemas);
+    }
   }
   const body = Object.entries(table).map(
     ([key, node]) => `${pad(1)}'${key}': ${renderNode(node, 1, asserted)},`,
   );
-  const importLines = [...namer.names].map(
-    ([file, name]) =>
-      `import ${name} from '${options.importPrefix}/${file.replace(/\.[jt]sx?$/u, '')}';`,
-  );
+  const importLines = [...namer.names].map(([file, name]) => {
+    const specifier = `'${options.importPrefix}/${file.replace(/\.[jt]sx?$/u, '')}'`;
+    return withParams.has(file)
+      ? `import ${name}, { params as ${schemaName(name)} } from ${specifier};`
+      : `import ${name} from ${specifier};`;
+  });
   const hasLayout = [...asserted.values()].some((type) =>
     type.startsWith('Layout<'),
   );
+  const hasSchemas = withParams.size > 0;
+  // Each schema is checked against the pattern its file sits under: it may
+  // name only params that pattern has.
+  const schemaChecks = [...namer.names]
+    .filter(([file]) => withParams.has(file))
+    .map(([file, name]) => {
+      const belief = byFile.get(file) as Belief;
+      return `${pad(1)}${schemaName(name)} satisfies ParamsSchemaFor<'${belief.pattern}'>,`;
+    });
+  const schemaMap = [...stacks].map(
+    ([pattern, schemas]) => `${pad(1)}'${pattern}': [${schemas.join(', ')}],`,
+  );
+  const typeImports = [
+    ...(hasLayout ? ['ParamsOf'] : []),
+    ...(hasSchemas ? ['ParamsSchemaFor'] : []),
+    'ParsedParams',
+  ];
 
   return [
     banner(options.via),
     '',
     `import { defineRoutes } from '@k8ordo/router';`,
-    `import type { ParamsOf } from '@k8ordo/router';`,
+    `import type { ${typeImports.join(', ')} } from '@k8ordo/router';`,
     `import type { ComponentType${hasLayout ? ', ReactNode' : ''} } from 'react';`,
     '',
     ...importLines,
     '',
     "// What the renderer passes. `satisfies` below is where a route file's",
-    '// own props are checked against the pattern its directory puts it under.',
-    'type Page<P extends string> = ComponentType<{',
-    '  params: ParamsOf<P>;',
+    '// own props are checked against the pattern its directory puts it under,',
+    '// and where its params take the types the `params` schemas along its',
+    '// stack produce.',
+    'type Page<',
+    '  P extends string,',
+    '  S extends readonly unknown[] = [],',
+    '> = ComponentType<{',
+    '  params: ParsedParams<P, S>;',
     '  pathname: string;',
     '}>;',
     ...(hasLayout
@@ -277,6 +369,24 @@ export const emitRoutesModule = (
           '}>;',
         ]
       : []),
+    '',
+    ...(hasSchemas
+      ? [
+          '// The `params` schemas the route files declared, each checked against',
+          '// the pattern its file sits under.',
+          'const schemas = [',
+          ...schemaChecks,
+          '] as const;',
+          'void schemas;',
+          '',
+        ]
+      : []),
+    '// Per page pattern, the schemas that run before it renders — every',
+    '// layout above it that declared one, then its own. The handler reads',
+    '// this; a schema that refuses makes the pattern not answer the pathname.',
+    'export const paramSchemas = {',
+    ...schemaMap,
+    '} as const;',
     '',
     'export const routes = defineRoutes({',
     ...body,
@@ -304,14 +414,14 @@ export const emitRegisterModule = (options: RegisterOptions): string => {
   const lines = [
     banner(options.via),
     '',
-    // `RouteOf` is the state augmentation's alone; imported unconditionally
-    // it is an unused local in every application that does not use state.
-    ...(wantsState ? [`import type { RouteOf } from '@k8ordo/router';`] : []),
-    `import type { routes } from '${options.routesModule}';`,
+    `import type { ParsedParamsMap } from '@k8ordo/router';`,
+    `import type { paramSchemas, routes } from '${options.routesModule}';`,
     '',
     `declare module '@k8ordo/router' {`,
     '  interface Register {',
     '    routes: typeof routes;',
+    '    // A link takes a param as the page receives it — typed by its schema.',
+    '    params: ParsedParamsMap<typeof paramSchemas>;',
     '  }',
     '}',
   ];
@@ -320,7 +430,7 @@ export const emitRegisterModule = (options: RegisterOptions): string => {
       '',
       `declare module '${options.stateModule}' {`,
       '  interface Register {',
-      '    path: RouteOf<typeof routes>;',
+      '    routes: typeof routes;',
       '  }',
       '}',
     );

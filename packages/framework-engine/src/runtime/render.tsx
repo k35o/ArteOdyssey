@@ -2,7 +2,11 @@ import type { Match } from '@k8ordo/router';
 import type { ComponentType, ReactNode } from 'react';
 
 export type PageProps = {
-  readonly params: Readonly<Record<string, string>>;
+  /**
+   * The pattern's params, after the schemas the route files declared have
+   * run — a number where a schema said number, a string where none spoke.
+   */
+  readonly params: Readonly<Record<string, unknown>>;
   /**
    * The pathname this render is for. Not "the request" — a route's own
    * identity, which the components above the parameter that names something
@@ -19,14 +23,18 @@ export type PageProps = {
  * server boundary. The client router's `<Outlet />` is the same idea for an
  * application that renders entirely in the browser.
  */
-export const renderMatch = (match: Match, pathname: string): ReactNode => {
+export const renderMatch = (
+  match: Match,
+  pathname: string,
+  params: Readonly<Record<string, unknown>> = match.params,
+): ReactNode => {
   let node: ReactNode = null;
   for (let index = match.stack.length - 1; index >= 0; index -= 1) {
     // The table stores components of every shape; this renderer is the one
     // that states what it passes.
     const Component = match.stack[index] as ComponentType<PageProps>;
     node = (
-      <Component params={match.params} pathname={pathname}>
+      <Component params={params} pathname={pathname}>
         {node}
       </Component>
     );

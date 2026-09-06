@@ -254,22 +254,29 @@ application depends on it — so hand-writing it there is writing a second
 answer to a question already answered. Hand-write it in a client application
 that mounts `<Router>` itself.
 
+The framework's generated `Register` also carries `params`: per pattern, the
+type the route file's `params` schema produces. With it, `href` and
+`navigateTo` take a param as the page receives it — `{ id: 42 }` for a
+schema that said number — and spell it the one way the schema reads back. A
+value with no URL spelling (an object) is refused. A hand-written table has no
+schemas, so its params stay strings.
+
 ## Typed paths for @k8ordo/state
 
-`RouteOf<typeof routes>` is the app's pathname space as a union, which is what
-`@k8ordo/state`'s own `Register` wants:
+`@k8ordo/state`'s `Register` takes the same line this one does:
 
 ```ts
 declare module '@k8ordo/state' {
   interface Register {
-    path: RouteOf<typeof routes>;
+    routes: typeof routes;
   }
 }
 ```
 
 With that, `listState.href('/products', { q })` is checked against the same
 table this router matches against, and the two packages agree on what a path
-is without either importing the other.
+is. `RouteOf<typeof routes>` is that pathname space as a union, for any other
+typed-path consumer.
 
 ## What navigation guarantees
 

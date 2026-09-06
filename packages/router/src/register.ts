@@ -4,6 +4,7 @@ import type {
   Routes,
   RoutesRecord,
 } from './define-routes';
+import type { ParamsOf } from './paths';
 
 /**
  * The app-side hook for the route table's type. An application augments this
@@ -40,3 +41,19 @@ export type RegisteredPattern = RegisteredRecord extends RoutesRecord
 export type RegisteredNavigablePattern = RegisteredRecord extends RoutesRecord
   ? NavigablePatternOf<RegisteredRecord>
   : `/${string}`;
+
+type RegisteredParamsMap = Register extends { params: infer M } ? M : null;
+
+/**
+ * A pattern's params as a link takes them: the strings the pattern names,
+ * except where the registered `params` map — written by the framework from
+ * the schemas the route files declared — says a page receives something
+ * else, in which case a link takes that same value. A number in, a number's
+ * one spelling out.
+ */
+export type RegisteredParams<P extends string> =
+  RegisteredParamsMap extends null
+    ? ParamsOf<P>
+    : P extends keyof RegisteredParamsMap
+      ? Omit<ParamsOf<P>, keyof RegisteredParamsMap[P]> & RegisteredParamsMap[P]
+      : ParamsOf<P>;

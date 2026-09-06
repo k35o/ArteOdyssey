@@ -77,7 +77,7 @@ describe('naming', () => {
     expect(source).toContain(
       "  '/about': about_page satisfies Page<'/about'>,",
     );
-    expect(source).not.toContain('layout');
+    expect(source).not.toContain('layout:');
     // Layout の別名は使うときだけ出す(未使用のローカル型になるため)
     expect(source).not.toContain('type Layout<');
   });
@@ -128,18 +128,98 @@ describe('the emitted register', () => {
     expect(source).toContain('routes: typeof routes;');
   });
 
-  it('wires typed paths into state only when the app depends on it', () => {
+  it('wires the same table into state only when the app depends on it', () => {
     const withState = emitRegisterModule({
       routesModule: './routes.gen',
       stateModule: '@k8ordo/state',
     });
-    expect(withState).toContain('path: RouteOf<typeof routes>;');
+    expect(withState).toContain("declare module '@k8ordo/state' {");
+    expect(withState.match(/routes: typeof routes;/gu)).toHaveLength(2);
 
     const without = emitRegisterModule({ routesModule: './routes.gen' });
     expect(without).not.toContain('@k8ordo/state');
-    // RouteOf は state の augmentation だけが使う。常に import すると
-    // state を使わないアプリで未使用のローカルになる
-    expect(without).not.toContain('RouteOf');
+  });
+
+  it('types links by the params schemas the route files declared', () => {
+    const source = emitRegisterModule({ routesModule: './routes.gen' });
+    expect(source).toContain('params: ParsedParamsMap<typeof paramSchemas>;');
+    expect(source).toContain(
+      "import type { paramSchemas, routes } from './routes.gen';",
+    );
+  });
+});
+
+describe('params schemas', () => {
+  const files = [
+    'layout.tsx',
+    'page.tsx',
+    'not-found.tsx',
+    '[locale]/layout.tsx',
+    '[locale]/page.tsx',
+    '[locale]/products/[id]/page.tsx',
+    '[locale]/about/page.tsx',
+  ];
+  const withParams = new Set([
+    '[locale]/layout.tsx',
+    '[locale]/products/[id]/page.tsx',
+  ]);
+  const source = emitRoutesModule(parseRouteTree(files).tree, {
+    importPrefix: './routes',
+    withParams,
+  });
+
+  it('is emitted from a table the grammar accepted', () => {
+    expect(parseRouteTree(files).problems).toStrictEqual([]);
+  });
+
+  it('imports the schema beside the component of a file that declares one', () => {
+    expect(source).toContain(
+      "import locale_layout, { params as locale_layout_params } from './routes/[locale]/layout';",
+    );
+    expect(source).toContain(
+      "import locale_products_id_page, { params as locale_products_id_page_params } from './routes/[locale]/products/[id]/page';",
+    );
+    expect(source).toContain(
+      "import locale_page from './routes/[locale]/page';",
+    );
+  });
+
+  it('checks each schema against the pattern its file sits under', () => {
+    expect(source).toContain(
+      "locale_layout_params satisfies ParamsSchemaFor<'/:locale'>,",
+    );
+    expect(source).toContain(
+      "locale_products_id_page_params satisfies ParamsSchemaFor<'/:locale/products/:id'>,",
+    );
+  });
+
+  it('lists, per page, the schemas along its stack — layouts first', () => {
+    expect(source).toContain(
+      "'/:locale/products/:id': [locale_layout_params, locale_products_id_page_params],",
+    );
+    // 自分はスキーマを持たないが、上のレイアウトのものは受ける
+    expect(source).toContain("'/:locale': [locale_layout_params],");
+    expect(source).toContain("'/:locale/about': [locale_layout_params],");
+    // ルートのページは何の下にもない
+    expect(source).not.toContain("'/': [");
+  });
+
+  it('types a page by the schemas that run before it, and leaves the rest alone', () => {
+    expect(source).toContain(
+      "locale_products_id_page satisfies Page<'/:locale/products/:id', (typeof paramSchemas)['/:locale/products/:id']>",
+    );
+    expect(source).toContain("page satisfies Page<'/'>");
+    // catch-all の params は検査しないので、型も文字列のまま
+    expect(source).toContain("not_found satisfies Page<'/*'>");
+    // レイアウトは文字列のまま受ける
+    expect(source).toContain("locale_layout satisfies Layout<'/:locale'>");
+  });
+
+  it('emits an empty map, and no schema import, when nothing declares one', () => {
+    const { tree } = parseRouteTree(['page.tsx']);
+    const plain = emitRoutesModule(tree, { importPrefix: './routes' });
+    expect(plain).toContain('export const paramSchemas = {\n} as const;');
+    expect(plain).not.toContain('ParamsSchemaFor');
   });
 });
 

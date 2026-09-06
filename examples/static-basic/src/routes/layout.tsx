@@ -9,7 +9,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <nav>
           {/* Navigation API の下では素の <a> がそのままクライアント遷移 */}
           <a href={href('/')}>home</a> <a href={href('/products')}>products</a>{' '}
-          <a href={href('/products/:id', { id: '1' })}>product 1</a>{' '}
+          <a href={href('/products/:id', { id: 1 })}>product 1</a>{' '}
           <a href={href('/guide')}>guide</a>
         </nav>
         <main>{children}</main>

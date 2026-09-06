@@ -29,6 +29,8 @@ describe('the static build', () => {
     expect(read('products', '1', 'index.html')).toContain('first product');
     expect(read('products', '2', 'index.html')).toContain('second product');
     expect(read('products', '1', 'index.rsc')).toContain('first product');
+    // [id] のスキーマが通した値で、page は number を受け取る
+    expect(read('products', '1', 'index.html')).toContain('number:1');
   });
 
   it('gives a route group its layout without a URL segment', () => {

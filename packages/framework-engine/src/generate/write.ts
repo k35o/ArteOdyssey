@@ -47,6 +47,39 @@ export type GenerateResult = {
   readonly routesModule: string;
 };
 
+/**
+ * Whether a route file declares a `params` schema. Read from the text rather
+ * than by importing the module — the generator runs before anything is
+ * compiled, and an import would evaluate the page. The spellings accepted
+ * are the ones a person writes: `export const params`, `export let`,
+ * `export var`, or `export { params }`.
+ */
+const PARAMS_EXPORT =
+  /^\s*export\s+(?:(?:const|let|var)\s+params\b|\{[^}]*\bparams\b[^}]*\})/mu;
+
+export const declaresParams = (source: string): boolean =>
+  PARAMS_EXPORT.test(source);
+
+const filesDeclaringParams = async (
+  routesDir: string,
+  files: readonly string[],
+): Promise<Set<string>> => {
+  const found = new Set<string>();
+  await Promise.all(
+    files
+      .filter((file) => /(?:^|\/)(?:page|layout)\.tsx$/u.test(file))
+      .map(async (file) => {
+        try {
+          const source = await readFile(path.join(routesDir, file), 'utf8');
+          if (declaresParams(source)) found.add(file);
+        } catch {
+          // 読めないファイルはスキーマを持たないものとして扱う
+        }
+      }),
+  );
+  return found;
+};
+
 const dependsOnState = async (root: string): Promise<boolean> => {
   try {
     const manifest = JSON.parse(
@@ -98,6 +131,7 @@ export const generate = async (
   const routesSource = emitRoutesModule(tree, {
     importPrefix: toRoutes.startsWith('.') ? toRoutes : `./${toRoutes}`,
     via: options.via,
+    withParams: await filesDeclaringParams(options.routesDir, files),
   });
   const registerSource = emitRegisterModule({
     routesModule: './routes.gen',

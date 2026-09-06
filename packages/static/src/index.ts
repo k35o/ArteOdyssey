@@ -115,17 +115,24 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
         };
         const handler = entryModule.default;
 
+        // A supplied pathname the route's params schema refuses would be
+        // written as a 404 page under a URL the site claims to have. The
+        // handler answers it the way it answers any unknown URL; here that
+        // answer is a build error naming the pathname.
+        const refused: string[] = [];
         await inParallel(
           plan.paths.flatMap((pathname) => {
             // The URL keeps its escapes; only the file name is decoded.
             const dir = path.join(clientDir, dirFor(pathname));
             return [
-              () =>
-                write(
+              async () => {
+                const status = await write(
                   path.join(dir, 'index.html'),
                   handler,
                   `${ORIGIN}${pathname}`,
-                ),
+                );
+                if (status === 404) refused.push(pathname);
+              },
               () =>
                 write(
                   path.join(dir, 'index.rsc'),
@@ -135,6 +142,11 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
             ];
           }),
         );
+        if (refused.length > 0) {
+          throw new Error(
+            `the "paths" option supplied pathnames a params schema refused: ${refused.toSorted().join(', ')}`,
+          );
+        }
         // A static host answers an unknown URL from a file, so the
         // application's own not-found has to be one — otherwise declaring it
         // would mean nothing in this mode.
@@ -169,7 +181,7 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
 const WIDTH = 8;
 
 const inParallel = async (
-  tasks: ReadonlyArray<() => Promise<void>>,
+  tasks: ReadonlyArray<() => Promise<unknown>>,
 ): Promise<void> => {
   let next = 0;
   const worker = async (): Promise<void> => {
@@ -184,12 +196,14 @@ const inParallel = async (
   );
 };
 
+/** Writes what the handler answered, and says with which status. */
 const write = async (
   file: string,
   handler: Handler,
   url: string,
-): Promise<void> => {
+): Promise<number> => {
   const response = await handler(new Request(url));
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, Buffer.from(await response.arrayBuffer()));
+  return response.status;
 };

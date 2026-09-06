@@ -64,6 +64,15 @@ pnpm check         # check:write to auto-fix
   `runtime/entry.ssr.tsx` injects the RSC stream into the HTML and
   `runtime/entry.browser.tsx` reads it back; nothing refetches on load, which
   is what lets a prerendered `404.html` come alive.
+- **A `params` export is found in the text, run before render.**
+  `generate/write.ts` reads each page/layout and regexes for the export (an
+  import would evaluate the page before anything is compiled); `emit.ts`
+  imports it beside the component, checks it with `satisfies
+ParamsSchemaFor<pattern>`, lists per page pattern the schemas along its
+  stack in `paramSchemas`, and types the page by them. `runtime/params.ts`
+  runs them synchronously inside `routes.match`'s `accept`, so a refused
+  value is a pattern that did not match and the catch-all answers under 404.
+  A catch-all's own params are never validated; a layout receives strings.
 - **A route file's props are checked by the generator.** `routes.gen.ts`
   emits `satisfies Page<'/products/:id'>` / `satisfies Layout<'/:locale'>`
   per file, so a mistyped param name fails the build without any route file
@@ -81,6 +90,7 @@ src/
   plugin/server-actions.ts   which modules declared 'use server'
   runtime/entry.{rsc,ssr,browser}.tsx  the three environments
   runtime/app-router.tsx     the client half: navigation + payloads
+  runtime/params.ts          runs the params schemas along a matched stack
   runtime/render.tsx         the matched stack, nested through children
   index.ts
 ```

@@ -29,7 +29,11 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
   from the pattern **string** alone — no table import, so no cycle — with
   params inferred from the literal and the pattern itself checked once
   `interface Register { routes }` is augmented. `useParams(pattern)` returns
-  typed params and throws if rendered under a different pattern; `useRoute()`
+  typed params and throws if rendered under a different pattern; under the
+  framework `Register` also carries `params` — the type each pattern's
+  `params` schema produces — so `href` takes a param as the page receives it
+  (`ParsedParams` / `ParsedParamsMap` / `ParamsSchemaFor` are the types the
+  generated code uses); `useRoute()`
   is the untyped form. `RouteOf<typeof routes>` is the pathname union to feed
   `@k8ordo/state`'s `Register`. `usePathname()` reads the platform's
   pathname — never the search — so it works with or without a table, which
