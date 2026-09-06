@@ -5,13 +5,9 @@ import { createHandle, createStoreCore, resolvePatch } from './core';
 import type { Handle, Patch, Store, UpdateHandle } from './core';
 import { getOrCreateStore } from './registry';
 
-// Namespaced so an app's own localStorage use can never collide with a state
-// key; also what makes the rows recognizable in devtools.
-const storageKeyOf = (def: LocalState): string => `k8ordo-state:${def.key}`;
-
 const createLocalStore = (def: LocalState): Store => {
   const codec = localCodecOf(def);
-  const storageKey = storageKeyOf(def);
+  const { storageKey } = def;
 
   const read = (): StateValues => {
     const text = localStorage.getItem(storageKey);

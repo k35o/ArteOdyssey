@@ -23,10 +23,15 @@ When installed via npm, these docs live under `node_modules/@k8ordo/form/docs/`.
   `field(path)` accessor giving input attributes, the current error, and
   `invalid` / `required`, an `array(path)` accessor for repeated rows, and
   `isDirty`. Also `useAsyncCheck` for server-answered per-field checks and
-  `HiddenValue` for components that render no input of their own.
+  `HiddenValue` for components that render no input of their own. The types
+  of the `formFields` result (`FormFields`, `DerivedField`, `DerivedArray`,
+  `DroppedCheck`) are exported here as well, since the result crosses to the
+  client as a prop.
 - `@k8ordo/form/server` — server. `formFields(schema)` derives serializable
-  fields plus a `dropped` list of checks HTML cannot express, and throws on a
-  schema no form can represent; `parseForm(schema, formData)` validates a
+  fields plus a `dropped` list of checks HTML cannot express (outside
+  production the list is also logged once per schema with `console.warn`),
+  and throws on a schema no form can represent;
+  `parseForm(schema, formData)` validates a
   submission and returns typed data or per-field errors with the submitted
   values. `defineForm(schema, rules)` attaches cross-field rules (`sameAs`,
   `minChecked`, `requiredWhen`) typed against the schema's paths.

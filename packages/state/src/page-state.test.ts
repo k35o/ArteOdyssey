@@ -1,10 +1,30 @@
+import type { RouteComponent, Routes } from '@k8ordo/router';
 import { z } from 'zod';
 import * as zm from 'zod/mini';
 
 import { defineLocalState } from './local-state';
 import { defineMemoryState } from './memory-state';
 import { definePageState } from './page-state';
+import type { PathFrom, RegisteredPath } from './register';
 import { useAppState } from './use-app-state';
+
+// アプリが `.k8ordo/register.gen.ts` に書く（生成される）行そのもの。この
+// テストプログラム全体の `Register` を拡張するので、以下の href は全てこの
+// 表に載った path で書く。
+type AppRoutes = Routes<{
+  '/products': RouteComponent;
+  '/items': RouteComponent;
+  '/signup': RouteComponent;
+  '/posts/:slug': RouteComponent;
+  '/files/*': RouteComponent;
+}>;
+
+declare module './register' {
+  // oxlint-disable-next-line typescript/consistent-type-definitions -- augmentation needs a merge-open interface
+  interface Register {
+    routes: AppRoutes;
+  }
+}
 
 const listState = definePageState('list', {
   url: z.object({
@@ -182,6 +202,36 @@ describe('href and search', () => {
     >();
     // @ts-expect-error a path must start with '/'
     listState.href('products');
+  });
+
+  it('constrains href to the linkable paths of a registered route table', () => {
+    expectTypeOf<RegisteredPath>().toEqualTypeOf<
+      '/products' | '/items' | '/signup' | `/posts/${string}`
+    >();
+    expect(listState.href('/posts/hello', { page: 2 })).toBe(
+      '/posts/hello?page=2',
+    );
+    // @ts-expect-error the table has no such route
+    listState.href('/nowhere');
+    // @ts-expect-error a wildcard pattern is matched, never linked
+    listState.href('/files/a.txt');
+  });
+
+  it('derives the path union from whichever form Register was given', () => {
+    // `routes` — the same line the router's augmentation uses
+    expectTypeOf<PathFrom<{ routes: AppRoutes }>>().toEqualTypeOf<
+      '/products' | '/items' | '/signup' | `/posts/${string}`
+    >();
+    // `path` — another router's own union, e.g. `Route` from next
+    expectTypeOf<PathFrom<{ path: '/a' | `/b/${string}` }>>().toEqualTypeOf<
+      '/a' | `/b/${string}`
+    >();
+    // `routes` wins when both are present
+    expectTypeOf<PathFrom<{ routes: AppRoutes; path: '/a' }>>().toEqualTypeOf<
+      '/products' | '/items' | '/signup' | `/posts/${string}`
+    >();
+    // neither — any `/`-path
+    expectTypeOf<PathFrom<object>>().toEqualTypeOf<`/${string}`>();
   });
 });
 

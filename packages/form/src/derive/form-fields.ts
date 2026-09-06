@@ -61,6 +61,37 @@ const patternFlags = (schema: $ZodType, source: string): string | undefined => {
 const DATETIME_LOCAL_PROBE = '2000-01-01T00:00';
 
 /**
+ * Schemas whose `dropped` list has already been reported. `formFields` is not
+ * memoized, so a schema derived in every request would otherwise warn on
+ * every request; keyed by the schema object, an HMR re-evaluation still gets
+ * its warning back, because it is a new object.
+ */
+const warned = new WeakSet<object>();
+
+/**
+ * `dropped` is returned, but a return value is only seen by whoever reads
+ * it. Outside production the list is also written to the console, once per
+ * schema, so the checks the browser will never run are noticed without
+ * anyone remembering to look.
+ */
+const warnDropped = (
+  schema: object,
+  dropped: readonly DroppedCheck[],
+): void => {
+  if (process.env.NODE_ENV === 'production') return;
+  if (dropped.length === 0 || warned.has(schema)) return;
+  warned.add(schema);
+  const lines = dropped.map(({ field, reason }) => `  - ${field}: ${reason}`);
+  console.warn(
+    [
+      '[@k8ordo/form] クライアントでは検査されないチェックがあります（サーバーでは検査されます）。',
+      ...lines,
+      '  ブラウザ側でも検査するには、formFields の戻り値 dropped を確認してください。',
+    ].join('\n'),
+  );
+};
+
+/**
  * Derive input attributes and messages from one zod object schema.
  *
  * Call this on the server — in a Server Component or at module scope. The
@@ -150,5 +181,6 @@ export const formFields = <Schema extends ObjectSchema>(
     });
   }
 
+  warnDropped(schema, dropped);
   return { fields, arrays, rules, dropped };
 };

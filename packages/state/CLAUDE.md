@@ -84,7 +84,8 @@ src/
   store/local-store.ts localStorage wiring, storage-event cross-tab sync
   store/memory-store.ts
   use-app-state.ts     the client hook ('use client'); dispatch on def.kind
-  register.ts          Register interface for typed-route path constraint
+  register.ts          Register interface for typed-route path constraint;
+                       PathFrom derives the union (routes → path → any)
 ```
 
 ## Where zod's public API runs out
@@ -96,7 +97,18 @@ and same justification as `@k8ordo/form`'s walk. Everything else goes through
 
 ## Conventions
 
-- `type`, not `interface` — except `Register`, which must merge.
+- `type`, not `interface` — except `Register`, which must merge. It takes
+  the router's own line, `{ routes: typeof routes }`, and derives the path
+  union through `RouteOf` from `@k8ordo/router` — a type-only import, so the
+  router is an optional peer that never loads at runtime. The older
+  `{ path: P }` form stays accepted (other routers, and what the framework's
+  generator emitted before `routes`); `routes` wins when both are present.
+- **A local definition owns its storage key.** `storageKey` on the
+  definition is the one place `k8ordo-state:<key>` is spelled — the store
+  reads it from there — and `inlineRead()` renders the pre-hydration read as
+  a self-contained expression so an app never hand-writes the key or the
+  JSON envelope into an inline script. The schema cannot run there, which is
+  why it returns the raw object or `null` and the GUIDE calls it untrusted.
 - Duplicate definition keys within a kind are NOT detected at runtime: an
   HMR re-evaluation legitimately re-registers the same key, so a warning
   would cry wolf on every edit. The GUIDE tells users to treat keys as

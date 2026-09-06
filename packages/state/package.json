@@ -49,6 +49,7 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "catalog:",
+    "@k8ordo/router": "workspace:^",
     "@types/react": "catalog:",
     "@vitejs/plugin-react": "catalog:",
     "@vitest/browser-playwright": "4.1.10",
@@ -63,12 +64,16 @@
     "zod": "4.4.3"
   },
   "peerDependencies": {
+    "@k8ordo/router": "workspace:^",
     "@types/react": ">=19.2.18",
     "react": ">=19.2.6",
     "typescript": ">=7.0.2",
     "zod": "^4.4.3"
   },
   "peerDependenciesMeta": {
+    "@k8ordo/router": {
+      "optional": true
+    },
     "@types/react": {
       "optional": true
     },

@@ -121,7 +121,8 @@ cross-field rules, an exclusive bound on a float, a regex whose flags or
 anchoring the `pattern` attribute would silently reinterpret, a
 `z.iso.datetime()` no `datetime-local` control can ever satisfy — are returned
 in `dropped`. They still run on the server; you are told they do not run on
-the client.
+the client. Outside production `formFields` also logs the list once per schema
+with `console.warn`, so it is seen without anyone remembering to read it.
 
 **A schema this package cannot express fails at derive time.** `z.record`,
 tuples, a repeat nested inside a repeat, nullable objects, keys containing
