@@ -9,6 +9,8 @@ export const patternsOf = (dir: RouteDir, prefix = ''): string[] => {
   const here = dir.kind === 'root' ? '' : prefix;
   const found: string[] = [];
   if (dir.page !== null) found.push(here === '' ? '/' : here);
+  // A redirect is a URL the site has, so it is a file the site writes.
+  if (dir.redirect !== null) found.push(here === '' ? '/' : here);
   if (dir.notFound !== null) found.push(`${here}/*`);
   for (const child of dir.children) {
     found.push(

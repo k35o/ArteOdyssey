@@ -1,6 +1,12 @@
 'use client';
 
-import { startTransition, useEffect, useRef, useState } from 'react';
+import {
+  createContext,
+  startTransition,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { normalizePathname } from './paths';
 
@@ -90,6 +96,16 @@ type Pending = {
 };
 
 /**
+ * Which navigation put the tree on screen — a number that changes exactly
+ * when a new tree is applied, and not when only the URL moved. It is the
+ * identity an error boundary keys on: leaving the page that failed is what
+ * should clear the failure, and the URL commits before the tree arrives, so
+ * the pathname would clear it one render too early and let the old tree
+ * fail again under the new key.
+ */
+export const NavigationGeneration = createContext(-1);
+
+/**
  * The navigation half of the router, on its own: intercept, load, apply in a
  * transition, and resolve the platform's handler only once the new tree is on
  * screen — which is what makes `navigation.navigate().finished` mean "the
@@ -99,9 +115,9 @@ type Pending = {
  * client app, an RSC payload under the framework. Neither has to teach this
  * hook anything about the other.
  */
-export function useInterceptedNavigation<T>(
-  handler: NavigationHandler<T>,
-): void {
+export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
+  readonly generation: number;
+} {
   // The handler is read at event time, so a re-created object per render
   // costs nothing and needs no memoization at the call site.
   const latest = useRef(handler);
@@ -193,4 +209,6 @@ export function useInterceptedNavigation<T>(
     if (entry.scroll !== null) applyScroll(entry.scroll);
     entry.resolve();
   }, [applied]);
+
+  return { generation: applied };
 }

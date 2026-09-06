@@ -53,6 +53,13 @@ pnpm check         # check:write to auto-fix
   so `href` can take it; the framework runs the schema and hands `match` an
   `accept` that declines a refused param, which makes the walk go on to the
   next pattern. Nothing in this package validates anything.
+- **An `error` boundary is an element of the stack, keyed by generation.**
+  `boundaryFor` puts it after the layout; `RouteErrorBoundary` keys its
+  class boundary by `NavigationGeneration` — the id of the navigation that
+  applied the tree — never by the pathname, which commits before the tree
+  arrives and would remount the boundary onto the old, still-failing tree
+  (regression test in `router.browser.test.tsx`). It sits under a Suspense
+  boundary so a server render leaves a throwing subtree to the browser.
 - **Declaration order decides.** No specificity ranking, ever — the table
   reads top to bottom like the code it is.
 - **The type mirrors the runtime walk.** `Below` resets a branch that landed
@@ -70,6 +77,7 @@ src/
   navigation.ts     useInterceptedNavigation(intercept と commit 契約)
   location.tsx      usePathname / PathnameProvider(表を引かない現在地)
   match.ts          matchPath / useMatch(表を引かない「どの区間にいるか」)
+  boundary.tsx      RouteErrorBoundary(表の error を描く境界)
   router.tsx        Router / Outlet / useRoute / useParams
 ```
 

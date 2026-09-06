@@ -107,6 +107,8 @@ src/routes/
   layout.tsx            wraps everything below it, through `children`
   page.tsx              /
   not-found.tsx         whatever nothing else matched
+  error.tsx             shown in place of what is below when it throws
+  old/redirect.ts       /old sends the visitor elsewhere
   products/
     page.tsx            /products
     [id]/page.tsx       /products/:id
@@ -117,9 +119,9 @@ src/routes/
   _data/                the same, for anything that is not a component
 ```
 
-- `page.tsx`, `layout.tsx` and `not-found.tsx` are the only filenames the
-  grammar accepts. Anything else lives under a `_`-prefixed directory, which
-  the grammar skips entirely.
+- `page.tsx`, `layout.tsx`, `not-found.tsx`, `error.tsx` and `redirect.ts`
+  are the only filenames the grammar accepts. Anything else lives under a
+  `_`-prefixed directory, which the grammar skips entirely.
 - **A page receives `params`; a layout receives `children`.** Server Components
   cannot read context, so nesting is by prop. Both also receive `pathname` —
   the URL this render is for, which is how a component above a parameter can
@@ -138,17 +140,18 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 
 Every problem is reported, not just the first, and each names the file:
 
-| routes/ contains                                     | error                                                                                                       |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `products/helper.ts`                                 | `routes/ holds only page.tsx, layout.tsx and not-found.tsx — move "helper.ts" under a _-prefixed directory` |
-| `[123]/page.tsx`                                     | `"[123]" is not a valid param directory — use [name] with a letter or underscore first`                     |
-| `pro ducts/page.tsx`                                 | `"pro ducts" cannot be a URL segment — use letters, digits, . _ ~ or -`                                     |
-| `[id]/things/[id]/page.tsx`                          | `":id" is already taken by an ancestor — params must be unique within a path`                               |
-| `orphan/layout.tsx` and no page below                | `has a layout but no page.tsx below it, so it can never render`                                             |
-| `(a)/page.tsx` and `(b)/page.tsx`                    | `"/" is already declared by (a)/page.tsx — route groups do not separate URLs`                               |
-| `(docs/page.tsx`                                     | `"(docs" is not a valid route group — use (name)`                                                           |
-| `products/sub/layout.tsx` and no page anywhere below | `declares no route — every directory needs a page.tsx somewhere below it`                                   |
-| `(shop)/[id]/page.tsx` beside `about/page.tsx`       | `"/about" can never match — "/:id" ((shop)/[id]/page.tsx) is declared first and answers it`                 |
+| routes/ contains                                     | error                                                                                                                            |
+| ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `products/helper.ts`                                 | `routes/ holds only page.tsx, layout.tsx, not-found.tsx, error.tsx, redirect.ts — move "helper.ts" under a _-prefixed directory` |
+| `[123]/page.tsx`                                     | `"[123]" is not a valid param directory — use [name] with a letter or underscore first`                                          |
+| `pro ducts/page.tsx`                                 | `"pro ducts" cannot be a URL segment — use letters, digits, . _ ~ or -`                                                          |
+| `[id]/things/[id]/page.tsx`                          | `":id" is already taken by an ancestor — params must be unique within a path`                                                    |
+| `orphan/layout.tsx` and no page below                | `has a layout but no page.tsx below it, so it can never render`                                                                  |
+| `(a)/page.tsx` and `(b)/page.tsx`                    | `"/" is already declared by (a)/page.tsx — route groups do not separate URLs`                                                    |
+| `(docs/page.tsx`                                     | `"(docs" is not a valid route group — use (name)`                                                                                |
+| `products/sub/layout.tsx` and no page anywhere below | `declares no route — every directory needs a page.tsx somewhere below it`                                                        |
+| `(shop)/[id]/page.tsx` beside `about/page.tsx`       | `"/about" can never match — "/:id" ((shop)/[id]/page.tsx) is declared first and answers it`                                      |
+| `old/page.tsx` and `old/redirect.ts`                 | `"old" cannot both render page.tsx and redirect — keep one`                                                                      |
 
 The generated table lists literal segments before parameters, so `about/`
 beside `[slug]/` is reachable without saying anything. A route group holds
@@ -197,13 +200,15 @@ import { href } from '@k8ordo/router';
 ## Parameters with a schema
 
 A parameter arrives as a string, because a URL carries nothing else. A page —
-or a layout, for every page below it — may say what it expects instead:
+or a layout, for every page below it — may say what it expects instead
+(`paramsSchema`, not `params`: the page's own prop is `params`, and a
+module-level binding of the same name would shadow it):
 
 ```tsx
 // src/routes/products/[id]/page.tsx
 import * as z from 'zod/mini';
 
-export const params = z.object({
+export const paramsSchema = z.object({
   id: z.coerce.number().check(z.int(), z.positive()),
 });
 
@@ -212,7 +217,7 @@ export default function ProductPage({ params }: { params: { id: number } }) {
 }
 ```
 
-The generator sees the `params` export and wires it in: the schemas along a
+The generator sees the `paramsSchema` export and wires it in: the schemas along a
 page's stack — every layout above it that declared one, then its own — run
 before the page renders, each replacing the strings it names with what it
 produced, and the generated `Page<…>` type is what the file's own props are
@@ -238,6 +243,95 @@ A layout receives its params as strings whatever it declared — under
 `not-found.tsx`, where nothing is validated, a typed value would be a lie. A
 layout that wants the parsed value beside the page's parses it itself, or
 declares the schema and lets the pages below it receive the result.
+
+## Errors
+
+An `error.tsx` beside a `layout.tsx` (or a `page.tsx`) is what shows in
+place of everything below it when that throws — inside the layout, so the
+frame survives the failure. It is a client component, because catching a
+render error is something only the browser can do:
+
+```tsx
+// src/routes/error.tsx
+'use client';
+
+export default function RouteError({
+  error,
+  reset,
+}: {
+  error: unknown;
+  reset: () => void;
+}) {
+  return (
+    <section>
+      <p>something went wrong</p>
+      <button onClick={reset} type="button">
+        try again
+      </button>
+    </section>
+  );
+}
+```
+
+`reset` renders the subtree again in place; navigating away clears the
+failure on its own. The nearest `error.tsx` above the throw is the one that
+answers, and the root one catches everything below the root layout. Without
+any, a failed client navigation falls back to a document load, so the server's
+own answer — its 500, its error page — is what the visitor sees.
+
+**A server render has no error boundaries.** What it has is the rule that a
+subtree which throws inside a Suspense boundary is left for the browser to
+render; the boundary here is one, so the HTML arrives with the frame in place
+and a hole where the page was, the browser throws at the same spot, and
+`error.tsx` shows after hydration. In production the error the browser sees
+carries a digest, not the message — the message is in the server's log.
+
+At build time that rule does not apply: a page that throws while being
+rendered into a file is not a page, and the build stops naming it —
+`static build could not render /broken` — rather than writing an HTML whose
+error shows only once a visitor's browser has rendered it. `error.tsx` under
+this mode is for what fails in the browser: a client component, after
+hydration.
+
+## Redirects
+
+A directory that has moved keeps a `redirect.ts` instead of a `page.tsx`:
+
+```ts
+// src/routes/old/redirect.ts
+export default '/products';
+// or: export default { to: '/:locale/new', permanent: true };
+```
+
+The target is a pattern the matched params fill in, so `/:locale/legacy` can
+send to `/:locale/new`. A redirect is consulted before the table — a
+directory that redirects has no page to render — and a directory cannot hold
+both. In this mode the redirect is written as a page that sends the visitor
+on (`<meta http-equiv="refresh">` and a link), because no server will ever
+send the status; there is no `index.rsc` beside it, so a client navigation to
+it hands the URL to the browser, which loads that page and follows it.
+
+## Titles and metadata
+
+There is no metadata API, because React 19 already hoists `<title>`,
+`<meta>` and `<link>` rendered anywhere in the tree into `<head>`. A page
+renders its own title where it renders everything else:
+
+```tsx
+export default function ProductPage({ params }: { params: { id: number } }) {
+  return (
+    <>
+      <title>{`Product ${String(params.id)}`}</title>
+      <meta content="…" name="description" />
+      <h1>…</h1>
+    </>
+  );
+}
+```
+
+Keep one `<title>` on screen at a time: the root layout renders none, each
+page renders its own, and `not-found.tsx` renders one too. Two titles at once
+is not a fallback chain — React renders both.
 
 ## Execution boundaries
 
@@ -430,8 +524,9 @@ is the framework's, everything after it is state's.
 
 ## What static cannot do
 
-Anything that needs the request: Server Actions, per-request data, and status
-codes the application decides. A file cannot receive a form submission, and
+Anything that needs the request: Server Actions and `redirect()` from them,
+the `request` a page reads under `@k8ordo/server`, and status codes the
+application decides. A file cannot receive a form submission, and
 whether `404.html` is served with a 404 rather than a 200 is the host's
 setting — the build can write the page, but not the response.
 

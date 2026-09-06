@@ -14,6 +14,8 @@ export type Payload = {
   pathname: string;
   /** What the action returned, when this response answers one. */
   returnValue?: unknown;
+  /** Where an action sent the visitor instead of returning. */
+  redirect?: string;
   /**
    * `useActionState`'s state, for a form posted without JavaScript. Typed
    * loosely because React does not export the shape from a public entry; the

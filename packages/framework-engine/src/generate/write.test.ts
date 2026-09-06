@@ -2,11 +2,14 @@ import { declaresParams } from './write';
 
 describe('declaresParams', () => {
   it('sees the spellings a person writes', () => {
-    expect(declaresParams('export const params = z.object({});')).toBe(true);
-    expect(declaresParams('export let params = z.object({});')).toBe(true);
-    expect(declaresParams('const params = 1;\nexport { params };')).toBe(true);
+    expect(declaresParams('export const paramsSchema = z.object({});')).toBe(
+      true,
+    );
+    expect(declaresParams('export let paramsSchema = z.object({});')).toBe(
+      true,
+    );
     expect(
-      declaresParams('const params = 1;\nexport { other, params as params };'),
+      declaresParams('const paramsSchema = 1;\nexport { paramsSchema };'),
     ).toBe(true);
   });
 
@@ -15,8 +18,10 @@ describe('declaresParams', () => {
       false,
     );
     expect(
-      declaresParams('const params = 1; export const other = params;'),
+      declaresParams(
+        'const paramsSchema = 1; export const other = paramsSchema;',
+      ),
     ).toBe(false);
-    expect(declaresParams('export const paramsSchema = 1;')).toBe(false);
+    expect(declaresParams('export const params = 1;')).toBe(false);
   });
 });

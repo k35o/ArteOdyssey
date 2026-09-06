@@ -14,6 +14,7 @@ import type { Problem, RouteDir } from '../grammar/tree';
 
 export type TableBranch<T> = {
   layout?: T;
+  error?: T;
   children: Record<string, TableNode<T>>;
 };
 
@@ -23,6 +24,7 @@ export type TableNode<T> = T | TableBranch<T>;
 const isLeaf = (dir: RouteDir): boolean =>
   dir.page !== null &&
   dir.layout === null &&
+  dir.error === null &&
   dir.notFound === null &&
   dir.children.length === 0;
 
@@ -74,12 +76,38 @@ export const buildTable = <T>(
     if (isLeaf(dir)) return resolve(dir.page as string);
     const branch: TableBranch<T> = { children: entries(dir) };
     if (dir.layout !== null) branch.layout = resolve(dir.layout);
+    if (dir.error !== null) branch.error = resolve(dir.error);
     return branch;
   };
 
-  // The root's own layout has to wrap everything, which is what a branch
-  // under the transparent '/' key does.
-  return tree.layout === null ? entries(tree) : { '/': node(tree) };
+  // The root's own layout (or error boundary) has to wrap everything, which
+  // is what a branch under the transparent '/' key does.
+  return tree.layout === null && tree.error === null
+    ? entries(tree)
+    : { '/': node(tree) };
+};
+
+type DeclaredRedirect = { readonly pattern: string; readonly file: string };
+
+/** Every `redirect.ts`, with the pattern its directory puts it under. */
+export const declaredRedirects = (
+  dir: RouteDir,
+  prefix = '',
+): DeclaredRedirect[] => {
+  const here = dir.kind === 'root' ? '' : prefix;
+  const found: DeclaredRedirect[] = [];
+  if (dir.redirect !== null) {
+    found.push({ pattern: here === '' ? '/' : here, file: dir.redirect });
+  }
+  for (const child of dir.children) {
+    found.push(
+      ...declaredRedirects(
+        child,
+        child.kind === 'group' ? here : `${here}${child.key}`,
+      ),
+    );
+  }
+  return found;
 };
 
 type Declared = { readonly pattern: string; readonly file: string };
@@ -136,7 +164,7 @@ export type EmitOptions = {
   readonly importPrefix: string;
   /** The mode package the application installed, named in the banner. */
   readonly via?: string;
-  /** Route files (relative to the routes root) that export a `params` schema. */
+  /** Route files (relative to the routes root) that export a `paramsSchema`. */
   readonly withParams?: ReadonlySet<string>;
 };
 
@@ -189,6 +217,9 @@ const renderNode = (
   if (node.layout !== undefined) {
     lines.push(`${pad(depth + 1)}layout: ${believed(node.layout, asserted)},`);
   }
+  if (node.error !== undefined) {
+    lines.push(`${pad(depth + 1)}error: ${believed(node.error, asserted)},`);
+  }
   lines.push(`${pad(depth + 1)}children: {`);
   for (const [key, child] of Object.entries(node.children)) {
     lines.push(
@@ -210,7 +241,7 @@ const believed = (
 type Belief = {
   /** The pattern the directories put the file under. */
   readonly pattern: string;
-  readonly kind: 'page' | 'layout' | 'notFound';
+  readonly kind: 'page' | 'layout' | 'notFound' | 'error';
   /** Schema-declaring files along the stack, outer-first, the file's own last. */
   readonly schemas: readonly string[];
 };
@@ -267,6 +298,9 @@ const beliefs = (
         schemas: [],
       });
     }
+    if (dir.error !== null) {
+      found.set(dir.error, { pattern: own, kind: 'error', schemas: [] });
+    }
     for (const child of dir.children) {
       walk(
         child,
@@ -300,6 +334,8 @@ export const emitRoutesModule = (
     const schemas = belief.schemas.map((f) => schemaName(namer.take(f)));
     if (belief.kind === 'layout') {
       asserted.set(name, `Layout<'${belief.pattern}'>`);
+    } else if (belief.kind === 'error') {
+      asserted.set(name, 'ErrorComponent');
     } else if (belief.kind === 'notFound' || schemas.length === 0) {
       asserted.set(name, `Page<'${belief.pattern}'>`);
     } else {
@@ -316,13 +352,27 @@ export const emitRoutesModule = (
   const importLines = [...namer.names].map(([file, name]) => {
     const specifier = `'${options.importPrefix}/${file.replace(/\.[jt]sx?$/u, '')}'`;
     return withParams.has(file)
-      ? `import ${name}, { params as ${schemaName(name)} } from ${specifier};`
+      ? `import ${name}, { paramsSchema as ${schemaName(name)} } from ${specifier};`
       : `import ${name} from ${specifier};`;
   });
   const hasLayout = [...asserted.values()].some((type) =>
     type.startsWith('Layout<'),
   );
+  const hasError = [...asserted.values()].includes('ErrorComponent');
   const hasSchemas = withParams.size > 0;
+  // Under a running server a page also receives the request; a build into
+  // files has no request to hand over, so the field is absent — a page that
+  // reads it fails to type-check under @k8ordo/static rather than at run time.
+  const withRequest = (options.via ?? DEFAULT_VIA) === '@k8ordo/server';
+  const requestLine = withRequest ? ['  request: RouteRequest;'] : [];
+  const redirects = declaredRedirects(tree).map((redirect) => ({
+    pattern: redirect.pattern,
+    name: namer.take(redirect.file),
+  }));
+  const redirectImports = redirects.map(
+    ({ name }) =>
+      `import ${name} from '${options.importPrefix}/${namerFile(namer, name).replace(/\.[jt]sx?$/u, '')}';`,
+  );
   // Each schema is checked against the pattern its file sits under: it may
   // name only params that pattern has.
   const schemaChecks = [...namer.names]
@@ -335,6 +385,7 @@ export const emitRoutesModule = (
     ([pattern, schemas]) => `${pad(1)}'${pattern}': [${schemas.join(', ')}],`,
   );
   const typeImports = [
+    ...(hasError ? ['ErrorComponent'] : []),
     ...(hasLayout ? ['ParamsOf'] : []),
     ...(hasSchemas ? ['ParamsSchemaFor'] : []),
     'ParsedParams',
@@ -348,7 +399,18 @@ export const emitRoutesModule = (
     `import type { ComponentType${hasLayout ? ', ReactNode' : ''} } from 'react';`,
     '',
     ...importLines,
+    ...redirectImports,
     '',
+    ...(withRequest
+      ? [
+          '// What a page may read of the request, under a running server only.',
+          'type RouteRequest = {',
+          '  readonly headers: Headers;',
+          '  readonly cookies: ReadonlyMap<string, string>;',
+          '};',
+          '',
+        ]
+      : []),
     "// What the renderer passes. `satisfies` below is where a route file's",
     '// own props are checked against the pattern its directory puts it under,',
     '// and where its params take the types the `params` schemas along its',
@@ -359,14 +421,24 @@ export const emitRoutesModule = (
     '> = ComponentType<{',
     '  params: ParsedParams<P, S>;',
     '  pathname: string;',
+    ...requestLine,
     '}>;',
     ...(hasLayout
       ? [
           'type Layout<P extends string> = ComponentType<{',
           '  params: ParamsOf<P>;',
           '  pathname: string;',
+          ...requestLine,
           '  children: ReactNode;',
           '}>;',
+        ]
+      : []),
+    ...(redirects.length > 0
+      ? [
+          '',
+          '// What a redirect.ts default-exports: where to, as a pattern the matched',
+          '// params fill in, and whether the move is permanent.',
+          'type Redirect = string | { readonly to: string; readonly permanent?: boolean };',
         ]
       : []),
     '',
@@ -388,11 +460,28 @@ export const emitRoutesModule = (
     ...schemaMap,
     '} as const;',
     '',
+    '// Per pattern, where a redirect.ts sends the visitor. Consulted before the',
+    '// table: a directory that redirects has no page to render.',
+    'export const redirects = {',
+    ...redirects.map(
+      ({ pattern, name }) =>
+        `${pad(1)}'${pattern}': ${name} satisfies Redirect,`,
+    ),
+    '} as const;',
+    '',
     'export const routes = defineRoutes({',
     ...body,
     '});',
     '',
   ].join('\n');
+};
+
+const namerFile = (
+  namer: { names: Map<string, string> },
+  name: string,
+): string => {
+  for (const [file, taken] of namer.names) if (taken === name) return file;
+  throw new Error(`no file was named ${name}`);
 };
 
 export type RegisterOptions = {

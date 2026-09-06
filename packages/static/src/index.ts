@@ -120,6 +120,9 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
         // handler answers it the way it answers any unknown URL; here that
         // answer is a build error naming the pathname.
         const refused: string[] = [];
+        // A page that threw while rendering: the handler answers 500 with
+        // the message, and a build that wrote it would ship the failure.
+        const failed: string[] = [];
         await inParallel(
           plan.paths.flatMap((pathname) => {
             // The URL keeps its escapes; only the file name is decoded.
@@ -132,16 +135,26 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
                   `${ORIGIN}${pathname}`,
                 );
                 if (status === 404) refused.push(pathname);
+                if (status === 500) failed.push(pathname);
+                // A redirect has no payload: a client navigation to it finds
+                // nothing at index.rsc and hands the URL to the browser, which
+                // loads the HTML above and follows it.
+                if (status !== 307 && status !== 308) {
+                  await write(
+                    path.join(dir, 'index.rsc'),
+                    handler,
+                    `${ORIGIN}${payloadPathFor(pathname)}`,
+                  );
+                }
               },
-              () =>
-                write(
-                  path.join(dir, 'index.rsc'),
-                  handler,
-                  `${ORIGIN}${payloadPathFor(pathname)}`,
-                ),
             ];
           }),
         );
+        if (failed.length > 0) {
+          throw new Error(
+            `static build could not render ${failed.toSorted().join(', ')} — see the error above`,
+          );
+        }
         if (refused.length > 0) {
           throw new Error(
             `the "paths" option supplied pathnames a params schema refused: ${refused.toSorted().join(', ')}`,
@@ -196,6 +209,16 @@ const inParallel = async (
   );
 };
 
+/**
+ * A redirect as a file: no server will ever send the status, so the page
+ * itself has to send the visitor on. `http-equiv="refresh"` is what every
+ * browser honours; the link is for the one that does not.
+ */
+const redirectPage = (to: string): string => {
+  const escaped = to.replaceAll('&', '&amp;').replaceAll('"', '&quot;');
+  return `<!doctype html><html><head><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${escaped}"><link rel="canonical" href="${escaped}"><title>Redirecting</title></head><body><a href="${escaped}">${escaped}</a></body></html>\n`;
+};
+
 /** Writes what the handler answered, and says with which status. */
 const write = async (
   file: string,
@@ -203,7 +226,21 @@ const write = async (
   url: string,
 ): Promise<number> => {
   const response = await handler(new Request(url));
+  // A page that failed to render is not a page: nothing is written, and the
+  // caller stops the build with its name.
+  if (response.status === 500) {
+    console.error(`k8ordo: ${url} — ${await response.text()}`);
+    return response.status;
+  }
   await mkdir(path.dirname(file), { recursive: true });
-  await writeFile(file, Buffer.from(await response.arrayBuffer()));
+  const location = response.headers.get('location');
+  if (
+    (response.status === 307 || response.status === 308) &&
+    location !== null
+  ) {
+    await writeFile(file, redirectPage(location));
+  } else {
+    await writeFile(file, Buffer.from(await response.arrayBuffer()));
+  }
   return response.status;
 };

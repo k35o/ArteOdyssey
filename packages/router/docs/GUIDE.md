@@ -78,6 +78,10 @@ export const routes = defineRoutes({
   only appear once in an object, so two sections at the same depth could not
   otherwise have different layouts.
 - **A trailing slash is the same pathname.** `/products/` matches `/products`.
+- A branch may name an **`error`** component beside its layout:
+  `{ layout, error, children }`. When anything below throws, it renders in
+  the layout's hole instead — with `{ error, reset }` as props — and the
+  frame around it survives. Leaving the page that failed clears the failure.
 
 ### Order is the rule
 
@@ -255,7 +259,7 @@ answer to a question already answered. Hand-write it in a client application
 that mounts `<Router>` itself.
 
 The framework's generated `Register` also carries `params`: per pattern, the
-type the route file's `params` schema produces. With it, `href` and
+type the route file's `paramsSchema` produces. With it, `href` and
 `navigateTo` take a param as the page receives it — `{ id: 42 }` for a
 schema that said number — and spell it the one way the schema reads back. A
 value with no URL spelling (an object) is refused. A hand-written table has no
@@ -339,12 +343,17 @@ instead of `<Outlet />`. What stays is navigation: both build on
 `useInterceptedNavigation`, the primitive `<Router>` itself uses.
 
 ```tsx
-useInterceptedNavigation<Value>({
+const { generation } = useInterceptedNavigation<Value>({
   claim: (url) => boolean, // synchronous: the only moment interception is possible
   load: (url, signal) => Value | Promise<Value>,
   apply: (value) => void, // called inside a transition
 });
 ```
+
+`generation` changes exactly when a new tree is applied — not when the URL
+moved — and a host provides it through `<NavigationGeneration value>` so the
+table's `error` boundaries know when to let a failure go. `<Router>` does
+this itself; the framework's runtime does too.
 
 What carries across unchanged is everything that needs no table: `href`,
 `navigateTo`, `usePathname` and `useMatch`. `usePathname` needs one thing on the server,

@@ -1,6 +1,8 @@
 import type { Match } from '@k8ordo/router';
 import type { ComponentType, ReactNode } from 'react';
 
+import type { RouteRequest } from './request';
+
 export type PageProps = {
   /**
    * The pattern's params, after the schemas the route files declared have
@@ -14,6 +16,8 @@ export type PageProps = {
    * from the locale segment is the case that asked for it.
    */
   readonly pathname: string;
+  /** The request, under `@k8ordo/server` only; a build into files has none. */
+  readonly request?: RouteRequest;
   readonly children?: ReactNode;
 };
 
@@ -27,6 +31,7 @@ export const renderMatch = (
   match: Match,
   pathname: string,
   params: Readonly<Record<string, unknown>> = match.params,
+  request?: RouteRequest,
 ): ReactNode => {
   let node: ReactNode = null;
   for (let index = match.stack.length - 1; index >= 0; index -= 1) {
@@ -34,7 +39,7 @@ export const renderMatch = (
     // that states what it passes.
     const Component = match.stack[index] as ComponentType<PageProps>;
     node = (
-      <Component params={params} pathname={pathname}>
+      <Component params={params} pathname={pathname} request={request}>
         {node}
       </Component>
     );

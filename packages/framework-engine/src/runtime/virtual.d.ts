@@ -5,6 +5,13 @@ declare module 'virtual:k8ordo/routes' {
   import type { Routes } from '@k8ordo/router';
 
   export const routes: Routes;
+  /** Per pattern, where a `redirect.ts` sends the visitor. */
+  export const redirects: Readonly<
+    Record<
+      string,
+      string | { readonly to: string; readonly permanent?: boolean }
+    >
+  >;
   /**
    * Per full pattern, the schemas along its stack — layouts first. Spelled
    * out rather than imported from `./params`: a relative import inside an
@@ -30,3 +37,8 @@ declare module 'virtual:k8ordo/routes' {
     >
   >;
 }
+
+type ImportMetaEnv = {
+  /** The mode package the application installed. */
+  readonly K8ORDO_MODE: '@k8ordo/static' | '@k8ordo/server';
+};

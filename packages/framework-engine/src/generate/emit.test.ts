@@ -174,10 +174,10 @@ describe('params schemas', () => {
 
   it('imports the schema beside the component of a file that declares one', () => {
     expect(source).toContain(
-      "import locale_layout, { params as locale_layout_params } from './routes/[locale]/layout';",
+      "import locale_layout, { paramsSchema as locale_layout_params } from './routes/[locale]/layout';",
     );
     expect(source).toContain(
-      "import locale_products_id_page, { params as locale_products_id_page_params } from './routes/[locale]/products/[id]/page';",
+      "import locale_products_id_page, { paramsSchema as locale_products_id_page_params } from './routes/[locale]/products/[id]/page';",
     );
     expect(source).toContain(
       "import locale_page from './routes/[locale]/page';",
@@ -274,5 +274,81 @@ describe('unreachableRoutes', () => {
     expect(problems.map((problem) => problem.path)).toStrictEqual([
       'about/page.tsx',
     ]);
+  });
+});
+
+describe('error.tsx in the emitted table', () => {
+  const source = emit([
+    'layout.tsx',
+    'page.tsx',
+    'error.tsx',
+    'shop/error.tsx',
+    'shop/page.tsx',
+  ]);
+
+  it('puts the error component on the branch beside the layout', () => {
+    expect(source).toMatch(
+      /'\/': \{\n\s+layout: layout satisfies Layout<'\/'>,\n\s+error: error satisfies ErrorComponent,/u,
+    );
+  });
+
+  it('makes a directory with a page and an error a branch of its own', () => {
+    expect(source).toMatch(
+      /'\/shop': \{\n\s+error: shop_error satisfies ErrorComponent,\n\s+children: \{\n\s+'\/': shop_page satisfies Page<'\/shop'>,/u,
+    );
+  });
+
+  it('imports the router type it checks the component against', () => {
+    expect(source).toContain('ErrorComponent');
+    expect(source).toMatch(/import type \{ ErrorComponent, /u);
+  });
+});
+
+describe('redirect.ts in the emitted table', () => {
+  const source = emit([
+    'page.tsx',
+    'old/redirect.ts',
+    '[locale]/legacy/redirect.ts',
+    '[locale]/page.tsx',
+  ]);
+
+  it('lists each redirect under its pattern, outside the route table', () => {
+    expect(source).toContain(
+      "import old_redirect from './routes/old/redirect';",
+    );
+    expect(source).toContain("'/old': old_redirect satisfies Redirect,");
+    expect(source).toContain(
+      "'/:locale/legacy': locale_legacy_redirect satisfies Redirect,",
+    );
+    // 表には出ない: リダイレクトは描画するものではない
+    expect(source).not.toMatch(/'\/old': old_redirect satisfies Page/u);
+  });
+
+  it('emits an empty map when nothing redirects', () => {
+    expect(emit(['page.tsx'])).toContain(
+      'export const redirects = {\n} as const;',
+    );
+  });
+});
+
+describe('the request a page receives', () => {
+  it('is part of the props under a running server', () => {
+    const { tree } = parseRouteTree(['layout.tsx', 'page.tsx']);
+    const source = emitRoutesModule(tree, {
+      importPrefix: './routes',
+      via: '@k8ordo/server',
+    });
+    expect(source).toContain('type RouteRequest = {');
+    expect(source).toMatch(/type Page<[\s\S]*?request: RouteRequest;/u);
+    expect(source).toMatch(/type Layout<[\s\S]*?request: RouteRequest;/u);
+  });
+
+  it('is absent under a build into files, where there is none', () => {
+    const { tree } = parseRouteTree(['page.tsx']);
+    const source = emitRoutesModule(tree, {
+      importPrefix: './routes',
+      via: '@k8ordo/static',
+    });
+    expect(source).not.toContain('RouteRequest');
   });
 });

@@ -3,7 +3,7 @@ import * as z from 'zod/mini';
 import { findProduct } from '../../_data/catalog.server';
 
 // [id] が受け取る値の形。合わないパスはこのルートが答えない（404）
-export const params = z.object({
+export const paramsSchema = z.object({
   id: z.coerce.number().check(z.int(), z.positive()),
 });
 

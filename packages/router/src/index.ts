@@ -1,3 +1,4 @@
+export type { ErrorComponent, ErrorProps } from './boundary';
 export { defineRoutes } from './define-routes';
 export type {
   Match,
@@ -13,7 +14,7 @@ export { href, navigateTo } from './links';
 export { PathnameProvider, usePathname } from './location';
 export { matchPath, useMatch } from './match';
 export type { MatchablePattern } from './match';
-export { useInterceptedNavigation } from './navigation';
+export { NavigationGeneration, useInterceptedNavigation } from './navigation';
 export type { NavigationHandler } from './navigation';
 export type { NavigateToOptions } from './links';
 export { normalizePathname } from './paths';

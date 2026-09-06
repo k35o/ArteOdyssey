@@ -48,14 +48,16 @@ export type GenerateResult = {
 };
 
 /**
- * Whether a route file declares a `params` schema. Read from the text rather
+ * Whether a route file declares a `paramsSchema`. Read from the text rather
  * than by importing the module — the generator runs before anything is
  * compiled, and an import would evaluate the page. The spellings accepted
- * are the ones a person writes: `export const params`, `export let`,
- * `export var`, or `export { params }`.
+ * are the ones a person writes: `export const paramsSchema`, `export let`,
+ * `export var`, or `export { paramsSchema }`. Named so rather than `params`
+ * because the page's own prop is `params`, and a module-level binding of the
+ * same name is a shadow every linter flags.
  */
 const PARAMS_EXPORT =
-  /^\s*export\s+(?:(?:const|let|var)\s+params\b|\{[^}]*\bparams\b[^}]*\})/mu;
+  /^\s*export\s+(?:(?:const|let|var)\s+paramsSchema\b|\{[^}]*\bparamsSchema\b[^}]*\})/mu;
 
 export const declaresParams = (source: string): boolean =>
   PARAMS_EXPORT.test(source);

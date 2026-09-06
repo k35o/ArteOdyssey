@@ -1,5 +1,8 @@
-import type { ComponentType } from 'react';
+import { createElement } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 
+import { RouteErrorBoundary } from './boundary';
+import type { ErrorComponent } from './boundary';
 import { isGroupKey, joinPattern, normalizePathname } from './paths';
 import type { Join, PathFor } from './paths';
 
@@ -13,13 +16,19 @@ import type { Join, PathFor } from './paths';
 export type RouteComponent = ComponentType<never>;
 
 /**
- * A leaf renders; a branch wraps its children in an optional layout. Lazy
+ * A leaf renders; a branch wraps its children in an optional layout, and
+ * may name an `error` component to show in place of what is below when it
+ * throws — inside the layout, so the frame survives the failure. Lazy
  * components (`React.lazy`) are objects, not functions, so a branch is
  * recognized by its `children` key rather than by `typeof`.
  */
 export type RouteNode =
   | RouteComponent
-  | { layout?: RouteComponent; children: RoutesRecord };
+  | {
+      layout?: RouteComponent;
+      error?: ErrorComponent;
+      children: RoutesRecord;
+    };
 
 export type RoutesRecord = Record<`/${string}`, RouteNode>;
 
@@ -86,8 +95,30 @@ type Entry = {
 
 const isBranch = (
   node: RouteNode,
-): node is { layout?: RouteComponent; children: RoutesRecord } =>
-  typeof node === 'object' && 'children' in node;
+): node is {
+  layout?: RouteComponent;
+  error?: ErrorComponent;
+  children: RoutesRecord;
+} => typeof node === 'object' && 'children' in node;
+
+/**
+ * A branch's `error` becomes an element of the stack — after the layout, so
+ * it wraps what the layout wraps. It takes what any renderer passes and
+ * renders what it is given; a renderer that passes nothing (the client
+ * router, which nests through `<Outlet />`) is told so by the absence of
+ * `children`, and the boundary leaves the hole to the next element.
+ */
+const boundaryFor = (
+  fallback: ErrorComponent,
+): ComponentType<{ children?: ReactNode }> => {
+  const Boundary = ({ children }: { children?: ReactNode }): ReactNode =>
+    createElement(
+      RouteErrorBoundary,
+      { fallback },
+      children === undefined ? outlet() : children,
+    );
+  return Boundary;
+};
 
 const decode = (value: string): string => {
   try {
@@ -95,6 +126,17 @@ const decode = (value: string): string => {
   } catch {
     return value;
   }
+};
+
+/**
+ * What a boundary renders when a renderer hands it no children. Set once by
+ * the client router, which is the one renderer that nests by context rather
+ * than by prop; the framework always passes `children`.
+ */
+let outlet: () => ReactNode = () => null;
+
+export const setBoundaryOutlet = (render: () => ReactNode): void => {
+  outlet = render;
 };
 
 export function defineRoutes<R extends RoutesRecord>(record: R): Routes<R> {
@@ -126,11 +168,14 @@ export function defineRoutes<R extends RoutesRecord>(record: R): Routes<R> {
       }
       const pattern = joinPattern(prefix, key);
       if (isBranch(node)) {
-        walk(
-          node.children,
-          pattern === '/' ? '' : pattern,
-          node.layout === undefined ? stack : [...stack, node.layout],
-        );
+        const below = [
+          ...stack,
+          ...(node.layout === undefined ? [] : [node.layout]),
+          ...(node.error === undefined
+            ? []
+            : [boundaryFor(node.error) as RouteComponent]),
+        ];
+        walk(node.children, pattern === '/' ? '' : pattern, below);
       } else {
         if (seen.has(pattern)) {
           throw new TypeError(`route pattern "${pattern}" is declared twice`);

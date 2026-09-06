@@ -24,14 +24,17 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
 
 - `@k8ordo/router` — `defineRoutes(record)` returns a table whose one operation
   is `match(pathname)`; `<Router routes>` mounts it on the Navigation API and
-  `<Outlet />` renders the rest of the matched stack. `href(pattern, params?)`
+  `<Outlet />` renders the rest of the matched stack; a branch's `error`
+  component (`{ error, reset }` props, type `ErrorComponent`) renders in the
+  layout's hole when what is below throws, keyed by `NavigationGeneration`
+  so leaving the page clears it. `href(pattern, params?)`
   and `navigateTo(pattern, params?, options?)` build and perform navigations
   from the pattern **string** alone — no table import, so no cycle — with
   params inferred from the literal and the pattern itself checked once
   `interface Register { routes }` is augmented. `useParams(pattern)` returns
   typed params and throws if rendered under a different pattern; under the
   framework `Register` also carries `params` — the type each pattern's
-  `params` schema produces — so `href` takes a param as the page receives it
+  `paramsSchema` produces — so `href` takes a param as the page receives it
   (`ParsedParams` / `ParsedParamsMap` / `ParamsSchemaFor` are the types the
   generated code uses); `useRoute()`
   is the untyped form. `RouteOf<typeof routes>` is the pathname union to feed
@@ -45,6 +48,7 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
   own trailing-slash rule;
   `<PathnameProvider pathname>` seeds it for a server render and hydration,
   and is mounted by `<Router>` and by both mode runtimes, never by an
-  application. `useInterceptedNavigation({claim, load, apply})` is the
+  application. `useInterceptedNavigation({claim, load, apply})` returns
+  `{ generation }` and is the
   navigation primitive `<Router>` is built on, and the seam the framework
   uses to render server-produced trees instead.

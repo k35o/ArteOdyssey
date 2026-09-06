@@ -6,19 +6,50 @@ import {
   loadServerAction,
   renderToReadableStream,
 } from '@vitejs/plugin-rsc/rsc/server';
-import { paramSchemas, routes } from 'virtual:k8ordo/routes';
+import { paramSchemas, redirects, routes } from 'virtual:k8ordo/routes';
 
 import type * as SsrEntry from './entry.ssr';
 import { parseParams } from './params';
 import { ACTION_ID_HEADER } from './payload';
 import type { Payload } from './payload';
 import { isPayloadPath, pagePathFor } from './payload-path';
+import { isRedirect, resolveTarget } from './redirect';
 import { NotFound, renderMatch } from './render';
+import { routeRequestOf } from './request';
 
 type ActionResult = {
   returnValue?: unknown;
   formState?: unknown;
+  /** The action ended by sending the visitor elsewhere. */
+  redirect?: { to: string; permanent: boolean };
 };
+
+/**
+ * The redirects `routes/` declared, matched in declaration order — before
+ * the table, since a directory that redirects has no page to render.
+ */
+const REDIRECTS = Object.entries(redirects).map(([pattern, target]) => ({
+  matcher: new URLPattern({ pathname: pattern }),
+  target,
+}));
+
+const redirectFor = (
+  pathname: string,
+): { to: string; permanent: boolean } | null => {
+  for (const { matcher, target } of REDIRECTS) {
+    const result = matcher.exec({ pathname });
+    if (result === null) continue;
+    const params: Record<string, string> = {};
+    for (const [name, value] of Object.entries(result.pathname.groups)) {
+      if (!/^\d+$/u.test(name) && value !== undefined) params[name] = value;
+    }
+    return resolveTarget(target, params);
+  }
+  return null;
+};
+
+const redirectResponse = (to: string, status: number): Response =>
+  new Response(null, { status, headers: { location: to } });
 
 type TemporaryReferences = ReturnType<typeof createTemporaryReferenceSet>;
 
@@ -29,6 +60,19 @@ type TemporaryReferences = ReturnType<typeof createTemporaryReferenceSet>;
  * first cannot be the only one.
  */
 const runAction = async (
+  request: Request,
+  temporaryReferences: TemporaryReferences,
+): Promise<ActionResult> => {
+  try {
+    return await invokeAction(request, temporaryReferences);
+  } catch (error) {
+    // A redirect is how an action ends, not how it fails.
+    if (isRedirect(error)) return { redirect: error };
+    throw error;
+  }
+};
+
+const invokeAction = async (
   request: Request,
   temporaryReferences: TemporaryReferences,
 ): Promise<ActionResult> => {
@@ -103,10 +147,23 @@ export default async function handler(request: Request): Promise<Response> {
     return new Response('cross-origin action', { status: 403 });
   }
 
+  // A redirect.ts answers before anything renders. A payload request for it
+  // is sent to the page, not the payload: the client runtime sees HTML come
+  // back, gives the navigation to the browser, and the browser follows the
+  // redirect as a document load — the URL bar ends up right.
+  const declared = redirectFor(pathname);
+  if (declared !== null && !isAction) {
+    return redirectResponse(declared.to, declared.permanent ? 308 : 307);
+  }
+
   const temporaryReferences = createTemporaryReferenceSet();
   const action: ActionResult = isAction
     ? await runAction(request, temporaryReferences)
     : {};
+  if (action.redirect !== undefined && !addressed) {
+    // A form posted without JavaScript: the browser follows a 303 with a GET.
+    return redirectResponse(action.redirect.to, 303);
+  }
 
   // A param a schema refuses is a pathname the pattern does not answer, so
   // the walk goes on to whatever the table declares next — the catch-all in
@@ -130,23 +187,35 @@ export default async function handler(request: Request): Promise<Response> {
   });
   const missing = match === null || match.pattern.endsWith('/*');
   const status = missing ? 404 : 200;
+  // A build into files has no request to hand a page; a running server does.
+  const routeRequest =
+    import.meta.env.K8ORDO_MODE === '@k8ordo/server'
+      ? routeRequestOf(request)
+      : undefined;
   const payload: Payload = {
+    // An action that redirected renders nothing: the client is about to
+    // leave this page for the one it was sent to.
     tree:
-      match === null ? (
-        <NotFound />
-      ) : (
-        renderMatch(match, pathname, parsed.params)
-      ),
+      action.redirect === undefined ? (
+        match === null ? (
+          <NotFound />
+        ) : (
+          renderMatch(match, pathname, parsed.params, routeRequest)
+        )
+      ) : null,
     pathname,
     returnValue: action.returnValue,
     formState: action.formState,
+    redirect: action.redirect?.to,
   };
 
+  const failures: unknown[] = [];
   const rscStream = renderToReadableStream(payload, {
     temporaryReferences: isAction ? temporaryReferences : undefined,
     // Without this a component that throws simply truncates the stream, and
     // the browser reports a closed connection instead of the actual error.
     onError: (error: unknown) => {
+      failures.push(error);
       // pathname は引数として渡す。第 1 引数はフォーマット文字列なので、
       // `%s` を含む URL を投げられると error が食われて消える
       console.error('k8ordo: rendering %s failed', pathname, error);
@@ -167,7 +236,33 @@ export default async function handler(request: Request): Promise<Response> {
     'ssr',
     'index',
   );
-  return new Response(await ssr.renderHtml(rscStream), {
+  const html = await ssr.renderHtml(rscStream);
+  if (import.meta.env.K8ORDO_MODE === '@k8ordo/static') {
+    // A build into files can afford to wait for the whole page, and has to:
+    // a component that threw would otherwise be written as a page whose
+    // error shows only once a visitor's browser has rendered it. Under a
+    // running server the same page streams and the browser shows error.tsx;
+    // at build time it is a build that stops, naming the page.
+    const body = await new Response(html).arrayBuffer();
+    const failed = failures[0];
+    if (failed !== undefined) {
+      const message =
+        failed instanceof Error
+          ? failed.message
+          : typeof failed === 'string'
+            ? failed
+            : 'a component threw something that is not an Error';
+      return new Response(message, {
+        status: 500,
+        headers: { 'content-type': 'text/plain;charset=utf-8' },
+      });
+    }
+    return new Response(body, {
+      status,
+      headers: { 'content-type': 'text/html;charset=utf-8' },
+    });
+  }
+  return new Response(html, {
     status,
     headers: { 'content-type': 'text/html;charset=utf-8' },
   });

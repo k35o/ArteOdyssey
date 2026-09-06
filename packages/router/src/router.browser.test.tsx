@@ -289,3 +289,54 @@ it('still loads the page when a state update lands on its URL mid-load', async (
   await expect(page.finished).rejects.toThrow(/abort/iu);
   await screen.unmount();
 });
+
+// error 境界: 表の branch が error を持つと、その layout の内側で下を受け止める
+const Boom: FC = () => {
+  throw new Error('boom');
+};
+const Fine: FC = () => <div data-testid="fine">fine</div>;
+const Oops: FC<{ error: unknown; reset: () => void }> = ({ error }) => (
+  <p data-testid="oops">{error instanceof Error ? error.message : 'unknown'}</p>
+);
+const Frame: FC = () => (
+  <section data-testid="frame">
+    <Outlet />
+  </section>
+);
+const guarded = defineRoutes({
+  '/': HomePage,
+  '/area': {
+    layout: Frame,
+    error: Oops,
+    children: { '/boom': Boom, '/fine': Fine },
+  },
+});
+
+it('shows the error component inside the layout when what is below throws', async () => {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    const screen = await render(<Router routes={guarded} />);
+    await navigateTo('/area/boom', { history: 'replace' }).finished;
+
+    await expect.element(screen.getByTestId('frame')).toBeInTheDocument();
+    await expect.element(screen.getByTestId('oops')).toHaveTextContent('boom');
+  } finally {
+    consoleError.mockRestore();
+  }
+});
+
+it('leaves the failure behind when the pathname changes', async () => {
+  const consoleError = vi.spyOn(console, 'error').mockImplementation(() => {});
+  try {
+    const screen = await render(<Router routes={guarded} />);
+    await navigateTo('/area/boom', { history: 'replace' }).finished;
+    await expect.element(screen.getByTestId('oops')).toBeInTheDocument();
+
+    await navigateTo('/area/fine').finished;
+
+    await expect.element(screen.getByTestId('fine')).toBeInTheDocument();
+    expect(document.querySelector('[data-testid="oops"]')).toBeNull();
+  } finally {
+    consoleError.mockRestore();
+  }
+});

@@ -24,3 +24,9 @@ export const framework = (options: ServerOptions = {}): PluginOption[] =>
 
 export { serve } from './serve';
 export type { ServeOptions } from './serve';
+export { redirect } from '@k8ordo/framework-engine';
+export type {
+  RedirectOptions,
+  RedirectTarget,
+  RouteRequest,
+} from '@k8ordo/framework-engine';

@@ -12,3 +12,6 @@ export { engine } from './plugin/core';
 export type { EngineOptions } from './plugin/core';
 export { serverActionModules } from './plugin/server-actions';
 export { payloadPathFor } from './runtime/payload-path';
+export { redirect } from './runtime/redirect';
+export type { RedirectOptions, RedirectTarget } from './runtime/redirect';
+export type { RouteRequest } from './runtime/request';

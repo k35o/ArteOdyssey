@@ -64,7 +64,7 @@ pnpm check         # check:write to auto-fix
   `runtime/entry.ssr.tsx` injects the RSC stream into the HTML and
   `runtime/entry.browser.tsx` reads it back; nothing refetches on load, which
   is what lets a prerendered `404.html` come alive.
-- **A `params` export is found in the text, run before render.**
+- **A `paramsSchema` export is found in the text, run before render.**
   `generate/write.ts` reads each page/layout and regexes for the export (an
   import would evaluate the page before anything is compiled); `emit.ts`
   imports it beside the component, checks it with `satisfies
@@ -73,6 +73,18 @@ ParamsSchemaFor<pattern>`, lists per page pattern the schemas along its
   runs them synchronously inside `routes.match`'s `accept`, so a refused
   value is a pattern that did not match and the catch-all answers under 404.
   A catch-all's own params are never validated; a layout receives strings.
+- **`error.tsx` is the router's `error`; `redirect.ts` is answered before the
+  table.** The generator puts an error file on its branch (a page with an
+  error becomes a branch of its own) and lists redirects in `redirects`,
+  keyed by pattern, which the handler matches first. A Server Action's
+  `redirect()` throws a `Symbol.for`-branded `Redirect` — never checked by
+  `instanceof`, because the mode package holds two copies of this module —
+  and the handler answers 303 (no JavaScript) or a payload with `redirect`.
+- **The request reaches a page only under a server.** `K8ORDO_MODE` is
+  defined by the host; the handler attaches `request` (headers, cookies) only
+  under `@k8ordo/server`, and the generator emits the field only there. Under
+  `@k8ordo/static` the handler also buffers the HTML and answers 500 when the
+  render threw, so the build stops naming the page instead of writing it.
 - **A route file's props are checked by the generator.** `routes.gen.ts`
   emits `satisfies Page<'/products/:id'>` / `satisfies Layout<'/:locale'>`
   per file, so a mistyped param name fails the build without any route file
@@ -91,6 +103,8 @@ src/
   runtime/entry.{rsc,ssr,browser}.tsx  the three environments
   runtime/app-router.tsx     the client half: navigation + payloads
   runtime/params.ts          runs the params schemas along a matched stack
+  runtime/redirect.ts        redirect() / redirect.ts targets
+  runtime/request.ts         the read-only request a page receives
   runtime/render.tsx         the matched stack, nested through children
   index.ts
 ```

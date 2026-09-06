@@ -6,11 +6,14 @@
 > The mode is the dependency — the alternative is `@k8ordo/static`, which
 > renders every route at build time. `src/routes/` is the pathname space
 > (page/layout/not-found, `[param]`, `(group)`, `_private`), a page or layout
-> may `export const params` (any Standard Schema, synchronous) to type its
+> may `export const paramsSchema` (any Standard Schema, synchronous) to type its
 > parameters — a refused value makes the pattern not answer, so the walk goes
-> on to `not-found.tsx` under a real 404 — boundaries are React's own
-> `'use client'` with `server-only` modules barred from the client
-> bundle, and the route table and type wiring are generated rather than
+> on to `not-found.tsx` under a real 404 — an `error.tsx` shows in place of
+> what throws below it, a `redirect.ts` answers 307/308, a Server Action ends
+> with `redirect()` (303 without JavaScript, a navigation with it), a page
+> receives `request` (read-only headers and cookies) and renders its own
+> `<title>` — boundaries are React's own `'use client'` with `server-only`
+> modules barred from the client bundle, and the route table and type wiring are generated rather than
 > hand-written.
 >
 > Like every k8ordo package it assumes React 19 and Server Components, uses
@@ -36,4 +39,5 @@ When installed via npm, these docs live under `node_modules/@k8ordo/server/docs/
   `(request: Request) => Promise<Response>` default-exported from
   `dist/rsc/index.js`, so another host can run it directly. `serve` only ever answers a
   request from a file inside the client build, whatever the pathname is
-  spelled like.
+  spelled like. `redirect(to, { permanent? })` ends a Server Action by sending
+  the visitor to `to`; `RouteRequest` is the type of the `request` prop.
