@@ -69,6 +69,15 @@ describe('the static build', () => {
     expect(existsSync(path.join(client, 'old', 'index.rsc'))).toBe(false);
   });
 
+  it('writes a sitemap of the pages it rendered, when told the origin', () => {
+    const xml = read('sitemap.xml');
+    expect(xml).toContain('<loc>https://example.test/</loc>');
+    expect(xml).toContain('<loc>https://example.test/products/2</loc>');
+    // リダイレクトと not-found はページではない
+    expect(xml).not.toContain('/old');
+    expect(xml).not.toContain('404');
+  });
+
   it('ships the client entry, so the page hydrates', () => {
     expect(read('index.html')).toMatch(/<script[^>]+type="module"/u);
   });

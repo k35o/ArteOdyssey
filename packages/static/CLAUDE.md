@@ -33,7 +33,17 @@ pnpm check         # check:write to auto-fix
   skip: a site missing half its pages is worse than a build that stopped. A
   `'use server'` module fails it for the same reason: the RSC pipeline
   compiles an action in either mode, so "static has no Server Actions" is
-  only true because the build says no (`serverActionModules`).
+  only true because this package says no — at build time by name
+  (`serverActionModules`) and in `vite dev` in `transform`, the moment the
+  file is seen.
+- **`site` is the only reason a sitemap exists.** Without the origin a
+  sitemap would list relative URLs, which is not a sitemap; with it every
+  page the build wrote is listed, redirects and the not-found excluded.
+- **The pattern walk is the engine's.** `patternsOf` is
+  `declaredPatterns(tree)` from the engine, in the matcher's order, so the
+  build, the shadow check and the prerenderer never disagree; the trailing
+  slash is the router's `normalizePathname`, and decoding a pathname for the
+  filesystem is the engine's `decodePathname`, shared with `@k8ordo/server`.
 - **The plugin is `framework()`, the same name `@k8ordo/server` exports.**
   The mode is the import and nothing else, which is what makes a
   `vite.config.ts` identical under either package.

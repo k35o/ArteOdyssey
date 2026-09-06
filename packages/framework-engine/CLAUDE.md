@@ -85,6 +85,17 @@ ParamsSchemaFor<pattern>`, lists per page pattern the schemas along its
   under `@k8ordo/server`, and the generator emits the field only there. Under
   `@k8ordo/static` the handler also buffers the HTML and answers 500 when the
   render threw, so the build stops naming the page instead of writing it.
+- **One pattern walk.** `declaredPatterns(tree)` is the order the matcher
+  tries patterns — pages and redirects, literals before params, the
+  catch-all last in its branch — and everything that asks "which URLs does
+  this site have" reads it: the shadow check here, `patternsOf` in
+  `@k8ordo/static`. `decodePathname` is likewise the one decoding both mode
+  packages use before a pathname may name a file.
+- **The two GUIDEs share their common sections from one source.**
+  `docs/shared/<name>.md` is written into both `packages/static/docs/GUIDE.md`
+  and `packages/server/docs/GUIDE.md` between `<!-- shared:<name> -->`
+  markers by `scripts/sync-guides.ts`; `pnpm check` fails on drift and
+  `pnpm check:write` re-syncs. Edit the fragment, never the copy.
 - **A route file's props are checked by the generator.** `routes.gen.ts`
   emits `satisfies Page<'/products/:id'>` / `satisfies Layout<'/:locale'>`
   per file, so a mistyped param name fails the build without any route file

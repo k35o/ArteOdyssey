@@ -87,48 +87,49 @@ export const buildTable = <T>(
     : { '/': node(tree) };
 };
 
-type DeclaredRedirect = { readonly pattern: string; readonly file: string };
+export type DeclaredPattern = {
+  readonly pattern: string;
+  readonly file: string;
+  readonly kind: 'page' | 'redirect' | 'notFound';
+};
 
-/** Every `redirect.ts`, with the pattern its directory puts it under. */
-export const declaredRedirects = (
+/**
+ * Every pattern the directories declare, in the order the matcher will try
+ * them — the one walk every consumer of "which URLs does this site have"
+ * shares, so the build, the shadow check and the prerenderer never disagree
+ * about the order.
+ */
+export const declaredPatterns = (
   dir: RouteDir,
   prefix = '',
-): DeclaredRedirect[] => {
+): DeclaredPattern[] => {
   const here = dir.kind === 'root' ? '' : prefix;
-  const found: DeclaredRedirect[] = [];
-  if (dir.redirect !== null) {
-    found.push({ pattern: here === '' ? '/' : here, file: dir.redirect });
+  const own = here === '' ? '/' : here;
+  const found: DeclaredPattern[] = [];
+  if (dir.page !== null)
+    found.push({ pattern: own, file: dir.page, kind: 'page' });
+  if (dir.redirect !== null && dir.page === null) {
+    found.push({ pattern: own, file: dir.redirect, kind: 'redirect' });
   }
-  for (const child of dir.children) {
+  for (const child of order(dir.children)) {
     found.push(
-      ...declaredRedirects(
+      ...declaredPatterns(
         child,
         child.kind === 'group' ? here : `${here}${child.key}`,
       ),
     );
   }
-  return found;
-};
-
-type Declared = { readonly pattern: string; readonly file: string };
-
-/** Every pattern the table declares, in the order the matcher will try them. */
-const declared = (dir: RouteDir, prefix = ''): Declared[] => {
-  const here = dir.kind === 'root' ? '' : prefix;
-  const found: Declared[] = [];
-  if (dir.page !== null) {
-    found.push({ pattern: here === '' ? '/' : here, file: dir.page });
-  }
-  for (const child of order(dir.children)) {
-    found.push(
-      ...declared(child, child.kind === 'group' ? here : `${here}${child.key}`),
-    );
-  }
   if (dir.notFound !== null) {
-    found.push({ pattern: `${here}/*`, file: dir.notFound });
+    found.push({ pattern: `${here}/*`, file: dir.notFound, kind: 'notFound' });
   }
   return found;
 };
+
+const declared = declaredPatterns;
+
+/** Every `redirect.ts`, with the pattern its directory puts it under. */
+export const declaredRedirects = (dir: RouteDir): DeclaredPattern[] =>
+  declaredPatterns(dir).filter((each) => each.kind === 'redirect');
 
 /**
  * Routes that exist and can never render, because something declared earlier

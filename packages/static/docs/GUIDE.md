@@ -26,8 +26,10 @@ static build cannot ship Server Actions — a file cannot receive one, and these
 this application wants @k8ordo/server
 ```
 
-`vite dev` is a running server and will happily accept that POST, which is why
-the answer is a build that stops rather than a note in a guide.
+`vite dev` is a running server that would happily accept that POST, so the
+same refusal is said there too, the moment the file is seen — a form that
+works in development and posts into nothing in production would be the worst
+of the two.
 
 Choosing the other mode means installing `@k8ordo/server` instead, and nothing
 else about the application changes — the same route grammar, the same
@@ -88,6 +90,12 @@ vite dev     # a real server, so the pages behave as they will in production
 vite build   # dist/client/ is the site
 ```
 
+`framework()` takes three options: `routesDir` (default `src/routes`),
+`paths` (below, for routes with parameters), and `site` — the origin the
+site is served from, `https://example.com`. With `site` the build also writes
+`sitemap.xml`, listing every page it rendered; without it there is no sitemap,
+because a sitemap of relative URLs is not one.
+
 The root layout renders `<html>` and `<body>`: the framework has no document
 template of its own, because a template you cannot see is a template you cannot
 change.
@@ -136,6 +144,8 @@ export default function ProductPage({ params }: { params: { id: string } }) {
 }
 ```
 
+<!-- shared:refuses -->
+
 ### What the build refuses
 
 Every problem is reported, not just the first, and each names the file:
@@ -158,6 +168,10 @@ beside `[slug]/` is reachable without saying anything. A route group holds
 both kinds under one key and the table cannot interleave across it, which is
 the one shape where a declared route can still be shadowed — so it is reported
 rather than shipped.
+
+<!-- /shared:refuses -->
+
+<!-- shared:generated -->
 
 ## The generated files
 
@@ -196,6 +210,10 @@ import { href } from '@k8ordo/router';
 
 <a href={href('/products/:id', { id })}>…</a>; // checked against routes/
 ```
+
+<!-- /shared:generated -->
+
+<!-- shared:params -->
 
 ## Parameters with a schema
 
@@ -243,6 +261,8 @@ A layout receives its params as strings whatever it declared — under
 `not-found.tsx`, where nothing is validated, a typed value would be a lie. A
 layout that wants the parsed value beside the page's parses it itself, or
 declares the schema and lets the pages below it receive the result.
+
+<!-- /shared:params -->
 
 ## Errors
 
@@ -311,6 +331,8 @@ on (`<meta http-equiv="refresh">` and a link), because no server will ever
 send the status; there is no `index.rsc` beside it, so a client navigation to
 it hands the URL to the browser, which loads that page and follows it.
 
+<!-- shared:titles -->
+
 ## Titles and metadata
 
 There is no metadata API, because React 19 already hoists `<title>`,
@@ -332,6 +354,8 @@ export default function ProductPage({ params }: { params: { id: number } }) {
 Keep one `<title>` on screen at a time: the root layout renders none, each
 page renders its own, and `not-found.tsx` renders one too. Two titles at once
 is not a fallback chain — React renders both.
+
+<!-- /shared:titles -->
 
 ## Execution boundaries
 
@@ -360,6 +384,8 @@ export default function HomePage() {
   return <Counter />; // the page stays on the server
 }
 ```
+
+<!-- shared:server-only -->
 
 ### Server-only modules
 
@@ -392,6 +418,8 @@ what lets TypeScript resolve it too.
 name is so a reader sees it in the directory tree and at every import site,
 without opening the file. A third-party module that does not mark itself can
 be wrapped in one of these to come under the same check.
+
+<!-- /shared:server-only -->
 
 ## Routes with parameters
 
@@ -459,6 +487,7 @@ dist/
       1/index.html        /products/1
       1/index.rsc
     404.html              not-found.tsx, rendered
+    sitemap.xml           every page above, when `site` is set
     assets/…              the client bundle
   rsc/  ssr/              the machinery that produced the above
 ```

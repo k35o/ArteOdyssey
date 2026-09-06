@@ -6,7 +6,9 @@
  */
 export { parseRouteTree } from './grammar/tree';
 export type { RouteDir } from './grammar/tree';
-export { buildTable } from './generate/emit';
+export { buildTable, declaredPatterns } from './generate/emit';
+export type { DeclaredPattern } from './generate/emit';
+export { decodePathname } from './runtime/pathname';
 export { scanRoutes } from './generate/write';
 export { engine } from './plugin/core';
 export type { EngineOptions } from './plugin/core';

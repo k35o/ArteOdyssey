@@ -32,6 +32,8 @@ When installed via npm, these docs live under `node_modules/@k8ordo/static/docs/
   static application (the same name `@k8ordo/server` exports, so the mode is
   the import and nothing else). `options.routesDir` moves the route directory (default
   `src/routes`); `options.paths` supplies concrete pathnames for routes with
-  parameters, and a parameterised route left uncovered fails the build. A
-  `'use server'` module fails it too: a file cannot receive a Server Action,
-  so the application wants `@k8ordo/server` instead.
+  parameters, and a parameterised route left uncovered fails the build;
+  `options.site` (the origin) makes the build also write `sitemap.xml`. A
+  `'use server'` module fails it too — in `vite dev` as well as the build: a
+  file cannot receive a Server Action, so the application wants
+  `@k8ordo/server` instead.

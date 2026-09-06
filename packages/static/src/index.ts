@@ -33,11 +33,22 @@ export type StaticOptions = EngineOptions & {
   readonly paths?: (
     patterns: readonly string[],
   ) => readonly string[] | Promise<readonly string[]>;
+  /**
+   * The origin the site is served from — `https://example.com`. With it the
+   * build also writes `sitemap.xml`, listing every page it rendered; without
+   * it, no sitemap, because a sitemap of relative URLs is not one.
+   */
+  readonly site?: string;
 };
 
 type Handler = (request: Request) => Promise<Response>;
 
 const ORIGIN = 'http://k8ordo.localhost';
+
+// A `'use server'` directive is the first statement of a module: a string
+// literal, on its own line, before anything but comments and blank lines.
+const USE_SERVER =
+  /^(?:\s*(?:\/\/[^\n]*|\/\*[\s\S]*?\*\/))*\s*(?:'use server'|"use server");?/u;
 
 // The engine is bundled into this package, and its runtime entries ship
 // beside this file — `dist/runtime/` — which is where Vite is pointed.
@@ -63,6 +74,18 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
     configResolved(config) {
       ({ root } = config);
       routesDir = path.resolve(root, options.routesDir ?? 'src/routes');
+    },
+
+    // The build refuses a Server Action (below); `vite dev` is a running
+    // server that would happily accept the POST, and a form that works in
+    // development and posts into nothing in production is the worst of the
+    // two. So the refusal is said here as well, the moment the file is seen.
+    transform(code, id) {
+      if (id.includes('/node_modules/')) return null;
+      if (!USE_SERVER.test(code)) return null;
+      throw new Error(
+        `static build cannot ship Server Actions — a file cannot receive one, and this declares 'use server':\n  ${path.relative(root, id)}\nthis application wants @k8ordo/server`,
+      );
     },
 
     buildApp: {
@@ -123,6 +146,8 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
         // A page that threw while rendering: the handler answers 500 with
         // the message, and a build that wrote it would ship the failure.
         const failed: string[] = [];
+        // What was written as a redirect rather than a page.
+        const redirected = new Set<string>();
         await inParallel(
           plan.paths.flatMap((pathname) => {
             // The URL keeps its escapes; only the file name is decoded.
@@ -136,6 +161,7 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
                 );
                 if (status === 404) refused.push(pathname);
                 if (status === 500) failed.push(pathname);
+                if (status === 307 || status === 308) redirected.add(pathname);
                 // A redirect has no payload: a client navigation to it finds
                 // nothing at index.rsc and hands the URL to the browser, which
                 // loads the HTML above and follows it.
@@ -171,8 +197,19 @@ export const framework = (options: StaticOptions = {}): PluginOption[] => {
             `${ORIGIN}${unmatched}`,
           );
         }
+        // The build knows every page it wrote, which is what a sitemap is.
+        // Redirects are not pages, and a not-found is not a URL to offer.
+        if (options.site !== undefined) {
+          await writeFile(
+            path.join(clientDir, 'sitemap.xml'),
+            sitemap(
+              options.site,
+              plan.paths.filter((pathname) => !redirected.has(pathname)),
+            ),
+          );
+        }
         builder.config.logger.info(
-          `k8ordo: wrote ${String(plan.paths.length)} routes${unmatched === null ? '' : ' and 404.html'}`,
+          `k8ordo: wrote ${String(plan.paths.length)} routes${unmatched === null ? '' : ' and 404.html'}${options.site === undefined ? '' : ' and sitemap.xml'}`,
         );
       },
     },
@@ -207,6 +244,31 @@ const inParallel = async (
   await Promise.all(
     Array.from({ length: Math.min(WIDTH, tasks.length) }, worker),
   );
+};
+
+/**
+ * The sitemap protocol's one required element per URL: `<loc>`. The site is
+ * taken as given, without a trailing slash, and the pathname as the URL
+ * carries it, escaped for XML.
+ */
+const escapeXml = (value: string): string =>
+  value
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&apos;');
+
+export const sitemap = (site: string, pathnames: readonly string[]): string => {
+  const origin = site.endsWith('/') ? site.slice(0, -1) : site;
+  const urls = pathnames
+    .toSorted()
+    .map(
+      (pathname) =>
+        `  <url><loc>${escapeXml(`${origin}${pathname}`)}</loc></url>`,
+    )
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
 };
 
 /**

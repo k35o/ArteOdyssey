@@ -135,6 +135,8 @@ export default async function ProductPage({
 }
 ```
 
+<!-- shared:refuses -->
+
 ### What the build refuses
 
 Every problem is reported, not just the first, and each names the file:
@@ -157,6 +159,10 @@ beside `[slug]/` is reachable without saying anything. A route group holds
 both kinds under one key and the table cannot interleave across it, which is
 the one shape where a declared route can still be shadowed — so it is reported
 rather than shipped.
+
+<!-- /shared:refuses -->
+
+<!-- shared:generated -->
 
 ## The generated files
 
@@ -195,6 +201,10 @@ import { href } from '@k8ordo/router';
 
 <a href={href('/products/:id', { id })}>…</a>; // checked against routes/
 ```
+
+<!-- /shared:generated -->
+
+<!-- shared:params -->
 
 ## Parameters with a schema
 
@@ -242,6 +252,8 @@ A layout receives its params as strings whatever it declared — under
 `not-found.tsx`, where nothing is validated, a typed value would be a lie. A
 layout that wants the parsed value beside the page's parses it itself, or
 declares the schema and lets the pages below it receive the result.
+
+<!-- /shared:params -->
 
 ## Errors
 
@@ -323,6 +335,8 @@ posted by the client runtime is answered with a payload that tells the
 router to navigate there. `redirect()` is for actions: a page that should
 send the visitor elsewhere is a `redirect.ts`, where the build can see it.
 
+<!-- shared:titles -->
+
 ## Titles and metadata
 
 There is no metadata API, because React 19 already hoists `<title>`,
@@ -345,6 +359,8 @@ Keep one `<title>` on screen at a time: the root layout renders none, each
 page renders its own, and `not-found.tsx` renders one too. Two titles at once
 is not a fallback chain — React renders both.
 
+<!-- /shared:titles -->
+
 ## Execution boundaries
 
 Server is the default: a file with no directive is a Server Component. The
@@ -364,6 +380,8 @@ export function Counter() {
 
 A Server Component imports it like anything else, and only that component
 crosses.
+
+<!-- shared:server-only -->
 
 ### Server-only modules
 
@@ -397,6 +415,8 @@ name is so a reader sees it in the directory tree and at every import site,
 without opening the file. A third-party module that does not mark itself can
 be wrapped in one of these to come under the same check.
 
+<!-- /shared:server-only -->
+
 ## Running the build
 
 ```bash
@@ -407,12 +427,15 @@ vite build
 // serve.js
 import { serve } from '@k8ordo/server';
 
-await serve({ port: 3000 });
+const server = await serve({ port: 3000 });
+// server.url, server.port; await server.close() to stop
 ```
 
 `serve` hands out the client build's files as they are and passes everything
 else to the request handler: HTML for a page, its RSC payload for a client
-navigation, and `not-found.tsx` under a genuine 404. A request pathname may
+navigation, and `not-found.tsx` under a genuine 404. It returns where it
+listens and a way to stop — `port: 0` asks the system for a free port, which
+is what a test wants. A request pathname may
 only ever name a file inside the build output, whatever it is spelled like —
 traversal is not a case weighed per request but an outcome the path resolution
 cannot produce.

@@ -22,8 +22,9 @@
     "build": "vp pack",
     "test": "vp test",
     "typecheck": "tsc --noEmit",
-    "check": "vp check",
-    "check:write": "vp check --fix"
+    "check": "vp check && node scripts/sync-guides.ts --check",
+    "check:write": "vp check --fix && node scripts/sync-guides.ts",
+    "sync:guides": "node scripts/sync-guides.ts"
   },
   "dependencies": {
     "@vitejs/plugin-react": "catalog:",

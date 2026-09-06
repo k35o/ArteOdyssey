@@ -34,7 +34,11 @@ pnpm check         # check:write to auto-fix
   `vite.config.ts` identical under either package.
 - **A request may only name a file inside the client build.** `safeJoin` is
   the only way `serve` turns a pathname into a path, and it is tested against
-  the spellings traversal takes.
+  the spellings traversal takes; decoding is the engine's `decodePathname`,
+  shared with `@k8ordo/static`.
+- **`serve` hands back a handle.** `{ port, url, close }`, so a test can
+  listen on port 0 and stop what it started (`serve.test.ts` runs it against
+  a fixture `dist`, no real build needed).
 
 ## Layout
 
