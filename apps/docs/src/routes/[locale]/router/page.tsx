@@ -1,4 +1,11 @@
-import { HistoryIcon, LinkIcon, ListIcon, ShieldCheckIcon } from '@k8ordo/ui';
+import {
+  HistoryIcon,
+  LinkIcon,
+  ListIcon,
+  LocationIcon,
+  RefreshIcon,
+  ShieldCheckIcon,
+} from '@k8ordo/ui';
 
 import { PackageExample } from '../../../components/package-example';
 import { PackageLanding } from '../../../components/package-landing';
@@ -25,6 +32,16 @@ const FEATURES: PackageFeature[] = [
     description: 'router.featureNoLinkDescription',
     icon: <LinkIcon />,
   },
+  {
+    title: 'router.featureMatch',
+    description: 'router.featureMatchDescription',
+    icon: <LocationIcon />,
+  },
+  {
+    title: 'router.featureError',
+    description: 'router.featureErrorDescription',
+    icon: <RefreshIcon />,
+  },
 ];
 
 const EXAMPLE = `// routes.ts
@@ -33,14 +50,15 @@ export const routes = defineRoutes({
   '/products': {
     children: { '/': ProductList, '/:id': ProductPage },
   },
-  '/(docs)': { layout: DocsLayout, children: { '/guide': Guide } },
+  '/(docs)': { layout: DocsLayout, error: DocsError, children: { '/guide': Guide } },
   '/*': NotFound,
 });
 
 // どのページからでも。表は import しない
 <a href={href('/products/:id', { id })}>…</a>;
 
-const { id } = useParams('/products/:id');`;
+const { id } = useParams('/products/:id');
+const inProducts = useMatch('/products/*') !== null; // 表を持たないブラウザでも`;
 
 export default function RouterPage() {
   return (

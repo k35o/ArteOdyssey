@@ -13,6 +13,7 @@ import {
 } from '@k8ordo/ui';
 import type { ReactNode } from 'react';
 
+import { PageTitle } from '../../../components/page-title';
 import { T } from '../../../components/t';
 import { localizeHref, useTranslation } from '../../../i18n';
 import type { MessageKey } from '../../../i18n/types';
@@ -66,6 +67,7 @@ export default function Ui() {
 
   return (
     <div className="flex flex-1 flex-col">
+      <PageTitle name="@k8ordo/ui" />
       <section className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-12 px-6 py-20 md:grid-cols-[1fr_auto] md:gap-16 md:px-8 md:py-28">
         <div className="flex max-w-xl flex-col justify-center gap-8">
           <Heading level="h1">@k8ordo/ui</Heading>

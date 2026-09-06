@@ -42,7 +42,7 @@ When installed via npm, these docs live under `node_modules/@k8ordo/router/docs/
   pathname — never the search — so it works with or without a table, which
   makes it the location hook that also works under the framework;
   `useMatch(pattern)` / `matchPath(pattern, pathname)` answer whether that
-  pattern — or, with a trailing `/*`, anything below it — is the pathname
+  pattern — or, with a trailing `/*`, anything strictly below it — is the pathname
   showing, with its params, table-free, so a sidebar can ask which section is
   open under the framework too; `normalizePathname(pathname)` is the router's
   own trailing-slash rule;

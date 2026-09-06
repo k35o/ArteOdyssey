@@ -71,6 +71,8 @@ export default function Home() {
 
   return (
     <div className="flex flex-1 flex-col">
+      {/* サイトの表紙だけは「k8ordo · k8ordo」にならないよう素の title */}
+      <title>k8ordo</title>
       <section className="mx-auto w-full max-w-6xl px-6 py-20 md:px-8 md:py-28">
         <div className="flex max-w-xl flex-col justify-center gap-8">
           {/* Heading は className を受けないため、ヒーローのみ生 h1（サイト内この1箇所限定） */}

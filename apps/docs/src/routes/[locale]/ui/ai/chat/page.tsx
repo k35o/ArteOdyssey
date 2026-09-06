@@ -2,6 +2,7 @@ import { Heading, Separator } from '@k8ordo/ui';
 
 import { CodeBlock } from '../../../../../components/code-block';
 import { ComponentPreview } from '../../../../../components/component-preview';
+import { PageTitle } from '../../../../../components/page-title';
 import { PropsTable } from '../../../../../components/props-table';
 import { T } from '../../../../../components/t';
 import { inheritsOf, propsOf } from '../../../../../data/component-props';
@@ -10,6 +11,7 @@ import { ChatDemo } from '../_previews/chat-demo';
 export default function AiChat() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.aiChat" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.aiChat" />

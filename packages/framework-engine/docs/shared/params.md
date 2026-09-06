@@ -26,7 +26,10 @@ checked against. A schema may name only the params its pattern has; naming
 another is a build error where the table is generated. Any library that
 implements Standard Schema works — zod, zod/mini, or another — and the schema
 must be synchronous, because which pattern answers a pathname is decided
-before anything renders.
+before anything renders. The file that exports it must be a Server Component
+file: from a `'use client'` module the export reaches the handler as a client
+reference, not a schema. A layout that has to be a client component keeps its
+schema in a Server Component `layout.tsx` that renders the client shell.
 
 **A refused param is a pathname the pattern does not answer.** `/products/shoes`
 does not become a page that renders with `NaN`; the walk goes on to whatever

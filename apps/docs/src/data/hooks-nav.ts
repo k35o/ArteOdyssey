@@ -54,21 +54,6 @@ export const hookCategories: NavCategory[] = [
         path: '/ui/hooks/use-controllable-state',
         descKey: 'hooks.useControllableState.description',
       },
-      {
-        name: 'useLocalStorage',
-        path: '/ui/hooks/use-local-storage',
-        descKey: 'hooks.useLocalStorage.description',
-      },
-      {
-        name: 'useSessionStorage',
-        path: '/ui/hooks/use-session-storage',
-        descKey: 'hooks.useSessionStorage.description',
-      },
-      {
-        name: 'useHash',
-        path: '/ui/hooks/use-hash',
-        descKey: 'hooks.useHash.description',
-      },
     ],
   },
   {

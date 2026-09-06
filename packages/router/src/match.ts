@@ -7,8 +7,9 @@ import type { RegisteredNavigablePattern, RegisteredPattern } from './register';
 
 /**
  * A pattern from the table, or a table pattern followed by `/*` to mean
- * "it and everything below it" — the shape a navigation asks about when it
- * wants to know which section of the site is showing.
+ * "everything below it" — the shape a navigation asks about when it wants
+ * to know which section of the site is showing. The pattern's own page is
+ * not below it: `/x/*` matches `/x/y` and not `/x`.
  */
 export type MatchablePattern =
   | RegisteredPattern

@@ -3,6 +3,7 @@ import { en, ja } from '@k8ordo/ui/i18n';
 import type { Messages } from '@k8ordo/ui/i18n';
 
 import { CodeBlock } from '../../../../components/code-block';
+import { PageTitle } from '../../../../components/page-title';
 import { T } from '../../../../components/t';
 
 /** 辞書のキーが増減したらここも直すよう、Record で網羅性を型に持たせる */
@@ -87,6 +88,7 @@ const MESSAGE_ROWS: readonly MessageRow[] =
 export default function I18n() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.i18n" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.i18n" />

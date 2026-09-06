@@ -182,8 +182,10 @@ matchPath('/products/:id', pathname); // the same, pure, for a pathname in hand
 ```
 
 `useMatch` takes a pattern from the table, or a table pattern followed by
-`/*` to mean "it and everything below it" — what a sidebar asks when it wants
-to know which section of the site is open. It is built on `usePathname`, so it
+`/*` to mean "everything below it" — what a sidebar asks when it wants to
+know which section of the site is open. The pattern's own page is not below
+it: `/products/*` matches `/products/42` and not `/products`, which is
+`useMatch('/products')`; ask both when a section includes its index. It is built on `usePathname`, so it
 re-renders on the pathname and never on the search, and it needs no table in
 the browser — which is what makes it the one of these that also works under
 the framework, where `useRoute` has no match to read.

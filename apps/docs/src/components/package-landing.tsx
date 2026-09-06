@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 
 import { localizeHref, useTranslation } from '../i18n';
 import type { MessageKey } from '../i18n/types';
+import { PageTitle } from './page-title';
 import { T } from './t';
 
 export type PackageFeature = {
@@ -45,6 +46,7 @@ export function PackageLanding({
 
   return (
     <div className="flex flex-1 flex-col">
+      <PageTitle name={name} />
       <section className="mx-auto w-full max-w-6xl px-6 py-20 md:px-8 md:py-28">
         <div className="flex max-w-2xl flex-col justify-center gap-8">
           <Heading level="h1">{name}</Heading>

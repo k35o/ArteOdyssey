@@ -59,6 +59,7 @@ import {
 import type { ReactNode } from 'react';
 
 import { CodeBlock } from '../../../../../components/code-block';
+import { PageTitle } from '../../../../../components/page-title';
 import { PropsTable } from '../../../../../components/props-table';
 import { T } from '../../../../../components/t';
 import { STORYBOOK_URL } from '../../../../../constants';
@@ -80,6 +81,7 @@ const IconCard = ({
 export default function IconsPage() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle name="Icons" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">Icons</Heading>
         <p className="text-fg-mute text-lg">

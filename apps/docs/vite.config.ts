@@ -11,6 +11,8 @@ export default defineConfig({
   },
   plugins: [
     framework({
+      // 配信元。これがあるとビルドが sitemap.xml も書く
+      site: 'https://ordo.k8o.me',
       // ロケールは全ページに掛かる区間なので、埋まっていないパターンを
       // そのままロケールの数だけ展開する
       paths: (patterns) =>

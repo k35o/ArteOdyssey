@@ -2,6 +2,7 @@
 
 import { Button, Heading } from '@k8ordo/ui';
 
+import { PageTitle } from '../../components/page-title';
 import { localizeHref, useTranslation } from '../../i18n';
 
 export default function NotFound() {
@@ -9,6 +10,7 @@ export default function NotFound() {
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col items-start gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="notFound.title" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">{t('notFound.title')}</Heading>
         <p className="text-fg-mute">{t('notFound.description')}</p>

@@ -3,12 +3,14 @@ import { Anchor, Heading, Separator } from '@k8ordo/ui';
 import { CodeBlock } from '../../../../components/code-block';
 import { InstallTabs } from '../../../../components/install-tabs';
 import { LocaleAnchor } from '../../../../components/locale-anchor';
+import { PageTitle } from '../../../../components/page-title';
 import { T } from '../../../../components/t';
 import { STORYBOOK_URL } from '../../../../constants';
 
 export default function GetStarted() {
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-8 px-6 py-12 md:px-8">
+      <PageTitle k="nav.getStarted" />
       <div className="flex flex-col gap-4">
         <Heading level="h1">
           <T k="nav.getStarted" />
