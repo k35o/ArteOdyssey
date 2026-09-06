@@ -71,7 +71,7 @@ The prop schemas under `src/integrations/_shared/schemas.ts` are not just valida
 
 Every package's `docs/**` is published to npm (see `files` in its manifest) and is read by AI coding assistants out of `node_modules/@k8ordo/<name>/docs/`. Stale examples there are shipped defects, not just documentation debt.
 
-Any pull request that changes a package's public API must update, **in the same PR**, that package's `docs/GUIDE.md` and `docs/llms.txt` (and, for `@k8ordo/ui`, `packages/ui/README.md`, `docs/references/*.md`, and `.claude/skills/ui-design/`, whose SKILL.md and `references/` mirror the shipped examples), plus its landing page under `apps/docs/src/routes/[locale]/<name>/`.
+Any pull request that changes a package's public API must update, **in the same PR**, that package's `docs/GUIDE.md`, `docs/llms.txt` and `README.md` (and, for `@k8ordo/ui`, `docs/references/*.md` and `.claude/skills/ui-design/`, whose SKILL.md and `references/` mirror the shipped examples), plus its landing page under `apps/docs/src/routes/[locale]/<name>/`. The sections `@k8ordo/static` and `@k8ordo/server` share are written once in `packages/framework-engine/docs/shared/` and synced into both guides by `pnpm --filter @k8ordo/framework-engine check:write`; `pnpm check` fails when a copy drifts.
 
 ## Testing `@k8ordo/ui`: writing a story is writing a test
 

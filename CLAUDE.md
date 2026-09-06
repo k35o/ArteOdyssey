@@ -8,6 +8,10 @@ k8ordo is the monorepo for the `@k8ordo/*` packages. Vite+ (`vp`) is the unified
 
 The family's own framework is primary, not a support tool, even though it is delivered as Vite plugins. Vite+ is assumed infrastructure here — the layer everything already stands on — so a plugin that defines what an application *is* (its route grammar, its execution boundaries, how it is built and served) is the foundation an app builds on, not an addon to someone else's ecosystem. The test is who the artifact serves: `@k8ordo/static` and `@k8ordo/server` serve k8ordo applications, and an eslint config serves eslint.
 
+The same test admits `@k8ordo/ui`'s generative-UI adapters (`@k8ordo/ui/json-render`, `@k8ordo/ui/openui`, `@k8ordo/ui/ai-sdk`). They plug into other ecosystems, but what they serve is an application that already uses `@k8ordo/ui` and wants an LLM to compose *these* components: the catalog is a description of this library, and it would be a different, thinner thing published anywhere else. An adapter whose value would survive without `@k8ordo/ui` behind it does not belong here.
+
+`packages/framework-engine` is the one directory here that is not a member: a private workspace package both modes bundle at pack time, never published.
+
 Every package here shares the same discipline:
 
 - **React 19 and RSC are assumed.** No framework-agnostic core and no adapter layer for other frameworks — we would never use one, so building it would be an indirection nobody pays for.
@@ -17,7 +21,7 @@ Every package here shares the same discipline:
 ## Adding a package
 
 1. `packages/<name>/` with its own `package.json`, `tsconfig.json`, and `vite.config.ts` (the `pack` section defines the publishable build), plus a `check:package` script (`publint` + `attw`) so CI validates the tarball. There is deliberately no template: each manifest is copied from the nearest sibling and kept small enough to read.
-2. **Ship the package's own docs with it**: a `docs/` directory listed in `files`, so an agent reads the exact installed version out of `node_modules/@k8ordo/<name>/docs/`. The home page promises this on behalf of every package ("readable by agents"), so a package that does not ship docs makes that claim false. `@k8ordo/ui` is the pattern: `GUIDE.md` as the entry point, `references/*.md` behind it, and `llms.txt` as the index.
+2. **Ship the package's own docs with it**: a `docs/` directory listed in `files`, so an agent reads the exact installed version out of `node_modules/@k8ordo/<name>/docs/`. The home page promises this on behalf of every package ("readable by agents"), so a package that does not ship docs makes that claim false. `@k8ordo/ui` is the pattern: `GUIDE.md` as the entry point, `references/*.md` behind it, and `llms.txt` as the index. Every package also has a `README.md` (the npm page: pitch, install, peer table, quick start, the "AI Agent Documentation" block) and an `AGENTS.md` that is a symlink to its `CLAUDE.md`. `@k8ordo/static` and `@k8ordo/server` share the common sections of their guides from `packages/framework-engine/docs/shared/` — edit the fragment, never the copy; `pnpm check` fails on drift.
 3. Examples go to `examples/<name>-<variant>/`, owned by one package. Never bolt a new package onto an existing example: a kitchen-sink example cannot tell you which package broke the build, and it drags one package's dependencies onto everyone.
 4. Docs go under `/<name>/…` on the site. Only `/` is shared. See `apps/docs/CLAUDE.md`.
 5. CI picks the package up automatically for `tests` and `package` (both filter `./packages/*`). The `tokens`, `chromatic`, and `vrt` jobs stay pinned to `@k8ordo/ui` — design tokens, prop extraction, and screenshots are specific to a styled component library.
