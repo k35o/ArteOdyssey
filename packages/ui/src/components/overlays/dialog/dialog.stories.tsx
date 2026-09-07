@@ -70,16 +70,6 @@ export const PopoverDialog: Story = {
       ).toBeInTheDocument();
     });
   },
-  parameters: {
-    a11y: {
-      options: {
-        rules: {
-          // https://github.com/floating-ui/floating-ui/pull/2298#issuecomment-1518101512
-          'aria-hidden-focus': { enabled: false },
-        },
-      },
-    },
-  },
 };
 
 const ModalDialogRender = () => {

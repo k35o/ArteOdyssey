@@ -23,7 +23,6 @@ const isVerticalWritingMode = (el: HTMLElement): boolean => {
 
 /**
  * 矢印キーによる roving-tabindex のリストナビゲーション。
- * floating-ui の useListNavigation / useInteractions / FloatingList / useListItem を置換する。
  *
  * コンテンツの書字方向に追従してキーを割り当てる:
  * - 横書き: ↑=前 / ↓=次

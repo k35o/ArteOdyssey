@@ -90,8 +90,8 @@ export default defineConfig({
             use: cssEntry('./apps/docs/src/styles/globals.css'),
           },
           {
-            files: '**/examples/nextjs/**',
-            use: cssEntry('./examples/nextjs/src/app/globals.css'),
+            files: '**/examples/ui-nextjs/**',
+            use: cssEntry('./examples/ui-nextjs/src/app/globals.css'),
           },
           {
             files: '**',

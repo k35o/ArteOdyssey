@@ -308,12 +308,10 @@ into React state and pushing it back out at submit:
 <HiddenValue name="body" value={body} />
 ```
 
-This is all `Controller` does in react-hook-form, and it is the one place that
-binding silently breaks there. Here the value is in the form, so it submits
-whether or not anything else works. `HiddenValue` is a component rather than a
-props helper because React updates a controlled value without any DOM event —
-the component announces each change with one, so cross-field rules and
-`isDirty` hear it like any keystroke.
+The value is in the form, so it submits whether or not anything else works.
+`HiddenValue` is a component rather than a props helper because React updates
+a controlled value without any DOM event — the component announces each change
+with one, so cross-field rules and `isDirty` hear it like any keystroke.
 
 ## Multi-step forms
 

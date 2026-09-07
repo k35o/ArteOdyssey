@@ -139,10 +139,9 @@ export const Content: FC<{
     }
   }, [isOpen]);
 
-  // floating-ui の FloatingFocusManager(modal=false) 相当を自前フックで代替。
   useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);
 
-  // FloatingFocusManager の closeOnFocusOut 相当（Tab でメニュー外へ抜けたら閉じる）。
+  // Tab でメニュー外へ抜けたら閉じる。
   // trapFocus で絞るのは、focus 管理を使わない Tooltip の hover 挙動に干渉しないため。
   // relatedTarget が null のケース（外側クリックや hidePopover で焦点が body へ落ちる）
   // は Tab 移動と区別できないので閉じず、外側クリックは useClickAway に任せる。
