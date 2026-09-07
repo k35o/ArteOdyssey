@@ -9,16 +9,6 @@ import type { Option } from './../../../types/variables';
 const meta: Meta<typeof ListBox.Root> = {
   title: 'components/overlays/list-box',
   component: ListBox.Root,
-  parameters: {
-    a11y: {
-      options: {
-        rules: {
-          // https://github.com/floating-ui/floating-ui/pull/2298#issuecomment-1518101512
-          'aria-hidden-focus': { enabled: false },
-        },
-      },
-    },
-  },
 };
 
 export default meta;

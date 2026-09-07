@@ -8,16 +8,6 @@ import { Button } from '../../buttons/button';
 const meta: Meta<typeof Tooltip.Root> = {
   title: 'components/overlays/tooltip',
   component: Tooltip.Root,
-  parameters: {
-    a11y: {
-      options: {
-        rules: {
-          // https://github.com/floating-ui/floating-ui/pull/2298#issuecomment-1518101512
-          'aria-hidden-focus': { enabled: false },
-        },
-      },
-    },
-  },
 };
 
 export default meta;
