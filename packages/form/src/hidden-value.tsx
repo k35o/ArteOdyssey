@@ -11,9 +11,6 @@ import type { FC } from 'react';
  * pulling its value into React state and fighting it back out at submit, park
  * the value in a hidden input and let the form collect it like any other.
  *
- * This is the whole of what `Controller` exists to do in react-hook-form, and
- * it is the one place that binding silently breaks there.
- *
  * A component rather than a props helper for two reasons the form cannot see
  * from outside: React updates a controlled value without any DOM event, so a
  * change here has to be announced with one for rules and `isDirty` to notice;

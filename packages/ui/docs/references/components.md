@@ -391,7 +391,7 @@ Props:
 
 Form components are used together with `FormControl`'s `renderInput` pattern. Every form component supports both controlled and uncontrolled use.
 
-`ref` reaches the real element (`input` / `textarea` / `select` / `fieldset`). `Textarea` and `FileField` use a ref internally but compose it with yours, so `react-hook-form`'s `register()` and the like can be passed straight through. `Radio` (a group that renders several inputs) and `FormControl` (a wrapper) do not take a `ref`.
+`ref` reaches the real element (`input` / `textarea` / `select` / `fieldset`). `Textarea` and `FileField` use a ref internally but compose it with yours, so the `ref` you pass still reaches the element. `Radio` (a group that renders several inputs) and `FormControl` (a wrapper) do not take a `ref`.
 
 ### Form
 

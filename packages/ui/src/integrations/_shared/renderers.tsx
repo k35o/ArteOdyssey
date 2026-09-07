@@ -284,7 +284,7 @@ export function renderSeparator(props: SeparatorProps): ReactNode {
 
 // The bare Card has no padding and the generative catalog has no className
 // escape hatch, so map the integration `size` to a sensible inner padding
-// (default md). Mirrors the size→padding convention in Chakra / Fluent / Radix.
+// (default md).
 const CARD_PADDING_CLASS = {
   sm: 'p-4',
   md: 'p-6',

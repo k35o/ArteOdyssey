@@ -6,7 +6,7 @@ import type { Placement } from '../../../types/variables';
  * CSS Anchor Positioning による配置ヘルパー。
  *
  * placement を position-area / position-try-fallbacks / 対向辺マージン（offset 相当）へ
- * 変換する。旧 floating-ui のミドルウェア（offset / flip / autoUpdate）の置き換え。
+ * 変換する。
  *
  * 注意: CSS Anchor Positioning は Baseline newly available（2026-01）で、
  * 縦書き / RTL のインライン軸補正にエンジン差（既知の interop バグ）がある。
@@ -22,7 +22,7 @@ type AnchorCSSProperties = CSSProperties & {
   '--ao-anchor'?: string;
 };
 
-// floating-ui の物理 Placement を position-area へ写像する。
+// 物理 Placement を position-area へ写像する。
 // `span-*` は anchor 中央から該当方向へ伸びる領域を指し、その先頭辺に揃うため、
 // `-start` は開始辺揃え（span を反対側へ）、`-end` は終了辺揃えになる。
 const POSITION_AREA: Record<Placement, string> = {

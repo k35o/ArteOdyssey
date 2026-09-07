@@ -24,8 +24,7 @@ pnpm check         # check:write to auto-fix
 Today that is exactly four things: which message to show for a field the
 browser has judged invalid, which server errors are still current (the
 `edited` set), the identity of each repeated row, and one dirty flag. Anything
-that would mirror a field's value into React state breaks the package — it is
-the mistake Conform spent a major version undoing.
+that would mirror a field's value into React state breaks the package.
 
 This is also the test for a new feature. `isDirty` is fine because
 `el.value !== el.defaultValue` reads the DOM and yields one boolean. Input
@@ -63,8 +62,7 @@ checks (`refine`) vanish from its output without a trace.
   it), `innerType` (peeling `.optional()` / `.default()` wrappers so a wrapped
   object's subtree pairs with its JSON node), `element` (`zod/mini` arrays),
   and `entries`-shaped enum detection at the type level. Reporting what the
-  client will not check is worth the coupling — Conform silently discards the
-  same information. If zod moves any of it, the reports degrade; the
+  client will not check is worth the coupling. If zod moves any of it, the reports degrade; the
   attributes do not.
 - **A pairing the walk cannot make is a throw, not a skip.** A JSON node with
   no matching zod node (records, tuples, nullable objects, nested repeats,

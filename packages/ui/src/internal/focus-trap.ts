@@ -18,15 +18,15 @@ const FOCUSABLE_SELECTOR = [
 /**
  * 非モーダルなポップアップのフォーカス管理。
  *
- * floating-ui の `<FloatingFocusManager modal={false}>` 相当を自前で再現する:
  * - 開いたとき、ポップアップ内へ初期フォーカスを移す
  *   （内部に roving tabindex のリストがある場合は、そのリストナビゲーション側の
  *   フォーカスが後で上書きするため、ここではコンテナ/先頭要素に当てるだけでよい）
  * - 閉じたとき、フォーカスがまだポップアップ内（または喪失）していればトリガーへ戻す。
  *   外側を意図的にクリック/フォーカスした場合は奪い返さない。
  *
- * ハードな Tab トラップや close-on-focus-out は行わない（元実装が modal=false のため）。
- * 外側クリック / Escape による dismiss は呼び出し側が担う。
+ * ハードな Tab トラップや close-on-focus-out は行わない。非モーダルなので Tab で
+ * ポップアップの外へ抜けられるのが期待される振る舞いで、抜けたときに閉じるかは
+ * 呼び出し側が決める。外側クリック / Escape による dismiss も呼び出し側が担う。
  */
 export const useFocusTrap = (
   contentRef: RefObject<HTMLElement | null>,

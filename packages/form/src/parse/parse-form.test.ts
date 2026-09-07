@@ -96,8 +96,8 @@ describe('parseForm', () => {
   });
 
   it('raises a wiring error when an input never carried the name', () => {
-    // Forgetting to spread the field props is the failure mode that makes
-    // react-hook-form silently submit nothing. It has to be loud.
+    // Forgetting to spread the field props would otherwise submit nothing,
+    // silently. It has to be loud.
     expect(() => parseForm(schema, formDataOf([['blogId', '3']]))).toThrow(
       /送信されていません: title/u,
     );

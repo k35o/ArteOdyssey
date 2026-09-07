@@ -95,9 +95,9 @@ export const Autocomplete: FC<Props> = ({
   const [text, setText] = useState('');
   const [selectIndex, setSelectIndex] = useState<number>();
 
-  // floating-ui の位置決め（offset/flip/size/autoUpdate）を CSS Anchor Positioning に置換。
-  // reference の inline 寸法に幅を合わせる。縦書きでは inline 軸が物理 height になるため、
-  // 元実装と同様に書字方向で anchor-size の物理キーワードを切り替える（論理 inline より広くサポート）。
+  // リストボックスは CSS Anchor Positioning で入力欄に追従させ、幅は入力欄の inline 寸法に
+  // 合わせる。縦書きでは inline 軸が物理 height になるため、書字方向で anchor-size の
+  // 物理キーワードを切り替える（論理 inline より広くサポート）。
   const writingMode = useWritingMode(containerRef);
   const anchorName = `--ao-ac-${id.replaceAll(/[^a-zA-Z0-9_-]/gu, '')}`;
   const listboxStyle: CSSProperties & {

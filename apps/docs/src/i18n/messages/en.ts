@@ -370,7 +370,7 @@ export const en = {
   'components.anchor.openInNewTabTitle': 'Open in New Tab',
   'components.anchor.renderAnchorTitle': 'Swap element via render prop',
   'components.anchor.renderAnchorDescription':
-    'Pass renderAnchor to swap the element to a framework-specific anchor (e.g. Next.js Link, react-router Link). Spread all received props onto the replacement element.',
+    'Pass renderAnchor to swap the element to a framework-specific anchor (e.g. Next.js Link). Spread all received props onto the replacement element.',
   'components.textField.description': 'A text input field.',
   'components.textField.placeholderTitle': 'Placeholder',
   'components.textField.disabledTitle': 'Disabled',

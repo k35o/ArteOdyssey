@@ -365,7 +365,7 @@ export const ja = {
   'components.anchor.openInNewTabTitle': '新しいタブで開く',
   'components.anchor.renderAnchorTitle': 'render propで要素差し替え',
   'components.anchor.renderAnchorDescription':
-    'Next.jsのLinkやreact-routerのLinkなど、フレームワーク固有のanchorコンポーネントに差し替えるにはrenderAnchorを渡してください。受け取ったpropsはすべて差し替え後の要素にスプレッドしてください。',
+    'Next.jsのLinkなど、フレームワーク固有のanchorコンポーネントに差し替えるにはrenderAnchorを渡してください。受け取ったpropsはすべて差し替え後の要素にスプレッドしてください。',
   'components.textField.description': 'テキスト入力フィールド',
   'components.textField.placeholderTitle': 'プレースホルダー',
   'components.textField.disabledTitle': '無効',
