@@ -29,7 +29,7 @@ import '@k8ordo/ui/styles.css';
 Tailwind CSS 4 を使うプロジェクトは、代わりにソース版の
 `@k8ordo/ui/tailwind.css` を import すると、デザイントークンを
 自分のマークアップの Tailwind クラスとしても使える（`examples/vite` /
-`examples/nextjs` を参照）。
+`examples/ui-nextjs` を参照）。
 
 ## Getting Started
 

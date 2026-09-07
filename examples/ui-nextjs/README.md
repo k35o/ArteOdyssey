@@ -28,7 +28,7 @@ From the root of the k8ordo UI monorepo:
 pnpm install
 
 # Navigate to this example
-cd examples/nextjs
+cd examples/ui-nextjs
 
 # Start development server (Turbopack)
 pnpm dev
@@ -39,7 +39,7 @@ The application will be available at `http://localhost:3000`.
 ## Project Structure
 
 ```
-examples/nextjs/
+examples/ui-nextjs/
 ├── src/
 │   └── app/
 │       ├── globals.css        # Imports @k8ordo/ui/tailwind.css
