@@ -35,7 +35,7 @@
     "@k8ordo/router": "workspace:^",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
-    "@vitest/browser-playwright": "4.1.10",
+    "@vitest/browser-playwright": "4.1.11",
     "react": "catalog:",
     "react-dom": "catalog:",
     "typescript": "7.0.2",
