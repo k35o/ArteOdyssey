@@ -31,6 +31,9 @@ export const useScrollDirection = (
     prevScrollY: 0,
   });
 
+  // target.current を読むのは購読が始まるときで、レンダー中ではない。購読を
+  // 張り直すのは target そのものが変わったときだけでよい
+  /* oxlint-disable react/preserve-manual-memoization */
   const subscribe = useCallback(
     (callback: () => void): (() => void) => {
       const element = target?.current ?? null;
@@ -98,6 +101,7 @@ export const useScrollDirection = (
     },
     [threshold, target],
   );
+  /* oxlint-enable react/preserve-manual-memoization */
 
   const getSnapshot = (): ScrollDirection => stateRef.current.direction;
 

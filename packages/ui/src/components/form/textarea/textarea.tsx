@@ -37,11 +37,15 @@ export const Textarea: FC<Props> = ({
   const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
   const { pending } = useFormStatus();
 
+  // value は本体では読まないが、高さを測り直す契機そのもの。外すと入力に
+  // 追従しなくなる
+  /* oxlint-disable react/exhaustive-effect-dependencies */
   useEffect(() => {
     if (innerRef.current && autoResize) {
       resizeToContent(innerRef.current);
     }
   }, [autoResize, value]);
+  /* oxlint-enable react/exhaustive-effect-dependencies */
 
   return (
     <textarea

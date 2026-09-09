@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 type UseControllableStateProps<T> = {
   value?: T;
@@ -17,14 +17,18 @@ export const useControllableState = <T>({
   const [internalValue, setInternalValue] = useState(defaultValue);
   const currentValue = isControlled ? value : internalValue;
 
+  // The setter keeps one identity for the life of the hook, so what it needs
+  // is read from refs rather than closed over. Written in an effect and not
+  // during render: only an event reads them, and events run after the commit,
+  // so a render that never commits must not leave its values behind.
   const currentValueRef = useRef(currentValue);
-  currentValueRef.current = currentValue;
-
   const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
-
   const isControlledRef = useRef(isControlled);
-  isControlledRef.current = isControlled;
+  useEffect(() => {
+    currentValueRef.current = currentValue;
+    onChangeRef.current = onChange;
+    isControlledRef.current = isControlled;
+  }, [currentValue, onChange, isControlled]);
 
   const setValue = useCallback((next: T | ((prev: T) => T)) => {
     const nextValue =

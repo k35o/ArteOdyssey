@@ -198,6 +198,8 @@ export const IconButton: FC<Props> = ({
     },
   });
 
+  // triggerProps は render の引数なので useMemo では鍵にできない。合成 ref の
+  // 同一性を保つキャッシュをレンダー中に引くが、描画に使う値は読んでいない。
   const render = (triggerProps: IconButtonTriggerProps) => {
     const itemProps = buildItemProps(triggerProps);
     if (renderItem) {
@@ -210,6 +212,7 @@ export const IconButton: FC<Props> = ({
   };
 
   if (tooltipDisabled) {
+    // oxlint-disable-next-line react/refs
     return render({});
   }
 
