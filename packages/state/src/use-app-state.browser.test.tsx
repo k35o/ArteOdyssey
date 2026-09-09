@@ -52,6 +52,10 @@ let lastHandle: UpdateHandle | undefined;
 
 const Pager: FC = () => {
   const [{ page }, update] = useAppState(listState, ['page']);
+  // Counted during render, not in an effect: an effect counts commits, and a
+  // render that bails out before committing is exactly the re-render the pick
+  // cache has to prevent.
+  // oxlint-disable-next-line react/immutability
   renders['pager'] = (renders['pager'] ?? 0) + 1;
   return (
     <>
@@ -103,6 +107,10 @@ const Pager: FC = () => {
 
 const QueryViewer: FC = () => {
   const [{ q }] = useAppState(listState, ['q']);
+  // Counted during render, not in an effect: an effect counts commits, and a
+  // render that bails out before committing is exactly the re-render the pick
+  // cache has to prevent.
+  // oxlint-disable-next-line react/immutability
   renders['query'] = (renders['query'] ?? 0) + 1;
   return <p data-testid="q">{q}</p>;
 };

@@ -109,22 +109,18 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
-  const getServerSnapshot = useMemo(() => {
-    let cached: StateValues | undefined;
-    return () => {
-      if (cached === undefined) {
-        const base = initialOf(def, initialUrl);
-        if (keys === null) {
-          cached = base;
-        } else {
-          const pick: StateValues = {};
-          for (const key of keys) pick[key] = base[key];
-          cached = pick;
-        }
-      }
-      return cached;
-    };
+  // useSyncExternalStore calls this repeatedly and compares by identity, so
+  // the snapshot is memoized rather than rebuilt per call. Building it during
+  // render costs a defaults copy the client never reads, which is cheaper than
+  // a cache the render has to mutate.
+  const serverSnapshot = useMemo(() => {
+    const base = initialOf(def, initialUrl);
+    if (keys === null) return base;
+    const pick: StateValues = {};
+    for (const key of keys) pick[key] = base[key];
+    return pick;
   }, [def, initialUrl, keys]);
+  const getServerSnapshot = useCallback(() => serverSnapshot, [serverSnapshot]);
 
   const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const update = useCallback(
