@@ -1,6 +1,15 @@
 name: 'Chromatic'
 
-on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+# push 契機を main に絞った以上、PR の古い実行を残す理由もない。
+concurrency:
+  group: chromatic-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: read
@@ -15,8 +24,11 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      # Storybook は packages/ui の src から直接組み上がるので dist は要らない。
       - name: Install
         uses: ./.github/composite-actions/install
+        with:
+          build: none
       - name: Publish to Chromatic
         uses: chromaui/action@2a0b63f30233c48591844a46d451b9cf68128186 # v18.7.2
         with:
