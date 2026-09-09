@@ -5,6 +5,7 @@ import type { FC, FocusEvent, PropsWithChildren, ReactElement } from 'react';
 
 import { cn } from '../../../helpers';
 import { useControllableState, useWritingMode } from '../../../hooks';
+import { syncPopover } from '../../../internal/dom-support';
 import { useFocusTrap } from '../../../internal/focus-trap';
 import type { Placement } from '../../../types/variables';
 import { getContentAnchorStyle, toAnchorName } from './anchor-positioning';
@@ -132,11 +133,7 @@ export const Content: FC<{
     if (!el) {
       return;
     }
-    if (isOpen && !el.matches(':popover-open')) {
-      el.showPopover();
-    } else if (!isOpen && el.matches(':popover-open')) {
-      el.hidePopover();
-    }
+    syncPopover(el, isOpen);
   }, [isOpen]);
 
   useFocusTrap(contentWrapperRef, triggerRef, isOpen && trapFocus);

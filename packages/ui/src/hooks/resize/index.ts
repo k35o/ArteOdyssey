@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
 
+import { createResizeObserver } from '../../internal/dom-support';
+
 type Options = {
   enabled?: boolean;
 };
@@ -20,11 +22,12 @@ export const useResize = <T extends Element = HTMLElement>(
     const element = ref.current;
     if (!element) return undefined;
 
-    const observer = new ResizeObserver((entries) => {
+    const observer = createResizeObserver((entries) => {
       for (const entry of entries) {
         callback(entry);
       }
     });
+    if (!observer) return undefined;
 
     observer.observe(element);
 

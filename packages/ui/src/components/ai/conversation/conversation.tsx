@@ -8,11 +8,12 @@ import { createSafeContext } from '../../../helpers/create-safe-context';
 import { useIntersectionObserver } from '../../../hooks/intersection-observer';
 import { useResize } from '../../../hooks/resize';
 import { useMessages } from '../../../i18n/context';
+import { matchMedia } from '../../../internal/dom-support';
 import { FOCUS_RING, FOCUS_RING_NO_BORDER } from '../../_internal/focus-ring';
 import { ChevronIcon } from '../../icons';
 
 const prefersReducedMotion = () =>
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  matchMedia('(prefers-reduced-motion: reduce)')?.matches ?? false;
 
 const [ConversationProvider, useConversationContext] = createSafeContext<{
   isAtBottom: boolean;

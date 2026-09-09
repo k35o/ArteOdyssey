@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import type { RefObject } from 'react';
 
+import { createIntersectionObserver } from '../../internal/dom-support';
+
 type UseIntersectionObserverOptions = {
   threshold?: number | number[];
   root?: Element | null;
@@ -26,17 +28,18 @@ export const useIntersectionObserver = <T extends Element = HTMLElement>(
     const element = ref.current;
     if (!element) return undefined;
 
-    const observer = new IntersectionObserver(
+    const observer = createIntersectionObserver(
       ([entry]) => {
         if (entry) {
           callback(entry);
           if (once && entry.isIntersecting) {
-            observer.disconnect();
+            observer?.disconnect();
           }
         }
       },
       { threshold, root, rootMargin },
     );
+    if (!observer) return undefined;
     observer.observe(element);
 
     return () => {
