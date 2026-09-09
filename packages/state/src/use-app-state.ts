@@ -109,6 +109,9 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
+  /* oxlint-disable react/immutability -- useSyncExternalStore は同じ参照が
+     返ることを要求する（返らないと「should be cached」で落ちる）。遅延生成した
+     1 個をクロージャに覚えさせるのがその唯一の書き方で、描画後の代入になる。 */
   const getServerSnapshot = useMemo(() => {
     let cached: StateValues | undefined;
     return () => {
@@ -125,6 +128,7 @@ export function useAppState(
       return cached;
     };
   }, [def, initialUrl, keys]);
+  /* oxlint-enable react/immutability */
 
   const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const update = useCallback(

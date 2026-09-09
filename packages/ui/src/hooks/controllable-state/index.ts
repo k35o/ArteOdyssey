@@ -17,6 +17,10 @@ export const useControllableState = <T>({
   const [internalValue, setInternalValue] = useState(defaultValue);
   const currentValue = isControlled ? value : internalValue;
 
+  /* oxlint-disable react/refs -- setValue は呼び出し側の effect からも呼ばれうる。
+     effect で書くと、同じコミット内で先に走った effect からの呼び出しが 1 つ前の
+     値を読むことになるので、描画中に書くタイミングを変えられない。読むのは
+     setValue の中だけで、描画には出さない。 */
   const currentValueRef = useRef(currentValue);
   currentValueRef.current = currentValue;
 
@@ -25,6 +29,7 @@ export const useControllableState = <T>({
 
   const isControlledRef = useRef(isControlled);
   isControlledRef.current = isControlled;
+  /* oxlint-enable react/refs */
 
   const setValue = useCallback((next: T | ((prev: T) => T)) => {
     const nextValue =

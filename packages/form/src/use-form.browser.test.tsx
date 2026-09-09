@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { render } from 'vitest-browser-react';
 import { z } from 'zod';
@@ -30,7 +30,9 @@ let signupProps: object = {};
 
 const Signup: FC<{ state?: FormState }> = ({ state = NO_STATE }) => {
   const form = useForm(derived, state);
-  signupProps = form.props;
+  useEffect(() => {
+    signupProps = form.props;
+  });
   const email = form.field('email');
   const password = form.field('password');
   const confirm = form.field('confirm');

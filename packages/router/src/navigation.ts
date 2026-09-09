@@ -121,7 +121,14 @@ export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
   // The handler is read at event time, so a re-created object per render
   // costs nothing and needs no memoization at the call site.
   const latest = useRef(handler);
-  latest.current = handler;
+  // Written in an effect rather than during render: a render that never
+  // commits (a transition that loses to a newer one) must not leave its
+  // handler behind for the listener below to read. Every read happens at
+  // event time, which is always after a commit, so the listener still sees
+  // the newest committed handler.
+  useEffect(() => {
+    latest.current = handler;
+  });
 
   // One resolver per navigation, keyed by which one it belongs to. A single
   // slot loses the race a rapid second navigation creates: the first one's

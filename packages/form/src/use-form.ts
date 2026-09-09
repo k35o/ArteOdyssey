@@ -220,7 +220,8 @@ export const useForm = <FieldPath extends string, ArrayPath extends string>(
   const [rowKeys, setRowKeys] = useState(() => initialRows(lookup, state));
   // The row counts the current server state rendered with; more or fewer rows
   // than this is a structural edit even while every control is pristine.
-  const baselineRows = useRef(rowCountsOf(rowKeys));
+  // Read during render (it decides `isDirty`), so it is state, not a ref.
+  const [baselineRows, setBaselineRows] = useState(() => rowCountsOf(rowKeys));
 
   // Compared by content plus the parse token, not identity. A caller writing
   // `useForm(fields, {})` hands over a new object on every render, and
@@ -241,7 +242,7 @@ export const useForm = <FieldPath extends string, ArrayPath extends string>(
     setEdited(new Set());
     setDomDirty(false);
     const rows = initialRows(lookup, state);
-    baselineRows.current = rowCountsOf(rows);
+    setBaselineRows(rowCountsOf(rows));
     setRowKeys(rows);
 
     // Moving focus to the first rejected field is the only way someone using a
@@ -452,7 +453,7 @@ export const useForm = <FieldPath extends string, ArrayPath extends string>(
   );
 
   const structuralDirty = Object.entries(rowKeys).some(
-    ([path, keys]) => keys.length !== (baselineRows.current[path] ?? 0),
+    ([path, keys]) => keys.length !== (baselineRows[path] ?? 0),
   );
 
   return { props, field, array, isDirty: domDirty || structuralDirty };

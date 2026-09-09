@@ -29,6 +29,7 @@ type ZodInternals = {
   _zod?: {
     def?: {
       checks?: Array<{ _zod?: { def?: { pattern?: RegExp } } }>;
+      format?: string;
       pattern?: RegExp;
     };
   };
@@ -36,6 +37,14 @@ type ZodInternals = {
 
 const objectLevelCheckCount = (schema: $ZodType): number =>
   (schema as unknown as ZodInternals)._zod?.def?.checks?.length ?? 0;
+
+/**
+ * zod 4.5 は `z.iso.datetime({ local: true })` に JSON Schema の `format` を
+ * 出さなくなり、巨大な pattern だけを残す。JSON Schema からは日時だと分からず
+ * type="text" に落ちてしまうので、zod 側の format を直接見る。
+ */
+const isIsoDatetime = (schema: $ZodType): boolean =>
+  (schema as unknown as ZodInternals)._zod?.def?.format === 'datetime';
 
 /**
  * Recover the flags of the RegExp behind a JSON Schema `pattern` string. The
@@ -117,9 +126,15 @@ export const formFields = <Schema extends ObjectSchema>(
   }
 
   for (const leaf of map.leaves) {
+    // format を補ってから導出する。type も pattern の扱いも attributesFor が
+    // 持っているので、後から type だけ差し替えると pattern と報告がずれる。
+    const json =
+      leaf.json.format === undefined && isIsoDatetime(leaf.zod)
+        ? { ...leaf.json, format: 'date-time' }
+        : leaf.json;
     const attributes = attributesFor(
       leaf.name,
-      leaf.json,
+      json,
       leaf.required,
       leaf.json.pattern === undefined
         ? undefined

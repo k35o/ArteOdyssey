@@ -33,9 +33,15 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
     node.current?.dispatchEvent(new Event('input', { bubbles: true }));
   }, [value]);
 
+  // マウント時の値で固定したいだけで、書き込まれることのない ref。state に
+  // 置き換えると setter が未使用になり、no-unused-vars と hook-use-state が
+  // 互いに矛盾して両立しない。
+  // oxlint-disable-next-line react/refs
+  const baseline = initial.current;
+
   return (
     <input
-      data-initial={initial.current}
+      data-initial={baseline}
       name={name}
       readOnly
       ref={node}

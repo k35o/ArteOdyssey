@@ -52,6 +52,9 @@ let lastHandle: UpdateHandle | undefined;
 
 const Pager: FC = () => {
   const [{ page }, update] = useAppState(listState, ['page']);
+  // 数えたいのは描画そのもの。effect に移すとコミット回数になり、
+  // 「再描画されない」の主張が緩む
+  // oxlint-disable-next-line react/immutability
   renders['pager'] = (renders['pager'] ?? 0) + 1;
   return (
     <>
@@ -103,6 +106,9 @@ const Pager: FC = () => {
 
 const QueryViewer: FC = () => {
   const [{ q }] = useAppState(listState, ['q']);
+  // 数えたいのは描画そのもの。effect に移すとコミット回数になり、
+  // 「再描画されない」の主張が緩む
+  // oxlint-disable-next-line react/immutability
   renders['query'] = (renders['query'] ?? 0) + 1;
   return <p data-testid="q">{q}</p>;
 };
