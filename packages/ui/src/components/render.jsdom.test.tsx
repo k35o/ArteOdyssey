@@ -73,6 +73,41 @@ describe('jsdom での描画', () => {
     );
   });
 
+  it('Drawer の閉じるボタンを押しても例外にならない', () => {
+    const container = mount(
+      <Drawer isOpen title="メニュー">
+        <p>ドロワーの本文</p>
+      </Drawer>,
+    );
+
+    const close = [...container.querySelectorAll('button')].find(
+      (button) => button.getAttribute('aria-label') === '閉じる',
+    );
+    expect(close).toBeDefined();
+
+    // React はハンドラ内の例外を握りつぶして報告に回すので、テストからは
+    // window の error イベントを拾わないと落ちたことに気づけない。
+    const errors: unknown[] = [];
+    const onError = (event: ErrorEvent) => {
+      errors.push(event.error);
+      event.preventDefault();
+    };
+    window.addEventListener('error', onError);
+    try {
+      // dialog.close が無い環境でも、ハンドラが例外を投げずに終わることだけを見る。
+      // 実際に閉じるかどうかはスタブ次第なので、ここでは主張しない。
+      act(() => {
+        close?.dispatchEvent(
+          new MouseEvent('click', { bubbles: true, cancelable: true }),
+        );
+      });
+    } finally {
+      window.removeEventListener('error', onError);
+    }
+
+    expect(errors).toStrictEqual([]);
+  });
+
   it('Popover を開いた状態で mount できる', () => {
     const container = mount(
       <Popover.Root defaultOpen role="dialog">
