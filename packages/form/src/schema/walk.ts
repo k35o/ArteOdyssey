@@ -4,6 +4,7 @@
 import { toJSONSchema } from 'zod/v4/core';
 import type { $ZodType } from 'zod/v4/core';
 
+import { controlKindOf, emptySubmissionOf } from '../derive/attributes';
 import type { LeafSchema } from '../derive/attributes';
 import { asProbe } from './object-schema';
 import type { ObjectSchema } from './object-schema';
@@ -91,14 +92,59 @@ const elementOf = ($schema: $ZodType): $ZodType | undefined => {
 
 /**
  * `required` in JSON Schema means "the key is present", but a form always
- * submits something for every control. What it submits depends on the control:
- * a text field sends `''`, an unchecked checkbox maps to `false` in the parse.
- * Asking the schema what it does with that empty submission is what makes the
- * attribute mean the same on both sides.
+ * submits something for every control, and what that is depends on the control
+ * — `emptySubmissionOf` is the one place that decides. Asking the schema what
+ * it does with that exact value, which is also what the parse will hand it, is
+ * what makes the attribute mean the same on both sides.
  */
-const rejectsEmptySubmission = (json: Node, $schema: $ZodType): boolean => {
-  const empty = json.type === 'boolean' ? false : '';
-  return !asProbe($schema).safeParse(empty).success;
+const rejectsEmptySubmission = (json: Node, $schema: $ZodType): boolean =>
+  !asProbe($schema).safeParse(emptySubmissionOf(json)).success;
+
+/**
+ * Strings a text control could plausibly submit. One is never enough: a schema
+ * that coerces reads some strings and not others, and rejecting the one probe
+ * that happens to be nonsense says nothing about the rest —
+ * `z.coerce.date()` refuses a word and accepts a date.
+ */
+const TEXT_PROBES = ['1', '2000-01-01', 'k8ordo-probe'];
+
+const rejectsAsWrongType = ($schema: $ZodType, value: unknown): boolean => {
+  const probed = asProbe($schema).safeParse(value);
+  return (
+    !probed.success &&
+    probed.error.issues.some((issue) => issue.code === 'invalid_type')
+  );
+};
+
+/**
+ * A text or number control can only submit strings, so a leaf that turns every
+ * one of them away on type alone can never be satisfied by the control it
+ * derives. That is not a check the client skips; it is a form that always
+ * fails, so it is refused here rather than shipped. (A checkbox and a file are
+ * exempt: the parse hands the schema a boolean and a File, not a string.)
+ *
+ * A constraint is not a refusal: `z.coerce.number().min(100)` rejects the probe
+ * with `too_small`, which is the schema doing its job.
+ */
+const refusesItsOwnControl = (json: Node, $schema: $ZodType): boolean => {
+  const kind = controlKindOf(json);
+  if (kind === 'number') {
+    const asText = asProbe($schema).safeParse('1');
+    if (asText.success) {
+      return false;
+    }
+    // `z.literal(1)` reports `invalid_value` rather than `invalid_type`, so
+    // the type code alone would miss it: what settles it is that the same
+    // value as a number is accepted while its string form is not.
+    return (
+      asProbe($schema).safeParse(1).success ||
+      asText.error.issues.some((issue) => issue.code === 'invalid_type')
+    );
+  }
+  if (kind === 'text' && json.type !== 'string') {
+    return TEXT_PROBES.every((probe) => rejectsAsWrongType($schema, probe));
+  }
+  return false;
 };
 
 // The explicit annotation is what lets tsc treat a `fail(...)` call as
@@ -233,6 +279,15 @@ const walkNode = (
     }
     // Scalar unions survive as a bare text input; the lost constraints are
     // reported by the derivation, not here.
+  }
+
+  if (refusesItsOwnControl(json, zod)) {
+    fail(
+      path,
+      controlKindOf(json) === 'number'
+        ? 'フォームの値は文字列で届くため、このスキーマはどんな入力でも失敗します。z.coerce.number() を使ってください'
+        : 'このスキーマは文字列を受け付けないため、フォームが送信できる値がありません（z.date() や z.bigint() などは表現できません）',
+    );
   }
 
   out.leaves.push({

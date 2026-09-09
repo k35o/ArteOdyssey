@@ -12,7 +12,7 @@ import type {
   DroppedCheck,
   FormFields,
 } from '../types';
-import { attributesFor } from './attributes';
+import { attributesFor, emptySubmissionOf } from './attributes';
 import { messagesFor } from './messages';
 
 /**
@@ -157,7 +157,12 @@ export const formFields = <Schema extends ObjectSchema>(
 
     const derived: DerivedField = {
       input: attributes.input,
-      messages: messagesFor(leaf.zod, attributes.input, leaf.required),
+      messages: messagesFor(
+        leaf.zod,
+        attributes.input,
+        leaf.required,
+        emptySubmissionOf(leaf.json),
+      ),
       secret,
     };
 

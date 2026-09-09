@@ -20,6 +20,8 @@ export type FieldInput = {
   minLength?: number;
   maxLength?: number;
   pattern?: string;
+  /** Comma-separated mime types for a file control, from `.mime()`. */
+  accept?: string;
   min?: number | string;
   max?: number | string;
   step?: number | 'any';

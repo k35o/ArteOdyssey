@@ -17,28 +17,24 @@ type Probe = {
 
 const repeat = (length: number): string => 'a'.repeat(Math.max(length, 0));
 
-const probesFor = (input: FieldInput, required: boolean): Probe[] => {
+const probesFor = (
+  input: FieldInput,
+  required: boolean,
+  emptySubmission: unknown,
+): Probe[] => {
   const probes: Probe[] = [];
 
   if (required) {
-    // The probe is what the parse would hand the schema for an untouched
-    // control: '' for a text field (never undefined — a form always submits
-    // something), false for a checkbox. Probing anything else reports a type
-    // error the user can never actually trigger — and misses a custom message
-    // on `.min(1, '...')` or `.literal(true, '...')`.
-    probes.push(
-      input.type === 'checkbox'
-        ? {
-            flag: 'valueMissing',
-            value: false,
-            codes: ['invalid_value', 'invalid_type'],
-          }
-        : {
-            flag: 'valueMissing',
-            value: '',
-            codes: ['too_small', 'invalid_type', 'invalid_format'],
-          },
-    );
+    // The probe is exactly what the parse would hand the schema for an
+    // untouched control — `emptySubmissionOf` decides it once for all three
+    // readers. Probing anything else reports a type error the user can never
+    // actually trigger, and misses a custom message on `.min(1, '...')` or
+    // `.literal(true, '...')`.
+    probes.push({
+      flag: 'valueMissing',
+      value: emptySubmission,
+      codes: ['too_small', 'invalid_value', 'invalid_format', 'invalid_type'],
+    });
   }
 
   if (input.minLength !== undefined) {
@@ -121,10 +117,11 @@ export const messagesFor = (
   schema: $ZodType,
   input: FieldInput,
   required: boolean,
+  emptySubmission: unknown,
 ): Partial<Record<ValidityFlag, string>> => {
   const messages: Partial<Record<ValidityFlag, string>> = {};
 
-  for (const probe of probesFor(input, required)) {
+  for (const probe of probesFor(input, required, emptySubmission)) {
     const result = asProbe(schema).safeParse(probe.value);
     if (result.success) {
       continue;
