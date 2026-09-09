@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { expect, userEvent } from 'storybook/test';
+import { expect, screen, userEvent } from 'storybook/test';
 
 import { en } from '../../../i18n/en';
 import { UIProvider } from '../../providers';
@@ -138,18 +138,19 @@ export const LinkSafetyEnabled: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'ドキュメント' }));
 
-    await expect(canvas.getByText('外部リンクを開きますか？')).toBeVisible();
+    // 確認モーダルは streamdown が body へポータルするので canvas の外
+    await expect(screen.getByText('外部リンクを開きますか？')).toBeVisible();
     await expect(
-      canvas.getByText('外部サイトに移動しようとしています。'),
+      screen.getByText('外部サイトに移動しようとしています。'),
     ).toBeVisible();
     await expect(
-      canvas.getByRole('button', { name: 'リンクを開く' }),
+      screen.getByRole('button', { name: 'リンクを開く' }),
     ).toBeVisible();
 
     // モーダルは body の overflow を握るので閉じてから終わる
-    await userEvent.click(canvas.getByRole('button', { name: '閉じる' }));
+    await userEvent.click(screen.getByRole('button', { name: '閉じる' }));
     await expect(
-      canvas.queryByText('外部リンクを開きますか？'),
+      screen.queryByText('外部リンクを開きますか？'),
     ).not.toBeInTheDocument();
   },
 };
