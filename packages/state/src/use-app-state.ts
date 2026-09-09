@@ -109,22 +109,20 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
-  const getServerSnapshot = useMemo(() => {
-    let cached: StateValues | undefined;
-    return () => {
-      if (cached === undefined) {
-        const base = initialOf(def, initialUrl);
-        if (keys === null) {
-          cached = base;
-        } else {
-          const pick: StateValues = {};
-          for (const key of keys) pick[key] = base[key];
-          cached = pick;
-        }
-      }
-      return cached;
-    };
+  // useSyncExternalStore compares snapshots by identity, so the hydration one
+  // has to be the same object on every call. It is built with the render
+  // rather than memoized inside the getter, which would be a render-phase
+  // write to a value the next render still reads.
+  const serverSnapshot = useMemo(() => {
+    const base = initialOf(def, initialUrl);
+    if (keys === null) {
+      return base;
+    }
+    const pick: StateValues = {};
+    for (const key of keys) pick[key] = base[key];
+    return pick;
   }, [def, initialUrl, keys]);
+  const getServerSnapshot = useCallback(() => serverSnapshot, [serverSnapshot]);
 
   const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const update = useCallback(
