@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import type { FC } from 'react';
 
 /**
@@ -14,16 +14,25 @@ import type { FC } from 'react';
  * A component rather than a props helper for two reasons the form cannot see
  * from outside: React updates a controlled value without any DOM event, so a
  * change here has to be announced with one for rules and `isDirty` to notice;
- * and a controlled input's defaultValue tracks its value, so the first
- * render's value is snapshotted into `data-initial` as the dirtiness baseline.
+ * and a controlled input's defaultValue tracks its value, so the value it
+ * mounted with is burned into `data-initial` as the dirtiness baseline.
  */
 export const HiddenValue: FC<{ name: string; value: string }> = ({
   name,
   value,
 }) => {
   const node = useRef<HTMLInputElement>(null);
-  const initial = useRef(value);
   const last = useRef(value);
+
+  // The baseline is written from the attached node rather than snapshotted
+  // during render: refs are not readable there, and by the time a ref callback
+  // runs React has already put the first value on the element.
+  const attach = useCallback((element: HTMLInputElement | null) => {
+    node.current = element;
+    if (element !== null) {
+      element.dataset['initial'] = element.value;
+    }
+  }, []);
 
   useEffect(() => {
     if (last.current === value) {
@@ -34,13 +43,6 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
   }, [value]);
 
   return (
-    <input
-      data-initial={initial.current}
-      name={name}
-      readOnly
-      ref={node}
-      type="hidden"
-      value={value}
-    />
+    <input name={name} readOnly ref={attach} type="hidden" value={value} />
   );
 };
