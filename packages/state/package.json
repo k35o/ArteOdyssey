@@ -52,7 +52,7 @@
     "@k8ordo/router": "workspace:^",
     "@types/react": "catalog:",
     "@vitejs/plugin-react": "catalog:",
-    "@vitest/browser-playwright": "4.1.11",
+    "@vitest/browser-playwright": "catalog:",
     "publint": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
@@ -60,7 +60,7 @@
     "vite": "catalog:",
     "vite-plus": "catalog:",
     "vitest": "catalog:",
-    "vitest-browser-react": "2.2.0",
+    "vitest-browser-react": "catalog:",
     "zod": "catalog:"
   },
   "peerDependencies": {

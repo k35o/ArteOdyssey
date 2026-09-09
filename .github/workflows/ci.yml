@@ -49,6 +49,11 @@ jobs:
       - name: Check no polyfills are pulled in
         run: pnpm check:no-polyfills
 
+      # peer の範囲を満たしたまま 2 コピーに割れると、アダプタが読む React
+      # context が別物になり、型もビルドもテストも通ったまま描画時だけ落ちる。
+      - name: Check shared peers resolve to a single copy
+        run: pnpm check:peer-copies
+
   types:
     name: TypeScript
     runs-on: ubuntu-latest
