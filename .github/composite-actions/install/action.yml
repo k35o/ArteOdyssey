@@ -1,5 +1,14 @@
 name: Install
-description: Sets up mise and runs install
+description: Sets up mise, installs dependencies, and builds what the job needs
+
+inputs:
+  build:
+    description: |
+      packages (default): build every publishable package. Anything that
+      resolves `@k8ordo/*` by name — package tests, type-aware lint, typecheck,
+      examples — reads it out of that package's dist, so those jobs need this.
+      none: install only. For jobs that stay inside one package's src.
+    default: packages
 
 runs:
   using: composite
@@ -13,6 +22,15 @@ runs:
       shell: bash
       run: pnpm ci
 
+    # apps/docs is deliberately absent: the site is built by the one job that
+    # owns it, so the other jobs do not pay for 177 prerendered routes.
     - name: Build
       shell: bash
-      run: pnpm build
+      env:
+        BUILD: ${{ inputs.build }}
+      run: |
+        case "$BUILD" in
+          packages) pnpm --filter './packages/*' build ;;
+          none) echo 'build: none — install only' ;;
+          *) echo "::error::install: build must be packages or none (got: $BUILD)" && exit 1 ;;
+        esac

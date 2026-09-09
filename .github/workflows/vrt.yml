@@ -26,8 +26,11 @@ jobs:
         with:
           persist-credentials: false
 
+      # 撮影は packages/ui の src から組んだ Storybook を回すだけで dist は要らない。
       - name: Install
         uses: ./.github/composite-actions/install
+        with:
+          build: none
 
       - name: Install Playwright browsers
         # --with-deps installs the OS font packages (incl. CJK: fonts-ipafont-gothic /
