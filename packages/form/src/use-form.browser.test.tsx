@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { FC } from 'react';
 import { render } from 'vitest-browser-react';
 import { z } from 'zod';
@@ -24,13 +24,15 @@ const derived = formFields(signup);
 
 const NO_STATE: FormState = {};
 
-// Captured on render so a test can assert what the spread would put in the
-// server-rendered markup.
+// Captured so a test can assert what the spread would put in the markup. The
+// props object is stable, so an effect sees the same one the render spread.
 let signupProps: object = {};
 
 const Signup: FC<{ state?: FormState }> = ({ state = NO_STATE }) => {
   const form = useForm(derived, state);
-  signupProps = form.props;
+  useEffect(() => {
+    signupProps = form.props;
+  }, [form.props]);
   const email = form.field('email');
   const password = form.field('password');
   const confirm = form.field('confirm');

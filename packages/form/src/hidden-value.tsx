@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FC } from 'react';
 
 /**
@@ -22,7 +22,11 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
   value,
 }) => {
   const node = useRef<HTMLInputElement>(null);
-  const initial = useRef(value);
+  // State rather than a ref because the baseline is rendered: the first value
+  // is all it ever holds, and a ref read during render is not that. There is no
+  // setter for the same reason — the baseline must never move.
+  // oxlint-disable-next-line react/hook-use-state
+  const [initial] = useState(value);
   const last = useRef(value);
 
   useEffect(() => {
@@ -35,7 +39,7 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
 
   return (
     <input
-      data-initial={initial.current}
+      data-initial={initial}
       name={name}
       readOnly
       ref={node}
