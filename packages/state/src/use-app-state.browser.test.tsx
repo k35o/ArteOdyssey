@@ -52,6 +52,7 @@ let lastHandle: UpdateHandle | undefined;
 
 const Pager: FC = () => {
   const [{ page }, update] = useAppState(listState, ['page']);
+  // oxlint-disable-next-line react/immutability -- 再レンダー回数をテストから数えるための控え
   renders['pager'] = (renders['pager'] ?? 0) + 1;
   return (
     <>
@@ -103,6 +104,7 @@ const Pager: FC = () => {
 
 const QueryViewer: FC = () => {
   const [{ q }] = useAppState(listState, ['q']);
+  // oxlint-disable-next-line react/immutability -- 再レンダー回数をテストから数えるための控え
   renders['query'] = (renders['query'] ?? 0) + 1;
   return <p data-testid="q">{q}</p>;
 };

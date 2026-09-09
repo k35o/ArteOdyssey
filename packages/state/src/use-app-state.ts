@@ -109,6 +109,10 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
+  // useSyncExternalStore は getServerSnapshot が毎回同じ参照を返すことを求める。
+  // 返さないと hydration のたびに再レンダーが続く。だから最初の 1 回だけ組み立てて
+  // クロージャに抱える。書き込みはレンダー中ではなく snapshot の取得時に起きる。
+  /* oxlint-disable react/immutability -- 上記のとおり意図的なメモ化 */
   const getServerSnapshot = useMemo(() => {
     let cached: StateValues | undefined;
     return () => {
@@ -125,6 +129,7 @@ export function useAppState(
       return cached;
     };
   }, [def, initialUrl, keys]);
+  /* oxlint-enable react/immutability */
 
   const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const update = useCallback(

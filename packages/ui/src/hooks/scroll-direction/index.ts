@@ -31,6 +31,12 @@ export const useScrollDirection = (
     prevScrollY: 0,
   });
 
+  // subscribe は useSyncExternalStore に渡すので同一性を保つ必要がある。
+  // target.current を読むのは購読を張る時点 (commit 後) であってレンダー中ではない。
+  // 依存に target.current を入れると要素が変わるたび購読を張り直すことになり、
+  // それは狙いではないので、依存は ref オブジェクトそのものに留める。
+  /* oxlint-disable react/preserve-manual-memoization -- 依存は ref オブジェクトで正しい。
+     target.current を入れると要素が変わるたびに購読を張り直すことになる。 */
   const subscribe = useCallback(
     (callback: () => void): (() => void) => {
       const element = target?.current ?? null;
@@ -98,6 +104,7 @@ export const useScrollDirection = (
     },
     [threshold, target],
   );
+  /* oxlint-enable react/preserve-manual-memoization */
 
   const getSnapshot = (): ScrollDirection => stateRef.current.direction;
 

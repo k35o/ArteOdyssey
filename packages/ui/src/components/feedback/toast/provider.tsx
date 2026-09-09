@@ -64,18 +64,19 @@ export const ToastProvider: FC<
     isHovered: false,
     isFocused: false,
   });
-  // document.body はレンダー中に読めない(SSR)ため、マウント後に state へ移す
-  const [defaultContainer, setDefaultContainer] = useState<HTMLElement | null>(
-    null,
-  );
+  // 描画先は DOM がある時点でしか決まらない。document.body は SSR では読めず、
+  // portalRef は指す要素がマウントされて初めて埋まる。どちらもレンダー中には
+  // 読まず、マウント後に state へ移す。
+  const [container, setContainer] = useState<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLElement | null>(null);
   // 閉じ演出中のトーストは祖先が inert になり、ブラウザが強制的に blur するため
   // activeElement からは追えない。focusin の時点でどのトーストにいたかを控える
   const focusedToastIdRef = useRef<string | null>(null);
 
+  // ref は commit 時に付くので、この effect が走る時点では埋まっている。
   useEffect(() => {
-    setDefaultContainer(document.body);
-  }, []);
+    setContainer(portalRef?.current ?? document.body);
+  }, [portalRef]);
 
   // 閉じ演出を終えたエントリを id ごとの独立したタイマーで取り除く。
   // 全体で 1 本のタイマーだと、EXIT_MS 未満の間隔で閉じ始めが続いたとき
@@ -206,7 +207,6 @@ export const ToastProvider: FC<
     );
   };
 
-  const container = portalRef?.current ?? defaultContainer;
   const isPaused = state.isHovered || state.isFocused;
 
   return (

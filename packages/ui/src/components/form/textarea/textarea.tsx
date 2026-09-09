@@ -37,10 +37,13 @@ export const Textarea: FC<Props> = ({
   const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
   const { pending } = useFormStatus();
 
+  // value は effect の中では読まないが、本文が変わるたびに測り直す必要がある。
+  // 依存から外すと入力しても高さが追従しなくなる。
   useEffect(() => {
     if (innerRef.current && autoResize) {
       resizeToContent(innerRef.current);
     }
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- value は再計測のトリガ
   }, [autoResize, value]);
 
   return (

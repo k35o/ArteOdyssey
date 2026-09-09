@@ -30,6 +30,8 @@ type ZodInternals = {
     def?: {
       checks?: Array<{ _zod?: { def?: { pattern?: RegExp } } }>;
       pattern?: RegExp;
+      format?: string;
+      local?: boolean;
     };
   };
 };
@@ -54,6 +56,17 @@ const patternFlags = (schema: $ZodType, source: string): string | undefined => {
     }
   }
   return undefined;
+};
+/**
+ * Whether the schema is `z.iso.datetime({ local: true })`. zod stopped putting
+ * `format: "date-time"` in the JSON Schema for the local variant — only the
+ * pattern survives the conversion — so the control it deserves can no longer be
+ * read off the public output. Without this the field falls back to
+ * `type="text"`, and the person loses the browser's date picker.
+ */
+const isLocalDatetime = (schema: $ZodType): boolean => {
+  const def = (schema as unknown as ZodInternals)._zod?.def;
+  return def?.format === 'datetime' && def.local === true;
 };
 /* oxlint-enable no-underscore-dangle */
 
@@ -119,7 +132,9 @@ export const formFields = <Schema extends ObjectSchema>(
   for (const leaf of map.leaves) {
     const attributes = attributesFor(
       leaf.name,
-      leaf.json,
+      isLocalDatetime(leaf.zod) && leaf.json.format === undefined
+        ? { ...leaf.json, format: 'date-time' }
+        : leaf.json,
       leaf.required,
       leaf.json.pattern === undefined
         ? undefined

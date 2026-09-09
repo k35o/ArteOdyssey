@@ -30,6 +30,7 @@ let signupProps: object = {};
 
 const Signup: FC<{ state?: FormState }> = ({ state = NO_STATE }) => {
   const form = useForm(derived, state);
+  // oxlint-disable-next-line react/globals -- レンダー時の props をテストから覗くための控え
   signupProps = form.props;
   const email = form.field('email');
   const password = form.field('password');

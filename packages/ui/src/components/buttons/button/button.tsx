@@ -89,7 +89,12 @@ export const Button: FC<Props> = ({
   ...rest
 }) => {
   // ref を毎レンダー作り直すと React が付け外しを繰り返すので、合成結果を保持する。
-  const mergedRef = useMemo(() => (ref ? mergeRefs(ref) : undefined), [ref]);
+  // 合成そのものはコールバックの中で行う。レンダー中に ref を関数へ渡すと、
+  // 値を読んでいなくても refs ルールが検出するため。
+  const mergedRef = useMemo<RefCallback<HTMLElement> | undefined>(
+    () => (ref ? (node) => mergeRefs<HTMLElement>(ref)(node) : undefined),
+    [ref],
+  );
   const [transitionPending, startTransition] = useTransition();
   const { pending: formPending } = useFormStatus();
   const isPending = transitionPending || (type === 'submit' && formPending);
@@ -188,6 +193,9 @@ export const Button: FC<Props> = ({
   // type を展開のあとにリテラルで書き直しているのは、lint の button-has-type が
   // スプレッド越しの type も変数の type も読めないため（値は itemProps.type と同じ）。
   return renderItem ? (
+    // renderItem に渡す props は ref を含む (呼び出し側が <a> などに付け替えるための API)。
+    // ここで .current は読んでいないが、ルールは ref を含む値の受け渡しを一律に検出する。
+    // oxlint-disable-next-line react/refs -- ref を渡すだけでレンダー中に読まない
     renderItem(itemProps)
   ) : (
     <button {...itemProps} type={type === 'submit' ? 'submit' : 'button'} />

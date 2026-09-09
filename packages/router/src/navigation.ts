@@ -4,6 +4,7 @@ import {
   createContext,
   startTransition,
   useEffect,
+  useInsertionEffect,
   useRef,
   useState,
 } from 'react';
@@ -119,9 +120,15 @@ export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
   readonly generation: number;
 } {
   // The handler is read at event time, so a re-created object per render
-  // costs nothing and needs no memoization at the call site.
+  // costs nothing and needs no memoization at the call site. The write goes in
+  // an insertion effect rather than straight into the render body: writing a
+  // ref while rendering is not allowed, and this is the phase that runs
+  // synchronously during commit, so the window where the ref still holds the
+  // previous handler is as short as it can be.
   const latest = useRef(handler);
-  latest.current = handler;
+  useInsertionEffect(() => {
+    latest.current = handler;
+  });
 
   // One resolver per navigation, keyed by which one it belongs to. A single
   // slot loses the race a rapid second navigation creates: the first one's

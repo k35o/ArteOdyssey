@@ -114,10 +114,13 @@ export const Textarea: FC<TextareaProps> = ({
   const innerRef = useRef<HTMLTextAreaElement>(null);
   const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
 
+  // value は effect の中では読まないが、本文が変わるたびに測り直す必要がある。
+  // 依存から外すと入力しても高さが追従しなくなる。
   useEffect(() => {
     if (innerRef.current) {
       resizeToContent(innerRef.current);
     }
+    // oxlint-disable-next-line react/exhaustive-effect-dependencies -- value は再計測のトリガ
   }, [value]);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {

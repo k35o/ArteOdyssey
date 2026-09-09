@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { FC } from 'react';
 
 /**
@@ -22,7 +22,10 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
   value,
 }) => {
   const node = useRef<HTMLInputElement>(null);
-  const initial = useRef(value);
+  // The first value, kept for the lifetime of the field. State rather than a
+  // ref because it is read while rendering.
+  // oxlint-disable-next-line react/hook-use-state -- 初回の値を凍結するのが目的で、更新関数は持たない
+  const [initial] = useState(value);
   const last = useRef(value);
 
   useEffect(() => {
@@ -35,7 +38,7 @@ export const HiddenValue: FC<{ name: string; value: string }> = ({
 
   return (
     <input
-      data-initial={initial.current}
+      data-initial={initial}
       name={name}
       readOnly
       ref={node}

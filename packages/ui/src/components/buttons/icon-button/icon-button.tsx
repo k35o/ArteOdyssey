@@ -210,6 +210,7 @@ export const IconButton: FC<Props> = ({
   };
 
   if (tooltipDisabled) {
+    // oxlint-disable-next-line react/refs -- render は上の手動キャッシュ (合成元が同じ間だけ使い回す) に触れるだけで、.current から描画に使う値は読まない
     return render({});
   }
 
