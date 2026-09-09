@@ -21,6 +21,10 @@ export default defineConfig({
     dts: true,
     outDir: 'dist',
     unbundle: true,
+    // インソーステスト（`if (import.meta.vitest)`）を dist から落とす。バンドラは
+    // define なしに `import.meta.vitest` を畳めないため、テスト本体が利用者の
+    // バンドルに残ってしまう。
+    define: { 'import.meta.vitest': 'undefined' },
   },
   test: {
     globals: true,
