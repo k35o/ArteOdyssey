@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { FC, PropsWithChildren, Ref } from 'react';
 
+import { closeDialog, showModalDialog } from '../../../internal/dom-support';
 import type { ModalSide } from '../../../types/variables';
 import { ToastProvider } from '../../feedback/toast';
 import { PortalRootProvider } from '../../providers';
@@ -70,9 +71,9 @@ export const Modal: FC<
       return;
     }
     if (realDialogOpen) {
-      dialog.showModal();
+      showModalDialog(dialog);
     } else {
-      dialog.close();
+      closeDialog(dialog);
     }
   }, [realDialogOpen]);
 
@@ -107,8 +108,8 @@ export const Modal: FC<
           'ao-modal-left mr-auto h-svh max-h-none w-screen max-w-sm rounded-r-lg',
       )}
       onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          dialogRef.current?.close();
+        if (e.target === e.currentTarget && dialogRef.current) {
+          closeDialog(dialogRef.current);
         }
       }}
       onClose={realOnClose}

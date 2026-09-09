@@ -12,6 +12,7 @@ out
 .next
 dist-ssr
 .turbo
+storybook-static
 
 # Generated at build from the design-token SSOT (apps/docs/scripts/generate-design-md.ts)
 apps/docs/public/design.md
