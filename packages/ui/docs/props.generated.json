@@ -478,9 +478,7 @@
         },
         {
           "name": "renderItem",
-          "types": [
-            "(props: { className: string; children: ReactNode }) => ReactNode"
-          ],
+          "types": ["(props: ButtonRenderItemProps) => ReactNode"],
           "defaultValue": null,
           "required": false
         },
@@ -1564,9 +1562,7 @@
         },
         {
           "name": "renderItem",
-          "types": [
-            "(props: { className: string; children: ReactNode; 'aria-label': string; triggerProps: IconButtonTriggerProps; }) => ReactNode"
-          ],
+          "types": ["(props: IconButtonRenderItemProps) => ReactNode"],
           "defaultValue": null,
           "required": false
         },

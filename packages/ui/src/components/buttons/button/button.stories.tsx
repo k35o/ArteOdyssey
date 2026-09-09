@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+import type { MouseEvent, MouseEventHandler } from 'react';
 import { useRef, useState } from 'react';
-import { expect } from 'storybook/test';
+import { expect, fn } from 'storybook/test';
 
 import { CopyIcon } from '../../icons';
 import { Button } from './button';
@@ -159,6 +160,117 @@ export const NativeAttributes: Story = {
     await expect(button).toHaveAttribute('name', 'action');
     await expect(button).toHaveAttribute('value', 'save');
     await userEvent.click(button);
+    await expect(canvas.getByRole('paragraph')).toHaveTextContent('BUTTON');
+  },
+};
+
+/**
+ * テスト中に実際の遷移でページが閉じないようにするだけのガード。転送された
+ * `onClick` は先に呼ぶので、押下の検証には影響しない。
+ */
+const withoutNavigation =
+  (onClick: MouseEventHandler<HTMLElement> | undefined) =>
+  (event: MouseEvent<HTMLElement>) => {
+    onClick?.(event);
+    event.preventDefault();
+  };
+
+/**
+ * `renderItem` は既定の `<button>` に渡るのと同じ props を受け取る。`<a>` を
+ * 描画するときは `<button>` 専用の `disabled` / `type` だけ外して残りを展開
+ * すれば、`className` と `children` に加えてクリック処理・`ref`・`aria-*` が
+ * そのまま乗る。
+ */
+export const RenderItemLink: Story = {
+  args: {
+    id: 'render-item-link',
+    onClick: fn(),
+    renderItem: ({
+      children,
+      disabled: _disabled,
+      onClick,
+      type: _type,
+      ...props
+    }) => (
+      <a href="#render-item" {...props} onClick={withoutNavigation(onClick)}>
+        {children}
+      </a>
+    ),
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    const link = canvas.getByRole('link');
+
+    await expect(link).toHaveAttribute('id', 'render-item-link');
+    await expect(link).not.toHaveAttribute('aria-disabled');
+    await expect(link).toHaveClass('rounded-full');
+
+    await userEvent.click(link);
+
+    await expect(args.onClick).toHaveBeenCalled();
+  },
+};
+
+export const RenderItemDisabled: Story = {
+  args: {
+    disabled: true,
+    onClick: fn(),
+    renderItem: ({
+      children,
+      disabled: _disabled,
+      onClick,
+      type: _type,
+      ...props
+    }) => (
+      <a href="#render-item" {...props} onClick={withoutNavigation(onClick)}>
+        {children}
+      </a>
+    ),
+  },
+  play: async ({ args, canvas, userEvent }) => {
+    const link = canvas.getByRole('link');
+
+    await expect(link).toHaveAttribute('aria-disabled', 'true');
+    await expect(link).toHaveClass('cursor-not-allowed');
+
+    await userEvent.click(link);
+
+    await expect(args.onClick).not.toHaveBeenCalled();
+  },
+};
+
+const RenderItemButtonRender = () => {
+  const ref = useRef<HTMLButtonElement>(null);
+  const [tagName, setTagName] = useState('');
+  return (
+    <>
+      <Button
+        name="action"
+        onClick={() => {
+          setTagName(ref.current?.tagName ?? '');
+        }}
+        ref={ref}
+        renderItem={(props) => <button {...props} type="button" />}
+        value="save"
+      >
+        ボタン
+      </Button>
+      <p>{tagName}</p>
+    </>
+  );
+};
+
+/** `<button>` に描画するなら props をそのまま展開でき、ref も届く。 */
+export const RenderItemButton: Story = {
+  render: () => <RenderItemButtonRender />,
+  play: async ({ canvas, userEvent }) => {
+    const button = canvas.getByRole('button');
+
+    await expect(button).toHaveAttribute('name', 'action');
+    await expect(button).toHaveAttribute('value', 'save');
+    await expect(button).toHaveAttribute('type', 'button');
+
+    await userEvent.click(button);
+
     await expect(canvas.getByRole('paragraph')).toHaveTextContent('BUTTON');
   },
 };
