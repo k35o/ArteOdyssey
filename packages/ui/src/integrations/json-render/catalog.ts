@@ -6,9 +6,7 @@ import {
 } from '@json-render/core';
 import type { Spec, UIElement } from '@json-render/core';
 import { schema } from '@json-render/react/schema';
-// 型ではなく値として使う（instanceof で ZodObject を判定するため）。
-// 同じサブパスの _shared/schemas.ts が既に zod を実行時依存にしている
-import { z } from 'zod';
+import type { z } from 'zod';
 
 import * as s from '../_shared/schemas';
 
@@ -300,10 +298,16 @@ const buildRepairPrompt = (issues: GeneratedSpecIssue[]): string =>
  */
 const knownPropKeys = (
   propsSchema: z.ZodType,
-): readonly string[] | undefined =>
-  propsSchema instanceof z.ZodObject
-    ? Object.keys(propsSchema.shape)
+): readonly string[] | undefined => {
+  // `instanceof z.ZodObject` で判定しない。スキーマはこのパッケージが解決した
+  // zod で作られるが、比較するクラスも同じ import から来るとは限らず、
+  // 利用者側で zod が 2 コピーになると instanceof が一律 false になって
+  // 未知キー検出が無言で全停止する（この関数が防ぎたい失敗そのもの）。
+  const shape: unknown = 'shape' in propsSchema ? propsSchema.shape : undefined;
+  return typeof shape === 'object' && shape !== null
+    ? Object.keys(shape)
     : undefined;
+};
 
 /** spec 側は LLM 出力なので、型に反して props が欠けていることがある。 */
 const givenPropKeys = (props: unknown): readonly string[] =>
