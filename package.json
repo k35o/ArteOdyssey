@@ -20,6 +20,7 @@
     "check": "vp run -r check",
     "check:write": "vp run -r check:write",
     "check:no-polyfills": "node scripts/check-no-polyfills.mjs",
+    "check:peer-copies": "node scripts/check-peer-copies.mjs",
     "inspect": "vp-inspect"
   },
   "devDependencies": {

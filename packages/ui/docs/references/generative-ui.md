@@ -10,11 +10,28 @@ Both are optional peer dependencies — install only the one you use.
 ```bash
 # json-render
 pnpm add @json-render/core @json-render/react zod
-# OpenUI
-pnpm add @openuidev/react-lang zod
-# Add this too if you use OpenUI's server-safe prompt entry:
-pnpm add @openuidev/lang-core
+# OpenUI — both entries import lang-core directly, so install both packages
+pnpm add @openuidev/react-lang @openuidev/lang-core zod
 ```
+
+`@openuidev/lang-core` is not optional for OpenUI: `@k8ordo/ui/openui` builds its
+component library with it and `@k8ordo/ui/openui/prompt` is the React-free entry
+on top of it. `@openuidev/react-lang` depends on it as well, but pnpm will not
+let your app resolve a dependency of a dependency — declare it yourself.
+
+Both frameworks are 0.x, where a minor bump is a breaking release, so
+`@k8ordo/ui` declares a range that stops at the next minor (`>=0.20.0 <0.21.0`
+for json-render, `>=0.2.10 <0.3.0` and `>=0.2.9 <0.3.0` for OpenUI). Pick a
+version inside it.
+
+Within that range, resolve exactly **one copy** of each framework. The adapters
+read the framework's own React context — `useStateField` for OpenUI,
+`useBoundProp` for json-render — so if your app and `@k8ordo/ui` end up on two
+different copies, the context objects are different objects: every schema check,
+the types, and the build all pass, and the form views throw
+`useOpenUI must be used within a <Renderer /> component.` at render time. With
+pnpm this happens as soon as your version differs from the one `@k8ordo/ui`
+resolves, even when both satisfy the range.
 
 ## json-render
 

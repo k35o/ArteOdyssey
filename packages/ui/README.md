@@ -36,18 +36,24 @@ npm install react react-dom
 Everything else is an optional peer, needed only for the entry point that uses
 it. Install one when you import the entry it belongs to.
 
-| Package                                   | Version  | Needed for                                                                    |
-| ----------------------------------------- | -------- | ----------------------------------------------------------------------------- |
-| `typescript`                              | ≥7.0.2   | the shipped type declarations                                                 |
-| `@types/react`                            | ≥19.2.18 | the shipped type declarations                                                 |
-| `@types/react-dom`                        | ≥19.2.4  | the shipped type declarations                                                 |
-| `tailwindcss`                             | ≥4.3.3   | the `tailwind.css` entry (see [Imports & Bundle Size](#imports--bundle-size)) |
-| `zod`                                     | ≥4.4.3   | generative-UI schemas                                                         |
-| `@json-render/core`, `@json-render/react` | ≥0.19.0  | `@k8ordo/ui/json-render`                                                      |
-| `@openuidev/lang-core`                    | ≥0.2.10  | `@k8ordo/ui/openui`                                                           |
-| `@openuidev/react-lang`                   | ≥0.2.9   | `@k8ordo/ui/openui`                                                           |
-| `ai`                                      | ≥7.0.51  | `@k8ordo/ui/ai-sdk`                                                           |
-| `streamdown`                              | ≥2.5.0   | `@k8ordo/ui/ai/response`                                                      |
+| Package                                   | Version         | Needed for                                                                    |
+| ----------------------------------------- | --------------- | ----------------------------------------------------------------------------- |
+| `typescript`                              | ≥7.0.2          | the shipped type declarations                                                 |
+| `@types/react`                            | ≥19.2.18        | the shipped type declarations                                                 |
+| `@types/react-dom`                        | ≥19.2.4         | the shipped type declarations                                                 |
+| `tailwindcss`                             | ≥4.3.3          | the `tailwind.css` entry (see [Imports & Bundle Size](#imports--bundle-size)) |
+| `zod`                                     | ≥4.4.3          | generative-UI schemas                                                         |
+| `@json-render/core`, `@json-render/react` | ≥0.20.0 <0.21.0 | `@k8ordo/ui/json-render`                                                      |
+| `@openuidev/lang-core`                    | ≥0.2.10 <0.3.0  | `@k8ordo/ui/openui`                                                           |
+| `@openuidev/react-lang`                   | ≥0.2.9 <0.3.0   | `@k8ordo/ui/openui`                                                           |
+| `ai`                                      | ≥7.0.51         | `@k8ordo/ui/ai-sdk`                                                           |
+| `streamdown`                              | ≥2.5.0          | `@k8ordo/ui/ai/response`                                                      |
+
+The generative-UI peers are 0.x, where a minor bump is a breaking release, so
+the declared range stops at the next minor: `@k8ordo/ui` only claims the line it
+is tested against. Resolve exactly **one copy** of each — the adapters read the
+framework's own React context, so two copies let every schema check and the
+build pass while the form views throw at render time.
 
 The `styles.css` entry needs no peer at all — it is prebuilt CSS, so CSS Modules
 and plain-CSS projects can use the components without Tailwind.
@@ -456,10 +462,8 @@ These integrations are exposed as optional subpath exports. Install the framewor
 ```bash
 # json-render
 pnpm add @json-render/core @json-render/react zod
-# OpenUI
-pnpm add @openuidev/react-lang zod
-# OpenUI server-safe prompt entry (@k8ordo/ui/openui/prompt) additionally needs:
-pnpm add @openuidev/lang-core
+# OpenUI (both entries import lang-core directly, so install both packages)
+pnpm add @openuidev/react-lang @openuidev/lang-core zod
 ```
 
 Supported components (**all 49**, both frameworks):
@@ -560,7 +564,7 @@ To generate the prompt inside the client bundle instead, `library.prompt()` stil
 > **Notes**
 >
 > - Make sure `@k8ordo/ui/styles.css` (or `tailwind.css` in Tailwind CSS 4 projects) is loaded and the app is wrapped in `UIProvider`.
-> - `@k8ordo/ui/openui/prompt` needs the optional peer `@openuidev/lang-core` (React-free).
+> - Both OpenUI entries need `@openuidev/lang-core` — `openui/prompt` is the React-free one, and `openui` builds its component library with it. Install it alongside `@openuidev/react-lang`: pnpm will not resolve it for you just because `react-lang` depends on it.
 > - `Tabs` panels are text content (`tabs: [{ label, content }]`); rich-component panels are a future enhancement.
 > - In OpenUI, `Card` can contain a `Stack` or `Grid`, but `Stack`/`Grid` cannot directly nest a `Stack`/`Grid`/`Card` (no self-referential schemas) — put nested layout inside a `Card`. json-render nests freely (slots-based).
 
