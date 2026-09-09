@@ -22,7 +22,10 @@ afterAll(async () => {
   await server.close();
 });
 
-const transform = (environment: string, url: string): Promise<unknown> => {
+const transform = (
+  environment: 'rsc' | 'client',
+  url: string,
+): Promise<unknown> => {
   const target = server.environments[environment];
   if (target === undefined) {
     throw new Error(`no ${environment} environment`);
