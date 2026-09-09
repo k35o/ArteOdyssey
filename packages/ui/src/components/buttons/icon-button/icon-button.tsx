@@ -7,8 +7,9 @@ import type {
   MouseEvent,
   MouseEventHandler,
   ReactNode,
+  RefCallback,
 } from 'react';
-import { useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Placement } from '../../../types/variables';
@@ -151,6 +152,26 @@ export const IconButton: FC<Props> = ({
       'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
   );
 
+  // mergeRefs は呼ぶたび新しい関数を返し、React が毎レンダー ref を付け外しする。
+  // 合成先の triggerProps は Tooltip.Trigger から引数で届くので useMemo では包めず、
+  // 合成元が同じ間だけ前回の結果を使い回す手動のキャッシュにしている。
+  const mergedRefCache = useRef<{
+    sources: readonly [unknown, unknown];
+    merged: RefCallback<HTMLElement>;
+  } | null>(null);
+
+  const mergeTriggerRef = (
+    triggerRef: IconButtonTriggerProps['ref'],
+  ): RefCallback<HTMLElement> => {
+    const cache = mergedRefCache.current;
+    if (cache && cache.sources[0] === ref && cache.sources[1] === triggerRef) {
+      return cache.merged;
+    }
+    const merged = mergeRefs(ref, triggerRef);
+    mergedRefCache.current = { sources: [ref, triggerRef], merged };
+    return merged;
+  };
+
   const buildItemProps = (
     triggerProps: IconButtonTriggerProps,
   ): IconButtonRenderItemProps => ({
@@ -173,7 +194,7 @@ export const IconButton: FC<Props> = ({
       onFocus: chain(triggerProps.onFocus, onFocus),
       onMouseEnter: chain(triggerProps.onMouseEnter, onMouseEnter),
       onMouseLeave: chain(triggerProps.onMouseLeave, onMouseLeave),
-      ref: mergeRefs(ref, triggerProps.ref),
+      ref: mergeTriggerRef(triggerProps.ref),
     },
   });
 
