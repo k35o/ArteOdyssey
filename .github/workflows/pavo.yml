@@ -8,6 +8,11 @@ on:
   issue_comment:
     types: [created]
 
+# 呼び先の review.yml は job 側で contents:read しか要求せず、GitHub への
+# 書き込みは App トークンで行う。既定スコープを継がせる理由はない。
+permissions:
+  contents: read
+
 jobs:
   pavo:
     if: ${{ github.event_name != 'issue_comment' || startsWith(github.event.comment.body, '/pavo') }}
