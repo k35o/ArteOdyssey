@@ -27,8 +27,15 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # ブラウザモードのテストは全プロジェクトが chromium 固定。
       - name: Install Playwright browsers
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install chromium
 
       - name: Run tests
         run: pnpm --filter './packages/*' test
@@ -102,9 +109,15 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+
       # router-basic はブラウザモードのテストを持つ
       - name: Install Playwright browsers
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install chromium
 
       # パッケージの下流（サイトと examples）はどちらも他ジョブが必要としないので、
       # composite install の build からは外し、このジョブがまとめて面倒を見る。
