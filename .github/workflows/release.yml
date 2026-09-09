@@ -33,8 +33,12 @@ jobs:
           fetch-depth: 0
           token: ${{ steps.app-token.outputs.token }}
 
+      # ビルドは publish 直前に release action の build 入力が回す。ここで
+      # 先に組んでも捨てられるだけなので install だけにする。
       - name: Install
         uses: ./.github/composite-actions/install
+        with:
+          build: none
 
       - name: Release
         uses: k35o/pnpm-release-action@5e009384bf5b1d2501f8405817b5d5578a90624e # v0.2.2

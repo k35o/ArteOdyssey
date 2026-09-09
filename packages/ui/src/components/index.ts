@@ -1,5 +1,9 @@
-export { Button } from './buttons/button';
-export { IconButton, type IconButtonTriggerProps } from './buttons/icon-button';
+export { Button, type ButtonRenderItemProps } from './buttons/button';
+export {
+  IconButton,
+  type IconButtonRenderItemProps,
+  type IconButtonTriggerProps,
+} from './buttons/icon-button';
 export { Accordion } from './data-display/accordion';
 export { Avatar } from './data-display/avatar';
 export { Badge } from './data-display/badge';

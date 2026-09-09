@@ -1,7 +1,15 @@
 'use client';
 
-import type { ComponentPropsWithRef, FC, MouseEvent, ReactNode } from 'react';
-import { useTransition } from 'react';
+import type {
+  ButtonHTMLAttributes,
+  ComponentPropsWithRef,
+  FC,
+  MouseEvent,
+  MouseEventHandler,
+  ReactNode,
+  RefCallback,
+} from 'react';
+import { useRef, useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Placement } from '../../../types/variables';
@@ -13,6 +21,52 @@ import { cn } from './../../../helpers/cn';
 import { mergeRefs } from './../../../helpers/merge-refs';
 
 export type IconButtonTriggerProps = Partial<TooltipTriggerProps>;
+
+/**
+ * `renderItem` が受け取る props。既定の `<button>` に渡すものと同じ
+ * オブジェクトで、`<button>` には `triggerProps` ともども展開できる。
+ * `<a>` など別の要素を描画するときは `<button>` 専用の `disabled` /
+ * `type` を分割代入で外してから残りを展開する。無効状態は同梱の
+ * `aria-disabled` で表現できる。`ref` は tooltip の配線と合成済みのものが
+ * `triggerProps` に入っているので、平置きでは渡さない。
+ *
+ * ハンドラの要素型を `HTMLButtonElement` ではなく `HTMLElement` にしているのは、
+ * `ClipboardEventHandler<HTMLButtonElement>` のような兄弟型が `<a>` の同名 props
+ * に代入できず、束ごと展開できなくなるため。
+ */
+export type IconButtonRenderItemProps = Omit<
+  ButtonHTMLAttributes<HTMLElement>,
+  | 'aria-busy'
+  | 'aria-describedby'
+  | 'aria-disabled'
+  | 'aria-label'
+  | 'children'
+  | 'className'
+  | 'disabled'
+  | 'onBlur'
+  | 'onClick'
+  | 'onFocus'
+  | 'onMouseEnter'
+  | 'onMouseLeave'
+  | 'style'
+  | 'type'
+> & {
+  className: string;
+  children: ReactNode;
+  type: 'button';
+  disabled: boolean;
+  'aria-label': string;
+  'aria-busy': true | undefined;
+  'aria-disabled': true | undefined;
+  // 要素を選ばない MouseEventHandler にしておくのは、renderItem が <a> などを
+  // 描画したときにもそのまま渡せるようにするため。
+  onClick: MouseEventHandler<HTMLElement> | undefined;
+  /**
+   * tooltip の配線（ref・hover/focus ハンドラ・`aria-describedby`）。
+   * 利用者が渡した同名のハンドラも連結済みなので、描画する要素へ展開する。
+   */
+  triggerProps: IconButtonTriggerProps;
+};
 
 type Props = {
   size?: 'sm' | 'md' | 'lg';
@@ -27,12 +81,7 @@ type Props = {
    * `preventDefault` した場合は `onAction` をスキップ）。
    */
   onAction?: () => void | Promise<void>;
-  renderItem?: (props: {
-    className: string;
-    children: ReactNode;
-    'aria-label': string;
-    triggerProps: IconButtonTriggerProps;
-  }) => ReactNode;
+  renderItem?: (props: IconButtonRenderItemProps) => ReactNode;
 } & Omit<ComponentPropsWithRef<'button'>, 'type' | 'className' | 'style'>;
 
 const joinIds = (
@@ -66,9 +115,15 @@ export const IconButton: FC<Props> = ({
   const isPending = transitionPending || formPending;
   const isDisabled = Boolean(disabled) || isPending;
 
+  // 無効なときもハンドラを付けるのは、renderItem が <a> などを描画したときに
+  // ネイティブの disabled が効かず、そのまま遷移してしまうため。
   const handleClick =
-    onClick || onAction
+    onClick || onAction || isDisabled
       ? (event: MouseEvent<HTMLButtonElement>) => {
+          if (isDisabled) {
+            event.preventDefault();
+            return;
+          }
           onClick?.(event);
           if (event.defaultPrevented) return;
           if (onAction) {
@@ -80,7 +135,7 @@ export const IconButton: FC<Props> = ({
       : undefined;
 
   const className = cn(
-    'inline-flex rounded-full transition-colors',
+    'inline-flex cursor-pointer rounded-full transition-colors',
     FOCUS_RING,
     (color === 'transparent' || color === 'base') &&
       'hover:bg-bg-subtle active:bg-bg-mute',
@@ -93,92 +148,74 @@ export const IconButton: FC<Props> = ({
     size === 'sm' && 'p-1',
     size === 'md' && 'p-2',
     size === 'lg' && 'p-3',
-    !renderItem && 'cursor-pointer',
-    !renderItem &&
-      isDisabled &&
+    isDisabled &&
       'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
   );
 
-  if (tooltipDisabled) {
-    if (renderItem) {
-      return (
-        <>
-          {renderItem({
-            className,
-            children,
-            'aria-label': label,
-            triggerProps: {},
-          })}
-        </>
-      );
+  // mergeRefs は呼ぶたび新しい関数を返し、React が毎レンダー ref を付け外しする。
+  // 合成先の triggerProps は Tooltip.Trigger から引数で届くので useMemo では包めず、
+  // 合成元が同じ間だけ前回の結果を使い回す手動のキャッシュにしている。
+  const mergedRefCache = useRef<{
+    sources: readonly [unknown, unknown];
+    merged: RefCallback<HTMLElement>;
+  } | null>(null);
+
+  const mergeTriggerRef = (
+    triggerRef: IconButtonTriggerProps['ref'],
+  ): RefCallback<HTMLElement> => {
+    const cache = mergedRefCache.current;
+    if (cache && cache.sources[0] === ref && cache.sources[1] === triggerRef) {
+      return cache.merged;
     }
-    return (
-      <button
-        {...props}
-        aria-busy={isPending || undefined}
-        aria-describedby={describedBy}
-        aria-label={label}
-        className={className}
-        disabled={isDisabled}
-        onBlur={onBlur}
-        onClick={handleClick}
-        onFocus={onFocus}
-        onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
-        ref={ref}
-        type="button"
-      >
-        {children}
-      </button>
-    );
+    const merged = mergeRefs(ref, triggerRef);
+    mergedRefCache.current = { sources: [ref, triggerRef], merged };
+    return merged;
+  };
+
+  const buildItemProps = (
+    triggerProps: IconButtonTriggerProps,
+  ): IconButtonRenderItemProps => ({
+    ...props,
+    'aria-busy': isPending || undefined,
+    'aria-disabled': isDisabled || undefined,
+    'aria-label': label,
+    children,
+    className,
+    disabled: isDisabled,
+    onClick: handleClick,
+    type: 'button',
+    triggerProps: {
+      ...triggerProps,
+      'aria-describedby': joinIds(
+        describedBy,
+        triggerProps['aria-describedby'],
+      ),
+      onBlur: chain(triggerProps.onBlur, onBlur),
+      onFocus: chain(triggerProps.onFocus, onFocus),
+      onMouseEnter: chain(triggerProps.onMouseEnter, onMouseEnter),
+      onMouseLeave: chain(triggerProps.onMouseLeave, onMouseLeave),
+      ref: mergeTriggerRef(triggerProps.ref),
+    },
+  });
+
+  const render = (triggerProps: IconButtonTriggerProps) => {
+    const itemProps = buildItemProps(triggerProps);
+    if (renderItem) {
+      return <>{renderItem(itemProps)}</>;
+    }
+    const { triggerProps: resolvedTriggerProps, ...rest } = itemProps;
+    // type を展開のあとに書き直しているのは、lint の button-has-type が
+    // スプレッド越しの type を読めないため（値は itemProps.type と同じ）。
+    return <button {...rest} {...resolvedTriggerProps} type="button" />;
+  };
+
+  if (tooltipDisabled) {
+    return render({});
   }
 
   return (
     <Tooltip.Root placement={tooltipPlacement}>
-      <Tooltip.Trigger
-        renderItem={(triggerProps) => {
-          if (renderItem) {
-            return (
-              <>
-                {renderItem({
-                  className,
-                  children,
-                  'aria-label': label,
-                  triggerProps: {
-                    ...triggerProps,
-                    'aria-describedby': joinIds(
-                      describedBy,
-                      triggerProps['aria-describedby'],
-                    ),
-                  },
-                })}
-              </>
-            );
-          }
-          return (
-            <button
-              {...props}
-              aria-busy={isPending || undefined}
-              aria-describedby={joinIds(
-                describedBy,
-                triggerProps['aria-describedby'],
-              )}
-              aria-label={label}
-              className={className}
-              disabled={isDisabled}
-              onBlur={chain(triggerProps.onBlur, onBlur)}
-              onClick={handleClick}
-              onFocus={chain(triggerProps.onFocus, onFocus)}
-              onMouseEnter={chain(triggerProps.onMouseEnter, onMouseEnter)}
-              onMouseLeave={chain(triggerProps.onMouseLeave, onMouseLeave)}
-              ref={mergeRefs(ref, triggerProps.ref)}
-              type="button"
-            >
-              {children}
-            </button>
-          );
-        }}
-      />
+      <Tooltip.Trigger renderItem={render} />
       <Tooltip.Content>{label}</Tooltip.Content>
     </Tooltip.Root>
   );

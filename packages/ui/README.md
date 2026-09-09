@@ -43,7 +43,7 @@ it. Install one when you import the entry it belongs to.
 | `@types/react-dom`                        | ≥19.2.4         | the shipped type declarations                                                 |
 | `tailwindcss`                             | ≥4.3.3          | the `tailwind.css` entry (see [Imports & Bundle Size](#imports--bundle-size)) |
 | `zod`                                     | ≥4.4.3          | generative-UI schemas                                                         |
-| `@json-render/core`, `@json-render/react` | ≥0.19.0 <0.20.0 | `@k8ordo/ui/json-render`                                                      |
+| `@json-render/core`, `@json-render/react` | ≥0.20.0 <0.21.0 | `@k8ordo/ui/json-render`                                                      |
 | `@openuidev/lang-core`                    | ≥0.2.10 <0.3.0  | `@k8ordo/ui/openui`                                                           |
 | `@openuidev/react-lang`                   | ≥0.2.9 <0.3.0   | `@k8ordo/ui/openui`                                                           |
 | `ai`                                      | ≥7.0.51         | `@k8ordo/ui/ai-sdk`                                                           |

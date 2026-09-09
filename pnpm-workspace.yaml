@@ -20,19 +20,19 @@ catalog:
   '@tailwindcss/postcss': 4.3.3
   '@tailwindcss/vite': 4.3.3
   '@types/react': 19.2.18
-  '@types/react-dom': 19.2.4
-  '@vitejs/plugin-react': 6.0.5
+  '@types/react-dom': 19.2.5
+  '@vitejs/plugin-react': 6.1.1
   '@vitest/browser-playwright': 4.1.11
   postcss: 8.5.26
-  publint: 0.3.23
+  publint: 0.3.24
   react: 19.2.8
   react-dom: 19.2.8
   tailwindcss: 4.3.3
-  vite: 8.2.1
-  vite-plus: 0.2.9
+  vite: 8.2.2
+  vite-plus: 0.3.0
   vitest: 4.1.11
   vitest-browser-react: 2.2.0
-  zod: 4.4.3
+  zod: 4.5.4
 
 minimumReleaseAge: 10080
 
@@ -41,7 +41,7 @@ minimumReleaseAge: 10080
 # tsc が "Excessive stack depth" を起こして typecheck が落ちる。単一バージョンに
 # 強制して型グラフのコピーを 1 つに保つ (types のみのパッケージでランタイム影響なし)。
 overrides:
-  '@oxc-project/types': 0.144.0
+  '@oxc-project/types': 0.148.0
   # vite-plus は vitest を exact pin しており、catalog の vitest がそれより
   # 新しいと型グラフが 2 コピーになる。vite-plus の defineConfig に vitest の
   # 設定を書いた vite.config.ts を typecheck すると、同一内容の型同士の比較で

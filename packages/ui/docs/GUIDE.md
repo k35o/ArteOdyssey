@@ -208,11 +208,14 @@ import { Button } from '@k8ordo/ui';
 // Text only
 <Button variant="skeleton">View details</Button>
 
-// Render as a link (renderItem prop)
+// Render as a link (renderItem prop). The bag holds everything the <button>
+// would have received, so drop the two <button>-only members and spread the
+// rest: className, children, ref, onClick, aria-disabled, aria-busy, and any
+// attribute passed to Button all ride along.
 <Button
   color="base"
-  renderItem={({ className, children }) => (
-    <a className={className} href="/settings">{children}</a>
+  renderItem={({ children, disabled: _disabled, type: _type, ...props }) => (
+    <a href="/settings" {...props}>{children}</a>
   )}
 >
   Settings
@@ -229,12 +232,13 @@ import { IconButton } from '@k8ordo/ui';
 <IconButton color="transparent" label="Copy"><CopyIcon /></IconButton>
 <IconButton color="primary" label="Send"><SendIcon /></IconButton>
 
-// Render as a link (renderItem prop)
+// Render as a link (renderItem prop). triggerProps holds the tooltip wiring
+// and the merged ref; spread it alongside the rest.
 <IconButton
   color="base"
   label="Home"
-  renderItem={({ className, children, 'aria-label': ariaLabel, triggerProps }) => (
-    <a aria-label={ariaLabel} className={className} href="/home" {...triggerProps}>
+  renderItem={({ children, disabled: _disabled, triggerProps, type: _type, ...props }) => (
+    <a href="/home" {...props} {...triggerProps}>
       {children}
     </a>
   )}

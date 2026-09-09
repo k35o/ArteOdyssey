@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# 後続の push が来たら古い実行は用済み。走らせ切っても誰も読まない。
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
@@ -22,8 +27,15 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+
+      # ブラウザモードのテストは全プロジェクトが chromium 固定。
       - name: Install Playwright browsers
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install chromium
 
       - name: Run tests
         run: pnpm --filter './packages/*' test
@@ -80,19 +92,17 @@ jobs:
         with:
           persist-credentials: false
 
+      # composite install が packages をビルド済み。
       - name: Install
         uses: ./.github/composite-actions/install
-
-      - name: Build package
-        run: pnpm --filter './packages/*' build
 
       # Validate the publishable artifact: publint checks packaging metadata,
       # attw checks that types resolve under every module-resolution mode.
       - name: Check packaging
         run: pnpm --filter './packages/*' check:package
 
-  examples:
-    name: Examples
+  apps:
+    name: Apps & Examples
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -104,15 +114,26 @@ jobs:
       - name: Install
         uses: ./.github/composite-actions/install
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('pnpm-lock.yaml') }}
+
       # router-basic はブラウザモードのテストを持つ
       - name: Install Playwright browsers
-        run: pnpm exec playwright install
+        run: pnpm exec playwright install chromium
 
-      # examples は他ジョブが必要としないので composite install の build からは
-      # 外したまま、このジョブだけで面倒を見る。ビルドが通るだけでは
-      # 「生成 UI のデモが実は何も描画しない」「フレームワークが 1 枚も
-      # 書き出していない」を検出できないため、デモの spec / DSL を実パーサに
-      # 通し、フレームワークの出力とハンドラを主張する test も併せて回す。
+      # パッケージの下流（サイトと examples）はどちらも他ジョブが必要としないので、
+      # composite install の build からは外し、このジョブがまとめて面倒を見る。
+      # ドキュメントサイトは 177 ルートを実際に書き出す唯一の場所でもある。
+      - name: Build docs site
+        run: pnpm --filter './apps/*' build
+
+      # ビルドが通るだけでは「生成 UI のデモが実は何も描画しない」
+      # 「フレームワークが 1 枚も書き出していない」を検出できないため、
+      # デモの spec / DSL を実パーサに通し、フレームワークの出力とハンドラを
+      # 主張する test も併せて回す。
       - name: Build examples
         run: pnpm build:examples
 
@@ -129,8 +150,11 @@ jobs:
         with:
           persist-credentials: false
 
+      # どちらのチェックも packages/ui の src と docs しか読まないので dist は要らない。
       - name: Install
         uses: ./.github/composite-actions/install
+        with:
+          build: none
 
       # Re-extract tokens from index.css and fail if the committed
       # tokens.generated.ts is stale (CSS edit, Tailwind bump, or tool update).
