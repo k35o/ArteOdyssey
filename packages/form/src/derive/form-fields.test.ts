@@ -160,6 +160,18 @@ describe('formFields', () => {
     expect(fields.local.input.type).toBe('datetime-local');
   });
 
+  it('picks the control for an ISO format the JSON Schema does not name', () => {
+    // zod emits `format` only when a standard one matches the values it
+    // accepts, so these two arrive as a bare pattern. Losing the picker that
+    // submits exactly their shape is the degradation this pins down.
+    const { fields } = formFields(
+      z.object({ at: z.iso.time(), on: z.iso.datetime({ local: true }) }),
+    );
+
+    expect(fields.at.input.type).toBe('time');
+    expect(fields.on.input.type).toBe('datetime-local');
+  });
+
   it('carries multipleOf into step for integers instead of overwriting it', () => {
     const { fields } = formFields(
       z.object({
@@ -192,6 +204,128 @@ describe('formFields', () => {
     // "At least two" has no HTML attribute; the report points at minChecked.
     const report = dropped.find((entry) => entry.field === 'tags');
     expect(report?.reason).toContain('minChecked');
+  });
+
+  it('refuses a number no control can submit rather than deriving a dead form', () => {
+    // Every value arrives as a string, so z.number() fails on every possible
+    // submission — a form that can never succeed, not a check the client skips.
+    expect(() => formFields(z.object({ n: z.number() }))).toThrow(
+      /z\.coerce\.number\(\)/u,
+    );
+    // The type check aborts before the bound, so the refusal must not depend on
+    // the probe happening to satisfy the constraints.
+    expect(() => formFields(z.object({ n: z.number().min(100) }))).toThrow(
+      /z\.coerce\.number\(\)/u,
+    );
+    // A literal reports invalid_value, not invalid_type, and is just as dead.
+    expect(() => formFields(z.object({ n: z.literal(1) }))).toThrow(
+      /z\.coerce\.number\(\)/u,
+    );
+    // A bound the submission fails is the schema working, not a dead form.
+    expect(() =>
+      formFields(z.object({ n: z.coerce.number().min(100) })),
+    ).not.toThrow();
+  });
+
+  it('requires a numeric field whose schema rejects an untouched control', () => {
+    // z.coerce.number() reads '' as 0, so probing with '' would call a blank
+    // field acceptable and let 0 through as a value nobody typed.
+    const { fields } = formFields(
+      z.object({
+        count: z.coerce.number(),
+        optional: z.coerce.number().optional(),
+        defaulted: z.coerce.number().default(5),
+      }),
+    );
+
+    expect(fields.count.input.required).toBe(true);
+    expect(fields.optional.input.required).toBeUndefined();
+    expect(fields.defaulted.input.required).toBeUndefined();
+  });
+
+  it("takes a required number's wording from the schema's own type error", () => {
+    const { fields } = formFields(
+      z.object({ count: z.coerce.number('数値を入力してください') }),
+    );
+
+    expect(fields.count.messages.valueMissing).toBe('数値を入力してください');
+  });
+
+  it('reports a leaf whose constraints it could not read instead of calling it text', () => {
+    const { fields, dropped } = formFields(
+      z.object({
+        transformed: z
+          .string()
+          .min(3)
+          .transform((value) => value),
+        opaque: z.custom<string>((value) => typeof value === 'string'),
+      }),
+    );
+
+    // A text input still submits something the schema accepts, so the form
+    // works — but nothing about it was derived, and saying so is the point.
+    expect(fields.transformed.input.type).toBe('text');
+    expect(fields.transformed.input.minLength).toBeUndefined();
+    expect(dropped.map((entry) => entry.field)).toStrictEqual([
+      'transformed',
+      'opaque',
+    ]);
+    expect(dropped[0]?.reason).toContain('検査されません');
+  });
+
+  it('refuses a leaf no text control can satisfy', () => {
+    expect(() => formFields(z.object({ when: z.date() }))).toThrow(
+      /文字列を受け付けない/u,
+    );
+    expect(() => formFields(z.object({ big: z.bigint() }))).toThrow(
+      /文字列を受け付けない/u,
+    );
+    // A nullable number is as unsatisfiable as a bare one, and reaches the
+    // refusal as an anyOf node rather than through the numeric branch.
+    expect(() => formFields(z.object({ n: z.number().nullable() }))).toThrow(
+      /文字列を受け付けない/u,
+    );
+  });
+
+  it('keeps a leaf that reads some strings and not others', () => {
+    // A schema that coerces turns away nonsense and accepts a real value, so
+    // one rejected probe cannot stand for "no string will ever do".
+    const { fields } = formFields(
+      z.object({
+        nullableNumber: z.coerce.number().nullable(),
+        when: z.coerce.date(),
+        big: z.coerce.bigint(),
+      }),
+    );
+
+    expect(fields.nullableNumber.input.type).toBe('text');
+    expect(fields.when.input.type).toBe('text');
+    expect(fields.big.input.type).toBe('text');
+  });
+
+  it('derives a file control, its accepted types, and what HTML cannot carry', () => {
+    const { fields, dropped } = formFields(
+      z.object({
+        avatar: z.file().mime(['image/png', 'image/jpeg']),
+        attachment: z.file().max(1024),
+        optional: z.file().optional(),
+      }),
+    );
+
+    expect(fields.avatar.input).toMatchObject({
+      type: 'file',
+      required: true,
+      accept: 'image/png,image/jpeg',
+    });
+    // An unfilled file input submits an empty File, which z.file() accepts;
+    // required has to come from the same "nothing was entered" the parse sends.
+    expect(fields.optional.input.required).toBeUndefined();
+    // A byte bound is not minlength, and no attribute carries it.
+    expect(fields.attachment.input.minLength).toBeUndefined();
+    expect(fields.attachment.input.maxLength).toBeUndefined();
+    expect(
+      dropped.find((entry) => entry.field === 'attachment')?.reason,
+    ).toContain('ファイルサイズ');
   });
 
   it('marks a password field secret and types it', () => {

@@ -5,6 +5,7 @@ import type { FC, PropsWithChildren, ReactNode } from 'react';
 
 import { cn } from '../../../helpers/cn';
 import { useMessages } from '../../../i18n/context';
+import { closeDialog } from '../../../internal/dom-support';
 import type { DrawerSide } from '../../../types/variables';
 import { IconButton } from '../../buttons/icon-button';
 import { Heading } from '../../data-display/heading';
@@ -58,7 +59,9 @@ export const Drawer: FC<
               label={messages.close}
               onClick={(e) => {
                 e.stopPropagation();
-                dialogRef.current?.close();
+                if (dialogRef.current) {
+                  closeDialog(dialogRef.current);
+                }
               }}
               tooltipDisabled
             >

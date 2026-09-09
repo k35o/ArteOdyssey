@@ -208,11 +208,14 @@ import { Button } from '@k8ordo/ui';
 // Text only
 <Button variant="skeleton">View details</Button>
 
-// Render as a link (renderItem prop)
+// Render as a link (renderItem prop). The bag holds everything the <button>
+// would have received, so drop the two <button>-only members and spread the
+// rest: className, children, ref, onClick, aria-disabled, aria-busy, and any
+// attribute passed to Button all ride along.
 <Button
   color="base"
-  renderItem={({ className, children }) => (
-    <a className={className} href="/settings">{children}</a>
+  renderItem={({ children, disabled: _disabled, type: _type, ...props }) => (
+    <a href="/settings" {...props}>{children}</a>
   )}
 >
   Settings
@@ -229,12 +232,13 @@ import { IconButton } from '@k8ordo/ui';
 <IconButton color="transparent" label="Copy"><CopyIcon /></IconButton>
 <IconButton color="primary" label="Send"><SendIcon /></IconButton>
 
-// Render as a link (renderItem prop)
+// Render as a link (renderItem prop). triggerProps holds the tooltip wiring
+// and the merged ref; spread it alongside the rest.
 <IconButton
   color="base"
   label="Home"
-  renderItem={({ className, children, 'aria-label': ariaLabel, triggerProps }) => (
-    <a aria-label={ariaLabel} className={className} href="/home" {...triggerProps}>
+  renderItem={({ children, disabled: _disabled, triggerProps, type: _type, ...props }) => (
+    <a href="/home" {...props} {...triggerProps}>
       {children}
     </a>
   )}
@@ -325,6 +329,100 @@ Avoid the traits that make a UI recognizably AI-generated at a glance.
 - **Let space and shape carry it**: character comes from spacing and soft radii, not from vivid color
 - **Do not forget dark mode**: semantic tokens handle it for you
 - **Accessibility**: `aria-label`, keyboard navigation, and state that does not rely on color alone
+
+## Testing in jsdom
+
+The library's own tests run in a real browser, but an application that unit
+tests its pages usually runs them in jsdom or happy-dom. Every component mounts
+there without any setup: the DOM APIs these test environments leave out
+(`ResizeObserver`, `IntersectionObserver`, `matchMedia`, `HTMLDialogElement`'s
+`showModal` / `close`, and the Popover API) are called through a support check,
+and where one is missing the component falls back to its server snapshot or does
+nothing, so mounting a page built from them does not throw. The one component
+that still needs a stub is `Conversation` — see the end of this section.
+
+What a check cannot do is invent the behavior. Without stubs a `Modal` never
+reports itself as open, a `Popover` never enters the top layer, `useBreakpoint`
+answers `false`, and `useCanHover` answers `true`. To assert on open and closed
+state, add the stubs below; to assert on focus, placement, or anything with a
+layout, use a real browser (Vitest browser mode or Playwright) instead — jsdom
+has no layout engine, so a passing visibility assertion there means little.
+
+```ts
+// vitest.setup.ts
+// vitest.config.ts: test: { environment: 'jsdom', setupFiles: ['./vitest.setup.ts'] }
+
+class ObserverStub {
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+  takeRecords(): [] {
+    return [];
+  }
+}
+
+globalThis.ResizeObserver ??= ObserverStub as unknown as typeof ResizeObserver;
+globalThis.IntersectionObserver ??=
+  ObserverStub as unknown as typeof IntersectionObserver;
+
+window.matchMedia ??= (query: string) =>
+  ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => false,
+  }) as unknown as MediaQueryList;
+
+// <dialog>: jsdom reflects the `open` attribute but ships none of the methods.
+// Modal watches that attribute, so driving `open` is enough to open and close it.
+HTMLDialogElement.prototype.showModal ??= function (this: HTMLDialogElement) {
+  this.open = true;
+};
+HTMLDialogElement.prototype.show ??= function (this: HTMLDialogElement) {
+  this.open = true;
+};
+HTMLDialogElement.prototype.close ??= function (
+  this: HTMLDialogElement,
+  returnValue?: string,
+) {
+  if (returnValue !== undefined) {
+    this.returnValue = returnValue;
+  }
+  this.open = false;
+  this.dispatchEvent(new Event('close'));
+};
+
+// Popover API. Keep the open elements in a set and teach `Element.prototype.matches`
+// about `:popover-open`: a selector engine that does not implement the pseudo-class
+// either rejects it outright or always answers false, and Popover / Tooltip /
+// DropdownMenu ask it on every toggle.
+const openPopovers = new WeakSet<Element>();
+
+HTMLElement.prototype.showPopover ??= function (this: HTMLElement) {
+  openPopovers.add(this);
+};
+HTMLElement.prototype.hidePopover ??= function (this: HTMLElement) {
+  openPopovers.delete(this);
+};
+
+const matches = Element.prototype.matches;
+Element.prototype.matches = function (this: Element, selectors: string) {
+  return selectors === ':popover-open'
+    ? openPopovers.has(this)
+    : matches.call(this, selectors);
+};
+```
+
+Two more, only if your test touches them:
+
+- `Element.prototype.scrollTo` — jsdom does not implement it, and `Conversation`
+  from `@k8ordo/ui/ai` scrolls its viewport to the bottom on mount, so a test that
+  renders one throws without this. Assign a no-op to it.
+- `ResizeObserver` — the stub above never fires. A test that expects a component
+  to react to a size change needs an observer that records its callback and lets
+  the test call it.
 
 ## Detailed reference
 
