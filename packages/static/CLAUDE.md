@@ -34,10 +34,13 @@ pnpm check         # check:write to auto-fix
   `'use server'` module fails it for the same reason: the RSC pipeline
   compiles an action in either mode, so "static has no Server Actions" is
   only true because this package says no — at build time by name
-  (`serverActionModules`) and in `vite dev` in `transform`, the moment the
-  file is seen (`directive.ts` — a linear scan, not a regular expression,
-  because skipping comments with a pattern is a nested repetition that
-  backtracks exponentially).
+  (`serverActionModules`, every offending module at once) and in `vite dev`
+  in `transform`, the moment the module is compiled
+  (`isServerActionModule`). Both read the one registry `rsc:use-server`
+  fills, which is why the dev hook is ordered `post` and never looks at the
+  code it is handed: that transform prepends its runtime import, so the
+  file has stopped beginning with the directive by the time anyone downstream
+  sees it.
 - **`site` is the only reason a sitemap exists.** Without the origin a
   sitemap would list relative URLs, which is not a sitemap; with it every
   page the build wrote is listed, redirects and the not-found excluded.
@@ -58,9 +61,8 @@ pnpm check         # check:write to auto-fix
 
 ```
 src/
-  paths.ts      patternsOf / planPaths — 純関数(URLPattern で供給パスを照合)
-  directive.ts  hasUseServerDirective — 'use server' を先頭文として見つける走査
-  index.ts   framework: engine + prerender(buildApp)
+  paths.ts   patternsOf / planPaths — 純関数(URLPattern で供給パスを照合)
+  index.ts   framework: engine + prerender(transform で dev の拒否 / buildApp)
 ```
 
 ## Conventions
