@@ -14,7 +14,7 @@ import {
 } from '../_previews/toast-previews';
 
 // useToast の戻り値はコンポーネントではないので生成の対象外。
-const useToastReturnProps: PropItem[] = [
+const toastHookReturnProps: PropItem[] = [
   {
     name: 'open',
     types: ['(tone: Status, message: string, options?: ToastOptions) => void'],
@@ -160,7 +160,7 @@ closeAll();`}
           items={propsOf('ToastProvider')}
         />
         <Heading level="h3">useToast</Heading>
-        <PropsTable items={useToastReturnProps} />
+        <PropsTable items={toastHookReturnProps} />
       </section>
     </div>
   );
