@@ -4,15 +4,15 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import {
   engine,
+  isServerActionModule,
   parseRouteTree,
   payloadPathFor,
   scanRoutes,
   serverActionModules,
 } from '@k8ordo/framework-engine';
 import type { EngineOptions } from '@k8ordo/framework-engine';
-import type { Plugin, PluginOption } from 'vite';
+import type { Plugin, PluginOption, ResolvedConfig } from 'vite';
 
-import { hasUseServerDirective } from './directive';
 import {
   catchAllPath,
   catchAllPatterns,
@@ -63,25 +63,41 @@ const RUNTIME_DIR = fileURLToPath(new URL('./runtime/', import.meta.url));
 export const framework = (options: StaticOptions = {}): PluginOption[] => {
   let root = '';
   let routesDir = '';
+  // The plugin list the RSC pipeline's registry is reached through, kept the
+  // way `root` is: empty until Vite resolves the config, which is before any
+  // module is compiled.
+  let plugins: ResolvedConfig['plugins'] = [];
 
   const prerender: Plugin = {
     name: 'k8ordo:static',
 
     configResolved(config) {
-      ({ root } = config);
+      ({ root, plugins } = config);
       routesDir = path.resolve(root, options.routesDir ?? 'src/routes');
     },
 
     // The build refuses a Server Action (below); `vite dev` is a running
     // server that would happily accept the POST, and a form that works in
     // development and posts into nothing in production is the worst of the
-    // two. So the refusal is said here as well, the moment the file is seen.
-    transform(code, id) {
-      if (id.includes('/node_modules/')) return null;
-      if (!hasUseServerDirective(code)) return null;
-      throw new Error(
-        `static build cannot ship Server Actions — a file cannot receive one, and this declares 'use server':\n  ${path.relative(root, id)}\nthis application wants @k8ordo/server`,
-      );
+    // two. So the refusal is said here as well, the moment the module is
+    // compiled — and it asks the same registry the build reads, so the two
+    // cannot come to disagree about what a Server Action is.
+    transform: {
+      // After `rsc:use-server`, which is what fills that registry. Its own
+      // transform prepends a runtime import, so a module's text stops
+      // answering the question the moment it has run — which is why this
+      // reads the registry rather than the code it is handed.
+      order: 'post',
+      handler(_code, id) {
+        // Only while a dev server is running. A build asks once at the end,
+        // by name, and names every offending module at once; asking here too
+        // would replace that list with whichever file compiled first.
+        if (this.environment.mode !== 'dev') return null;
+        if (!isServerActionModule({ plugins }, id)) return null;
+        throw new Error(
+          `static build cannot ship Server Actions — a file cannot receive one, and this declares 'use server':\n  ${path.relative(root, id)}\nthis application wants @k8ordo/server`,
+        );
+      },
     },
 
     buildApp: {
