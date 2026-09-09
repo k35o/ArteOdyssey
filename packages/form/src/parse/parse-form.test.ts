@@ -180,6 +180,74 @@ describe('parseForm', () => {
     expect(result.state.values?.tags).toStrictEqual(['a', 'b']);
   });
 
+  it('reads an empty numeric control as nothing entered, never as 0', () => {
+    // z.coerce.number() turns '' into 0. Handing it '' would store a number
+    // nobody typed, and the same probe told the derivation the field is not
+    // required — the two sides have to mean the same thing.
+    const counted = z.object({ n: z.coerce.number('数値を入力してください') });
+
+    const blank = parseForm(counted, formDataOf([['n', '']]));
+    expect(blank.success).toBe(false);
+    expect(blank.state.errors).toStrictEqual({ n: '数値を入力してください' });
+    // The blank is still echoed, so a retry without JavaScript looks the same.
+    expect(blank.state.values).toStrictEqual({ n: '' });
+
+    const typed = parseForm(counted, formDataOf([['n', '5']]));
+    expect(typed.success).toBe(true);
+    expect(typed.data).toStrictEqual({ n: 5 });
+  });
+
+  it('lets an empty numeric control reach optional and default untouched', () => {
+    const loose = z.object({
+      optional: z.coerce.number().optional(),
+      defaulted: z.coerce.number().default(5),
+    });
+
+    const result = parseForm(
+      loose,
+      formDataOf([
+        ['optional', ''],
+        ['defaulted', ''],
+      ]),
+    );
+
+    expect(result.success).toBe(true);
+    expect(result.data).toStrictEqual({ optional: undefined, defaulted: 5 });
+  });
+
+  it('refuses a number no submission could satisfy instead of always failing', () => {
+    expect(() =>
+      parseForm(z.object({ n: z.number() }), formDataOf([['n', '5']])),
+    ).toThrow(/z\.coerce\.number\(\)/u);
+  });
+
+  it('reads an unfilled file input as nothing entered, not as an empty file', () => {
+    // A file control always submits: an unnamed zero-byte File when nobody
+    // chose anything, which z.file() would otherwise accept as an upload.
+    const upload = z.object({ avatar: z.file('ファイルを選んでください') });
+
+    const empty = new FormData();
+    empty.append('avatar', new File([], ''));
+    const blank = parseForm(upload, empty);
+    expect(blank.success).toBe(false);
+    expect(blank.state.errors).toStrictEqual({
+      avatar: 'ファイルを選んでください',
+    });
+
+    const chosen = new FormData();
+    chosen.append(
+      'avatar',
+      new File(['k8o'], 'avatar.png', { type: 'image/png' }),
+    );
+    const picked = parseForm(upload, chosen);
+    const avatar = picked.data?.avatar;
+    expect(picked.success).toBe(true);
+    expect(avatar).toBeInstanceOf(File);
+    expect((avatar as File).name).toBe('avatar.png');
+    // A file is not a value a no-JS retry can restore, so it is never echoed.
+    expect(picked.state.values).toStrictEqual({});
+  });
+
   it('routes an object-level issue to formError, not to a field', () => {
     const paired = z
       .object({

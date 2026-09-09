@@ -77,6 +77,37 @@ Render props take a verb+noun form: `renderItem` / `renderAnchor` / `renderInput
 In generative-UI schemas the trigger wording is `triggerLabel` and the body text
 is `content`.
 
+### Render props
+
+Because every component omits `className` and `style`, a render prop is the only
+escape hatch a caller has. There are two kinds, and they must not be blurred.
+
+**Replacing the element** (`Button` / `IconButton` `renderItem`, `Anchor` /
+`Breadcrumb.Link` `renderAnchor`). The bag is _everything the component would
+have put on its own element_ — the resolved `className`, the composed `children`
+(icons and the pending spinner included), `ref`, the click handler, the
+disabled and pending state, and the caller's remaining attributes. Build that
+object once and hand the same one to both branches — the render prop and the
+component's own element — so the two can never drift. A render prop that quietly
+drops `onClick` or `disabled` hands the caller a dead, undisabled element with
+no warning.
+
+Two rules make such a bag usable on a tag other than the component's own:
+
+- Type the handlers and the `ref` for `HTMLElement`, not for the concrete
+  element. `ClipboardEventHandler<HTMLButtonElement>` will not go onto an `<a>`,
+  and a `RefObject` is invariant — pass the ref through `mergeRefs` so it is a
+  callback. Base the pass-through on `ButtonHTMLAttributes<HTMLElement>` rather
+  than on `ComponentPropsWithRef<'button'>`.
+- Ship `aria-disabled` next to `disabled`, and make the supplied click handler
+  return early with `preventDefault()` while disabled. `disabled` does nothing
+  on an `<a>`, so without both a "disabled" link still navigates.
+
+**Filling a slot** (`FormControl` `renderInput`, `Popover.Trigger` /
+`Tooltip.Trigger` / `FileField.Trigger` / `Alert` `action.renderItem`). The
+component owns no element; the bag is wiring only — ids, ARIA relationships,
+open/close handlers — and the prop is required rather than optional.
+
 ### Event handler value types
 
 For form components, `onChange` takes **the element's meaningful value as its

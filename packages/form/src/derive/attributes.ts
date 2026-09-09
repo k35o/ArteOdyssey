@@ -13,7 +13,49 @@ export type LeafSchema = {
   exclusiveMaximum?: number;
   multipleOf?: number;
   enum?: unknown[];
-  anyOf?: unknown[];
+  contentMediaType?: string;
+  anyOf?: LeafSchema[];
+};
+
+/**
+ * Which control a leaf becomes, at the resolution the submission cares about.
+ * `attributesFor` needs the finer distinctions (`email` vs `url`); the walk and
+ * the parse need only this, and reading it from one place is what keeps the
+ * three from disagreeing about what an untouched control submits.
+ */
+export type ControlKind = 'checkbox' | 'choice' | 'file' | 'number' | 'text';
+
+export const controlKindOf = (schema: LeafSchema): ControlKind => {
+  if (schema.format === 'binary') {
+    return 'file';
+  }
+  if (schema.enum !== undefined) {
+    return 'choice';
+  }
+  if (schema.type === 'boolean') {
+    return 'checkbox';
+  }
+  if (schema.type === 'integer' || schema.type === 'number') {
+    return 'number';
+  }
+  return 'text';
+};
+
+/**
+ * What the control hands the schema when nobody fills it in. A text field
+ * always submits `''` and an unchecked checkbox parses to `false`, but a number
+ * and a file have no such value: an empty numeric field is not 0, and an
+ * unfilled file input is not a zero-byte file. Reading both as "nothing was
+ * entered" is what keeps `required` honest — `z.coerce.number()` turns `''`
+ * into 0, so probing with `''` would say an empty field is acceptable and then
+ * let a blank submission through as a number the person never typed.
+ */
+export const emptySubmissionOf = (schema: LeafSchema): unknown => {
+  const kind = controlKindOf(schema);
+  if (kind === 'checkbox') {
+    return false;
+  }
+  return kind === 'file' || kind === 'number' ? undefined : '';
 };
 
 /**
@@ -102,6 +144,29 @@ export const attributesFor = (
     input.required = true;
   }
 
+  if (controlKindOf(schema) === 'file') {
+    input.type = 'file';
+    // A single mime type lands in `contentMediaType`, several in an `anyOf` of
+    // them — the same `.mime()` call either way.
+    const accept = [
+      schema.contentMediaType,
+      ...(schema.anyOf ?? []).map((branch) => branch.contentMediaType),
+    ].filter((type) => type !== undefined);
+    if (accept.length > 0) {
+      input.accept = accept.join(',');
+    }
+    if (schema.minLength !== undefined || schema.maxLength !== undefined) {
+      // On type="file" they are byte counts, and minlength / maxlength do not
+      // apply to a file control at all.
+      dropped.push({
+        field: name,
+        reason:
+          'ファイルサイズの制限に対応する HTML 属性はありません（minlength / maxlength は type="file" では無視されます）',
+      });
+    }
+    return { input, dropped };
+  }
+
   if (schema.anyOf !== undefined) {
     // A scalar union renders as a plain text input; whatever constraints live
     // inside the branches cannot be lifted out without picking a branch.
@@ -164,6 +229,20 @@ export const attributesFor = (
       }
     }
 
+    return { input, dropped };
+  }
+
+  if (schema.type !== 'string') {
+    // An empty node — what `.transform()`, `.pipe()` into a non-JSON type,
+    // z.custom() and z.unknown() all become — carries nothing to build a
+    // control from. A text input is the only thing left, but nothing about it
+    // is derived, so it is reported rather than presented as a derivation.
+    input.type = 'text';
+    dropped.push({
+      field: name,
+      reason:
+        'スキーマから制約を読み取れないため（transform / pipe / custom など）、type="text" 以外は何も導出できません。ブラウザ側では何も検査されません',
+    });
     return { input, dropped };
   }
 
