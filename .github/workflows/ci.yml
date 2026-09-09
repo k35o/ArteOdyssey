@@ -5,6 +5,11 @@ on:
     branches:
       - main
 
+# 後続の push が来たら古い実行は用済み。走らせ切っても誰も読まない。
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
