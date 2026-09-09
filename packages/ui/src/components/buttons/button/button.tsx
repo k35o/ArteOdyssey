@@ -89,7 +89,10 @@ export const Button: FC<Props> = ({
   ...rest
 }) => {
   // ref を毎レンダー作り直すと React が付け外しを繰り返すので、合成結果を保持する。
-  // mergeRefs は ref を読まず、React がコールバックを呼んだときに書き込むだけ。
+  // react(refs) を止めているのは、renderItem に ref を渡す設計そのものを
+  // このルールが許さないため。ref という名前で受けた値は、関数に渡してもクロージャに
+  // 閉じ込めても違反になり、renderItem(itemProps) 側へ位置が移るだけになる。
+  // mergeRefs が返すのはコールバック ref で、.current をレンダー中に読む経路はない。
   // oxlint-disable-next-line react/refs
   const mergedRef = useMemo(() => (ref ? mergeRefs(ref) : undefined), [ref]);
   const [transitionPending, startTransition] = useTransition();

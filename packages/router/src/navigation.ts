@@ -4,6 +4,7 @@ import {
   createContext,
   startTransition,
   useEffect,
+  useEffectEvent,
   useRef,
   useState,
 } from 'react';
@@ -118,14 +119,17 @@ export const NavigationGeneration = createContext(-1);
 export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
   readonly generation: number;
 } {
-  // The handler is read at event time, so a re-created object per render
-  // costs nothing and needs no memoization at the call site. The write is an
-  // effect rather than a plain assignment during render: a render that never
-  // commits must not be the one the next navigation reads from.
-  const latest = useRef(handler);
-  useEffect(() => {
-    latest.current = handler;
-  }, [handler]);
+  // The handler is read at event time, not at render time, so a re-created
+  // object per render costs nothing and needs no memoization at the call
+  // site: each method is wrapped in an effect event, which always sees the
+  // latest one without making the listener below reactive to it.
+  const claim = useEffectEvent((url: URL) => handler.claim(url));
+  const load = useEffectEvent((url: URL, signal: AbortSignal) =>
+    handler.load(url, signal),
+  );
+  const apply = useEffectEvent((value: T) => {
+    handler.apply(value);
+  });
 
   // One resolver per navigation, keyed by which one it belongs to. A single
   // slot loses the race a rapid second navigation creates: the first one's
@@ -154,7 +158,7 @@ export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
         event.intercept({ scroll: 'manual', focusReset: 'manual' });
         return;
       }
-      if (!latest.current.claim(url)) return;
+      if (!claim(url)) return;
 
       const id = count.current++;
       const scroll = scrollPlanFor(event.navigationType, url.hash);
@@ -167,7 +171,7 @@ export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
         // default: restoring a position is the browser's, not ours.
         scroll: scroll === null ? 'after-transition' : 'manual',
         handler: async () => {
-          const value = await latest.current.load(url, event.signal);
+          const value = await load(url, event.signal);
           // A load that ignores the signal can come back after a second
           // navigation has already taken over. Applying it then would put the
           // page the visitor left back on screen, and the listener below would
@@ -188,7 +192,7 @@ export function useInterceptedNavigation<T>(handler: NavigationHandler<T>): {
               // transition is never dropped, and a navigation that arrives in
               // between must see this page as the one showing.
               shown.current = pathname;
-              latest.current.apply(value);
+              apply(value);
               // Rides the same transition as the caller's own update, so the
               // effect below runs in the commit that puts it on screen — and
               // names which navigation that commit belongs to.

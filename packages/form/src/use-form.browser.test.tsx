@@ -24,15 +24,15 @@ const derived = formFields(signup);
 
 const NO_STATE: FormState = {};
 
-// Captured so a test can assert what the spread would put in the markup. The
-// props object is stable, so an effect sees the same one the render spread.
+// Captured after each commit so a test can assert what the spread would put in
+// the server-rendered markup.
 let signupProps: object = {};
 
 const Signup: FC<{ state?: FormState }> = ({ state = NO_STATE }) => {
   const form = useForm(derived, state);
   useEffect(() => {
     signupProps = form.props;
-  }, [form.props]);
+  });
   const email = form.field('email');
   const password = form.field('password');
   const confirm = form.field('confirm');

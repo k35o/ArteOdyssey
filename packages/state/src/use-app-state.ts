@@ -109,13 +109,15 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
-  // useSyncExternalStore calls this repeatedly and compares by identity, so
-  // the snapshot is memoized rather than rebuilt per call. Building it during
-  // render costs a defaults copy the client never reads, which is cheaper than
-  // a cache the render has to mutate.
+  // useSyncExternalStore compares snapshots by identity, so the hydration one
+  // has to be the same object on every call. It is built with the render
+  // rather than memoized inside the getter, which would be a render-phase
+  // write to a value the next render still reads.
   const serverSnapshot = useMemo(() => {
     const base = initialOf(def, initialUrl);
-    if (keys === null) return base;
+    if (keys === null) {
+      return base;
+    }
     const pick: StateValues = {};
     for (const key of keys) pick[key] = base[key];
     return pick;

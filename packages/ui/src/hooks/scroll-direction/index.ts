@@ -16,16 +16,94 @@ type UseScrollDirectionOptions = {
 const SERVER_SNAPSHOT: ScrollDirection = { x: 'right', y: 'up' };
 const getServerSnapshot = (): ScrollDirection => SERVER_SNAPSHOT;
 
+type ScrollState = {
+  direction: ScrollDirection;
+  prevScrollX: number;
+  prevScrollY: number;
+};
+
+/**
+ * スクロール監視そのもの。フックの外に置いているのは、購読先の要素が
+ * `target.current` にしか無く、レンダー中に読めないため。ここは React の
+ * レンダーではなく購読時に走る素の DOM コードで、フック側は `target` を
+ * そのまま渡すだけで済む。
+ */
+const listenScroll = (
+  target: RefObject<HTMLElement | null> | undefined,
+  threshold: number,
+  state: { current: ScrollState },
+  callback: () => void,
+): (() => void) => {
+  const element = target?.current ?? null;
+  const eventTarget: Window | HTMLElement = element ?? window;
+
+  const getScroll = (): { x: number; y: number } => {
+    if (element) {
+      return { x: element.scrollLeft, y: element.scrollTop };
+    }
+    return { x: window.scrollX, y: window.scrollY };
+  };
+
+  const handleScroll = (): void => {
+    const { x: currentScrollX, y: currentScrollY } = getScroll();
+    const previous = state.current;
+
+    let changed = false;
+    const newDirection: ScrollDirection = { ...previous.direction };
+
+    if (
+      currentScrollY > previous.prevScrollY &&
+      currentScrollY > threshold &&
+      newDirection.y !== 'down'
+    ) {
+      newDirection.y = 'down';
+      changed = true;
+    } else if (
+      currentScrollY < previous.prevScrollY &&
+      newDirection.y !== 'up'
+    ) {
+      newDirection.y = 'up';
+      changed = true;
+    }
+
+    if (
+      currentScrollX > previous.prevScrollX &&
+      currentScrollX > threshold &&
+      newDirection.x !== 'right'
+    ) {
+      newDirection.x = 'right';
+      changed = true;
+    } else if (
+      currentScrollX < previous.prevScrollX &&
+      newDirection.x !== 'left'
+    ) {
+      newDirection.x = 'left';
+      changed = true;
+    }
+
+    state.current = {
+      direction: newDirection,
+      prevScrollX: currentScrollX,
+      prevScrollY: currentScrollY,
+    };
+
+    if (changed) {
+      callback();
+    }
+  };
+
+  eventTarget.addEventListener('scroll', handleScroll, { passive: true });
+  return () => {
+    eventTarget.removeEventListener('scroll', handleScroll);
+  };
+};
+
 export const useScrollDirection = (
   options: UseScrollDirectionOptions = {},
 ): ScrollDirection => {
   const { threshold = 50, target } = options;
 
-  const stateRef = useRef<{
-    direction: ScrollDirection;
-    prevScrollX: number;
-    prevScrollY: number;
-  }>({
+  const stateRef = useRef<ScrollState>({
     direction: { x: 'right', y: 'up' },
     prevScrollX: 0,
     prevScrollY: 0,
@@ -35,70 +113,8 @@ export const useScrollDirection = (
   // 張り直すのは target そのものが変わったときだけでよい
   /* oxlint-disable react/preserve-manual-memoization */
   const subscribe = useCallback(
-    (callback: () => void): (() => void) => {
-      const element = target?.current ?? null;
-      const eventTarget: Window | HTMLElement = element ?? window;
-
-      const getScroll = (): { x: number; y: number } => {
-        if (element) {
-          return { x: element.scrollLeft, y: element.scrollTop };
-        }
-        return { x: window.scrollX, y: window.scrollY };
-      };
-
-      const handleScroll = (): void => {
-        const { x: currentScrollX, y: currentScrollY } = getScroll();
-        const state = stateRef.current;
-
-        let changed = false;
-        const newDirection: ScrollDirection = { ...state.direction };
-
-        if (
-          currentScrollY > state.prevScrollY &&
-          currentScrollY > threshold &&
-          newDirection.y !== 'down'
-        ) {
-          newDirection.y = 'down';
-          changed = true;
-        } else if (
-          currentScrollY < state.prevScrollY &&
-          newDirection.y !== 'up'
-        ) {
-          newDirection.y = 'up';
-          changed = true;
-        }
-
-        if (
-          currentScrollX > state.prevScrollX &&
-          currentScrollX > threshold &&
-          newDirection.x !== 'right'
-        ) {
-          newDirection.x = 'right';
-          changed = true;
-        } else if (
-          currentScrollX < state.prevScrollX &&
-          newDirection.x !== 'left'
-        ) {
-          newDirection.x = 'left';
-          changed = true;
-        }
-
-        stateRef.current = {
-          direction: newDirection,
-          prevScrollX: currentScrollX,
-          prevScrollY: currentScrollY,
-        };
-
-        if (changed) {
-          callback();
-        }
-      };
-
-      eventTarget.addEventListener('scroll', handleScroll, { passive: true });
-      return () => {
-        eventTarget.removeEventListener('scroll', handleScroll);
-      };
-    },
+    (callback: () => void): (() => void) =>
+      listenScroll(target, threshold, stateRef, callback),
     [threshold, target],
   );
   /* oxlint-enable react/preserve-manual-memoization */

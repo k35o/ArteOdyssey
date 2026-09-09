@@ -29,25 +29,14 @@ type ZodInternals = {
   _zod?: {
     def?: {
       checks?: Array<{ _zod?: { def?: { pattern?: RegExp } } }>;
-      format?: string;
-      local?: boolean;
       pattern?: RegExp;
+      format?: string;
     };
   };
 };
 
 const objectLevelCheckCount = (schema: $ZodType): number =>
   (schema as unknown as ZodInternals)._zod?.def?.checks?.length ?? 0;
-
-/**
- * zod emits `format: "date-time"` for `z.iso.datetime()` but nothing at all
- * for `z.iso.datetime({ local: true })` — a local time is not an RFC 3339
- * date-time, so the JSON Schema is only a pattern. That leaves the one schema
- * `datetime-local` exists for deriving `type="text"`, so the format is read
- * back off the internal def, which still names it.
- */
-const isIsoDatetime = (schema: $ZodType): boolean =>
-  (schema as unknown as ZodInternals)._zod?.def?.format === 'datetime';
 
 /**
  * Recover the flags of the RegExp behind a JSON Schema `pattern` string. The
@@ -66,6 +55,24 @@ const patternFlags = (schema: $ZodType, source: string): string | undefined => {
     }
   }
   return undefined;
+};
+
+/**
+ * zod's JSON Schema conversion emits `format` only when a standard one matches
+ * the values it accepts, so `z.iso.time()` and `z.iso.datetime({ local: true })`
+ * arrive as a bare pattern. Both name the control that submits exactly their
+ * shape, and dropping to `type="text"` would lose a picker the schema asked
+ * for, so the format is read back off the check itself. zod's own name for it
+ * is not always the JSON one.
+ */
+const ZOD_FORMAT_TO_JSON_FORMAT: Record<string, string> = {
+  datetime: 'date-time',
+  time: 'time',
+};
+
+const formatBehindPattern = (schema: $ZodType): string | undefined => {
+  const format = (schema as unknown as ZodInternals)._zod?.def?.format;
+  return format === undefined ? undefined : ZOD_FORMAT_TO_JSON_FORMAT[format];
 };
 /* oxlint-enable no-underscore-dangle */
 
@@ -130,16 +137,16 @@ export const formFields = <Schema extends ObjectSchema>(
 
   for (const leaf of map.leaves) {
     const json =
-      leaf.json.format === undefined && isIsoDatetime(leaf.zod)
-        ? { ...leaf.json, format: 'date-time' }
+      leaf.json.format === undefined
+        ? { ...leaf.json, format: formatBehindPattern(leaf.zod) }
         : leaf.json;
     const attributes = attributesFor(
       leaf.name,
       json,
       leaf.required,
-      leaf.json.pattern === undefined
+      json.pattern === undefined
         ? undefined
-        : patternFlags(leaf.zod, leaf.json.pattern),
+        : patternFlags(leaf.zod, json.pattern),
     );
     const secret = leaf.json.input === 'password';
     if (secret) {

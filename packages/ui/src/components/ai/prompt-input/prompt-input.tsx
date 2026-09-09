@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import type {
   FC,
   KeyboardEvent,
@@ -11,7 +11,6 @@ import type {
 
 import { cn } from '../../../helpers/cn';
 import { createSafeContext } from '../../../helpers/create-safe-context';
-import { mergeRefs } from '../../../helpers/merge-refs';
 import { useControllableState } from '../../../hooks/controllable-state';
 import { useMessages } from '../../../i18n/context';
 import { FOCUS_RING, FOCUS_RING_WITHIN } from '../../_internal/focus-ring';
@@ -26,11 +25,6 @@ const [PromptInputProvider, usePromptInputContext] = createSafeContext<{
 }>(
   'PromptInput.Textarea / PromptInput.Submit must be used within <PromptInput.Root>',
 );
-
-const resizeToContent = (el: HTMLTextAreaElement) => {
-  el.style.height = 'auto';
-  el.style.height = `${el.scrollHeight.toString()}px`;
-};
 
 type RootProps = {
   status?: ChatStatus;
@@ -111,19 +105,6 @@ export const Textarea: FC<TextareaProps> = ({
   ...rest
 }) => {
   const { value, setValue, status } = usePromptInputContext();
-  const innerRef = useRef<HTMLTextAreaElement>(null);
-  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
-
-  // value は本体では読まないが、高さを測り直す契機そのもの。外すと入力に
-  // 追従しなくなる
-  /* oxlint-disable react/exhaustive-effect-dependencies */
-  useEffect(() => {
-    if (innerRef.current) {
-      resizeToContent(innerRef.current);
-    }
-  }, [value]);
-  /* oxlint-enable react/exhaustive-effect-dependencies */
-
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     onKeyDown?.(event);
     if (event.defaultPrevented) {
@@ -147,7 +128,8 @@ export const Textarea: FC<TextareaProps> = ({
     <textarea
       {...rest}
       className={cn(
-        'max-h-48 min-h-10 flex-1 resize-none bg-transparent text-fg-base outline-hidden p-2',
+        // 高さは中身に合わせてブラウザが決める（min/max で行数を挟む）
+        'max-h-48 min-h-10 flex-1 resize-none field-sizing-content bg-transparent text-fg-base outline-hidden p-2',
         'placeholder:text-fg-subtle',
       )}
       onChange={(event) => {
@@ -155,7 +137,7 @@ export const Textarea: FC<TextareaProps> = ({
       }}
       onKeyDown={handleKeyDown}
       placeholder={placeholder}
-      ref={mergedRef}
+      ref={ref}
       rows={1}
       value={value}
     />

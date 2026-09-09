@@ -1,12 +1,10 @@
 'use client';
 
-import { useEffect, useMemo, useRef } from 'react';
 import type { FC, Ref, TextareaHTMLAttributes } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import { FOCUS_RING } from '../../_internal/focus-ring';
 import { cn } from './../../../helpers/cn';
-import { mergeRefs } from './../../../helpers/merge-refs';
 
 type Props = {
   invalid?: boolean;
@@ -14,11 +12,6 @@ type Props = {
   autoResize?: boolean;
   ref?: Ref<HTMLTextAreaElement>;
 } & Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'className' | 'style'>;
-
-const resizeToContent = (el: HTMLTextAreaElement) => {
-  el.style.height = 'auto';
-  el.style.height = `${el.scrollHeight.toString()}px`;
-};
 
 export const Textarea: FC<Props> = ({
   invalid = false,
@@ -31,21 +24,7 @@ export const Textarea: FC<Props> = ({
   onKeyDown,
   ...rest
 }) => {
-  const innerRef = useRef<HTMLTextAreaElement>(null);
-  // 参照が変わるたびに React が ref の解除と再設定を行うため、
-  // 利用者が副作用付きのコールバック ref を渡しても毎レンダー走らないようにする
-  const mergedRef = useMemo(() => mergeRefs(innerRef, ref), [ref]);
   const { pending } = useFormStatus();
-
-  // value は本体では読まないが、高さを測り直す契機そのもの。外すと入力に
-  // 追従しなくなる
-  /* oxlint-disable react/exhaustive-effect-dependencies */
-  useEffect(() => {
-    if (innerRef.current && autoResize) {
-      resizeToContent(innerRef.current);
-    }
-  }, [autoResize, value]);
-  /* oxlint-enable react/exhaustive-effect-dependencies */
 
   return (
     <textarea
@@ -57,19 +36,17 @@ export const Textarea: FC<Props> = ({
         'read-only:cursor-not-allowed read-only:bg-bg-subtle',
         FOCUS_RING,
         fullHeight && 'h-full',
+        // 中身に合わせた高さはブラウザが持っている。scrollHeight を測って
+        // style.height を書く JS は、この CSS が無かった頃の代用だった
+        autoResize && 'field-sizing-content',
       )}
-      onInput={(e) => {
-        if (autoResize) {
-          resizeToContent(e.currentTarget);
-        }
-        onInput?.(e);
-      }}
+      onInput={onInput}
       onKeyDown={(e) => {
         e.stopPropagation();
         onKeyDown?.(e);
       }}
       readOnly={pending || readOnly}
-      ref={mergedRef}
+      ref={ref}
       value={value}
       {...rest}
     />

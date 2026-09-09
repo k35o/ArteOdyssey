@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import type { FC, PropsWithChildren, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 
@@ -16,6 +22,11 @@ const DEFAULT_DURATION_MS = 5000;
 // base.css の .ao-toast-item の transition と同じ長さ。transitionend には
 // 依存しない(reduced motion で transition が無効でも確実に取り除くため)
 const EXIT_MS = 200;
+
+/** 差し替えを通知する相手がいない外部値のための、何もしない購読。 */
+const subscribeNever = (): (() => void) => () => {
+  // 通知は起きない
+};
 
 const FOCUSABLE_SELECTOR =
   'a[href], button:not(:disabled), [tabindex]:not([tabindex="-1"])';
@@ -64,18 +75,10 @@ export const ToastProvider: FC<
     isHovered: false,
     isFocused: false,
   });
-  // ポータル先の DOM ノードはレンダー中には決まらない。document.body は SSR で
-  // 読めず、portalRef はこのレンダーがコミットされるまで中身が入らない。どちらも
-  // エフェクトで解決するので、setState を避けようがない
-  const [container, setContainer] = useState<HTMLElement | null>(null);
   const viewportRef = useRef<HTMLElement | null>(null);
   // 閉じ演出中のトーストは祖先が inert になり、ブラウザが強制的に blur するため
   // activeElement からは追えない。focusin の時点でどのトーストにいたかを控える
   const focusedToastIdRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    setContainer(portalRef?.current ?? document.body);
-  }, [portalRef]);
 
   // 閉じ演出を終えたエントリを id ごとの独立したタイマーで取り除く。
   // 全体で 1 本のタイマーだと、EXIT_MS 未満の間隔で閉じ始めが続いたとき
@@ -206,6 +209,15 @@ export const ToastProvider: FC<
     );
   };
 
+  // portalRef.current も document.body もレンダー中には読めない(SSR では存在せず、
+  // ref はマウントまで埋まらない)。useSyncExternalStore はまさに「レンダーの外に
+  // ある値」を読むための API で、サーバでは null、マウント後の再読み取りで実体を返す。
+  // 購読はしない: 差し替えの通知元がないのは state に移していた頃と同じ。
+  const container = useSyncExternalStore(
+    subscribeNever,
+    () => portalRef?.current ?? document.body,
+    () => null,
+  );
   const isPaused = state.isHovered || state.isFocused;
 
   return (

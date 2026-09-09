@@ -138,7 +138,8 @@ export const LinkSafetyEnabled: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'ドキュメント' }));
 
-    // 確認モーダルは streamdown が body へポータルするので canvas の外
+    // 確認ダイアログは streamdown が document.body へ portal するので、
+    // canvas ではなく screen から引く
     await expect(screen.getByText('外部リンクを開きますか？')).toBeVisible();
     await expect(
       screen.getByText('外部サイトに移動しようとしています。'),
