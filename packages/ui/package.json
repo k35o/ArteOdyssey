@@ -144,10 +144,10 @@
     "zod": "catalog:"
   },
   "peerDependencies": {
-    "@json-render/core": ">=0.19.0",
-    "@json-render/react": ">=0.19.0",
-    "@openuidev/lang-core": ">=0.2.10",
-    "@openuidev/react-lang": ">=0.2.9",
+    "@json-render/core": ">=0.19.0 <0.20.0",
+    "@json-render/react": ">=0.19.0 <0.20.0",
+    "@openuidev/lang-core": ">=0.2.10 <0.3.0",
+    "@openuidev/react-lang": ">=0.2.9 <0.3.0",
     "@types/react": ">=19.2.18",
     "@types/react-dom": ">=19.2.4",
     "ai": ">=7.0.51",
