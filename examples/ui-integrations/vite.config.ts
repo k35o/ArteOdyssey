@@ -32,7 +32,9 @@ export default defineConfig({
             provider: playwright(),
             headless: true,
             screenshotFailures: false,
-            instances: [{ browser: 'chromium' }],
+            instances: [
+              { browser: 'chromium', context: { reducedMotion: 'reduce' } },
+            ],
           },
         },
       },
