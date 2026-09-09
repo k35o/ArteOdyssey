@@ -29,6 +29,8 @@ type ZodInternals = {
   _zod?: {
     def?: {
       checks?: Array<{ _zod?: { def?: { pattern?: RegExp } } }>;
+      format?: string;
+      local?: boolean;
       pattern?: RegExp;
     };
   };
@@ -36,6 +38,16 @@ type ZodInternals = {
 
 const objectLevelCheckCount = (schema: $ZodType): number =>
   (schema as unknown as ZodInternals)._zod?.def?.checks?.length ?? 0;
+
+/**
+ * zod emits `format: "date-time"` for `z.iso.datetime()` but nothing at all
+ * for `z.iso.datetime({ local: true })` — a local time is not an RFC 3339
+ * date-time, so the JSON Schema is only a pattern. That leaves the one schema
+ * `datetime-local` exists for deriving `type="text"`, so the format is read
+ * back off the internal def, which still names it.
+ */
+const isIsoDatetime = (schema: $ZodType): boolean =>
+  (schema as unknown as ZodInternals)._zod?.def?.format === 'datetime';
 
 /**
  * Recover the flags of the RegExp behind a JSON Schema `pattern` string. The
@@ -117,9 +129,13 @@ export const formFields = <Schema extends ObjectSchema>(
   }
 
   for (const leaf of map.leaves) {
+    const json =
+      leaf.json.format === undefined && isIsoDatetime(leaf.zod)
+        ? { ...leaf.json, format: 'date-time' }
+        : leaf.json;
     const attributes = attributesFor(
       leaf.name,
-      leaf.json,
+      json,
       leaf.required,
       leaf.json.pattern === undefined
         ? undefined
