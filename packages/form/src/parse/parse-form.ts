@@ -1,5 +1,7 @@
 import type { output } from 'zod/v4/core';
 
+import { controlKindOf } from '../derive/attributes';
+import type { LeafSchema } from '../derive/attributes';
 import { asDefinition } from '../rules/define-form';
 import type { FormDefinition } from '../rules/define-form';
 import { breachOf } from '../rules/rules';
@@ -47,6 +49,27 @@ const rowCounts = (
     counts[array.path] = Math.min(highest + 1, cap);
   }
   return counts;
+};
+
+/**
+ * Whether the control submitted its own idea of "nothing". A number control
+ * sends `''` and a file control an unnamed empty File — neither is a value
+ * anyone entered, and handing either to the schema is how a blank field
+ * becomes 0 (`z.coerce.number()` reads `''` as 0) or an empty upload passes for
+ * a real one. They arrive as `undefined` instead, which is the same thing the
+ * derivation probed when it decided whether the field is required.
+ */
+const isUntouched = (json: LeafSchema, value: unknown): boolean => {
+  const kind = controlKindOf(json);
+  if (kind === 'number') {
+    return value === '';
+  }
+  return (
+    kind === 'file' &&
+    value instanceof File &&
+    value.name === '' &&
+    value.size === 0
+  );
 };
 
 const describeMissing = (missing: string[]): string => {
@@ -125,7 +148,8 @@ export const parseForm = <Shape extends ObjectSchema>(
         missing.push(name);
         continue;
       }
-      setPath(raw, name, entries.length === 1 ? entries[0] : entries);
+      const value = entries.length === 1 ? entries[0] : entries;
+      setPath(raw, name, isUntouched(leaf.json, value) ? undefined : value);
     }
   }
 

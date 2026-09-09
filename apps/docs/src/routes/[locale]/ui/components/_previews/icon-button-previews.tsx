@@ -7,17 +7,13 @@ export function IconButtonAsLinkPreview() {
     <IconButton
       label="Close"
       renderItem={({
-        className,
         children,
-        'aria-label': ariaLabel,
+        disabled: _disabled,
         triggerProps,
+        type: _type,
+        ...props
       }) => (
-        <a
-          aria-label={ariaLabel}
-          className={className}
-          href="https://example.com"
-          {...triggerProps}
-        >
+        <a href="https://example.com" {...props} {...triggerProps}>
           {children}
         </a>
       )}

@@ -19,6 +19,39 @@ included: `Dialog.Root`, `Tabs.Root`, `Popover.Trigger`, and the rest are
 composed outside the client modules, so the parts resolve on the server. Only
 the interactive parts carry `'use client'`.
 
+## Render props
+
+Two different contracts are spelled `render*`, and mixing them up is the usual
+source of surprise.
+
+**Replacing the element** — `renderItem` on `Button` and `IconButton`,
+`renderAnchor` on `Anchor` and `Breadcrumb.Link`. The component computes
+everything and hands back the exact props it would have put on its own element,
+so substituting an `<a>`, a framework `<Link>`, or your own button loses
+nothing: the resolved `className`, the composed `children` (icons and the
+pending spinner included), the click handler, the disabled and pending state,
+the `ref`, and every `aria-*` / `data-*` / native attribute the caller passed
+in. Spread the bag onto whatever you render.
+
+- Handlers and the `ref` are typed for `HTMLElement` rather than for the
+  element the component would have rendered, so the bag spreads onto any tag.
+- `disabled` and `type` are the only members that exist on `<button>` alone.
+  Destructure them away when you render something else — `aria-disabled` in the
+  same bag carries the state, and the supplied `onClick` already does nothing
+  and calls `preventDefault()` while disabled, so a disabled link will not
+  navigate. The examples below name them `_disabled` / `_type` so the discarded
+  bindings pass a `no-unused-vars` rule.
+- Spreading onto a real `<button>` is exact, but write `type` on the element
+  anyway: the `button-has-type` lint rule cannot see a `type` that arrives
+  through a spread.
+
+**Filling a slot** — `renderInput` on `FormControl`, `renderItem` on
+`Popover.Trigger`, `Tooltip.Trigger`, `FileField.Trigger`, and `Alert`'s
+`action`. Here the component owns no element of its own. It computes wiring —
+ids, ARIA relationships, open/close handlers — and you supply the element that
+wiring belongs to. Those bags carry only the wiring, and they are required
+rather than optional.
+
 ## Buttons and links
 
 ### Button
@@ -48,20 +81,24 @@ Props:
 - `fullWidth`: `boolean` (default: `false`)
 - `isActive`: `boolean` (default: `false`)
 - `onAction`: `() => void | Promise<void>`
-- `renderItem`: `(props: { className: string; children: ReactNode }) => ReactNode`
+- `renderItem`: `(props: ButtonRenderItemProps) => ReactNode`
 - `size`: `'sm'` | `'md'` | `'lg'` (default: `'md'`)
 - `startIcon`: `ReactNode`
 - `type`: `'button'` | `'submit'` (default: `'button'`)
 - `variant`: `'solid'` | `'outline'` | `'skeleton'` (default: `'solid'`)
 
-Use the `renderItem` prop to render it as a link. The same applies to things like Next.js's `<Link>`.
+`renderItem` replaces the `<button>`; see [Render props](#render-props) for the
+contract. It receives `className`, the composed `children`, `ref`, `type`,
+`disabled`, `aria-disabled`, `aria-busy`, `onClick`, and every other attribute
+passed to `Button`. Use it to render a link — the same shape works for things
+like Next.js's `<Link>`.
 
 ```tsx
 <Button
   color="base"
   variant="outline"
-  renderItem={({ className, children }) => (
-    <a className={className} href="/page">
+  renderItem={({ children, disabled: _disabled, type: _type, ...props }) => (
+    <a href="/page" {...props}>
       {children}
     </a>
   )}
@@ -88,29 +125,30 @@ Props:
 - `children`: `ReactNode`
 - `color`: `'transparent'` | `'base'` | `'primary'` | `'secondary'` (default: `'transparent'`)
 - `onAction`: `() => void | Promise<void>`
-- `renderItem`: `(props: { className: string; children: ReactNode; 'aria-label': string; triggerProps: IconButtonTriggerProps; }) => ReactNode`
+- `renderItem`: `(props: IconButtonRenderItemProps) => ReactNode`
 - `size`: `'sm'` | `'md'` | `'lg'` (default: `'md'`)
 - `tooltipDisabled`: `boolean` (default: `false`)
 - `tooltipPlacement`: `Placement` (default: `'top'`)
 
-Use the `renderItem` prop to render it as a link. Spreading `triggerProps` onto the `<a>` shows `label` as a tooltip on hover and focus.
+`renderItem` replaces the `<button>` under the same contract as `Button`'s,
+with one addition: the tooltip wiring is kept in a nested `triggerProps` so it
+stays free of any element type. Spread it too, and `label` shows as a tooltip on
+hover and focus. `triggerProps` also carries the merged `ref` and any
+`onMouseEnter` / `onMouseLeave` / `onFocus` / `onBlur` the caller passed, so the
+flat part of the bag holds neither.
 
 ```tsx
 <IconButton
   color="base"
   label="Mail"
   renderItem={({
-    className,
     children,
-    'aria-label': ariaLabel,
+    disabled: _disabled,
     triggerProps,
+    type: _type,
+    ...props
   }) => (
-    <a
-      aria-label={ariaLabel}
-      className={className}
-      href="/contact"
-      {...triggerProps}
-    >
+    <a href="/contact" {...props} {...triggerProps}>
       {children}
     </a>
   )}

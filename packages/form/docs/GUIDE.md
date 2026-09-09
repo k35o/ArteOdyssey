@@ -56,6 +56,16 @@ an unchecked checkbox arrives as a missing key, a repeated name arrives as
 several entries, everything is a string — and `z.coerce` handles `'42'` → `42`.
 That way the schema keeps describing what it actually validates.
 
+Because every submitted value is a string, a plain `z.number()` could not accept
+any submission at all; `formFields` refuses it instead of deriving a form that
+always fails. An empty numeric control is not 0 either — it submits nothing, so
+`z.coerce.number()` is required and `z.coerce.number().optional()` is not. That
+makes an untouched field a type error, which is where its wording comes from:
+
+```ts
+z.coerce.number('数値を入力してください');
+```
+
 ```tsx
 // page.tsx — Server Component
 const talkFields = formFields(talkSchema); // module scope: derived once
@@ -110,24 +120,32 @@ zod itself produces. A custom `min(1, '…')` reaches both sides.
 
 **`required` means the same thing on both sides.** JSON Schema's `required`
 means "the key is present", but a form always submits something for every
-control — an empty text field as `''`, an unchecked checkbox as `false` once
-parsed. The attribute is emitted only when the schema rejects that empty
-submission, so the two sides always agree: a plain `z.boolean()` checkbox is
-not required, while `z.literal(true, '…')` — a consent box — is, and shows
-zod's own wording.
+control. What that is depends on the control: `''` for a text field, `false` for
+an unchecked checkbox, and nothing at all for a number or a file — an empty
+numeric field is not 0, and an unfilled file input is not the zero-byte file the
+browser sends. The attribute is emitted only when the schema rejects that empty
+submission, and `parseForm` hands the schema exactly what the derivation probed,
+so the two sides always agree: a plain `z.boolean()` checkbox is not required,
+while `z.literal(true, '…')` — a consent box — is, and shows zod's own wording.
 
 **Nothing is dropped in silence.** Checks HTML cannot express — `refine`,
 cross-field rules, an exclusive bound on a float, a regex whose flags or
 anchoring the `pattern` attribute would silently reinterpret, a
-`z.iso.datetime()` no `datetime-local` control can ever satisfy — are returned
-in `dropped`. They still run on the server; you are told they do not run on
+`z.iso.datetime()` no `datetime-local` control can ever satisfy, a leaf whose
+constraints could not be read at all because a `.transform()` or a `z.custom()`
+left nothing to read — are returned in `dropped`. They still run on the server; you are told they do not run on
 the client. Outside production `formFields` also logs the list once per schema
 with `console.warn`, so it is seen without anyone remembering to read it.
 
 **A schema this package cannot express fails at derive time.** `z.record`,
 tuples, a repeat nested inside a repeat, nullable objects, keys containing
 `.` or brackets — `formFields` throws with the reason, instead of deriving a
-form that would silently misparse what the person typed.
+form that would silently misparse what the person typed. So does a leaf no
+control could ever satisfy, because every value arrives as a string:
+`z.number()` (use `z.coerce.number()`), `z.literal(1)`, `z.date()`,
+`z.bigint()`. A form that can never validate is a mistake to report, not a
+check to drop. A schema that coerces reads strings and is kept, so
+`z.coerce.date()` and `z.coerce.bigint()` derive as text inputs.
 
 **A missing name is loud.** If the schema has a field that never arrived in the
 FormData, `parseForm` throws instead of reporting it as a validation failure.
@@ -236,6 +254,18 @@ browser. On a no-JS retry the group echoes as an array, so restoring is:
 defaultChecked={Array.isArray(state.values?.tags) && state.values.tags.includes(option)}
 ```
 
+## Files
+
+`z.file()` derives `type="file"`, and `.mime([…])` becomes `accept`. An unfilled
+file input still submits — an unnamed, zero-byte File, which `z.file()` would
+otherwise accept as a real upload — so it reaches the schema as nothing entered
+and `required` keeps meaning what it says.
+
+Size bounds (`.min()` / `.max()` on a file) are byte counts, and no HTML
+attribute carries them: they run on the server and are reported in `dropped`.
+A file is never echoed into `state.values`, because no browser lets a value be
+put back into a file control.
+
 ## Paths are checked at compile time
 
 `formFields` derives the set of valid paths from the schema type, so a typo is
@@ -339,6 +369,19 @@ request — which is the correct behaviour, not a broken one.
 
 ## What it does not do yet
 
+- Several files in one control. `z.array(z.file())` derives repeated
+  single-file rows rather than one `multiple` input, and `parseForm` reads one
+  file per name.
+- Constraints that sit behind a `.transform()`, or a `.pipe()` whose output
+  JSON Schema cannot describe. The schema no longer says what the control
+  submits, so the field derives as a bare text input and is listed in
+  `dropped`; every check still runs on the server.
+- A `z.custom()` that rejects the strings a text control submits. Nothing about
+  it is readable, so it cannot be refused at derive time the way `z.date()` is
+  — it derives as a text input, is listed in `dropped`, and fails on the server.
+- A `<select>` with a placeholder option behind `.optional()`. The empty
+  submission of a choice is taken to be `''`, which an optional enum rejects,
+  so the field is marked required.
 - Input masking. Rewriting `el.value` on input works with the DOM as the source
   of truth, but managing the caret is a separate problem from wiring a form.
 
