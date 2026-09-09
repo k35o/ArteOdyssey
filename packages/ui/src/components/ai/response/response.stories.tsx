@@ -138,10 +138,9 @@ export const LinkSafetyEnabled: Story = {
 
     await userEvent.click(canvas.getByRole('button', { name: 'ドキュメント' }));
 
-    // 確認ダイアログは streamdown が document.body へ portal するので canvas の外にいる
-    await expect(
-      await screen.findByText('外部リンクを開きますか？'),
-    ).toBeVisible();
+    // 確認ダイアログは streamdown が document.body へ portal するので、
+    // canvas ではなく screen から引く
+    await expect(screen.getByText('外部リンクを開きますか？')).toBeVisible();
     await expect(
       screen.getByText('外部サイトに移動しようとしています。'),
     ).toBeVisible();

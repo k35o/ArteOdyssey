@@ -160,6 +160,18 @@ describe('formFields', () => {
     expect(fields.local.input.type).toBe('datetime-local');
   });
 
+  it('picks the control for an ISO format the JSON Schema does not name', () => {
+    // zod emits `format` only when a standard one matches the values it
+    // accepts, so these two arrive as a bare pattern. Losing the picker that
+    // submits exactly their shape is the degradation this pins down.
+    const { fields } = formFields(
+      z.object({ at: z.iso.time(), on: z.iso.datetime({ local: true }) }),
+    );
+
+    expect(fields.at.input.type).toBe('time');
+    expect(fields.on.input.type).toBe('datetime-local');
+  });
+
   it('carries multipleOf into step for integers instead of overwriting it', () => {
     const { fields } = formFields(
       z.object({

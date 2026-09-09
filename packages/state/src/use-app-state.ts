@@ -109,27 +109,20 @@ export function useAppState(
     [def, sig, keys],
   );
   const initialUrl = options?.initialUrl;
-  // useSyncExternalStore は getServerSnapshot が毎回同じ参照を返すことを求める。
-  // 返さないと hydration のたびに再レンダーが続く。だから最初の 1 回だけ組み立てて
-  // クロージャに抱える。書き込みはレンダー中ではなく snapshot の取得時に起きる。
-  /* oxlint-disable react/immutability -- 上記のとおり意図的なメモ化 */
-  const getServerSnapshot = useMemo(() => {
-    let cached: StateValues | undefined;
-    return () => {
-      if (cached === undefined) {
-        const base = initialOf(def, initialUrl);
-        if (keys === null) {
-          cached = base;
-        } else {
-          const pick: StateValues = {};
-          for (const key of keys) pick[key] = base[key];
-          cached = pick;
-        }
-      }
-      return cached;
-    };
+  // useSyncExternalStore compares snapshots by identity, so the hydration one
+  // has to be the same object on every call. It is built with the render
+  // rather than memoized inside the getter, which would be a render-phase
+  // write to a value the next render still reads.
+  const serverSnapshot = useMemo(() => {
+    const base = initialOf(def, initialUrl);
+    if (keys === null) {
+      return base;
+    }
+    const pick: StateValues = {};
+    for (const key of keys) pick[key] = base[key];
+    return pick;
   }, [def, initialUrl, keys]);
-  /* oxlint-enable react/immutability */
+  const getServerSnapshot = useCallback(() => serverSnapshot, [serverSnapshot]);
 
   const state = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const update = useCallback(

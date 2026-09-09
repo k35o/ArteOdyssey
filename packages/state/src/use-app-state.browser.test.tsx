@@ -1,5 +1,5 @@
 import type { FC } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { render } from 'vitest-browser-react';
 import { z } from 'zod';
 
@@ -52,8 +52,9 @@ let lastHandle: UpdateHandle | undefined;
 
 const Pager: FC = () => {
   const [{ page }, update] = useAppState(listState, ['page']);
-  // oxlint-disable-next-line react/immutability -- 再レンダー回数をテストから数えるための控え
-  renders['pager'] = (renders['pager'] ?? 0) + 1;
+  useEffect(() => {
+    renders['pager'] = (renders['pager'] ?? 0) + 1;
+  });
   return (
     <>
       <p data-testid="page">{page}</p>
@@ -104,8 +105,9 @@ const Pager: FC = () => {
 
 const QueryViewer: FC = () => {
   const [{ q }] = useAppState(listState, ['q']);
-  // oxlint-disable-next-line react/immutability -- 再レンダー回数をテストから数えるための控え
-  renders['query'] = (renders['query'] ?? 0) + 1;
+  useEffect(() => {
+    renders['query'] = (renders['query'] ?? 0) + 1;
+  });
   return <p data-testid="q">{q}</p>;
 };
 

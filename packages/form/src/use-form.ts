@@ -219,10 +219,8 @@ export const useForm = <FieldPath extends string, ArrayPath extends string>(
   const [domDirty, setDomDirty] = useState(false);
   const [rowKeys, setRowKeys] = useState(() => initialRows(lookup, state));
   // The row counts the current server state rendered with; more or fewer rows
-  // than this is a structural edit even while every control is pristine.
-  // State, not a ref: it is read while rendering to work out `structuralDirty`,
-  // and it is only ever written next to the `setRowKeys` below, so the two land
-  // in the same render.
+  // than this is a structural edit even while every control is pristine. It is
+  // state rather than a ref because `isDirty` is read during render.
   const [baselineRows, setBaselineRows] = useState(() => rowCountsOf(rowKeys));
 
   // Compared by content plus the parse token, not identity. A caller writing

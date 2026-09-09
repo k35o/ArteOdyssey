@@ -9,7 +9,7 @@ import type {
   ReactNode,
   RefCallback,
 } from 'react';
-import { useRef, useTransition } from 'react';
+import { useMemo, useTransition } from 'react';
 import { useFormStatus } from 'react-dom';
 
 import type { Placement } from '../../../types/variables';
@@ -91,6 +91,40 @@ const joinIds = (
   return filtered.length === 0 ? undefined : filtered.join(' ');
 };
 
+/**
+ * 描画する要素そのもの。IconButton から切り出しているのは合成 ref のため。
+ * mergeRefs は呼ぶたび新しい関数を返し、React が毎レンダー ref を付け外しする。
+ * 合成先の triggerProps は Tooltip.Trigger から引数で届くので IconButton 側では
+ * useMemo に包めず、triggerProps を props として受け取るここでだけ包める。
+ *
+ * ref を `buttonRef` という名前で受けているのは、`ref` で受けると react(refs) が
+ * レンダー中に一切触れない値として扱い、renderItem へ渡す設計が成り立たなくなるため。
+ */
+const Item: FC<{
+  buttonRef: Props['ref'];
+  triggerProps: IconButtonTriggerProps;
+  build: (
+    triggerProps: IconButtonTriggerProps,
+    mergedRef: RefCallback<HTMLElement>,
+  ) => IconButtonRenderItemProps;
+  renderItem: ((props: IconButtonRenderItemProps) => ReactNode) | undefined;
+}> = ({ buttonRef, triggerProps, build, renderItem }) => {
+  const triggerRef = triggerProps.ref;
+  const mergedRef = useMemo(
+    () => mergeRefs<HTMLElement>(buttonRef, triggerRef),
+    [buttonRef, triggerRef],
+  );
+  const itemProps = build(triggerProps, mergedRef);
+
+  if (renderItem) {
+    return <>{renderItem(itemProps)}</>;
+  }
+  const { triggerProps: resolvedTriggerProps, ...rest } = itemProps;
+  // type を展開のあとに書き直しているのは、lint の button-has-type が
+  // スプレッド越しの type を読めないため（値は itemProps.type と同じ）。
+  return <button {...rest} {...resolvedTriggerProps} type="button" />;
+};
+
 export const IconButton: FC<Props> = ({
   ref,
   size = 'md',
@@ -152,28 +186,9 @@ export const IconButton: FC<Props> = ({
       'cursor-not-allowed opacity-50 hover:bg-transparent active:bg-transparent',
   );
 
-  // mergeRefs は呼ぶたび新しい関数を返し、React が毎レンダー ref を付け外しする。
-  // 合成先の triggerProps は Tooltip.Trigger から引数で届くので useMemo では包めず、
-  // 合成元が同じ間だけ前回の結果を使い回す手動のキャッシュにしている。
-  const mergedRefCache = useRef<{
-    sources: readonly [unknown, unknown];
-    merged: RefCallback<HTMLElement>;
-  } | null>(null);
-
-  const mergeTriggerRef = (
-    triggerRef: IconButtonTriggerProps['ref'],
-  ): RefCallback<HTMLElement> => {
-    const cache = mergedRefCache.current;
-    if (cache && cache.sources[0] === ref && cache.sources[1] === triggerRef) {
-      return cache.merged;
-    }
-    const merged = mergeRefs(ref, triggerRef);
-    mergedRefCache.current = { sources: [ref, triggerRef], merged };
-    return merged;
-  };
-
   const buildItemProps = (
     triggerProps: IconButtonTriggerProps,
+    mergedRef: RefCallback<HTMLElement>,
   ): IconButtonRenderItemProps => ({
     ...props,
     'aria-busy': isPending || undefined,
@@ -194,23 +209,20 @@ export const IconButton: FC<Props> = ({
       onFocus: chain(triggerProps.onFocus, onFocus),
       onMouseEnter: chain(triggerProps.onMouseEnter, onMouseEnter),
       onMouseLeave: chain(triggerProps.onMouseLeave, onMouseLeave),
-      ref: mergeTriggerRef(triggerProps.ref),
+      ref: mergedRef,
     },
   });
 
-  const render = (triggerProps: IconButtonTriggerProps) => {
-    const itemProps = buildItemProps(triggerProps);
-    if (renderItem) {
-      return <>{renderItem(itemProps)}</>;
-    }
-    const { triggerProps: resolvedTriggerProps, ...rest } = itemProps;
-    // type を展開のあとに書き直しているのは、lint の button-has-type が
-    // スプレッド越しの type を読めないため（値は itemProps.type と同じ）。
-    return <button {...rest} {...resolvedTriggerProps} type="button" />;
-  };
+  const render = (triggerProps: IconButtonTriggerProps) => (
+    <Item
+      build={buildItemProps}
+      buttonRef={ref}
+      renderItem={renderItem}
+      triggerProps={triggerProps}
+    />
+  );
 
   if (tooltipDisabled) {
-    // oxlint-disable-next-line react/refs -- render は上の手動キャッシュ (合成元が同じ間だけ使い回す) に触れるだけで、.current から描画に使う値は読まない
     return render({});
   }
 
